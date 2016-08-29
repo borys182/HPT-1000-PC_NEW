@@ -16,6 +16,9 @@ namespace HPT1000.Source.Driver
         abstract public int WriteWords(string aAddr, int aSize, int[] aData);
         abstract public int ReadWords(string aAddr, int aSize, int[] aData);
 
-        abstract public void SetAddrIP(string aAddrIP); 
+        abstract public void SetAddrIP(string aAddrIP);
+
+        abstract public int WriteRealData(string aAddr, float aValue);
+        abstract public int ReadRealData(string aAddr , out float aValue);
     }
 }

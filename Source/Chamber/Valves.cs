@@ -7,6 +7,9 @@ using HPT1000.Source.Driver;
 
 namespace HPT1000.Source.Chamber
 {
+    /// <summary>
+    /// Klasa reprezentuje zawor komory. Umożliwia sterowanie zaworem i prezentuje jego stan 
+    /// </summary>
     public class Valve : ChamberObject
     {
         private List<Valve>         valves              = new List<Valve>();    //lista wszystkich zaworow dostepmna w komorze
@@ -40,15 +43,19 @@ namespace HPT1000.Source.Chamber
         }
 
         //Funkcja ma za zadanie ustawienie stanow zaworow odczytane z PLC
-        public void SetState(int Data)
+        override public void UpdateData(int []aData)
         {
             foreach(Valve valve in valves)//ustaw stany zaworow dla wszystkich zaworow zawartych w systemie
             {
-                int ShiftBits = (int)System.Math.Pow(2, valve.id); // o ile musze przesunac bity slowa aby uzyskac dane interesujacego mnie zaworu
-                int Mask = 0x03 << ShiftBits;                          //maska bitowa wyodrebniajace stan danego zaworu
-                int State = (Data & Mask) >> (int)ShiftBits;
+                int aShiftBits = valve.id * 2; // o ile musze przesunac bity slowa aby uzyskac dane interesujacego mnie zaworu
+                if (valve.id == 0) aShiftBits = 0;
+                int aMask = 0x03 << aShiftBits;                          //maska bitowa wyodrebniajace stan danego zaworu
+                int aState = (aData[Types.INDEX_STATE_VALVES] & aMask) >> (int)aShiftBits;
 
-                valve.state = (Types.StateValve)Enum.Parse(typeof(Types.StateValve), (State).ToString()); // konwertuj int na Enum
+                if (Enum.IsDefined(typeof(Types.StateValve), aState))
+                    valve.state = (Types.StateValve)Enum.Parse(typeof(Types.StateValve), (aState).ToString()); // konwertuj int na Enum
+                else
+                    valve.state = Types.StateValve.Error;
             }
         }
         //Zwroc stan danego zaworu
@@ -66,14 +73,29 @@ namespace HPT1000.Source.Chamber
             return State;
         }
 
-        public int ControlValve(Types.Operation operation)
+        public int SetState(Types.StateValve state, Types.TypeValve kindValve)
         {
             int iResult = 0;
+            int []ctrlValve = {0};
 
-            if(plc != null)
+            //ustaw na odpowidnim miejscu bity sterujace zgodnie z ID zaworu powiazanego z PLC
+            int ShiftBits = (int)kindValve * 2; // o ile musze przesunac bity slowa aby uzyskac dane interesujacego mnie zaworu
+            
+            if (state == Types.StateValve.Open)
+                ctrlValve[0] = 0x02 << ShiftBits;                          
+            if(state == Types.StateValve.Close)
+                ctrlValve[0] = 0x01 << ShiftBits;
+
+            if (state == Types.StateValve.Close || state == Types.StateValve.Open)
             {
-
+                if (plc != null)
+                    iResult = plc.WriteWords(Types.ADDR_VALVES_CTRL, 1, ctrlValve);
+                else
+                    iResult = Types.ERROR_PLC_PTR_NULL;
             }
+            else
+                iResult = Types.ERROR_CALL_INCORRECT_OPERATION;
+
 
             return iResult;
         }

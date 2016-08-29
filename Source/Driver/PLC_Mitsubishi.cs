@@ -107,6 +107,44 @@ namespace HPT1000.Source.Driver
             }
             return aResult;
         }
+
+        override public int WriteRealData(string aAddr, float aValue)
+        {
+            int aResult    = 0;
+            int []aData    = new int[2];
+            byte[]aBytes   = new byte[4];
+
+            aBytes = BitConverter.GetBytes(aValue);         // przkonwertuj float na tablice bajtow
+
+            aData[0] = (int)(aBytes[1] << 8 | aBytes[0]);   //sluz bajty w odpowiednie slowa
+            aData[1] = (int)(aBytes[3] << 8 | aBytes[2]);
+
+            aResult = WriteWords(aAddr, 2, aData);          //wgraj do PLC
+
+            return aResult;
+        }
+
+        override public int ReadRealData(string aAddr, out float aValue)
+        {
+            int aResult = 0;
+
+            int[] aData = new int[2];
+            byte[] aBytes = new byte[4];
+
+            aResult = ReadWords(aAddr, 2, aData);
+
+            if (aResult == 0)
+            { 
+                aBytes[0] = (byte)(aData[0] & 0xFF);
+                aBytes[1] = (byte)((aData[0] & 0xFF00) >> 8);
+                aBytes[2] = (byte)(aData[1] & 0xFF);
+                aBytes[3] = (byte)((aData[1] & 0xFF00) >> 8);
+            }
+            aValue = BitConverter.ToSingle(aBytes, 0);
+
+            return aResult;
+        }
+    
         #endregion
     }
 

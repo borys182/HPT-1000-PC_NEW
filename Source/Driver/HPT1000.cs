@@ -7,10 +7,6 @@ using HPT1000.Source.Chamber;
 
 namespace HPT1000.Source.Driver
 {
-    enum StatusDevice   { Fail = 1,OK = 2 };
-    enum StateFP        { OFF = 1 , ON = 2 , Error = 3};
-    enum StateHV        { OFF = 1 , ON = 2 , Error = 3};
-
     /// <summary>
     /// Klasa driver opisujaca zachowanie sie komory oraz mozliwe funkcje przez nia wykonywane
     /// </summary>
@@ -21,13 +17,17 @@ namespace HPT1000.Source.Driver
             private PLC             plc             = new PLC_Mitsubishi();
             private Chamber.Chamber chamber         = new Chamber.Chamber();
 
-            private StatusDevice    statusDevice    = StatusDevice.Fail;
-            private int             stateValves     = 0x7;
-            private StateFP         stateFP         = StateFP.Error;
-            private StateHV         stateHV         = StateHV.Error; 
+            private Types.StatusDevice    statusDevice  = Types.StatusDevice.Fail;
+            private int                   stateValves   = 0x7;
+            private Types.StateFP         stateFP       = Types.StateFP.Error;
+            private Types.StateHV         stateHV       = Types.StateHV.Error; 
         #endregion
 
         #region Method
+        public HPT1000()
+        {
+            chamber.SetPtrPLC(plc);
+        }
         public void SetIPAddres(string aIPAddress)
         {
             plc.SetAddrIP(aIPAddress);
@@ -42,20 +42,32 @@ namespace HPT1000.Source.Driver
         //Funkcaj watku drivera
         public void Run()
         {
+            int[] aData = new int[Types.LENGHT_STATUS_DATA];
 
+            plc.ReadWords(Types.ADDR_START_STATUS_CHAMBER, Types.LENGHT_STATUS_DATA, aData);
+            aData[Types.INDEX_STATE_VALVES] = 0x9999;
+            chamber.UpdateData(aData);
         }
 
-        public StatusDevice GetStatusDevice()
+        public int SetStateValve(Types.StateValve state, Types.TypeValve kindValve)
+        {
+            int iRes = 0;
+            iRes = chamber.SetValveState(state,kindValve);
+            return iRes;
+        }
+
+        public Types.StateValve GetStateValve(Types.TypeValve kindValve)
+        {
+            Types.StateValve state = 0;
+            state = chamber.GetValveState(kindValve);
+            return state;
+        }
+
+        public Types.StatusDevice GetStatusDevice()
         {
             return statusDevice;
         }
 
-        //Funkcja ma za zadanie podanie stanu danego zaworu
-    /*    public Types.StateValve GetStateValves(Types.TypeValve kindValve )
-        {
-          
-        }
-    */
         //public StateFP
 
         public int WriteWords(string aAddr, int aSize, int[] aData)

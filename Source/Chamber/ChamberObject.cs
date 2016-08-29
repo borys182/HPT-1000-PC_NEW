@@ -10,10 +10,13 @@ namespace HPT1000.Source.Chamber
     public abstract class ChamberObject
     {
         protected PLC plc = null;
+        protected Types.TypeObject type = Types.TypeObject.None;
+         public abstract void UpdateData(int[] aData);
 
-        void SetPonterPLC(PLC ptrPLC)
+        public void SetPonterPLC(PLC ptrPLC)
         {
             plc = ptrPLC;
         }
+
     }
 }

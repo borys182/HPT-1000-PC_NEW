@@ -19,28 +19,32 @@ namespace HPT1000.Source.Chamber
         private double          limitCurent  = 0;
         private double          limitPower   = 0;
 
-
+        public PowerSupplay()
+        {
+            type = Types.TypeObject.HV;
+        }
         override public void UpdateData(int []aData)
         {
-            power           = Types.ConvertIntToDouble(aData, Types.INDEX_POWER);
-            voltage         = Types.ConvertIntToDouble(aData, Types.INDEX_VOLTAGE);
-            curent          = Types.ConvertIntToDouble(aData, Types.INDEX_CURENT);
+            power           = Types.ConvertDWORDToDouble(aData, Types.OFFSET_POWER);
+            voltage         = Types.ConvertDWORDToDouble(aData, Types.OFFSET_VOLTAGE);
+            curent          = Types.ConvertDWORDToDouble(aData, Types.OFFSET_CURENT);
 
-            limitPower      = Types.ConvertIntToDouble(aData, Types.INDEX_POWER);
-            limitVoltage    = Types.ConvertIntToDouble(aData, Types.INDEX_VOLTAGE);
-            limitCurent     = Types.ConvertIntToDouble(aData, Types.INDEX_CURENT);
-
-            if (Enum.IsDefined(typeof(Types.ModeHV), aData[Types.INDEX_MODE_HV]))
-                mode = (Types.ModeHV)Enum.Parse(typeof(Types.ModeHV), (aData[Types.INDEX_MODE_HV]).ToString()); // konwertuj int na Enum
+            if (Enum.IsDefined(typeof(Types.ModeHV), aData[Types.OFFSET_MODE_HV]))
+                mode = (Types.ModeHV)Enum.Parse(typeof(Types.ModeHV), (aData[Types.OFFSET_MODE_HV]).ToString()); // konwertuj int na Enum
             else
-                mode = Types.ModeHV.Error;
+                mode = Types.ModeHV.Unknown;
 
-            if (Enum.IsDefined(typeof(Types.StateHV), aData[Types.INDEX_STATUS_HV]))
-                state = (Types.StateHV)Enum.Parse(typeof(Types.StateHV), (aData[Types.INDEX_STATUS_HV]).ToString()); // konwertuj int na Enum
+            if (Enum.IsDefined(typeof(Types.StateHV), aData[Types.OFFSET_STATUS_HV]))
+                state = (Types.StateHV)Enum.Parse(typeof(Types.StateHV), (aData[Types.OFFSET_STATUS_HV]).ToString()); // konwertuj int na Enum
             else
                 state = Types.StateHV.Error;
         }
-
+        override public void UpdateSettings(int[] aData)
+        {
+            limitPower      = Types.ConvertDWORDToDouble(aData, Types.OFFSET_POWER);
+            limitVoltage    = Types.ConvertDWORDToDouble(aData, Types.OFFSET_VOLTAGE);
+            limitCurent     = Types.ConvertDWORDToDouble(aData, Types.OFFSET_CURENT);
+        }
         public int SetPower(double aPower)
         {
             int aResult = 0;
@@ -52,7 +56,6 @@ namespace HPT1000.Source.Chamber
 
             return aResult;
         }
-
         public int SetVoltage(double aVoltage)
         {
             int aResult = 0;
@@ -64,7 +67,6 @@ namespace HPT1000.Source.Chamber
 
             return aResult;
         }
-
         public int SetCurent(double aCurent)
         {
             int aResult = 0;

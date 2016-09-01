@@ -22,13 +22,12 @@ namespace HPT1000.Source.Chamber
         {
             name = Name;
             id = ID;
+            type = Types.TypeObject.VL;
         }
-
         public Valve()
         {
             CreateValves();
         }
-
         //Funkacja ma za zadanie utworzenie listy zaworow dostepnych w systemie
         private void CreateValves()
         {
@@ -42,7 +41,7 @@ namespace HPT1000.Source.Chamber
             }
         }
 
-        //Funkcja ma za zadanie ustawienie stanow zaworow odczytane z PLC
+        //Funkcja ma za zadanie aktualizacje stanow zaworow odczytane z PLC
         override public void UpdateData(int []aData)
         {
             foreach(Valve valve in valves)//ustaw stany zaworow dla wszystkich zaworow zawartych w systemie
@@ -50,7 +49,7 @@ namespace HPT1000.Source.Chamber
                 int aShiftBits = valve.id * 2; // o ile musze przesunac bity slowa aby uzyskac dane interesujacego mnie zaworu
                 if (valve.id == 0) aShiftBits = 0;
                 int aMask = 0x03 << aShiftBits;                          //maska bitowa wyodrebniajace stan danego zaworu
-                int aState = (aData[Types.INDEX_STATE_VALVES] & aMask) >> (int)aShiftBits;
+                int aState = (aData[Types.OFFSET_STATE_VALVES] & aMask) >> (int)aShiftBits;
 
                 if (Enum.IsDefined(typeof(Types.StateValve), aState))
                     valve.state = (Types.StateValve)Enum.Parse(typeof(Types.StateValve), (aState).ToString()); // konwertuj int na Enum
@@ -59,45 +58,44 @@ namespace HPT1000.Source.Chamber
             }
         }
         //Zwroc stan danego zaworu
-        public Types.StateValve GetState(Types.TypeValve KindValve)
+        public Types.StateValve GetState(Types.TypeValve aTypeValve)
         {
-            Types.StateValve State = Types.StateValve.Error;
+            Types.StateValve aState = Types.StateValve.Error;
             foreach(Valve valve in valves)
             {
-                if (valve.id == (int)KindValve)
+                if (valve.id == (int)aTypeValve)
                 {
-                    State = valve.state;
+                    aState = valve.state;
                     break;
                 }
             }
-            return State;
+            return aState;
         }
-
-        public int SetState(Types.StateValve state, Types.TypeValve kindValve)
+        public int SetState(Types.StateValve aState, Types.TypeValve aTypeValve)
         {
-            int iResult = 0;
+            int aResult = 0;
             int []ctrlValve = {0};
 
             //ustaw na odpowidnim miejscu bity sterujace zgodnie z ID zaworu powiazanego z PLC
-            int ShiftBits = (int)kindValve * 2; // o ile musze przesunac bity slowa aby uzyskac dane interesujacego mnie zaworu
+            int aShiftBits = (int)aTypeValve * 2; // o ile musze przesunac bity slowa aby uzyskac dane interesujacego mnie zaworu
             
-            if (state == Types.StateValve.Open)
-                ctrlValve[0] = 0x02 << ShiftBits;                          
-            if(state == Types.StateValve.Close)
-                ctrlValve[0] = 0x01 << ShiftBits;
+            if (aState == Types.StateValve.Open)
+                ctrlValve[0] = 0x02 << aShiftBits;                          
+            if(aState == Types.StateValve.Close)
+                ctrlValve[0] = 0x01 << aShiftBits;
 
-            if (state == Types.StateValve.Close || state == Types.StateValve.Open)
+            if (aState == Types.StateValve.Close || aState == Types.StateValve.Open)
             {
                 if (plc != null)
-                    iResult = plc.WriteWords(Types.ADDR_VALVES_CTRL, 1, ctrlValve);
+                    aResult = plc.WriteWords(Types.ADDR_VALVES_CTRL, 1, ctrlValve);
                 else
-                    iResult = Types.ERROR_PLC_PTR_NULL;
+                    aResult = Types.ERROR_PLC_PTR_NULL;
             }
             else
-                iResult = Types.ERROR_CALL_INCORRECT_OPERATION;
+                aResult = Types.ERROR_CALL_INCORRECT_OPERATION;
 
 
-            return iResult;
+            return aResult;
         }
     }
 }

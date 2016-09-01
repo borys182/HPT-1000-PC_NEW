@@ -75,6 +75,7 @@
     <Compile Include="GUI\MainForm.designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\Program\FlushProces.cs" />
     <Compile Include="Source\Chamber\Chamber.cs" />
     <Compile Include="Source\Chamber\ChamberObject.cs" />
     <Compile Include="Source\Chamber\FlowMeter.cs" />
@@ -87,6 +88,13 @@
     <Compile Include="Program\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\Driver\Types.cs" />
+    <Compile Include="Source\Program\GasProces.cs" />
+    <Compile Include="Source\Program\PlasmaProces.cs" />
+    <Compile Include="Source\Program\Program.cs" />
+    <Compile Include="Source\Program\PumpProces.cs" />
+    <Compile Include="Source\Program\ProcesObject.cs" />
+    <Compile Include="Source\Program\Segment.cs" />
+    <Compile Include="Source\Program\VentProces.cs" />
     <EmbeddedResource Include="GUI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -161,9 +169,7 @@
       <Isolated>False</Isolated>
     </COMReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Source\Program\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

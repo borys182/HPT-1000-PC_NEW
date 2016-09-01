@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HPT1000.Source.Chamber;
+using HPT1000.Source.Program;
 
 namespace HPT1000.Source.Driver
 {
@@ -16,17 +17,17 @@ namespace HPT1000.Source.Driver
         #region Private
             private PLC             plc             = new PLC_Mitsubishi();
             private Chamber.Chamber chamber         = new Chamber.Chamber();
+            private Program.Program program         = new Program.Program();
 
             private Types.StatusDevice    statusDevice  = Types.StatusDevice.Fail;
-            private int                   stateValves   = 0x7;
-            private Types.StateFP         stateFP       = Types.StateFP.Error;
-            private Types.StateHV         stateHV       = Types.StateHV.Error; 
+     
         #endregion
 
         #region Method
         public HPT1000()
         {
             chamber.SetPtrPLC(plc);
+            program.SetPtrPLC(plc);
         }
         public void SetIPAddres(string aIPAddress)
         {
@@ -45,47 +46,33 @@ namespace HPT1000.Source.Driver
             int[] aData = new int[Types.LENGHT_STATUS_DATA];
 
             plc.ReadWords(Types.ADDR_START_STATUS_CHAMBER, Types.LENGHT_STATUS_DATA, aData);
-            aData[Types.INDEX_STATE_VALVES] = 0x9999;
-            chamber.UpdateData(aData);
+        
+            chamber.UpdateData(aData); //aktualizuju dane komponentow komory
+            program.UpdateData(aData);//aktualizuj dane na temat progrmu
         }
 
-        public int SetStateValve(Types.StateValve state, Types.TypeValve kindValve)
+        public Valve GetValve()
         {
-            int iRes = 0;
-            iRes = chamber.SetValveState(state,kindValve);
-            return iRes;
+            return (Valve)chamber.GetObject(Types.TypeObject.VL);
         }
-
-        public Types.StateValve GetStateValve(Types.TypeValve kindValve)
+        public PowerSupplay GetPowerSupply()
         {
-            Types.StateValve state = 0;
-            state = chamber.GetValveState(kindValve);
-            return state;
+            return (PowerSupplay)chamber.GetObject(Types.TypeObject.HV);
         }
-
-        public Types.StatusDevice GetStatusDevice()
+        public FlowMeter GetFlowMeter()
         {
-            return statusDevice;
+            return (FlowMeter)chamber.GetObject(Types.TypeObject.FM);
         }
-
-        //public StateFP
-
-        public int WriteWords(string aAddr, int aSize, int[] aData)
+        public ForePump GetForePump()
         {
-            int aRes = -1;
-            aRes = plc.WriteWords( aAddr,  aSize,  aData);
-            return aRes;
+            return (ForePump)chamber.GetObject(Types.TypeObject.FP);
         }
 
 
 
 
-        public int ReadWords(string aAddr, int aSize, int[] aData)
-        {
-            int aRes = -1;
-            aRes = plc.ReadWords( aAddr,  aSize, aData);
-            return aRes;
-        }
+
+
         #endregion
 
     }

@@ -25,38 +25,34 @@ namespace HPT1000.Source.Chamber
 
         public void UpdateData(int []aData)
         {
-            pressure    = Types.ConvertIntToDouble(aData, Types.INDEX_PRESSURE);
-            door        = Convert.ToBoolean(aData[Types.INDEX_DOOR_STATE]);
+            pressure    = Types.ConvertDWORDToDouble(aData, Types.OFFSET_PRESSURE);
+            door        = Convert.ToBoolean(aData[Types.OFFSET_DOOR_STATE]);
 
-            if (Enum.IsDefined(typeof(Types.DeviceStatus), aData[Types.INDEX_DEVICE_STATUS]))
-                status = (Types.DeviceStatus)Enum.Parse(typeof(Types.DeviceStatus), (aData[Types.INDEX_DEVICE_STATUS]).ToString()); // konwertuj int na Enum
+            if (Enum.IsDefined(typeof(Types.DeviceStatus), aData[Types.OFFSET_DEVICE_STATUS]))
+                status = (Types.DeviceStatus)Enum.Parse(typeof(Types.DeviceStatus), (aData[Types.OFFSET_DEVICE_STATUS]).ToString()); // konwertuj int na Enum
             else
-                status = Types.DeviceStatus.Uknown;
+                status = Types.DeviceStatus.Unknown;
 
             //aktualizuj dane obiektow
-            foreach (ChamberObject cObject in objects)
-                cObject.UpdateData(aData);
+            foreach (ChamberObject aObject in objects)
+                aObject.UpdateData(aData);
             
         }
-   
-         public void SetPtrPLC(PLC plc)
+        public void SetPtrPLC(PLC plc)
         {
-            foreach (ChamberObject cObject in objects)
-                cObject.SetPonterPLC(plc);
+            foreach (ChamberObject aObject in objects)
+                aObject.SetPonterPLC(plc);
         }
-
-        public int SetValveState(Types.StateValve state , Types.TypeValve kindValve)
+        public ChamberObject GetObject(Types.TypeObject typeObj)
         {
-            int iResult = 0;
-            //iResult = valve.SetState(state, kindValve);
-            return iResult;
-        }
+            ChamberObject aObject = null;
 
-        public Types.StateValve GetValveState(Types.TypeValve kindValve)
-        {
-            Types.StateValve state = 0;
-          //  state = valve.GetState(kindValve);
-            return state;
+            foreach(ChamberObject obj in objects)
+            {
+                if (obj.GetTypeObject() == typeObj)
+                    aObject = obj;
+            }
+            return aObject;
         }
     }
 }

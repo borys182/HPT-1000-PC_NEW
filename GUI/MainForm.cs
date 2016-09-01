@@ -53,30 +53,17 @@ namespace HPT1000.GUI
 
         private void btnWrite_Click(object sender, EventArgs e)
         {
-            int[] aData = new int[1];
-            aData[0] = Int32.Parse(txtBoxValue.Text);
-            int aRes = hpt.WriteWords(txtBoxAddr.Text,1,aData);
-
-            if (aRes == 0)
-                txtBoxMsg.Text = "Write OK";
-            else
-                txtBoxMsg.Text = "Write faild " + String.Format("0x{0:x8}", aRes);
+           
         }
 
         private void btnRead_Click(object sender, EventArgs e)
         {
-            int[] aData = new int[1];
-
-            int aRes = hpt.ReadWords(txtBoxAddr.Text, 1, aData);
-            txtBoxValue.Text = String.Format("0x{0:x8}", aData[0]);
-            if (aRes == 0)
-                txtBoxMsg.Text = "Read OK";
-            else
-                txtBoxMsg.Text = "Read faild " + String.Format("0x{0:x8}", aRes);
+            
         }
 
         private void btnTest_Click(object sender, EventArgs e)
         {
+            /*
             int iRes = 0;
             if (rBtnOpen.Checked)
                 iRes = hpt.SetStateValve(Types.StateValve.Open, Types.TypeValve.VV);
@@ -87,6 +74,7 @@ namespace HPT1000.GUI
                 txtBoxMsg.Text = "Set OK";
             else
                 txtBoxMsg.Text = "Set faild " + String.Format("0x{0:x8}", iRes);
+             */
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -97,13 +85,8 @@ namespace HPT1000.GUI
         private void btnGetState_Click(object sender, EventArgs e)
         {
 
-            Types.StateValve state = hpt.GetStateValve(Types.TypeValve.SV);
-            state = hpt.GetStateValve(Types.TypeValve.VV);
-            state = hpt.GetStateValve(Types.TypeValve.V2);
-            state = hpt.GetStateValve(Types.TypeValve.V3);
-            state = hpt.GetStateValve(Types.TypeValve.V4);
-            state = hpt.GetStateValve(Types.TypeValve.Flow1);
-            state = hpt.GetStateValve(Types.TypeValve.Flow2);
+            Types.StateValve state = hpt.GetValve().GetState(Types.TypeValve.SV);
         }
+            
     }
 }

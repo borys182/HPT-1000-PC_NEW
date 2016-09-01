@@ -11,11 +11,17 @@ namespace HPT1000.Source.Chamber
     {
         protected PLC plc = null;
         protected Types.TypeObject type = Types.TypeObject.None;
-         public abstract void UpdateData(int[] aData);
+
+        public abstract void UpdateData(int[] aData);
+        public virtual void UpdateSettings(int[] aData) { }
 
         public void SetPonterPLC(PLC ptrPLC)
         {
             plc = ptrPLC;
+        }
+        public Types.TypeObject GetTypeObject()
+        {
+            return type;
         }
 
     }

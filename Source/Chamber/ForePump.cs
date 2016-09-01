@@ -11,10 +11,15 @@ namespace HPT1000.Source.Chamber
     {
         private Types.StateFP state = Types.StateFP.Error;
 
+        public ForePump()
+        {
+            type = Types.TypeObject.FP;
+        }
+
         override public void UpdateData(int []aData)
         {
-            if(Enum.IsDefined(typeof(Types.StateFP),aData[Types.INDEX_STATE_FP]))
-                state = (Types.StateFP)Enum.Parse(typeof(Types.StateFP), (aData[Types.INDEX_STATE_FP]).ToString());
+            if(Enum.IsDefined(typeof(Types.StateFP),aData[Types.OFFSET_STATE_FP]))
+                state = (Types.StateFP)Enum.Parse(typeof(Types.StateFP), (aData[Types.OFFSET_STATE_FP]).ToString());
             else
                 state = Types.StateFP.Error;
         }

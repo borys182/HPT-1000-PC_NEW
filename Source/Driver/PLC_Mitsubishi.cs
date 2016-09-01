@@ -116,7 +116,7 @@ namespace HPT1000.Source.Driver
 
             aBytes = BitConverter.GetBytes(aValue);         // przkonwertuj float na tablice bajtow
 
-            aData[0] = (int)(aBytes[1] << 8 | aBytes[0]);   //sluz bajty w odpowiednie slowa
+            aData[0] = (int)(aBytes[1] << 8 | aBytes[0]);   //zluz bajty w odpowiednie slowa
             aData[1] = (int)(aBytes[3] << 8 | aBytes[2]);
 
             aResult = WriteWords(aAddr, 2, aData);          //wgraj do PLC

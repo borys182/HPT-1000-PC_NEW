@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using HPT1000.Source.Driver;
 using HPT1000.Source.Chamber;
+using HPT1000.Source.Program;
 
 namespace HPT1000.GUI
 {
@@ -19,31 +20,24 @@ namespace HPT1000.GUI
     {
         #region Private
 
-        private HPT1000.Source.Driver.HPT1000 hpt = new HPT1000.Source.Driver.HPT1000();
+        private HPT1000.Source.Driver.HPT1000 hpt1000 = new HPT1000.Source.Driver.HPT1000();
 
         #endregion
 
         public MainForm()
         {
             InitializeComponent();
-            //   StateValve state = hpt.GetStateValves(TypeValve.SV);
-            //   state = hpt.GetStateValves(Types.TypeValve.VV);
 
-            float test = 255;
-            byte[] input = new byte[4];
-            input = BitConverter.GetBytes(test);
+            RefreshTreeViewPrograms();
 
-            int[] aData = new int[2];
-            aData[0] = (int)(input[1] << 8 | input[0]);
-            aData[1] = (int)(input[3] << 8 | input[2]);
-            
+        //    listView1.Items.S Add()
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             txtBoxMsg.Text = "Connecting ...";
             
-            int aRes = hpt.Connect();
+            int aRes = hpt1000.Connect();
 
             if (aRes == 0)
                 txtBoxMsg.Text = "Connection OK";
@@ -79,14 +73,64 @@ namespace HPT1000.GUI
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            hpt.Run();
+            hpt1000.Run();
         }
 
         private void btnGetState_Click(object sender, EventArgs e)
         {
 
-            Types.StateValve state = hpt.GetValve().GetState(Types.TypeValve.SV);
+            Types.StateValve state = hpt1000.GetValve().GetState(Types.TypeValve.SV);
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void hScrollBar1_ValueChanged(object sender, EventArgs e)
+        {
+            textBox23.Text = (hScrollBar1.Value * 0.01).ToString();
+        }
+
+        private void panel17_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void btnAddNewProgram_Click(object sender, EventArgs e)
+        {
+            if (txtBoxNameProgram.Text.Length > 0)
+            {
+                hpt1000.GetProgram().AddProgram(txtBoxNameProgram.Text, txtBoxProgramDescription.Text);
+                RefreshTreeViewPrograms();
+            }
+            else
+                MessageBox.Show("File Name is empty. I can't add new program");
+        }
+
+        private void RefreshTreeViewPrograms()
+        {
+            treeViewPr.Nodes.Clear();
+            TreeNode nodePrograms = new TreeNode("Programs", 1, 1);
+            foreach (Program pr in hpt1000.GetProgram().GetPrograms())
+            {
+                TreeNode nodeProgram    = new TreeNode(pr.GetName(),1,1);
+                TreeNode nodeSubprograms = new TreeNode("Subprograms", 2, 2);
+
+                foreach (Subprogram sub_pr in pr.GetSubPrograms())
+                {
+                    TreeNode nodeSubprogram = new TreeNode(sub_pr.GetName(), 3, 4);
+                    nodeSubprograms.Nodes.Add(nodeSubprogram);
+                }
+                nodeProgram.Nodes.Add(nodeSubprograms);
+                nodePrograms.Nodes.Add(nodeProgram);
+            }
+            treeViewPr.Nodes.Add(nodePrograms);
+        }
+
+        private void listBoxPrograms_SelectedIndexChanged(object sender, EventArgs e)
+        {
             
+        }
     }
 }

@@ -93,7 +93,7 @@
     <Compile Include="Source\Program\Program.cs" />
     <Compile Include="Source\Program\PumpProces.cs" />
     <Compile Include="Source\Program\ProcesObject.cs" />
-    <Compile Include="Source\Program\Segment.cs" />
+    <Compile Include="Source\Program\Subprogram.cs" />
     <Compile Include="Source\Program\VentProces.cs" />
     <EmbeddedResource Include="GUI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -169,7 +169,15 @@
       <Isolated>False</Isolated>
     </COMReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Images\Valve.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\ForePump.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Line.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

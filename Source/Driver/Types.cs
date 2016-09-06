@@ -28,6 +28,8 @@ namespace HPT1000.Source.Driver
         public enum WorkModeHV      { Power = 1, Voltage = 2, Curent = 3};
         public enum Word            { LOW , HIGH};
         public enum GasProcesMode   { Presure_MFC, Pressure_Vap, FlowSP}; //okreslenie sposobu sterowania gazami w komorze {Presure_MFC - proznia jest utrzymywana przez PID z 3 przeplywek, Pressure_Vap proznia jest utrzymywana przez PID z vaporatora, FlowSP - sterujemy zgodnie z ustawionymi setpontami}
+        public enum StatusSubprogram { Wait , Working , Suspended , Done , Warning , Error  };
+        
         /// <summary>
         /// ADRESY KOMOREK PLC
         /// </summary>
@@ -73,6 +75,22 @@ namespace HPT1000.Source.Driver
         public static int OFFSET_CYCLE_TIME     = 20;
         public static int OFFSET_ON_TIME        = 22;
 
+        //Dane programow
+        public static int OFFSET_PRG_CONTROL        = 0;
+        public static int OFFSET_PRG_STATUS         = 1;
+        public static int OFFSET_PRG_SEQ_COUNTS     = 2;
+        public static int OFFSET_PRG_ACTUAL_SEQ_NO  = 3;
+        public static int OFFSET_PRG_TIME_PUMP      = 5;
+        public static int OFFSET_PRG_TIME_GAS       = 6;
+        public static int OFFSET_PRG_TIME_HV        = 7;
+        public static int OFFSET_PRG_TIME_VENT      = 8;
+        public static int OFFSET_PRG_TIME_FLUSH     = 9;
+        public static int OFFSET_PRG_SEQ_DATA       = 10;
+
+
+
+
+
         //Dane odczytywane jako setings tylko na zdarzenie
         public static int OFFSET_LIMIT_POWER    = 13;
         public static int OFFSET_LIMIT_CURENT   = 14;
@@ -112,6 +130,7 @@ namespace HPT1000.Source.Driver
         public static int OFFSET_SEQ_HV_OPERATE         = 31;
         public static int OFFSET_SEQ_HV_SETPOINT        = 32;
         public static int OFFSET_SEQ_HV_TIME            = 34;
+        public static int OFFSET_SEQ_GAS_MODE           = 34;
         public static int OFFSET_SEQ_GAS_TIME           = 34;
         public static int OFFSET_SEQ_GAS_SETPOINT       = 34;
         public static int OFFSET_SEQ_GAS_MIN_DIFFER     = 34;

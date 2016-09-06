@@ -17,7 +17,7 @@ namespace HPT1000.Source.Driver
         #region Private
             private PLC             plc             = new PLC_Mitsubishi();
             private Chamber.Chamber chamber         = new Chamber.Chamber();
-            private Program.Program program         = new Program.Program();
+            private Program.Program program         = new Program.Program("Parent");
 
             private Types.StatusDevice    statusDevice  = Types.StatusDevice.Fail;
      
@@ -68,6 +68,10 @@ namespace HPT1000.Source.Driver
             return (ForePump)chamber.GetObject(Types.TypeObject.FP);
         }
 
+        public Program.Program GetProgram()
+        {
+            return program;
+        }
 
 
 

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using HPT1000.Source.Driver;
 using HPT1000.Source.Chamber;
 using HPT1000.Source.Program;
+using HPT1000.Source;
 
 namespace HPT1000.GUI
 {
@@ -21,7 +22,7 @@ namespace HPT1000.GUI
         #region Private
 
         private HPT1000.Source.Driver.HPT1000 hpt1000 = new HPT1000.Source.Driver.HPT1000();
-
+        
         #endregion
 
         public MainForm()
@@ -29,6 +30,8 @@ namespace HPT1000.GUI
             InitializeComponent();
 
             RefreshTreeViewPrograms();
+
+            programsConfigPanel.HPT1000 = hpt1000;
 
         //    listView1.Items.S Add()
         }
@@ -96,21 +99,23 @@ namespace HPT1000.GUI
         {
 
         }
-
+//Obsluga formatki dotyczaca konfigruacji programów
         private void btnAddNewProgram_Click(object sender, EventArgs e)
         {
-            if (txtBoxNameProgram.Text.Length > 0)
+         /*   if (tBoxNameProgram.Text.Length > 0)
             {
-                hpt1000.GetProgram().AddProgram(txtBoxNameProgram.Text, txtBoxProgramDescription.Text);
+                hpt1000.GetProgram().AddProgram();
                 RefreshTreeViewPrograms();
             }
             else
                 MessageBox.Show("File Name is empty. I can't add new program");
+           */
         }
 
         private void RefreshTreeViewPrograms()
         {
-            treeViewPr.Nodes.Clear();
+            /*
+            treeViewProgram.Nodes.Clear();
             TreeNode nodePrograms = new TreeNode("Programs", 1, 1);
             foreach (Program pr in hpt1000.GetProgram().GetPrograms())
             {
@@ -125,12 +130,39 @@ namespace HPT1000.GUI
                 nodeProgram.Nodes.Add(nodeSubprograms);
                 nodePrograms.Nodes.Add(nodeProgram);
             }
-            treeViewPr.Nodes.Add(nodePrograms);
+            treeViewProgram.Nodes.Add(nodePrograms);
+            */
         }
 
         private void listBoxPrograms_SelectedIndexChanged(object sender, EventArgs e)
         {
             
+        }
+
+        private void treeViewProgram_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            ClearProgramInfo();
+       //     Program program = 
+
+          //  Subprogram subProgram
+          //  TreeNode node = treeViewProgram.SelectedNode;
+            //Pokaz informacje na temat programu
+          //  node.Tag
+            //Pokaz informacje na temat subprogramu
+        }
+        void ClearProgramInfo()
+        {
+            tBoxDescProgram.Text        = "";
+            tBoxDescSubprgoram.Text     = "";
+            tBoxNameProgram.Text        = "";
+            tBoxNameSubprogram.Text     = "";
+
+            cBoxGas.Checked     = false;
+            cBoxPower.Checked   = false;
+            cBoxPurge.Checked   = false;
+            cBoxVent.Checked    = false;
+            cBoxPump.Checked    = false;
+
         }
     }
 }

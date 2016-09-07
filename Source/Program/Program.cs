@@ -17,22 +17,12 @@ namespace HPT1000.Source.Program
 
         //Dane potrzebne do konfigruacji na PC
         private PLC                 plc         = null;
-        private string              name        = "No name";
+        private string              name        = "Program name";
         private uint                id          = 0;         //unikalny identyfikator programu po ktorym rozrozniamy programy
         private List<Subprogram>    segments    = new List<Subprogram>();
         private string              description = "";
 
-        private List<Program> programs = new List<Program>(); //Lista wszystkich programow zapisanych w aplikacji
-
-        public Program(string aName)
-        {
-            name = aName;
-        }
-        public Program(string aName,string aDescription)
-        {
-            name = aName;
-            description = aDescription;
-        }
+    //    private List<Program> programs = new List<Program>(); //Lista wszystkich programow zapisanych w aplikacji
 
         //Funkcja odczytuje dane z PLC na temat aktualnie wykonywanego programu i subprogramu
         public void UpdateData(int[] aData)
@@ -89,53 +79,39 @@ namespace HPT1000.Source.Program
 
         }
 
-        public int StartProgram(int aId)
+        public int StartProgram()
         {
             int aResult = 0;
-            Program program = null;
+            //przygotuj dane do wgrania do PLC
+            int[] aData = new int[Types.MAX_SEGMENTS];
+            int[] aDataControl = new int[1];
 
-            //Odszukaj program ktory chce uruchomic
-            foreach (Program pr in programs)
+            int aSizeData = 0;
+            for (int i = 0; i < segments.Count; i++)
             {
-                if (pr.id == aId)
-                {
-                    program = pr;
-                    break;
-                }
+                for (int j = 0; j < Types.SEGMENT_SIZE; j++)
+                    aData[i * Types.SEGMENT_SIZE + j] = segments[i].GetPLCSegmentData()[j];
             }
-            //jezeli program zostal odnaleziony to wykonaj go
-            if (program != null)
-            {
-                //przygotuj dane do wgrania do PLC
-                int[] aData        = new int[Types.MAX_SEGMENTS];
-                int[] aDataControl = new int[1];
-
-                int   aSizeData = 0;
-                for (int i = 0; i < program.segments.Count; i++)
-                {
-                    for(int j = 0; j < Types.SEGMENT_SIZE; j++)
-                        aData[i * Types.SEGMENT_SIZE + j] = program.segments[i].GetPLCSegmentData()[j];
-                }
-                aSizeData = program.segments.Count * Types.SEGMENT_SIZE;
-                plc.WriteWords(Types.ADDR_START_BUFFER_PROGRAM, aSizeData,aData);   //wgraj dane programu do PLC          
-                plc.WriteWords(Types.ADDR_CONTROL_PROGRAM, 1, aDataControl);        //uruchom program
-            }
+            aSizeData = segments.Count * Types.SEGMENT_SIZE;
+            plc.WriteWords(Types.ADDR_START_BUFFER_PROGRAM, aSizeData, aData);   //wgraj dane programu do PLC          
+            plc.WriteWords(Types.ADDR_CONTROL_PROGRAM, 1, aDataControl);        //uruchom program
 
             return aResult;
         }
         public void AddSubprogram()
         {
-            Subprogram segment = new Subprogram(GetNextSegmentStepNo());
+            Subprogram segment = new Subprogram();
             segments.Add(segment);
         }
-        public uint AddProgram(string aName,string aDescription)
-        {
-            Program program = new Program(aName,aDescription);
-            program.id = GetUniqueProgramID();
-            programs.Add(program);
-            return program.GetID();
-        }
 
+        public bool RemoveSubprogram(Subprogram subProgram)
+        {
+            bool aRes = false;
+
+            aRes = segments.Remove(subProgram);
+
+            return aRes;
+        }
         public uint GetID()
         {
             return id;
@@ -158,73 +134,17 @@ namespace HPT1000.Source.Program
         {
             return description;
         }
-        //Funkcja zwraca unikalne ID ktore jeszcze nie jest uzywane przez zaden program
-        public uint GetUniqueProgramID()
-        {
-            uint aUniqueID = 0;
-            bool aExist = false;
-
-            for (uint i = 1; i < 1000000; i++)
-            {
-                foreach (Program program in programs)
-                {
-                    if (program.id == i)
-                        aExist = true;
-                }
-                if(!aExist)
-                {
-                    aUniqueID = i;
-                    break;
-                }
-            }  
-            return aUniqueID;
-        }
-        public uint GetNextSegmentStepNo()
-        {
-            uint aStepNo = 0;
-            bool aExist = false;
-
-            for (uint i = 1; i < 1000000; i++)
-            {
-                foreach (Subprogram segment in segments)
-                {
-                    if (segment.GetStepNo() == i)
-                        aExist = true;
-                }
-                if (!aExist)
-                {
-                    aStepNo = i;
-                    break;
-                }
-            }
-            return aStepNo;
-        }
-        public void SetPtrPLC(PLC aPLC)
+        
+         public void SetPtrPLC(PLC aPLC)
         {
             plc = aPLC;
         }
 
-        public Program GetProgram(int aId)
-        {
-            Program program = null;
-            //Odszukaj program 
-            foreach (Program pr in programs)
-            {
-                if (pr.id == aId)
-                {
-                    program = pr;
-                    break;
-                }
-            }
-            return program;
-
-        }
-
-        public List<Program> GetPrograms()
+   /*     public List<Program> GetPrograms()
         {
             return programs;
         }
-        public List<Subprogram> GetSubPrograms()
+    */    public List<Subprogram> GetSubPrograms()
         {
             return segments;
         }

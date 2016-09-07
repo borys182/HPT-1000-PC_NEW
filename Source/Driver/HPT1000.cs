@@ -11,15 +11,15 @@ namespace HPT1000.Source.Driver
     /// <summary>
     /// Klasa driver opisujaca zachowanie sie komory oraz mozliwe funkcje przez nia wykonywane
     /// </summary>
-    class HPT1000
+    public class HPT1000
     {
 
         #region Private
             private PLC             plc             = new PLC_Mitsubishi();
             private Chamber.Chamber chamber         = new Chamber.Chamber();
-            private Program.Program program         = new Program.Program("Parent");
+            private List<Program.Program> programs  = new List<Program.Program>(); //Lista wszystkich programow zapisanych w aplikacji
 
-            private Types.StatusDevice    statusDevice  = Types.StatusDevice.Fail;
+        private Types.StatusDevice    statusDevice  = Types.StatusDevice.Fail;
      
         #endregion
 
@@ -27,7 +27,8 @@ namespace HPT1000.Source.Driver
         public HPT1000()
         {
             chamber.SetPtrPLC(plc);
-            program.SetPtrPLC(plc);
+            foreach(Program.Program pr in programs)
+                pr.SetPtrPLC(plc);
         }
         public void SetIPAddres(string aIPAddress)
         {
@@ -48,7 +49,8 @@ namespace HPT1000.Source.Driver
             plc.ReadWords(Types.ADDR_START_STATUS_CHAMBER, Types.LENGHT_STATUS_DATA, aData);
         
             chamber.UpdateData(aData); //aktualizuju dane komponentow komory
-            program.UpdateData(aData);//aktualizuj dane na temat progrmu
+            foreach(Program.Program pr in programs)
+                pr.UpdateData(aData);//aktualizuj dane na temat progrmu
         }
 
         public Valve GetValve()
@@ -68,13 +70,26 @@ namespace HPT1000.Source.Driver
             return (ForePump)chamber.GetObject(Types.TypeObject.FP);
         }
 
-        public Program.Program GetProgram()
+        public List<Program.Program> GetPrograms()
         {
-            return program;
+            return programs;
         }
 
+        public void AddProgram()
+        {
+            Program.Program program = new Program.Program();
+            //  program.id = GetUniqueProgramID();
+            program.SetPtrPLC(plc);
+            programs.Add(program);  
+        }
+        public bool RemoveProgram(Program.Program program)
+        {
+            bool aRes = false;
 
+            aRes = programs.Remove(program);
 
+            return aRes;
+        }
 
 
         #endregion

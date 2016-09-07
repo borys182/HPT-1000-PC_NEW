@@ -68,6 +68,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GUI\ProgramsConfigPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\ProgramsConfigPanel.Designer.cs">
+      <DependentUpon>ProgramsConfigPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program\ActDefine.cs" />
     <Compile Include="GUI\MainForm.cs">
       <SubType>Form</SubType>
@@ -95,8 +101,12 @@
     <Compile Include="Source\Program\ProcesObject.cs" />
     <Compile Include="Source\Program\Subprogram.cs" />
     <Compile Include="Source\Program\VentProces.cs" />
+    <Compile Include="Source\Translate.cs" />
     <EmbeddedResource Include="GUI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ProgramsConfigPanel.resx">
+      <DependentUpon>ProgramsConfigPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

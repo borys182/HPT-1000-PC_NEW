@@ -88,24 +88,28 @@ namespace HPT1000.Source.Program
 
     public class Subprogram : Object
     {
-        private uint                    stepNo  = 0;
-        private string                  name    = "No name";
-        private Types.StatusSubprogram  status  = Types.StatusSubprogram.Wait;
+        private string                  name        = "Sub-program name";
+        private Types.StatusSubprogram  status      = Types.StatusSubprogram.Wait;
+        private string                  description = "";
 
         private int actualSubprogram; //Dane aktualnie wykonywanego programu
 
         private ProcesObject[] stepObjects = new ProcesObject[5]; //Każdy segment może się składać max z 5 procesow (tyle mamy obiektow procesow)
 
-        public Subprogram(uint aId)
+        public ProcesObject PumpProces      { get { return stepObjects[0]; } }
+        public ProcesObject GasProces       { get { return stepObjects[1]; } }
+        public ProcesObject PlasmaProces    { get { return stepObjects[2]; } }
+        public ProcesObject PurgeProces     { get { return stepObjects[3]; } }
+        public ProcesObject VentProces      { get { return stepObjects[4]; } }
+
+
+        public Subprogram()
         {
             stepObjects[0] = new PumpProces();
             stepObjects[1] = new GasProces();
             stepObjects[2] = new PlasmaProces();
             stepObjects[3] = new FlushProces();
             stepObjects[4] = new VentProces();
-           
-            stepNo = aId;
-
         }
 
         //Funkcja zwraca tablice danych segmentu przygotowana zgodnie z segmentem po stronie PLC
@@ -140,11 +144,6 @@ namespace HPT1000.Source.Program
         {
             return (VentProces)stepObjects[4];
         }
-
-        public uint GetStepNo()
-        {
-            return stepNo;
-        }
         public void SetName(string aName)
         {
             name = aName;
@@ -157,6 +156,15 @@ namespace HPT1000.Source.Program
         public override string ToString()
         {
             return GetName();
+        }
+
+        public void SetDescription(string aDesc)
+        {
+            description = aDesc;
+        }
+        public string GetDescription()
+        {
+            return description;
         }
     }
 }

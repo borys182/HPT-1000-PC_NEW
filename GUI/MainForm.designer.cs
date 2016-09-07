@@ -32,30 +32,30 @@
             System.Windows.Forms.RadioButton radioButton1;
             System.Windows.Forms.RadioButton radioButton2;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Node1");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Node4");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Subprograms", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Program 1", new System.Windows.Forms.TreeNode[] {
-            treeNode3});
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Node11");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Subprograms", new System.Windows.Forms.TreeNode[] {
-            treeNode5});
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Program 2", new System.Windows.Forms.TreeNode[] {
-            treeNode6});
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Programs list", new System.Windows.Forms.TreeNode[] {
-            treeNode4,
-            treeNode7});
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Node1");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Node4");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Subprograms", new System.Windows.Forms.TreeNode[] {
+            treeNode9,
+            treeNode10});
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Program 1", new System.Windows.Forms.TreeNode[] {
+            treeNode11});
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Node11");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Subprograms", new System.Windows.Forms.TreeNode[] {
+            treeNode13});
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Program 2", new System.Windows.Forms.TreeNode[] {
+            treeNode14});
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Programs list", new System.Windows.Forms.TreeNode[] {
+            treeNode12,
+            treeNode15});
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
             "Pump",
             "Working"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new string[] {
             "Gas",
             "Wait"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Plasma");
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("Purge");
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("Vent");
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("Plasma");
+            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("Purge");
+            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem("Vent");
             this.btnConnect = new System.Windows.Forms.Button();
             this.txtBoxMsg = new System.Windows.Forms.TextBox();
             this.btnRead = new System.Windows.Forms.Button();
@@ -158,16 +158,8 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.label38 = new System.Windows.Forms.Label();
-            this.pictureBox8 = new System.Windows.Forms.PictureBox();
-            this.pictureBox7 = new System.Windows.Forms.PictureBox();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.label37 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -359,17 +351,17 @@
             this.btnRemoveSubprogram = new System.Windows.Forms.Button();
             this.btnAddNewSubprogram = new System.Windows.Forms.Button();
             this.btnRemoveProgram = new System.Windows.Forms.Button();
-            this.checkBox13 = new System.Windows.Forms.CheckBox();
-            this.checkBox12 = new System.Windows.Forms.CheckBox();
-            this.checkBox11 = new System.Windows.Forms.CheckBox();
-            this.checkBox10 = new System.Windows.Forms.CheckBox();
-            this.checkBox9 = new System.Windows.Forms.CheckBox();
+            this.cBoxVent = new System.Windows.Forms.CheckBox();
+            this.cBoxPurge = new System.Windows.Forms.CheckBox();
+            this.cBoxPower = new System.Windows.Forms.CheckBox();
+            this.cBoxGas = new System.Windows.Forms.CheckBox();
+            this.cBoxPump = new System.Windows.Forms.CheckBox();
             this.label153 = new System.Windows.Forms.Label();
             this.btnAddNewProgram = new System.Windows.Forms.Button();
-            this.textBox21 = new System.Windows.Forms.TextBox();
+            this.tBoxNameSubprogram = new System.Windows.Forms.TextBox();
             this.label79 = new System.Windows.Forms.Label();
-            this.txtBoxProgramDescription = new System.Windows.Forms.TextBox();
-            this.txtBoxNameProgram = new System.Windows.Forms.TextBox();
+            this.tBoxDescProgram = new System.Windows.Forms.TextBox();
+            this.tBoxNameProgram = new System.Windows.Forms.TextBox();
             this.label77 = new System.Windows.Forms.Label();
             this.label76 = new System.Windows.Forms.Label();
             this.label69 = new System.Windows.Forms.Label();
@@ -377,15 +369,24 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.treeViewPr = new System.Windows.Forms.TreeView();
+            this.treeViewProgram = new System.Windows.Forms.TreeView();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.label78 = new System.Windows.Forms.Label();
-            this.textBox17 = new System.Windows.Forms.TextBox();
+            this.tBoxDescSubprgoram = new System.Windows.Forms.TextBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.programsConfigPanel = new HPT_1000.GUI.ProgramsConfig();
             radioButton1 = new System.Windows.Forms.RadioButton();
             radioButton2 = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
@@ -398,14 +399,6 @@
             this.panel12.SuspendLayout();
             this.panel11.SuspendLayout();
             this.panel10.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -429,10 +422,19 @@
             this.tabPage10.SuspendLayout();
             this.tabPage11.SuspendLayout();
             this.panel17.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // radioButton1
@@ -1485,60 +1487,6 @@
             this.label38.Text = "GENERATOR";
             this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pictureBox8
-            // 
-            this.pictureBox8.Image = global::HPT_100.Properties.Resources.Line;
-            this.pictureBox8.Location = new System.Drawing.Point(167, 441);
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(8, 120);
-            this.pictureBox8.TabIndex = 37;
-            this.pictureBox8.TabStop = false;
-            // 
-            // pictureBox7
-            // 
-            this.pictureBox7.Image = global::HPT_100.Properties.Resources.Line;
-            this.pictureBox7.Location = new System.Drawing.Point(64, 441);
-            this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(9, 120);
-            this.pictureBox7.TabIndex = 36;
-            this.pictureBox7.TabStop = false;
-            // 
-            // pictureBox6
-            // 
-            this.pictureBox6.Image = global::HPT_100.Properties.Resources.ForePump;
-            this.pictureBox6.Location = new System.Drawing.Point(234, 500);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(84, 70);
-            this.pictureBox6.TabIndex = 35;
-            this.pictureBox6.TabStop = false;
-            // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox5.Image")));
-            this.pictureBox5.Location = new System.Drawing.Point(447, 398);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(30, 50);
-            this.pictureBox5.TabIndex = 34;
-            this.pictureBox5.TabStop = false;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
-            this.pictureBox4.Location = new System.Drawing.Point(261, 395);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(30, 50);
-            this.pictureBox4.TabIndex = 33;
-            this.pictureBox4.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(158, 393);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(30, 50);
-            this.pictureBox3.TabIndex = 32;
-            this.pictureBox3.TabStop = false;
-            // 
             // label37
             // 
             this.label37.AutoSize = true;
@@ -1560,26 +1508,6 @@
             this.label36.Size = new System.Drawing.Size(64, 17);
             this.label36.TabIndex = 29;
             this.label36.Text = "Purging";
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(167, 197);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(310, 170);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 1;
-            this.pictureBox2.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(55, 393);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(30, 50);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // groupBox1
             // 
@@ -3503,55 +3431,55 @@
             this.btnRemoveProgram.Text = "Remove Program";
             this.btnRemoveProgram.UseVisualStyleBackColor = true;
             // 
-            // checkBox13
+            // cBoxVent
             // 
-            this.checkBox13.AutoSize = true;
-            this.checkBox13.Location = new System.Drawing.Point(49, 405);
-            this.checkBox13.Name = "checkBox13";
-            this.checkBox13.Size = new System.Drawing.Size(78, 21);
-            this.checkBox13.TabIndex = 40;
-            this.checkBox13.Text = "Venting";
-            this.checkBox13.UseVisualStyleBackColor = true;
+            this.cBoxVent.AutoSize = true;
+            this.cBoxVent.Location = new System.Drawing.Point(49, 405);
+            this.cBoxVent.Name = "cBoxVent";
+            this.cBoxVent.Size = new System.Drawing.Size(78, 21);
+            this.cBoxVent.TabIndex = 40;
+            this.cBoxVent.Text = "Venting";
+            this.cBoxVent.UseVisualStyleBackColor = true;
             // 
-            // checkBox12
+            // cBoxPurge
             // 
-            this.checkBox12.AutoSize = true;
-            this.checkBox12.Location = new System.Drawing.Point(49, 377);
-            this.checkBox12.Name = "checkBox12";
-            this.checkBox12.Size = new System.Drawing.Size(83, 21);
-            this.checkBox12.TabIndex = 39;
-            this.checkBox12.Text = "Flushing";
-            this.checkBox12.UseVisualStyleBackColor = true;
+            this.cBoxPurge.AutoSize = true;
+            this.cBoxPurge.Location = new System.Drawing.Point(49, 377);
+            this.cBoxPurge.Name = "cBoxPurge";
+            this.cBoxPurge.Size = new System.Drawing.Size(68, 21);
+            this.cBoxPurge.TabIndex = 39;
+            this.cBoxPurge.Text = "Purge";
+            this.cBoxPurge.UseVisualStyleBackColor = true;
             // 
-            // checkBox11
+            // cBoxPower
             // 
-            this.checkBox11.AutoSize = true;
-            this.checkBox11.Location = new System.Drawing.Point(49, 350);
-            this.checkBox11.Name = "checkBox11";
-            this.checkBox11.Size = new System.Drawing.Size(122, 21);
-            this.checkBox11.TabIndex = 38;
-            this.checkBox11.Text = "Power supplay";
-            this.checkBox11.UseVisualStyleBackColor = true;
+            this.cBoxPower.AutoSize = true;
+            this.cBoxPower.Location = new System.Drawing.Point(49, 350);
+            this.cBoxPower.Name = "cBoxPower";
+            this.cBoxPower.Size = new System.Drawing.Size(122, 21);
+            this.cBoxPower.TabIndex = 38;
+            this.cBoxPower.Text = "Power supplay";
+            this.cBoxPower.UseVisualStyleBackColor = true;
             // 
-            // checkBox10
+            // cBoxGas
             // 
-            this.checkBox10.AutoSize = true;
-            this.checkBox10.Location = new System.Drawing.Point(49, 323);
-            this.checkBox10.Name = "checkBox10";
-            this.checkBox10.Size = new System.Drawing.Size(109, 21);
-            this.checkBox10.TabIndex = 37;
-            this.checkBox10.Text = "Gas supplay";
-            this.checkBox10.UseVisualStyleBackColor = true;
+            this.cBoxGas.AutoSize = true;
+            this.cBoxGas.Location = new System.Drawing.Point(49, 323);
+            this.cBoxGas.Name = "cBoxGas";
+            this.cBoxGas.Size = new System.Drawing.Size(109, 21);
+            this.cBoxGas.TabIndex = 37;
+            this.cBoxGas.Text = "Gas supplay";
+            this.cBoxGas.UseVisualStyleBackColor = true;
             // 
-            // checkBox9
+            // cBoxPump
             // 
-            this.checkBox9.AutoSize = true;
-            this.checkBox9.Location = new System.Drawing.Point(49, 294);
-            this.checkBox9.Name = "checkBox9";
-            this.checkBox9.Size = new System.Drawing.Size(122, 21);
-            this.checkBox9.TabIndex = 36;
-            this.checkBox9.Text = "Pumping down";
-            this.checkBox9.UseVisualStyleBackColor = true;
+            this.cBoxPump.AutoSize = true;
+            this.cBoxPump.Location = new System.Drawing.Point(49, 294);
+            this.cBoxPump.Name = "cBoxPump";
+            this.cBoxPump.Size = new System.Drawing.Size(122, 21);
+            this.cBoxPump.TabIndex = 36;
+            this.cBoxPump.Text = "Pumping down";
+            this.cBoxPump.UseVisualStyleBackColor = true;
             // 
             // label153
             // 
@@ -3573,12 +3501,12 @@
             this.btnAddNewProgram.UseVisualStyleBackColor = true;
             this.btnAddNewProgram.Click += new System.EventHandler(this.btnAddNewProgram_Click);
             // 
-            // textBox21
+            // tBoxNameSubprogram
             // 
-            this.textBox21.Location = new System.Drawing.Point(28, 67);
-            this.textBox21.Name = "textBox21";
-            this.textBox21.Size = new System.Drawing.Size(270, 22);
-            this.textBox21.TabIndex = 33;
+            this.tBoxNameSubprogram.Location = new System.Drawing.Point(28, 67);
+            this.tBoxNameSubprogram.Name = "tBoxNameSubprogram";
+            this.tBoxNameSubprogram.Size = new System.Drawing.Size(270, 22);
+            this.tBoxNameSubprogram.TabIndex = 33;
             // 
             // label79
             // 
@@ -3590,20 +3518,20 @@
             this.label79.TabIndex = 32;
             this.label79.Text = "Name:";
             // 
-            // txtBoxProgramDescription
+            // tBoxDescProgram
             // 
-            this.txtBoxProgramDescription.Location = new System.Drawing.Point(30, 125);
-            this.txtBoxProgramDescription.Multiline = true;
-            this.txtBoxProgramDescription.Name = "txtBoxProgramDescription";
-            this.txtBoxProgramDescription.Size = new System.Drawing.Size(270, 94);
-            this.txtBoxProgramDescription.TabIndex = 29;
+            this.tBoxDescProgram.Location = new System.Drawing.Point(30, 125);
+            this.tBoxDescProgram.Multiline = true;
+            this.tBoxDescProgram.Name = "tBoxDescProgram";
+            this.tBoxDescProgram.Size = new System.Drawing.Size(270, 94);
+            this.tBoxDescProgram.TabIndex = 29;
             // 
-            // txtBoxNameProgram
+            // tBoxNameProgram
             // 
-            this.txtBoxNameProgram.Location = new System.Drawing.Point(30, 57);
-            this.txtBoxNameProgram.Name = "txtBoxNameProgram";
-            this.txtBoxNameProgram.Size = new System.Drawing.Size(270, 22);
-            this.txtBoxNameProgram.TabIndex = 28;
+            this.tBoxNameProgram.Location = new System.Drawing.Point(30, 57);
+            this.tBoxNameProgram.Name = "tBoxNameProgram";
+            this.tBoxNameProgram.Size = new System.Drawing.Size(270, 22);
+            this.tBoxNameProgram.TabIndex = 28;
             // 
             // label77
             // 
@@ -3640,6 +3568,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.programsConfigPanel);
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -3689,44 +3618,45 @@
             this.tabPage6.Text = "Mainteances";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
-            // treeViewPr
+            // treeViewProgram
             // 
-            this.treeViewPr.ImageIndex = 7;
-            this.treeViewPr.ImageList = this.imageList1;
-            this.treeViewPr.Location = new System.Drawing.Point(6, 22);
-            this.treeViewPr.Name = "treeViewPr";
-            treeNode1.ImageIndex = 3;
-            treeNode1.Name = "Node1";
-            treeNode1.Text = "Node1";
-            treeNode2.ImageIndex = 4;
-            treeNode2.Name = "Node4";
-            treeNode2.Text = "Node4";
-            treeNode3.ImageIndex = 1;
-            treeNode3.Name = "Node3";
-            treeNode3.Text = "Subprograms";
-            treeNode4.Name = "Node0";
-            treeNode4.Text = "Program 1";
-            treeNode5.Name = "Node11";
-            treeNode5.Text = "Node11";
-            treeNode6.ImageIndex = 1;
-            treeNode6.Name = "Node10";
-            treeNode6.Text = "Subprograms";
-            treeNode7.Name = "Node9";
-            treeNode7.Text = "Program 2";
-            treeNode8.Name = "Node2";
-            treeNode8.Text = "Programs list";
-            this.treeViewPr.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode8});
-            this.treeViewPr.SelectedImageIndex = 7;
-            this.treeViewPr.Size = new System.Drawing.Size(246, 568);
-            this.treeViewPr.TabIndex = 45;
+            this.treeViewProgram.ImageIndex = 7;
+            this.treeViewProgram.ImageList = this.imageList1;
+            this.treeViewProgram.Location = new System.Drawing.Point(6, 22);
+            this.treeViewProgram.Name = "treeViewProgram";
+            treeNode9.ImageIndex = 3;
+            treeNode9.Name = "Node1";
+            treeNode9.Text = "Node1";
+            treeNode10.ImageIndex = 4;
+            treeNode10.Name = "Node4";
+            treeNode10.Text = "Node4";
+            treeNode11.ImageIndex = 1;
+            treeNode11.Name = "Node3";
+            treeNode11.Text = "Subprograms";
+            treeNode12.Name = "Node0";
+            treeNode12.Text = "Program 1";
+            treeNode13.Name = "Node11";
+            treeNode13.Text = "Node11";
+            treeNode14.ImageIndex = 1;
+            treeNode14.Name = "Node10";
+            treeNode14.Text = "Subprograms";
+            treeNode15.Name = "Node9";
+            treeNode15.Text = "Program 2";
+            treeNode16.Name = "Node2";
+            treeNode16.Text = "Programs list";
+            this.treeViewProgram.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode16});
+            this.treeViewProgram.SelectedImageIndex = 7;
+            this.treeViewProgram.Size = new System.Drawing.Size(246, 568);
+            this.treeViewProgram.TabIndex = 45;
+            this.treeViewProgram.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewProgram_AfterSelect);
             // 
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.label76);
             this.groupBox8.Controls.Add(this.label77);
-            this.groupBox8.Controls.Add(this.txtBoxNameProgram);
-            this.groupBox8.Controls.Add(this.txtBoxProgramDescription);
+            this.groupBox8.Controls.Add(this.tBoxNameProgram);
+            this.groupBox8.Controls.Add(this.tBoxDescProgram);
             this.groupBox8.Location = new System.Drawing.Point(260, 22);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(306, 229);
@@ -3737,15 +3667,15 @@
             // groupBox9
             // 
             this.groupBox9.Controls.Add(this.label78);
-            this.groupBox9.Controls.Add(this.textBox17);
+            this.groupBox9.Controls.Add(this.tBoxDescSubprgoram);
             this.groupBox9.Controls.Add(this.label79);
-            this.groupBox9.Controls.Add(this.textBox21);
+            this.groupBox9.Controls.Add(this.tBoxNameSubprogram);
             this.groupBox9.Controls.Add(this.label153);
-            this.groupBox9.Controls.Add(this.checkBox9);
-            this.groupBox9.Controls.Add(this.checkBox10);
-            this.groupBox9.Controls.Add(this.checkBox11);
-            this.groupBox9.Controls.Add(this.checkBox13);
-            this.groupBox9.Controls.Add(this.checkBox12);
+            this.groupBox9.Controls.Add(this.cBoxPump);
+            this.groupBox9.Controls.Add(this.cBoxGas);
+            this.groupBox9.Controls.Add(this.cBoxPower);
+            this.groupBox9.Controls.Add(this.cBoxVent);
+            this.groupBox9.Controls.Add(this.cBoxPurge);
             this.groupBox9.Location = new System.Drawing.Point(262, 255);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(304, 447);
@@ -3763,17 +3693,17 @@
             this.label78.TabIndex = 41;
             this.label78.Text = "Description:";
             // 
-            // textBox17
+            // tBoxDescSubprgoram
             // 
-            this.textBox17.Location = new System.Drawing.Point(28, 128);
-            this.textBox17.Multiline = true;
-            this.textBox17.Name = "textBox17";
-            this.textBox17.Size = new System.Drawing.Size(270, 116);
-            this.textBox17.TabIndex = 42;
+            this.tBoxDescSubprgoram.Location = new System.Drawing.Point(28, 128);
+            this.tBoxDescSubprgoram.Multiline = true;
+            this.tBoxDescSubprgoram.Name = "tBoxDescSubprgoram";
+            this.tBoxDescSubprgoram.Size = new System.Drawing.Size(270, 116);
+            this.tBoxDescSubprgoram.TabIndex = 42;
             // 
             // groupBox10
             // 
-            this.groupBox10.Controls.Add(this.treeViewPr);
+            this.groupBox10.Controls.Add(this.treeViewProgram);
             this.groupBox10.Controls.Add(this.groupBox9);
             this.groupBox10.Controls.Add(this.btnRemoveSubprogram);
             this.groupBox10.Controls.Add(this.groupBox8);
@@ -3796,11 +3726,11 @@
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4,
-            listViewItem5});
+            listViewItem6,
+            listViewItem7,
+            listViewItem8,
+            listViewItem9,
+            listViewItem10});
             this.listView1.Location = new System.Drawing.Point(5, 40);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
@@ -3818,6 +3748,89 @@
             // 
             this.columnHeader2.Text = "Status";
             this.columnHeader2.Width = 88;
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.Image = global::HPT_100.Properties.Resources.Line;
+            this.pictureBox8.Location = new System.Drawing.Point(167, 441);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(8, 120);
+            this.pictureBox8.TabIndex = 37;
+            this.pictureBox8.TabStop = false;
+            // 
+            // pictureBox7
+            // 
+            this.pictureBox7.Image = global::HPT_100.Properties.Resources.Line;
+            this.pictureBox7.Location = new System.Drawing.Point(64, 441);
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.Size = new System.Drawing.Size(9, 120);
+            this.pictureBox7.TabIndex = 36;
+            this.pictureBox7.TabStop = false;
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Image = global::HPT_100.Properties.Resources.ForePump;
+            this.pictureBox6.Location = new System.Drawing.Point(234, 500);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(84, 70);
+            this.pictureBox6.TabIndex = 35;
+            this.pictureBox6.TabStop = false;
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox5.Image")));
+            this.pictureBox5.Location = new System.Drawing.Point(447, 398);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(30, 50);
+            this.pictureBox5.TabIndex = 34;
+            this.pictureBox5.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
+            this.pictureBox4.Location = new System.Drawing.Point(261, 395);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(30, 50);
+            this.pictureBox4.TabIndex = 33;
+            this.pictureBox4.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(158, 393);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(30, 50);
+            this.pictureBox3.TabIndex = 32;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(167, 197);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(310, 170);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 1;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(55, 393);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(30, 50);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
+            // programsConfigPanel
+            // 
+            this.programsConfigPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.programsConfigPanel.HPT1000 = null;
+            this.programsConfigPanel.Location = new System.Drawing.Point(3, 3);
+            this.programsConfigPanel.Name = "programsConfigPanel";
+            this.programsConfigPanel.Size = new System.Drawing.Size(1692, 736);
+            this.programsConfigPanel.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -3845,14 +3858,6 @@
             this.panel11.PerformLayout();
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
@@ -3895,6 +3900,7 @@
             this.tabPage11.ResumeLayout(false);
             this.tabPage11.PerformLayout();
             this.panel17.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             this.groupBox8.ResumeLayout(false);
@@ -3902,6 +3908,14 @@
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             this.groupBox10.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -4075,10 +4089,10 @@
         private System.Windows.Forms.TabPage tabPage10;
         private System.Windows.Forms.TabPage tabPage11;
         private System.Windows.Forms.Panel panel17;
-        private System.Windows.Forms.TextBox textBox21;
+        private System.Windows.Forms.TextBox tBoxNameSubprogram;
         private System.Windows.Forms.Label label79;
-        private System.Windows.Forms.TextBox txtBoxProgramDescription;
-        private System.Windows.Forms.TextBox txtBoxNameProgram;
+        private System.Windows.Forms.TextBox tBoxDescProgram;
+        private System.Windows.Forms.TextBox tBoxNameProgram;
         private System.Windows.Forms.Label label77;
         private System.Windows.Forms.Label label76;
         private System.Windows.Forms.Label label69;
@@ -4223,22 +4237,23 @@
         private System.Windows.Forms.Button btnRemoveSubprogram;
         private System.Windows.Forms.Button btnAddNewSubprogram;
         private System.Windows.Forms.Button btnRemoveProgram;
-        private System.Windows.Forms.CheckBox checkBox13;
-        private System.Windows.Forms.CheckBox checkBox12;
-        private System.Windows.Forms.CheckBox checkBox11;
-        private System.Windows.Forms.CheckBox checkBox10;
-        private System.Windows.Forms.CheckBox checkBox9;
+        private System.Windows.Forms.CheckBox cBoxVent;
+        private System.Windows.Forms.CheckBox cBoxPurge;
+        private System.Windows.Forms.CheckBox cBoxPower;
+        private System.Windows.Forms.CheckBox cBoxGas;
+        private System.Windows.Forms.CheckBox cBoxPump;
         private System.Windows.Forms.Label label153;
         private System.Windows.Forms.Button btnAddNewProgram;
-        private System.Windows.Forms.TreeView treeViewPr;
+        private System.Windows.Forms.TreeView treeViewProgram;
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.Label label78;
-        private System.Windows.Forms.TextBox textBox17;
+        private System.Windows.Forms.TextBox tBoxDescSubprgoram;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        private HPT_1000.GUI.ProgramsConfig programsConfigPanel;
     }
 }
 

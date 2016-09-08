@@ -29,8 +29,6 @@ namespace HPT1000.GUI
         {
             InitializeComponent();
 
-            RefreshTreeViewPrograms();
-
             programsConfigPanel.HPT1000 = hpt1000;
 
         //    listView1.Items.S Add()
@@ -85,84 +83,15 @@ namespace HPT1000.GUI
             Types.StateValve state = hpt1000.GetValve().GetState(Types.TypeValve.SV);
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
-        {
+   
 
-        }
+     
 
-        private void hScrollBar1_ValueChanged(object sender, EventArgs e)
-        {
-            textBox23.Text = (hScrollBar1.Value * 0.01).ToString();
-        }
 
-        private void panel17_Paint(object sender, PaintEventArgs e)
-        {
+   
 
-        }
-//Obsluga formatki dotyczaca konfigruacji programów
-        private void btnAddNewProgram_Click(object sender, EventArgs e)
-        {
-         /*   if (tBoxNameProgram.Text.Length > 0)
-            {
-                hpt1000.GetProgram().AddProgram();
-                RefreshTreeViewPrograms();
-            }
-            else
-                MessageBox.Show("File Name is empty. I can't add new program");
-           */
-        }
+     
 
-        private void RefreshTreeViewPrograms()
-        {
-            /*
-            treeViewProgram.Nodes.Clear();
-            TreeNode nodePrograms = new TreeNode("Programs", 1, 1);
-            foreach (Program pr in hpt1000.GetProgram().GetPrograms())
-            {
-                TreeNode nodeProgram    = new TreeNode(pr.GetName(),1,1);
-                TreeNode nodeSubprograms = new TreeNode("Subprograms", 2, 2);
-
-                foreach (Subprogram sub_pr in pr.GetSubPrograms())
-                {
-                    TreeNode nodeSubprogram = new TreeNode(sub_pr.GetName(), 3, 4);
-                    nodeSubprograms.Nodes.Add(nodeSubprogram);
-                }
-                nodeProgram.Nodes.Add(nodeSubprograms);
-                nodePrograms.Nodes.Add(nodeProgram);
-            }
-            treeViewProgram.Nodes.Add(nodePrograms);
-            */
-        }
-
-        private void listBoxPrograms_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void treeViewProgram_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            ClearProgramInfo();
-       //     Program program = 
-
-          //  Subprogram subProgram
-          //  TreeNode node = treeViewProgram.SelectedNode;
-            //Pokaz informacje na temat programu
-          //  node.Tag
-            //Pokaz informacje na temat subprogramu
-        }
-        void ClearProgramInfo()
-        {
-            tBoxDescProgram.Text        = "";
-            tBoxDescSubprgoram.Text     = "";
-            tBoxNameProgram.Text        = "";
-            tBoxNameSubprogram.Text     = "";
-
-            cBoxGas.Checked     = false;
-            cBoxPower.Checked   = false;
-            cBoxPurge.Checked   = false;
-            cBoxVent.Checked    = false;
-            cBoxPump.Checked    = false;
-
-        }
+       
     }
 }

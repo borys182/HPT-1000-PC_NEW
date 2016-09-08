@@ -12,17 +12,17 @@ using HPT1000.Source.Chamber;
 using HPT1000.Source.Program;
 using HPT1000.Source;
 
-namespace HPT_1000.GUI
-{ 
-     public partial class ProgramsConfig : UserControl
+namespace HPT1000.GUI
+{
+    public partial class ProgramsConfigPanel : UserControl
     {
         private HPT1000.Source.Driver.HPT1000 hpt1000 = null;
 
         private static Color backGradientStartColor = Color.FromArgb(50, 130, 50);
-        private static Color backGradientEndColor   = Color.FromArgb(150, 255, 100);
-        
-  //--------------------------------------------------------------------------------------------------------------------------------------
-        public ProgramsConfig()
+        private static Color backGradientEndColor = Color.FromArgb(150, 255, 100);
+
+        //--------------------------------------------------------------------------------------------------------------------------------------
+        public ProgramsConfigPanel()
         {
             InitializeComponent();
 
@@ -31,35 +31,36 @@ namespace HPT_1000.GUI
             treeViewProgram.Nodes.Clear();
             RefreshTreeViewPrograms();
         }
-  //--------------------------------------------------------------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------------------------------------------------------------
         public HPT1000.Source.Driver.HPT1000 HPT1000
         {
             set { hpt1000 = value; }
             get { return hpt1000; }
         }
-  //--------------------------------------------------------------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------------------------------------------------------------
         protected override void OnPaint(PaintEventArgs e)
         {
-     /*       if (Width <= 0 || Height <= 0)
-                return;
-            Graphics g = e.Graphics;
-            Brush backBr = new System.Drawing.Drawing2D.LinearGradientBrush(new RectangleF(0, 0, Width, Height),
-                backGradientStartColor, backGradientEndColor,
-                System.Drawing.Drawing2D.LinearGradientMode.BackwardDiagonal);
-            g.FillRectangle(backBr, 0, 0, Width, Height);
-            backBr.Dispose();
-      */  }
+            /*       if (Width <= 0 || Height <= 0)
+                       return;
+                   Graphics g = e.Graphics;
+                   Brush backBr = new System.Drawing.Drawing2D.LinearGradientBrush(new RectangleF(0, 0, Width, Height),
+                       backGradientStartColor, backGradientEndColor,
+                       System.Drawing.Drawing2D.LinearGradientMode.BackwardDiagonal);
+                   g.FillRectangle(backBr, 0, 0, Width, Height);
+                   backBr.Dispose();
+             */
+        }
         //--------------------------------------------------------------------------------------------------------------------------------------
         //Odświez dane w drzewie na temat aktuanych programow i subprogramow. Jezeli czegos brakuje to dodaj i zaktualizuj nazwe
         private void RefreshTreeViewPrograms()
         {
             TreeNode nodePrograms = null;
-            bool aExistProgram      = false;
-            bool aExistSubprogram   = false;
+            bool aExistProgram = false;
+            bool aExistSubprogram = false;
             //Jezeli nie istnieje zaden wezel to dodaj pierwszy
             if (treeViewProgram.Nodes.Count == 0)
                 treeViewProgram.Nodes.Add("Programs list", "Programs list", 0, 0);
-            if(treeViewProgram.Nodes.Count > 0)
+            if (treeViewProgram.Nodes.Count > 0)
                 nodePrograms = treeViewProgram.Nodes[0];
 
             if (hpt1000 != null && nodePrograms != null)
@@ -71,7 +72,7 @@ namespace HPT_1000.GUI
                     if (IsTreeViewContainsObject(pr))
                     {
                         nodeProgram = GetNodeContainsObject(pr);
-                        if(nodeProgram != null)
+                        if (nodeProgram != null)
                             nodeProgram.Text = pr.GetName();
                         aExistProgram = true;
                     }
@@ -86,22 +87,22 @@ namespace HPT_1000.GUI
                         aExistSubprogram = false;
                         if (IsTreeViewContainsObject(sub_pr))
                         {
-                            nodeSubprogram      = GetNodeContainsObject(sub_pr);
-                            if(nodeSubprogram != null)
+                            nodeSubprogram = GetNodeContainsObject(sub_pr);
+                            if (nodeSubprogram != null)
                                 nodeSubprogram.Text = sub_pr.GetName();
                             aExistSubprogram = true;
-                        } 
+                        }
                         else
                         {
                             nodeSubprogram = new TreeNode(sub_pr.GetName(), 2, 2);
                             nodeSubprogram.Tag = sub_pr;
                         }
-                        if(nodeProgram != null && !aExistSubprogram)
+                        if (nodeProgram != null && !aExistSubprogram)
                             nodeProgram.Nodes.Add(nodeSubprogram);
                     }
-                    if(nodePrograms != null && !aExistProgram)
+                    if (nodePrograms != null && !aExistProgram)
                         nodePrograms.Nodes.Add(nodeProgram);
-                }                
+                }
             }
             RemoveEmptyNode();//usn wezly nie powiazane juz z zadnym obiektem
         }
@@ -169,15 +170,15 @@ namespace HPT_1000.GUI
         //--------------------------------------------------------------------------------------------------------------------------------------
         private TreeNode GetNodeContainsObject(object aObj)
         {
-            TreeNode node= null;
+            TreeNode node = null;
 
             if (treeViewProgram.Nodes.Count > 0)
                 node = GetNode(treeViewProgram.Nodes[0], aObj);
-            
+
             return node;
         }
         //--------------------------------------------------------------------------------------------------------------------------------------
-        TreeNode GetNode(TreeNode nodeIn,object aObj)
+        TreeNode GetNode(TreeNode nodeIn, object aObj)
         {
             TreeNode nodeRes = null;
             //sprawdz czy sam go nie mam
@@ -193,22 +194,22 @@ namespace HPT_1000.GUI
                         break;
                     }
                     else
-                        if(nodeRes == null)//jezeli jeszcze nie znalazlem to szukaj dalej
-                            nodeRes = GetNode(node, aObj);
+                        if (nodeRes == null)//jezeli jeszcze nie znalazlem to szukaj dalej
+                        nodeRes = GetNode(node, aObj);
                 }
-            }       
+            }
             return nodeRes;
         }
         //--------------------------------------------------------------------------------------------------------------------------------------
         private void treeViewProgram_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            TreeNode    node        = treeViewProgram.SelectedNode;
-            Program     program     = null;
-            Subprogram  subProgram  = null;
+            TreeNode node = treeViewProgram.SelectedNode;
+            Program program = null;
+            Subprogram subProgram = null;
 
             ClearProgramInfo();
             HideButton();
-           //zaznaczono program
+            //zaznaczono program
             if (node.Parent != null && node.Parent.Parent == null)
             {
                 program = (Program)node.Tag;
@@ -217,12 +218,12 @@ namespace HPT_1000.GUI
             //zaznaczono subprogram
             if (node.Parent != null && node.Parent.Parent != null && node.Parent.Parent.Parent == null)
             {
-                program     = (Program)node.Parent.Tag;
-                subProgram  = (Subprogram)node.Tag;
+                program = (Program)node.Parent.Tag;
+                subProgram = (Subprogram)node.Tag;
                 btnRemoveSubprogram.Enabled = true;
             }
             //Wyswietl info na temat programu
-            if(program != null)
+            if (program != null)
             {
                 tBoxNameProgram.Text = program.GetName();
                 tBoxDescProgram.Text = program.GetDescription();
@@ -283,16 +284,16 @@ namespace HPT_1000.GUI
         //--------------------------------------------------------------------------------------------------------------------------------------
         void ClearProgramInfo()
         {
-            tBoxDescProgram.Text    = "";
+            tBoxDescProgram.Text = "";
             tBoxDescSubprgoram.Text = "";
-            tBoxNameProgram.Text    = "";
+            tBoxNameProgram.Text = "";
             tBoxNameSubprogram.Text = "";
 
-            cBoxGas.Checked         = false;
-            cBoxPower.Checked       = false;
-            cBoxPurge.Checked       = false;
-            cBoxVent.Checked        = false;
-            cBoxPump.Checked        = false;
+            cBoxGas.Checked = false;
+            cBoxPower.Checked = false;
+            cBoxPurge.Checked = false;
+            cBoxVent.Checked = false;
+            cBoxPump.Checked = false;
 
             foreach (Control ctr in grBoxProgram.Controls)
                 ctr.Enabled = false;
@@ -305,10 +306,10 @@ namespace HPT_1000.GUI
         //--------------------------------------------------------------------------------------------------------------------------------------
         void HideButton()
         {
-          //  btnAddNewProgram.Enabled        = false;
-            btnAddNewSubprogram.Enabled     = false;
-            btnRemoveProgram.Enabled        = false;
-            btnRemoveSubprogram.Enabled     = false;
+            //  btnAddNewProgram.Enabled        = false;
+            btnAddNewSubprogram.Enabled = false;
+            btnRemoveProgram.Enabled = false;
+            btnRemoveSubprogram.Enabled = false;
         }
         //--------------------------------------------------------------------------------------------------------------------------------------
         private void btnAddNewProgram_Click(object sender, EventArgs e)
@@ -321,14 +322,14 @@ namespace HPT_1000.GUI
         private void btnAddNewSubprogram_Click(object sender, EventArgs e)
         {
             Program program = null;
-            TreeNode node   = treeViewProgram.SelectedNode;
+            TreeNode node = treeViewProgram.SelectedNode;
 
             program = GetProgram();
-           
+
             if (program != null)
                 program.AddSubprogram();
             else
-                MessageBox.Show(Translate.GetText("Nie wybrano wezla programu",Language.EN), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Translate.GetText("Nie wybrano wezla programu", Language.EN), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             RefreshTreeViewPrograms();
         }
@@ -357,11 +358,11 @@ namespace HPT_1000.GUI
             }
             return subPrgoram;
         }
-       //--------------------------------------------------------------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------------------------------------------------------------
         //Ustaw odpowiedie dostepne checkboxy oraz ustaw dane w subprogramie
         private void cBoxProcess_CheckedChanged(object sender, EventArgs e)
         {
-                  
+
         }
         //--------------------------------------------------------------------------------------------------------------------------------------
         private void tBoxNameProgram_KeyUp(object sender, KeyEventArgs e)
@@ -405,7 +406,7 @@ namespace HPT_1000.GUI
 
             if (program == null)
                 MessageBox.Show(Translate.GetText("Nie wybrano wezla programu", Language.EN), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            
+
             if (hpt1000.RemoveProgram(program))
                 MessageBox.Show(Translate.GetText("Program zostal poprawnie usuniety", Language.EN), "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
@@ -416,12 +417,12 @@ namespace HPT_1000.GUI
         //--------------------------------------------------------------------------------------------------------------------------------------
         private void btnRemoveSubprogram_Click(object sender, EventArgs e)
         {
-            Program     program = null;
-            Subprogram  subProgram = null;
+            Program program = null;
+            Subprogram subProgram = null;
             TreeNode node = treeViewProgram.SelectedNode;
 
-            program     = GetProgram();
-            subProgram  = GetSubprogram();
+            program = GetProgram();
+            subProgram = GetSubprogram();
 
             if (subProgram == null || program == null)
                 MessageBox.Show(Translate.GetText("Nie wybrano wezla sub-programu", Language.EN), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

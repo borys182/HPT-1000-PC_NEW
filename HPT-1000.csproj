@@ -7,8 +7,8 @@
     <ProjectGuid>{B15A41F6-CD06-42ED-85D8-D4D1C7A41855}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HPT_100</RootNamespace>
-    <AssemblyName>HPT-100</AssemblyName>
+    <RootNamespace>HPT1000</RootNamespace>
+    <AssemblyName>HPT-1000</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -46,6 +46,10 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ActSupportMsgLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9a04c259fe1fad37, processorArchitecture=MSIL">

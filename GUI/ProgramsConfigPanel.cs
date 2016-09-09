@@ -27,6 +27,7 @@ namespace HPT1000.GUI
             InitializeComponent();
 
             HideButton();
+            HideProgramComponent();
             ClearProgramInfo();
             treeViewProgram.Nodes.Clear();
             RefreshTreeViewPrograms();
@@ -312,6 +313,15 @@ namespace HPT1000.GUI
             btnRemoveSubprogram.Enabled = false;
         }
         //--------------------------------------------------------------------------------------------------------------------------------------
+        void HideProgramComponent()
+        {
+            grBoxGas.Enabled    = false;
+            grBoxPlasma.Enabled = false;
+            grBoxPump.Enabled   = false;
+            grBoxPurge.Enabled  = false;
+            grBoxVent.Enabled   = false;
+        }
+        //--------------------------------------------------------------------------------------------------------------------------------------
         private void btnAddNewProgram_Click(object sender, EventArgs e)
         {
             if (hpt1000 != null)
@@ -362,6 +372,11 @@ namespace HPT1000.GUI
         //Ustaw odpowiedie dostepne checkboxy oraz ustaw dane w subprogramie
         private void cBoxProcess_CheckedChanged(object sender, EventArgs e)
         {
+            grBoxGas.Enabled    = cBoxGas.Checked;
+            grBoxPlasma.Enabled = cBoxPower.Checked;
+            grBoxPump.Enabled   = cBoxPump.Checked;
+            grBoxPurge.Enabled  = cBoxPurge.Checked;
+            grBoxVent.Enabled   = cBoxVent.Checked;
 
         }
         //--------------------------------------------------------------------------------------------------------------------------------------
@@ -434,20 +449,19 @@ namespace HPT1000.GUI
 
             RefreshTreeViewPrograms();
         }
-
+        //-------------------------------------------------------------------------------------------------------------------------------------
         private void cBoxProcess_Click(object sender, EventArgs e)
         {
             Subprogram subProgram = GetSubprogram();
             if (subProgram != null)
             {
-                if (subProgram.PumpProces != null) subProgram.PumpProces.Active = cBoxPump.Checked;
-                if (subProgram.GasProces != null) subProgram.GasProces.Active = cBoxGas.Checked;
-                if (subProgram.PlasmaProces != null) subProgram.PlasmaProces.Active = cBoxPower.Checked;
-                if (subProgram.PurgeProces != null) subProgram.PurgeProces.Active = cBoxPurge.Checked;
-                if (subProgram.VentProces != null) subProgram.VentProces.Active = cBoxVent.Checked;
+                if (subProgram.PumpProces != null)      subProgram.PumpProces.Active   = cBoxPump.Checked;
+                if (subProgram.GasProces != null)       subProgram.GasProces.Active    = cBoxGas.Checked;
+                if (subProgram.PlasmaProces != null)    subProgram.PlasmaProces.Active = cBoxPower.Checked;
+                if (subProgram.PurgeProces != null)     subProgram.PurgeProces.Active  = cBoxPurge.Checked;
+                if (subProgram.VentProces != null)      subProgram.VentProces.Active   = cBoxVent.Checked;
             }
         }
         //-------------------------------------------------------------------------------------------------------------------------------------
-
     }
 }

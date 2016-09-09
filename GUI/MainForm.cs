@@ -83,15 +83,9 @@ namespace HPT1000.GUI
             Types.StateValve state = hpt1000.GetValve().GetState(Types.TypeValve.SV);
         }
 
-   
+        private void groupBox3_Enter(object sender, EventArgs e)
+        {
 
-     
-
-
-   
-
-     
-
-       
+        }
     }
 }

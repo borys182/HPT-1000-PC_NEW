@@ -8,15 +8,23 @@ namespace HPT1000.Source.Program
 {
     public class PumpProces : ProcesObject
     {
-        private int     maxTimeWaitOnSetpoint   = 1800; //[s]
-        private double  setpointPressure        = 0.5; //[mBar]
+        private DateTime    timeWaitForPumpDown     = DateTime.Now; 
+        private double      setpointPressure        = 0.5; //[mBar]
         
+        public PumpProces()
+        {
+            //zeruja godziny/minuty/sekundy
+            timeWaitForPumpDown = DateTime.Now;
+            timeWaitForPumpDown = timeWaitForPumpDown.AddHours(-DateTime.Now.Hour);
+            timeWaitForPumpDown = timeWaitForPumpDown.AddMinutes(-DateTime.Now.Minute);
+            timeWaitForPumpDown = timeWaitForPumpDown.AddSeconds(-DateTime.Now.Second);
+        }
         override public void PrepareDataPLC(int[] aData)
         {
             if (active)
             {
                 aData[Types.OFFSET_SEQ_CMD]            |= (int)System.Math.Pow(2, Types.BIT_CMD_PUMP);
-                aData[Types.OFFSET_SEQ_PUMP_MAX_TIME]   = maxTimeWaitOnSetpoint;
+                aData[Types.OFFSET_SEQ_PUMP_MAX_TIME]   = timeWaitForPumpDown.Hour * 3600 + timeWaitForPumpDown.Minute * 60 + timeWaitForPumpDown.Second;
                 aData[Types.OFFSET_SEQ_PUMP_SP]         = Types.ConvertDOUBLEToInt(setpointPressure, Types.Word.HIGH); ;
                 aData[Types.OFFSET_SEQ_PUMP_SP + 1]     = Types.ConvertDOUBLEToInt(setpointPressure, Types.Word.LOW); ;
             }
@@ -31,13 +39,13 @@ namespace HPT1000.Source.Program
             return setpointPressure;
         }
 
-        public void SetTimeMax(int aTime)
+        public void SetTimeWaitForPumpDown(DateTime aTime)
         {
-            maxTimeWaitOnSetpoint = aTime;
+            timeWaitForPumpDown = aTime;
         }
-        public int GetTimeMax()
+        public DateTime GetTimeWaitForPumpDown()
         {
-            return maxTimeWaitOnSetpoint;
+            return timeWaitForPumpDown;
         }
     }
 }

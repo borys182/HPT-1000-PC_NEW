@@ -9,22 +9,30 @@ namespace HPT1000.Source.Program
 {
     public class FlushProces : ProcesObject
     {
-        private int timeFlush = 1800;   //czas przedmuchu podawany [s]
+        private DateTime timeFlush ;   //czas przedmuchu podawany [s]
 
+        public FlushProces()
+        {
+            //zeruja godziny/minuty/sekundy
+            timeFlush = DateTime.Now;
+            timeFlush = timeFlush.AddHours(-DateTime.Now.Hour);
+            timeFlush = timeFlush.AddMinutes(-DateTime.Now.Minute);
+            timeFlush = timeFlush.AddSeconds(-DateTime.Now.Second);
+        }
         override public void PrepareDataPLC(int[] aData)
         {
             if (active)
             {
                 aData[Types.BIT_CMD_FLUSH]          |= (int)System.Math.Pow(2, Types.BIT_CMD_FLUSH);
-                aData[Types.OFFSET_SEQ_FLUSH_TIME]   = timeFlush;
+                aData[Types.OFFSET_SEQ_FLUSH_TIME]   = timeFlush.Hour * 3600 + timeFlush.Minute * 60 + timeFlush.Second; 
             }
         }
 
-        public void SetTimeFlush(int aTime)
+        public void SetTimePurge(DateTime aTime)
         {
             timeFlush = aTime;
         }
-        public int GetTimeFlush()
+        public DateTime GetTimePurge()
         {
             return timeFlush;
         }

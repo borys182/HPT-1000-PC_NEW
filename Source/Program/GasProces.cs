@@ -21,11 +21,25 @@ namespace HPT1000.Source.Program
             public int      minGasFLow;     //min przeplyw gazu - po jego przekroczeniu zglaszaj blad
             public int      maxGasFLow;     //max przeplyw gazu - po jego przekroczeniu zglaszaj blad
             public int      shareGas;       //zmienna okresla udzial daneg gazu w kontrli prozni podczas uzywania gazów do kontrli zadanej prozni z udzialem regulatora PID
-            public int      maxDeviation;    //max odchylenie od zadanej wartosci udzialu danego gazu w procesie utrzymywania zadanej prozni w komorze
+            public int      maxDeviation;   //max odchylenie od zadanej wartosci udzialu danego gazu w procesie utrzymywania zadanej prozni w komorze
+            public int      gasLimitDown;   //min przeplyw jaki moze byc uzyskany przez przeplywke
+            public int      gasLimitUp;     //max przeplyw jaki moze byc uzyskany przez przeplywke
+
+            public FlowMeter(int aDiffer)
+            {
+                active          = false;
+                gasFlow         = 0;
+                minGasFLow      = 10;
+                maxGasFLow      = 300;
+                shareGas        = 0;
+                maxDeviation    = 0;
+                gasLimitDown    = 5;
+                gasLimitUp =     2000;
+            }
         };
 
         private Types.GasProcesMode modeGasProces       = Types.GasProcesMode.FlowSP;
-        private int                 timeDurationProces  = 0; //[s]
+        private DateTime            timeDurationProces  ; //[s]
         //sterowanie przeplywakami
         private FlowMeter[]         tabFlow = new FlowMeter[3];
         //sterowanie vaporatorem
@@ -37,6 +51,17 @@ namespace HPT1000.Source.Program
         private double minDeviationSP   = 0;
         private double maxDeviationSP   = 0;
 
+        public GasProces()
+        {
+            timeDurationProces = DateTime.Now;
+            timeDurationProces = timeDurationProces.AddHours(-DateTime.Now.Hour);
+            timeDurationProces = timeDurationProces.AddMinutes(-DateTime.Now.Minute);
+            timeDurationProces = timeDurationProces.AddSeconds(-DateTime.Now.Second);
+
+            tabFlow[0] = new FlowMeter(0);
+            tabFlow[1] = new FlowMeter(0);
+            tabFlow[2] = new FlowMeter(0);
+        }
 
         override public void PrepareDataPLC(int[] aData)
         {
@@ -77,7 +102,7 @@ namespace HPT1000.Source.Program
             }
 
             aData[Types.OFFSET_SEQ_GAS_MODE]        = (int)modeGasProces;
-            aData[Types.OFFSET_SEQ_GAS_TIME]        = timeDurationProces;
+            aData[Types.OFFSET_SEQ_GAS_TIME]        = timeDurationProces.Hour * 3600 + timeDurationProces.Minute * 60 + timeDurationProces.Second;
             aData[Types.OFFSET_SEQ_GAS_SETPOINT]    = Types.ConvertDOUBLEToInt(setpointPressure, Types.Word.HIGH);
             aData[Types.OFFSET_SEQ_GAS_SETPOINT]    = Types.ConvertDOUBLEToInt(setpointPressure, Types.Word.LOW);
 
@@ -88,14 +113,14 @@ namespace HPT1000.Source.Program
             aData[Types.OFFSET_SEQ_GAS_MAX_DIFFER] = Types.ConvertDOUBLEToInt(maxDeviationSP, Types.Word.LOW);
         }
 
-        private void SetActiveFlow(bool aActive, int AFlowNo)
+        public void SetActiveFlow(bool aActive, int AFlowNo)
         {
             if (AFlowNo == 1) tabFlow[0].active = aActive;
             if (AFlowNo == 2) tabFlow[1].active = aActive;
             if (AFlowNo == 3) tabFlow[2].active = aActive;
             if (AFlowNo == 4) activeVaporaitor  = aActive;
         }
-        private bool GetActiveFlow(int AFlowNo)
+        public bool GetActiveFlow(int AFlowNo)
         {
             bool aActive = false;
 
@@ -143,11 +168,11 @@ namespace HPT1000.Source.Program
             return aGasFlow;
         }
 
-        public void SetTimeProcesDuration(int aTimeProces)
+        public void SetTimeProcesDuration(DateTime aTimeProces)
         {
             timeDurationProces = aTimeProces;
         }
-        public int GetTimeProcesDUration(int aFlowNo)
+        public DateTime GetTimeProcesDuration()
         {
             return timeDurationProces;
         }
@@ -180,9 +205,9 @@ namespace HPT1000.Source.Program
         {
             int aMinFlow = 0;
 
-            if (aFlowNo == 1) aMinFlow = tabFlow[0].gasFlow;
-            if (aFlowNo == 2) aMinFlow = tabFlow[1].gasFlow;
-            if (aFlowNo == 3) aMinFlow = tabFlow[2].gasFlow;
+            if (aFlowNo == 1) aMinFlow = tabFlow[0].minGasFLow;
+            if (aFlowNo == 2) aMinFlow = tabFlow[1].minGasFLow;
+            if (aFlowNo == 3) aMinFlow = tabFlow[2].minGasFLow;
 
             return aMinFlow;
         }
@@ -264,6 +289,58 @@ namespace HPT1000.Source.Program
         public double GetMaxDeviationPresure()
         {
             return maxDeviationSP;
+        }
+
+        public void SetSetpointPressure(double aSetpoint)
+        {
+            setpointPressure = aSetpoint;
+        }
+        public double GetSetpointPressure()
+        {
+            return setpointPressure;
+        }
+
+        public void SetLimitDown(int aLimitDown, int aFlowNo)
+        {
+            if (aFlowNo == 1) tabFlow[0].gasLimitDown = aLimitDown;
+            if (aFlowNo == 2) tabFlow[1].gasLimitDown = aLimitDown;
+            if (aFlowNo == 3) tabFlow[2].gasLimitDown = aLimitDown;
+        }
+        public int GetLimitDown(int aFlowNo)
+        {
+            int aLimitDown = 0;
+
+            if (aFlowNo == 1) aLimitDown = 10;// tabFlow[0].gasLimitDown;
+            if (aFlowNo == 2) aLimitDown = 20;// tabFlow[1].gasLimitDown;
+            if (aFlowNo == 3) aLimitDown = 30;// tabFlow[2].gasLimitDown;
+
+            return aLimitDown;
+        }
+
+        public void SetLimitUp(int aLimitUp, int aFlowNo)
+        {
+            if (aFlowNo == 1) tabFlow[0].gasLimitUp = aLimitUp;
+            if (aFlowNo == 2) tabFlow[1].gasLimitUp = aLimitUp;
+            if (aFlowNo == 3) tabFlow[2].gasLimitUp = aLimitUp;
+        }
+        public int GetLimitUp(int aFlowNo)
+        {
+            int aLimitUp = 0;
+
+            if (aFlowNo == 1) aLimitUp = 100;// tabFlow[0].gasLimitUp;
+            if (aFlowNo == 2) aLimitUp = 200;// tabFlow[1].gasLimitUp;
+            if (aFlowNo == 3) aLimitUp = 300;// tabFlow[2].gasLimitUp;
+
+            return aLimitUp;
+        }
+
+        public void SetVaporaiserActive(bool aValue)
+        {
+            activeVaporaitor = aValue;
+        }
+        public bool GetVaporiserActive()
+        {
+            return activeVaporaitor;
         }
     }
 }

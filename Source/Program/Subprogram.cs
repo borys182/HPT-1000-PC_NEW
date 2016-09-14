@@ -110,8 +110,13 @@ namespace HPT1000.Source.Program
             stepObjects[2] = new PlasmaProces();
             stepObjects[3] = new FlushProces();
             stepObjects[4] = new VentProces();
-        }
 
+        }
+        //Funkcja aktualizaje dane na temat subprogramu wykonywanego aktulnie w sterowniku PLC
+        public void UpdateData(int []aTabData)
+        {
+
+        }
         //Funkcja zwraca tablice danych segmentu przygotowana zgodnie z segmentem po stronie PLC
         public int[] GetPLCSegmentData()
         {
@@ -166,5 +171,10 @@ namespace HPT1000.Source.Program
         {
             return description;
         }
+        public Types.StatusSubprogram GetStatus()
+        {
+            return status;
+        }
+        void testD() { }
     }
 }

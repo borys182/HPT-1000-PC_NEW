@@ -45,47 +45,47 @@
             treeNode4,
             treeNode7});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProgramsConfigPanel));
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.grBoxGasPressure = new System.Windows.Forms.GroupBox();
+            this.rBtnPressureViaVapo = new System.Windows.Forms.RadioButton();
+            this.rBtnPressureViaGases = new System.Windows.Forms.RadioButton();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
-            this.textBox14 = new System.Windows.Forms.TextBox();
-            this.hScrollBar13 = new System.Windows.Forms.HScrollBar();
+            this.tBoxGasShareMFC3 = new System.Windows.Forms.TextBox();
+            this.scrollGasDevaShareMFC3 = new System.Windows.Forms.HScrollBar();
             this.label31 = new System.Windows.Forms.Label();
-            this.textBox15 = new System.Windows.Forms.TextBox();
+            this.tBoxGasDevaShareMFC3 = new System.Windows.Forms.TextBox();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.label24 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
-            this.textBox12 = new System.Windows.Forms.TextBox();
-            this.hScrollBar12 = new System.Windows.Forms.HScrollBar();
+            this.tBoxGasShareMFC2 = new System.Windows.Forms.TextBox();
+            this.scrollGasDevaShareMFC2 = new System.Windows.Forms.HScrollBar();
             this.label27 = new System.Windows.Forms.Label();
-            this.textBox13 = new System.Windows.Forms.TextBox();
+            this.tBoxGasDevaShareMFC2 = new System.Windows.Forms.TextBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.hScrollBar20 = new System.Windows.Forms.HScrollBar();
+            this.tBoxGasShareMFC1 = new System.Windows.Forms.TextBox();
+            this.scrollGasDevaShareMFC1 = new System.Windows.Forms.HScrollBar();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.checkBox7 = new System.Windows.Forms.CheckBox();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.tBoxGasDevaShareMFC1 = new System.Windows.Forms.TextBox();
             this.label105 = new System.Windows.Forms.Label();
-            this.hScrollBar6 = new System.Windows.Forms.HScrollBar();
+            this.scrollGasPressureDevaDown = new System.Windows.Forms.HScrollBar();
             this.label103 = new System.Windows.Forms.Label();
-            this.textBox28 = new System.Windows.Forms.TextBox();
+            this.tBoxGasPressureDevaDown = new System.Windows.Forms.TextBox();
             this.label104 = new System.Windows.Forms.Label();
-            this.hScrollBar5 = new System.Windows.Forms.HScrollBar();
+            this.scrollGasPressureDevaUp = new System.Windows.Forms.HScrollBar();
             this.label101 = new System.Windows.Forms.Label();
-            this.textBox27 = new System.Windows.Forms.TextBox();
+            this.tBoxGasPressureDevaUp = new System.Windows.Forms.TextBox();
             this.label102 = new System.Windows.Forms.Label();
-            this.hScrollBar4 = new System.Windows.Forms.HScrollBar();
+            this.scrollGasPressure = new System.Windows.Forms.HScrollBar();
             this.label98 = new System.Windows.Forms.Label();
-            this.textBox26 = new System.Windows.Forms.TextBox();
+            this.tBoxGasPressure = new System.Windows.Forms.TextBox();
             this.label99 = new System.Windows.Forms.Label();
-            this.dateTimePicker5 = new System.Windows.Forms.DateTimePicker();
+            this.timeVent = new System.Windows.Forms.DateTimePicker();
             this.label150 = new System.Windows.Forms.Label();
             this.label151 = new System.Windows.Forms.Label();
             this.label152 = new System.Windows.Forms.Label();
@@ -95,7 +95,7 @@
             this.label36 = new System.Windows.Forms.Label();
             this.label147 = new System.Windows.Forms.Label();
             this.label148 = new System.Windows.Forms.Label();
-            this.dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
+            this.timePurge = new System.Windows.Forms.DateTimePicker();
             this.label149 = new System.Windows.Forms.Label();
             this.tabPagePurge = new System.Windows.Forms.TabPage();
             this.grBoxPurge = new System.Windows.Forms.GroupBox();
@@ -103,19 +103,19 @@
             this.label35 = new System.Windows.Forms.Label();
             this.label146 = new System.Windows.Forms.Label();
             this.label145 = new System.Windows.Forms.Label();
-            this.hScrollBar19 = new System.Windows.Forms.HScrollBar();
-            this.textBox44 = new System.Windows.Forms.TextBox();
-            this.hScrollBar18 = new System.Windows.Forms.HScrollBar();
-            this.textBox43 = new System.Windows.Forms.TextBox();
+            this.scrollPlasmaDevistion = new System.Windows.Forms.HScrollBar();
+            this.tBoxPlasmaDeviation = new System.Windows.Forms.TextBox();
+            this.scrollPlasmaSetpoint = new System.Windows.Forms.HScrollBar();
+            this.tBoxPlasmaSetpoint = new System.Windows.Forms.TextBox();
             this.label144 = new System.Windows.Forms.Label();
             this.label143 = new System.Windows.Forms.Label();
-            this.radioButton8 = new System.Windows.Forms.RadioButton();
-            this.radioButton7 = new System.Windows.Forms.RadioButton();
-            this.radioButton6 = new System.Windows.Forms.RadioButton();
+            this.rBtnPlasmaModeVoltage = new System.Windows.Forms.RadioButton();
+            this.rBtnPlasmaModeCurent = new System.Windows.Forms.RadioButton();
+            this.rBtnPlasmaModePower = new System.Windows.Forms.RadioButton();
             this.label142 = new System.Windows.Forms.Label();
             this.label139 = new System.Windows.Forms.Label();
             this.label140 = new System.Windows.Forms.Label();
-            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
+            this.timePlasma = new System.Windows.Forms.DateTimePicker();
             this.label86 = new System.Windows.Forms.Label();
             this.label141 = new System.Windows.Forms.Label();
             this.tabPagePlasma = new System.Windows.Forms.TabPage();
@@ -126,7 +126,7 @@
             this.groupBox21 = new System.Windows.Forms.GroupBox();
             this.label34 = new System.Windows.Forms.Label();
             this.label84 = new System.Windows.Forms.Label();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.timeGas = new System.Windows.Forms.DateTimePicker();
             this.label85 = new System.Windows.Forms.Label();
             this.label127 = new System.Windows.Forms.Label();
             this.tabPagePump = new System.Windows.Forms.TabPage();
@@ -134,12 +134,12 @@
             this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.grBoxPump = new System.Windows.Forms.GroupBox();
             this.groupBox19 = new System.Windows.Forms.GroupBox();
-            this.hScrollBar14 = new System.Windows.Forms.HScrollBar();
+            this.scrollPumpSetpoint = new System.Windows.Forms.HScrollBar();
             this.label82 = new System.Windows.Forms.Label();
             this.label80 = new System.Windows.Forms.Label();
-            this.textBox16 = new System.Windows.Forms.TextBox();
+            this.tBoxPumpSetpoint = new System.Windows.Forms.TextBox();
             this.groupBox18 = new System.Windows.Forms.GroupBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.timePump = new System.Windows.Forms.DateTimePicker();
             this.label81 = new System.Windows.Forms.Label();
             this.label83 = new System.Windows.Forms.Label();
             this.btnAddNewProgram = new System.Windows.Forms.Button();
@@ -148,69 +148,69 @@
             this.label77 = new System.Windows.Forms.Label();
             this.tBoxNameProgram = new System.Windows.Forms.TextBox();
             this.tBoxDescProgram = new System.Windows.Forms.TextBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.comboBox6 = new System.Windows.Forms.ComboBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.cBoxMFC3 = new System.Windows.Forms.CheckBox();
+            this.cBoxGasListMFC1 = new System.Windows.Forms.ComboBox();
+            this.cBoxMFC2 = new System.Windows.Forms.CheckBox();
             this.btnRemoveSubprogram = new System.Windows.Forms.Button();
             this.tabControlProcess = new System.Windows.Forms.TabControl();
             this.tabPageGas = new System.Windows.Forms.TabPage();
             this.grBoxGas = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.rBtnModePressure = new System.Windows.Forms.RadioButton();
+            this.rBtnModeFlow = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.checkBox8 = new System.Windows.Forms.CheckBox();
-            this.comboBox7 = new System.Windows.Forms.ComboBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.cBoxVaporiser = new System.Windows.Forms.CheckBox();
+            this.cBoxGasListMFC3 = new System.Windows.Forms.ComboBox();
+            this.cBoxMFC1 = new System.Windows.Forms.CheckBox();
+            this.cBoxGasListMFC2 = new System.Windows.Forms.ComboBox();
+            this.grBoxGasFlow = new System.Windows.Forms.GroupBox();
+            this.grBoxMFC1 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.hScrollBar21 = new System.Windows.Forms.HScrollBar();
+            this.scrollFlow1Min = new System.Windows.Forms.HScrollBar();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.tBoxFlow1Min = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.hScrollBar22 = new System.Windows.Forms.HScrollBar();
+            this.scrollFlow1Max = new System.Windows.Forms.HScrollBar();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.tBoxFlow1Max = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.hScrollBar23 = new System.Windows.Forms.HScrollBar();
+            this.scrollFlow1 = new System.Windows.Forms.HScrollBar();
             this.label10 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.tBoxFlow1 = new System.Windows.Forms.TextBox();
+            this.grBoxMFC3 = new System.Windows.Forms.GroupBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.hScrollBar9 = new System.Windows.Forms.HScrollBar();
+            this.scrollFlow3Min = new System.Windows.Forms.HScrollBar();
             this.label18 = new System.Windows.Forms.Label();
-            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.tBoxFlow3Min = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.hScrollBar10 = new System.Windows.Forms.HScrollBar();
+            this.scrollFlow3Max = new System.Windows.Forms.HScrollBar();
             this.label20 = new System.Windows.Forms.Label();
-            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.tBoxFlow3Max = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
-            this.hScrollBar11 = new System.Windows.Forms.HScrollBar();
+            this.scrollFlow3 = new System.Windows.Forms.HScrollBar();
             this.label22 = new System.Windows.Forms.Label();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.tBoxFlow3 = new System.Windows.Forms.TextBox();
+            this.grBoxMFC2 = new System.Windows.Forms.GroupBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
+            this.scrollFlow2Min = new System.Windows.Forms.HScrollBar();
             this.label12 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.tBoxFlow2Min = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.hScrollBar7 = new System.Windows.Forms.HScrollBar();
+            this.scrollFlow2Max = new System.Windows.Forms.HScrollBar();
             this.label14 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.tBoxFlow2Max = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.hScrollBar8 = new System.Windows.Forms.HScrollBar();
+            this.scrollFlow2 = new System.Windows.Forms.HScrollBar();
             this.label16 = new System.Windows.Forms.Label();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.hScrollBar3 = new System.Windows.Forms.HScrollBar();
+            this.tBoxFlow2 = new System.Windows.Forms.TextBox();
+            this.grBoxVaporiser = new System.Windows.Forms.GroupBox();
+            this.scrollGasVaporOnTime = new System.Windows.Forms.HScrollBar();
             this.label97 = new System.Windows.Forms.Label();
-            this.textBox25 = new System.Windows.Forms.TextBox();
-            this.hScrollBar2 = new System.Windows.Forms.HScrollBar();
+            this.tBoxGasVaporOnTime = new System.Windows.Forms.TextBox();
+            this.scrollGasVaporCycleTime = new System.Windows.Forms.HScrollBar();
             this.label96 = new System.Windows.Forms.Label();
-            this.textBox24 = new System.Windows.Forms.TextBox();
+            this.tBoxGasVaporCycleTime = new System.Windows.Forms.TextBox();
             this.label95 = new System.Windows.Forms.Label();
             this.label94 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
@@ -231,7 +231,7 @@
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.btnAddNewSubprogram = new System.Windows.Forms.Button();
             this.label69 = new System.Windows.Forms.Label();
-            this.groupBox6.SuspendLayout();
+            this.grBoxGasPressure.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.groupBox12.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -258,51 +258,77 @@
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            this.groupBox11.SuspendLayout();
-            this.groupBox9.SuspendLayout();
-            this.groupBox4.SuspendLayout();
+            this.grBoxGasFlow.SuspendLayout();
+            this.grBoxMFC1.SuspendLayout();
+            this.grBoxMFC3.SuspendLayout();
+            this.grBoxMFC2.SuspendLayout();
+            this.grBoxVaporiser.SuspendLayout();
             this.grBoxSubprogram.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.SuspendLayout();
             // 
-            // groupBox6
+            // grBoxGasPressure
             // 
-            this.groupBox6.Controls.Add(this.groupBox13);
-            this.groupBox6.Controls.Add(this.groupBox12);
-            this.groupBox6.Controls.Add(this.groupBox8);
-            this.groupBox6.Controls.Add(this.checkBox7);
-            this.groupBox6.Controls.Add(this.checkBox6);
-            this.groupBox6.Controls.Add(this.label105);
-            this.groupBox6.Controls.Add(this.hScrollBar6);
-            this.groupBox6.Controls.Add(this.label103);
-            this.groupBox6.Controls.Add(this.textBox28);
-            this.groupBox6.Controls.Add(this.label104);
-            this.groupBox6.Controls.Add(this.hScrollBar5);
-            this.groupBox6.Controls.Add(this.label101);
-            this.groupBox6.Controls.Add(this.textBox27);
-            this.groupBox6.Controls.Add(this.label102);
-            this.groupBox6.Controls.Add(this.hScrollBar4);
-            this.groupBox6.Controls.Add(this.label98);
-            this.groupBox6.Controls.Add(this.textBox26);
-            this.groupBox6.Controls.Add(this.label99);
-            this.groupBox6.Location = new System.Drawing.Point(8, 415);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(1039, 247);
-            this.groupBox6.TabIndex = 12;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Pressure mode";
+            this.grBoxGasPressure.Controls.Add(this.rBtnPressureViaVapo);
+            this.grBoxGasPressure.Controls.Add(this.rBtnPressureViaGases);
+            this.grBoxGasPressure.Controls.Add(this.groupBox13);
+            this.grBoxGasPressure.Controls.Add(this.groupBox12);
+            this.grBoxGasPressure.Controls.Add(this.groupBox8);
+            this.grBoxGasPressure.Controls.Add(this.label105);
+            this.grBoxGasPressure.Controls.Add(this.scrollGasPressureDevaDown);
+            this.grBoxGasPressure.Controls.Add(this.label103);
+            this.grBoxGasPressure.Controls.Add(this.tBoxGasPressureDevaDown);
+            this.grBoxGasPressure.Controls.Add(this.label104);
+            this.grBoxGasPressure.Controls.Add(this.scrollGasPressureDevaUp);
+            this.grBoxGasPressure.Controls.Add(this.label101);
+            this.grBoxGasPressure.Controls.Add(this.tBoxGasPressureDevaUp);
+            this.grBoxGasPressure.Controls.Add(this.label102);
+            this.grBoxGasPressure.Controls.Add(this.scrollGasPressure);
+            this.grBoxGasPressure.Controls.Add(this.label98);
+            this.grBoxGasPressure.Controls.Add(this.tBoxGasPressure);
+            this.grBoxGasPressure.Controls.Add(this.label99);
+            this.grBoxGasPressure.Location = new System.Drawing.Point(8, 415);
+            this.grBoxGasPressure.Name = "grBoxGasPressure";
+            this.grBoxGasPressure.Size = new System.Drawing.Size(1039, 247);
+            this.grBoxGasPressure.TabIndex = 12;
+            this.grBoxGasPressure.TabStop = false;
+            this.grBoxGasPressure.Text = "Pressure mode";
+            // 
+            // rBtnPressureViaVapo
+            // 
+            this.rBtnPressureViaVapo.AutoSize = true;
+            this.rBtnPressureViaVapo.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.rBtnPressureViaVapo.Location = new System.Drawing.Point(790, 172);
+            this.rBtnPressureViaVapo.Name = "rBtnPressureViaVapo";
+            this.rBtnPressureViaVapo.Size = new System.Drawing.Size(227, 24);
+            this.rBtnPressureViaVapo.TabIndex = 45;
+            this.rBtnPressureViaVapo.TabStop = true;
+            this.rBtnPressureViaVapo.Text = "Control pressure via vapor";
+            this.rBtnPressureViaVapo.UseVisualStyleBackColor = true;
+            this.rBtnPressureViaVapo.CheckedChanged += new System.EventHandler(this.rBtnGasMode_CheckedChanged);
+            // 
+            // rBtnPressureViaGases
+            // 
+            this.rBtnPressureViaGases.AutoSize = true;
+            this.rBtnPressureViaGases.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.rBtnPressureViaGases.Location = new System.Drawing.Point(790, 203);
+            this.rBtnPressureViaGases.Name = "rBtnPressureViaGases";
+            this.rBtnPressureViaGases.Size = new System.Drawing.Size(231, 24);
+            this.rBtnPressureViaGases.TabIndex = 44;
+            this.rBtnPressureViaGases.TabStop = true;
+            this.rBtnPressureViaGases.Text = "Control pressure via gases";
+            this.rBtnPressureViaGases.UseVisualStyleBackColor = true;
+            this.rBtnPressureViaGases.CheckedChanged += new System.EventHandler(this.rBtnGasMode_CheckedChanged);
             // 
             // groupBox13
             // 
             this.groupBox13.Controls.Add(this.label28);
             this.groupBox13.Controls.Add(this.label29);
             this.groupBox13.Controls.Add(this.label30);
-            this.groupBox13.Controls.Add(this.textBox14);
-            this.groupBox13.Controls.Add(this.hScrollBar13);
+            this.groupBox13.Controls.Add(this.tBoxGasShareMFC3);
+            this.groupBox13.Controls.Add(this.scrollGasDevaShareMFC3);
             this.groupBox13.Controls.Add(this.label31);
-            this.groupBox13.Controls.Add(this.textBox15);
+            this.groupBox13.Controls.Add(this.tBoxGasDevaShareMFC3);
             this.groupBox13.Location = new System.Drawing.Point(533, 87);
             this.groupBox13.Name = "groupBox13";
             this.groupBox13.Size = new System.Drawing.Size(233, 148);
@@ -340,22 +366,24 @@
             this.label30.TabIndex = 39;
             this.label30.Text = "Gas share:";
             // 
-            // textBox14
+            // tBoxGasShareMFC3
             // 
-            this.textBox14.Location = new System.Drawing.Point(24, 112);
-            this.textBox14.Name = "textBox14";
-            this.textBox14.Size = new System.Drawing.Size(41, 27);
-            this.textBox14.TabIndex = 38;
+            this.tBoxGasShareMFC3.Location = new System.Drawing.Point(24, 112);
+            this.tBoxGasShareMFC3.Name = "tBoxGasShareMFC3";
+            this.tBoxGasShareMFC3.Size = new System.Drawing.Size(41, 27);
+            this.tBoxGasShareMFC3.TabIndex = 38;
+            this.tBoxGasShareMFC3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkIntValue_KeyPress);
+            this.tBoxGasShareMFC3.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxGas_KeyUp);
+            this.tBoxGasShareMFC3.Validated += new System.EventHandler(this.tBoxGas_Validated);
             // 
-            // hScrollBar13
+            // scrollGasDevaShareMFC3
             // 
-            this.hScrollBar13.Location = new System.Drawing.Point(23, 49);
-            this.hScrollBar13.Maximum = 1000;
-            this.hScrollBar13.Minimum = 10;
-            this.hScrollBar13.Name = "hScrollBar13";
-            this.hScrollBar13.Size = new System.Drawing.Size(135, 22);
-            this.hScrollBar13.TabIndex = 36;
-            this.hScrollBar13.Value = 10;
+            this.scrollGasDevaShareMFC3.Location = new System.Drawing.Point(23, 49);
+            this.scrollGasDevaShareMFC3.Name = "scrollGasDevaShareMFC3";
+            this.scrollGasDevaShareMFC3.Size = new System.Drawing.Size(135, 22);
+            this.scrollGasDevaShareMFC3.TabIndex = 36;
+            this.scrollGasDevaShareMFC3.Value = 10;
+            this.scrollGasDevaShareMFC3.ValueChanged += new System.EventHandler(this.scrollGasDevaShareMFC3_ValueChanged);
             // 
             // label31
             // 
@@ -367,23 +395,25 @@
             this.label31.TabIndex = 35;
             this.label31.Text = "%";
             // 
-            // textBox15
+            // tBoxGasDevaShareMFC3
             // 
-            this.textBox15.Location = new System.Drawing.Point(167, 44);
-            this.textBox15.Name = "textBox15";
-            this.textBox15.ReadOnly = true;
-            this.textBox15.Size = new System.Drawing.Size(38, 27);
-            this.textBox15.TabIndex = 34;
+            this.tBoxGasDevaShareMFC3.Location = new System.Drawing.Point(167, 44);
+            this.tBoxGasDevaShareMFC3.Name = "tBoxGasDevaShareMFC3";
+            this.tBoxGasDevaShareMFC3.Size = new System.Drawing.Size(38, 27);
+            this.tBoxGasDevaShareMFC3.TabIndex = 34;
+            this.tBoxGasDevaShareMFC3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkIntValue_KeyPress);
+            this.tBoxGasDevaShareMFC3.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxGas_KeyUp);
+            this.tBoxGasDevaShareMFC3.Validated += new System.EventHandler(this.tBoxGas_Validated);
             // 
             // groupBox12
             // 
             this.groupBox12.Controls.Add(this.label24);
             this.groupBox12.Controls.Add(this.label25);
             this.groupBox12.Controls.Add(this.label26);
-            this.groupBox12.Controls.Add(this.textBox12);
-            this.groupBox12.Controls.Add(this.hScrollBar12);
+            this.groupBox12.Controls.Add(this.tBoxGasShareMFC2);
+            this.groupBox12.Controls.Add(this.scrollGasDevaShareMFC2);
             this.groupBox12.Controls.Add(this.label27);
-            this.groupBox12.Controls.Add(this.textBox13);
+            this.groupBox12.Controls.Add(this.tBoxGasDevaShareMFC2);
             this.groupBox12.Location = new System.Drawing.Point(278, 87);
             this.groupBox12.Name = "groupBox12";
             this.groupBox12.Size = new System.Drawing.Size(233, 148);
@@ -421,22 +451,24 @@
             this.label26.TabIndex = 39;
             this.label26.Text = "Gas share:";
             // 
-            // textBox12
+            // tBoxGasShareMFC2
             // 
-            this.textBox12.Location = new System.Drawing.Point(24, 112);
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(41, 27);
-            this.textBox12.TabIndex = 38;
+            this.tBoxGasShareMFC2.Location = new System.Drawing.Point(24, 112);
+            this.tBoxGasShareMFC2.Name = "tBoxGasShareMFC2";
+            this.tBoxGasShareMFC2.Size = new System.Drawing.Size(41, 27);
+            this.tBoxGasShareMFC2.TabIndex = 38;
+            this.tBoxGasShareMFC2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkIntValue_KeyPress);
+            this.tBoxGasShareMFC2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxGas_KeyUp);
+            this.tBoxGasShareMFC2.Validated += new System.EventHandler(this.tBoxGas_Validated);
             // 
-            // hScrollBar12
+            // scrollGasDevaShareMFC2
             // 
-            this.hScrollBar12.Location = new System.Drawing.Point(23, 49);
-            this.hScrollBar12.Maximum = 1000;
-            this.hScrollBar12.Minimum = 10;
-            this.hScrollBar12.Name = "hScrollBar12";
-            this.hScrollBar12.Size = new System.Drawing.Size(135, 22);
-            this.hScrollBar12.TabIndex = 36;
-            this.hScrollBar12.Value = 10;
+            this.scrollGasDevaShareMFC2.Location = new System.Drawing.Point(23, 49);
+            this.scrollGasDevaShareMFC2.Name = "scrollGasDevaShareMFC2";
+            this.scrollGasDevaShareMFC2.Size = new System.Drawing.Size(135, 22);
+            this.scrollGasDevaShareMFC2.TabIndex = 36;
+            this.scrollGasDevaShareMFC2.Value = 10;
+            this.scrollGasDevaShareMFC2.ValueChanged += new System.EventHandler(this.scrollGasDevaShareMFC2_ValueChanged);
             // 
             // label27
             // 
@@ -448,23 +480,25 @@
             this.label27.TabIndex = 35;
             this.label27.Text = "%";
             // 
-            // textBox13
+            // tBoxGasDevaShareMFC2
             // 
-            this.textBox13.Location = new System.Drawing.Point(167, 44);
-            this.textBox13.Name = "textBox13";
-            this.textBox13.ReadOnly = true;
-            this.textBox13.Size = new System.Drawing.Size(38, 27);
-            this.textBox13.TabIndex = 34;
+            this.tBoxGasDevaShareMFC2.Location = new System.Drawing.Point(167, 44);
+            this.tBoxGasDevaShareMFC2.Name = "tBoxGasDevaShareMFC2";
+            this.tBoxGasDevaShareMFC2.Size = new System.Drawing.Size(38, 27);
+            this.tBoxGasDevaShareMFC2.TabIndex = 34;
+            this.tBoxGasDevaShareMFC2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkIntValue_KeyPress);
+            this.tBoxGasDevaShareMFC2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxGas_KeyUp);
+            this.tBoxGasDevaShareMFC2.Validated += new System.EventHandler(this.tBoxGas_Validated);
             // 
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.label3);
             this.groupBox8.Controls.Add(this.label1);
             this.groupBox8.Controls.Add(this.label2);
-            this.groupBox8.Controls.Add(this.textBox1);
-            this.groupBox8.Controls.Add(this.hScrollBar20);
+            this.groupBox8.Controls.Add(this.tBoxGasShareMFC1);
+            this.groupBox8.Controls.Add(this.scrollGasDevaShareMFC1);
             this.groupBox8.Controls.Add(this.label4);
-            this.groupBox8.Controls.Add(this.textBox2);
+            this.groupBox8.Controls.Add(this.tBoxGasDevaShareMFC1);
             this.groupBox8.Location = new System.Drawing.Point(16, 87);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(233, 148);
@@ -502,22 +536,24 @@
             this.label2.TabIndex = 39;
             this.label2.Text = "Gas share:";
             // 
-            // textBox1
+            // tBoxGasShareMFC1
             // 
-            this.textBox1.Location = new System.Drawing.Point(24, 112);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(41, 27);
-            this.textBox1.TabIndex = 38;
+            this.tBoxGasShareMFC1.Location = new System.Drawing.Point(24, 112);
+            this.tBoxGasShareMFC1.Name = "tBoxGasShareMFC1";
+            this.tBoxGasShareMFC1.Size = new System.Drawing.Size(41, 27);
+            this.tBoxGasShareMFC1.TabIndex = 38;
+            this.tBoxGasShareMFC1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkIntValue_KeyPress);
+            this.tBoxGasShareMFC1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxGas_KeyUp);
+            this.tBoxGasShareMFC1.Validated += new System.EventHandler(this.tBoxGas_Validated);
             // 
-            // hScrollBar20
+            // scrollGasDevaShareMFC1
             // 
-            this.hScrollBar20.Location = new System.Drawing.Point(23, 49);
-            this.hScrollBar20.Maximum = 1000;
-            this.hScrollBar20.Minimum = 10;
-            this.hScrollBar20.Name = "hScrollBar20";
-            this.hScrollBar20.Size = new System.Drawing.Size(135, 22);
-            this.hScrollBar20.TabIndex = 36;
-            this.hScrollBar20.Value = 10;
+            this.scrollGasDevaShareMFC1.Location = new System.Drawing.Point(23, 49);
+            this.scrollGasDevaShareMFC1.Name = "scrollGasDevaShareMFC1";
+            this.scrollGasDevaShareMFC1.Size = new System.Drawing.Size(135, 22);
+            this.scrollGasDevaShareMFC1.TabIndex = 36;
+            this.scrollGasDevaShareMFC1.Value = 10;
+            this.scrollGasDevaShareMFC1.ValueChanged += new System.EventHandler(this.scrollGasDevaShareMFC1_ValueChanged);
             // 
             // label4
             // 
@@ -529,35 +565,15 @@
             this.label4.TabIndex = 35;
             this.label4.Text = "%";
             // 
-            // textBox2
+            // tBoxGasDevaShareMFC1
             // 
-            this.textBox2.Location = new System.Drawing.Point(167, 44);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(38, 27);
-            this.textBox2.TabIndex = 34;
-            // 
-            // checkBox7
-            // 
-            this.checkBox7.AutoSize = true;
-            this.checkBox7.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.checkBox7.Location = new System.Drawing.Point(801, 170);
-            this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(228, 24);
-            this.checkBox7.TabIndex = 43;
-            this.checkBox7.Text = "Control pressure via vapor";
-            this.checkBox7.UseVisualStyleBackColor = true;
-            // 
-            // checkBox6
-            // 
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.checkBox6.Location = new System.Drawing.Point(801, 205);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(232, 24);
-            this.checkBox6.TabIndex = 42;
-            this.checkBox6.Text = "Control pressure via gases";
-            this.checkBox6.UseVisualStyleBackColor = true;
+            this.tBoxGasDevaShareMFC1.Location = new System.Drawing.Point(167, 44);
+            this.tBoxGasDevaShareMFC1.Name = "tBoxGasDevaShareMFC1";
+            this.tBoxGasDevaShareMFC1.Size = new System.Drawing.Size(38, 27);
+            this.tBoxGasDevaShareMFC1.TabIndex = 34;
+            this.tBoxGasDevaShareMFC1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkIntValue_KeyPress);
+            this.tBoxGasDevaShareMFC1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxGas_KeyUp);
+            this.tBoxGasDevaShareMFC1.Validated += new System.EventHandler(this.tBoxGas_Validated);
             // 
             // label105
             // 
@@ -569,15 +585,16 @@
             this.label105.TabIndex = 41;
             this.label105.Text = "-";
             // 
-            // hScrollBar6
+            // scrollGasPressureDevaDown
             // 
-            this.hScrollBar6.Location = new System.Drawing.Point(579, 58);
-            this.hScrollBar6.Maximum = 1000;
-            this.hScrollBar6.Minimum = 10;
-            this.hScrollBar6.Name = "hScrollBar6";
-            this.hScrollBar6.Size = new System.Drawing.Size(135, 22);
-            this.hScrollBar6.TabIndex = 40;
-            this.hScrollBar6.Value = 10;
+            this.scrollGasPressureDevaDown.Location = new System.Drawing.Point(579, 58);
+            this.scrollGasPressureDevaDown.Maximum = 1000000;
+            this.scrollGasPressureDevaDown.Minimum = 1;
+            this.scrollGasPressureDevaDown.Name = "scrollGasPressureDevaDown";
+            this.scrollGasPressureDevaDown.Size = new System.Drawing.Size(135, 22);
+            this.scrollGasPressureDevaDown.TabIndex = 40;
+            this.scrollGasPressureDevaDown.Value = 10;
+            this.scrollGasPressureDevaDown.ValueChanged += new System.EventHandler(this.scrollGasPressureDevaDown_ValueChanged);
             // 
             // label103
             // 
@@ -589,13 +606,15 @@
             this.label103.TabIndex = 39;
             this.label103.Text = "mBar";
             // 
-            // textBox28
+            // tBoxGasPressureDevaDown
             // 
-            this.textBox28.Location = new System.Drawing.Point(727, 58);
-            this.textBox28.Name = "textBox28";
-            this.textBox28.ReadOnly = true;
-            this.textBox28.Size = new System.Drawing.Size(65, 27);
-            this.textBox28.TabIndex = 38;
+            this.tBoxGasPressureDevaDown.Location = new System.Drawing.Point(727, 58);
+            this.tBoxGasPressureDevaDown.Name = "tBoxGasPressureDevaDown";
+            this.tBoxGasPressureDevaDown.Size = new System.Drawing.Size(65, 27);
+            this.tBoxGasPressureDevaDown.TabIndex = 38;
+            this.tBoxGasPressureDevaDown.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkFloatValue_KeyPress);
+            this.tBoxGasPressureDevaDown.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxGas_KeyUp);
+            this.tBoxGasPressureDevaDown.Validated += new System.EventHandler(this.tBoxGas_Validated);
             // 
             // label104
             // 
@@ -607,15 +626,16 @@
             this.label104.TabIndex = 37;
             this.label104.Text = "+";
             // 
-            // hScrollBar5
+            // scrollGasPressureDevaUp
             // 
-            this.hScrollBar5.Location = new System.Drawing.Point(579, 27);
-            this.hScrollBar5.Maximum = 1000;
-            this.hScrollBar5.Minimum = 10;
-            this.hScrollBar5.Name = "hScrollBar5";
-            this.hScrollBar5.Size = new System.Drawing.Size(135, 22);
-            this.hScrollBar5.TabIndex = 36;
-            this.hScrollBar5.Value = 10;
+            this.scrollGasPressureDevaUp.Location = new System.Drawing.Point(579, 27);
+            this.scrollGasPressureDevaUp.Maximum = 1000000;
+            this.scrollGasPressureDevaUp.Minimum = 1;
+            this.scrollGasPressureDevaUp.Name = "scrollGasPressureDevaUp";
+            this.scrollGasPressureDevaUp.Size = new System.Drawing.Size(135, 22);
+            this.scrollGasPressureDevaUp.TabIndex = 36;
+            this.scrollGasPressureDevaUp.Value = 10;
+            this.scrollGasPressureDevaUp.ValueChanged += new System.EventHandler(this.scrollGasPressureDevaUp_ValueChanged);
             // 
             // label101
             // 
@@ -627,13 +647,15 @@
             this.label101.TabIndex = 35;
             this.label101.Text = "mBar";
             // 
-            // textBox27
+            // tBoxGasPressureDevaUp
             // 
-            this.textBox27.Location = new System.Drawing.Point(727, 26);
-            this.textBox27.Name = "textBox27";
-            this.textBox27.ReadOnly = true;
-            this.textBox27.Size = new System.Drawing.Size(65, 27);
-            this.textBox27.TabIndex = 34;
+            this.tBoxGasPressureDevaUp.Location = new System.Drawing.Point(727, 26);
+            this.tBoxGasPressureDevaUp.Name = "tBoxGasPressureDevaUp";
+            this.tBoxGasPressureDevaUp.Size = new System.Drawing.Size(65, 27);
+            this.tBoxGasPressureDevaUp.TabIndex = 34;
+            this.tBoxGasPressureDevaUp.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkFloatValue_KeyPress);
+            this.tBoxGasPressureDevaUp.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxGas_KeyUp);
+            this.tBoxGasPressureDevaUp.Validated += new System.EventHandler(this.tBoxGas_Validated);
             // 
             // label102
             // 
@@ -645,15 +667,16 @@
             this.label102.TabIndex = 33;
             this.label102.Text = "Max deviation:";
             // 
-            // hScrollBar4
+            // scrollGasPressure
             // 
-            this.hScrollBar4.Location = new System.Drawing.Point(110, 29);
-            this.hScrollBar4.Maximum = 1000;
-            this.hScrollBar4.Minimum = 10;
-            this.hScrollBar4.Name = "hScrollBar4";
-            this.hScrollBar4.Size = new System.Drawing.Size(135, 22);
-            this.hScrollBar4.TabIndex = 32;
-            this.hScrollBar4.Value = 10;
+            this.scrollGasPressure.Location = new System.Drawing.Point(110, 29);
+            this.scrollGasPressure.Maximum = 1000000;
+            this.scrollGasPressure.Minimum = 1;
+            this.scrollGasPressure.Name = "scrollGasPressure";
+            this.scrollGasPressure.Size = new System.Drawing.Size(135, 22);
+            this.scrollGasPressure.TabIndex = 32;
+            this.scrollGasPressure.Value = 10;
+            this.scrollGasPressure.ValueChanged += new System.EventHandler(this.scrollGasPressure_ValueChanged);
             // 
             // label98
             // 
@@ -665,13 +688,15 @@
             this.label98.TabIndex = 31;
             this.label98.Text = "mBar";
             // 
-            // textBox26
+            // tBoxGasPressure
             // 
-            this.textBox26.Location = new System.Drawing.Point(257, 26);
-            this.textBox26.Name = "textBox26";
-            this.textBox26.ReadOnly = true;
-            this.textBox26.Size = new System.Drawing.Size(65, 27);
-            this.textBox26.TabIndex = 30;
+            this.tBoxGasPressure.Location = new System.Drawing.Point(257, 26);
+            this.tBoxGasPressure.Name = "tBoxGasPressure";
+            this.tBoxGasPressure.Size = new System.Drawing.Size(65, 27);
+            this.tBoxGasPressure.TabIndex = 30;
+            this.tBoxGasPressure.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkFloatValue_KeyPress);
+            this.tBoxGasPressure.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxGas_KeyUp);
+            this.tBoxGasPressure.Validated += new System.EventHandler(this.tBoxGas_Validated);
             // 
             // label99
             // 
@@ -683,13 +708,14 @@
             this.label99.TabIndex = 29;
             this.label99.Text = "Setpoint:";
             // 
-            // dateTimePicker5
+            // timeVent
             // 
-            this.dateTimePicker5.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePicker5.Location = new System.Drawing.Point(399, 62);
-            this.dateTimePicker5.Name = "dateTimePicker5";
-            this.dateTimePicker5.Size = new System.Drawing.Size(100, 27);
-            this.dateTimePicker5.TabIndex = 20;
+            this.timeVent.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.timeVent.Location = new System.Drawing.Point(399, 62);
+            this.timeVent.Name = "timeVent";
+            this.timeVent.Size = new System.Drawing.Size(100, 27);
+            this.timeVent.TabIndex = 20;
+            this.timeVent.ValueChanged += new System.EventHandler(this.timeVent_ValueChanged);
             // 
             // label150
             // 
@@ -743,7 +769,7 @@
             // 
             // groupBox23
             // 
-            this.groupBox23.Controls.Add(this.dateTimePicker5);
+            this.groupBox23.Controls.Add(this.timeVent);
             this.groupBox23.Controls.Add(this.label151);
             this.groupBox23.Controls.Add(this.label150);
             this.groupBox23.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -786,13 +812,15 @@
             this.label148.TabIndex = 17;
             this.label148.Text = "[hh:mm:ss]";
             // 
-            // dateTimePicker4
+            // timePurge
             // 
-            this.dateTimePicker4.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePicker4.Location = new System.Drawing.Point(350, 60);
-            this.dateTimePicker4.Name = "dateTimePicker4";
-            this.dateTimePicker4.Size = new System.Drawing.Size(92, 27);
-            this.dateTimePicker4.TabIndex = 16;
+            this.timePurge.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.timePurge.Location = new System.Drawing.Point(350, 60);
+            this.timePurge.Name = "timePurge";
+            this.timePurge.ShowUpDown = true;
+            this.timePurge.Size = new System.Drawing.Size(92, 27);
+            this.timePurge.TabIndex = 16;
+            this.timePurge.ValueChanged += new System.EventHandler(this.timePyrge_ValueChanged);
             // 
             // label149
             // 
@@ -825,7 +853,7 @@
             // 
             // groupBox22
             // 
-            this.groupBox22.Controls.Add(this.dateTimePicker4);
+            this.groupBox22.Controls.Add(this.timePurge);
             this.groupBox22.Controls.Add(this.label149);
             this.groupBox22.Controls.Add(this.label147);
             this.groupBox22.Controls.Add(this.label148);
@@ -869,41 +897,42 @@
             this.label145.TabIndex = 35;
             this.label145.Text = "%";
             // 
-            // hScrollBar19
+            // scrollPlasmaDevistion
             // 
-            this.hScrollBar19.Location = new System.Drawing.Point(314, 230);
-            this.hScrollBar19.Maximum = 1000;
-            this.hScrollBar19.Minimum = 10;
-            this.hScrollBar19.Name = "hScrollBar19";
-            this.hScrollBar19.Size = new System.Drawing.Size(155, 22);
-            this.hScrollBar19.TabIndex = 34;
-            this.hScrollBar19.Value = 10;
+            this.scrollPlasmaDevistion.Location = new System.Drawing.Point(314, 230);
+            this.scrollPlasmaDevistion.Name = "scrollPlasmaDevistion";
+            this.scrollPlasmaDevistion.Size = new System.Drawing.Size(155, 22);
+            this.scrollPlasmaDevistion.TabIndex = 34;
+            this.scrollPlasmaDevistion.Value = 10;
+            this.scrollPlasmaDevistion.Scroll += new System.Windows.Forms.ScrollEventHandler(this.scrollPlasmaDevistion_Scroll);
             // 
-            // textBox44
+            // tBoxPlasmaDeviation
             // 
-            this.textBox44.Location = new System.Drawing.Point(486, 227);
-            this.textBox44.Name = "textBox44";
-            this.textBox44.ReadOnly = true;
-            this.textBox44.Size = new System.Drawing.Size(64, 27);
-            this.textBox44.TabIndex = 33;
+            this.tBoxPlasmaDeviation.Location = new System.Drawing.Point(486, 227);
+            this.tBoxPlasmaDeviation.Name = "tBoxPlasmaDeviation";
+            this.tBoxPlasmaDeviation.Size = new System.Drawing.Size(80, 27);
+            this.tBoxPlasmaDeviation.TabIndex = 33;
+            this.tBoxPlasmaDeviation.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkIntValue_KeyPress);
+            this.tBoxPlasmaDeviation.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxPlsamsDeviation_KeyUp);
+            this.tBoxPlasmaDeviation.Validated += new System.EventHandler(this.tBoxPlsamsDeviation_Validated);
             // 
-            // hScrollBar18
+            // scrollPlasmaSetpoint
             // 
-            this.hScrollBar18.Location = new System.Drawing.Point(314, 185);
-            this.hScrollBar18.Maximum = 1000;
-            this.hScrollBar18.Minimum = 10;
-            this.hScrollBar18.Name = "hScrollBar18";
-            this.hScrollBar18.Size = new System.Drawing.Size(155, 22);
-            this.hScrollBar18.TabIndex = 32;
-            this.hScrollBar18.Value = 10;
+            this.scrollPlasmaSetpoint.Location = new System.Drawing.Point(314, 185);
+            this.scrollPlasmaSetpoint.Name = "scrollPlasmaSetpoint";
+            this.scrollPlasmaSetpoint.Size = new System.Drawing.Size(155, 22);
+            this.scrollPlasmaSetpoint.TabIndex = 32;
+            this.scrollPlasmaSetpoint.Scroll += new System.Windows.Forms.ScrollEventHandler(this.scrollPlasmaSetpoint_Scroll);
             // 
-            // textBox43
+            // tBoxPlasmaSetpoint
             // 
-            this.textBox43.Location = new System.Drawing.Point(486, 185);
-            this.textBox43.Name = "textBox43";
-            this.textBox43.ReadOnly = true;
-            this.textBox43.Size = new System.Drawing.Size(64, 27);
-            this.textBox43.TabIndex = 31;
+            this.tBoxPlasmaSetpoint.Location = new System.Drawing.Point(486, 185);
+            this.tBoxPlasmaSetpoint.Name = "tBoxPlasmaSetpoint";
+            this.tBoxPlasmaSetpoint.Size = new System.Drawing.Size(80, 27);
+            this.tBoxPlasmaSetpoint.TabIndex = 31;
+            this.tBoxPlasmaSetpoint.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkIntValue_KeyPress);
+            this.tBoxPlasmaSetpoint.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxPlasmaSetpoint_KeyUp);
+            this.tBoxPlasmaSetpoint.Validated += new System.EventHandler(this.tBoxPlasmaSetpoint_Validated);
             // 
             // label144
             // 
@@ -924,41 +953,44 @@
             this.label143.TabIndex = 19;
             this.label143.Text = "Mode";
             // 
-            // radioButton8
+            // rBtnPlasmaModeVoltage
             // 
-            this.radioButton8.AutoSize = true;
-            this.radioButton8.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.radioButton8.Location = new System.Drawing.Point(314, 84);
-            this.radioButton8.Name = "radioButton8";
-            this.radioButton8.Size = new System.Drawing.Size(86, 24);
-            this.radioButton8.TabIndex = 18;
-            this.radioButton8.TabStop = true;
-            this.radioButton8.Text = "Voltage";
-            this.radioButton8.UseVisualStyleBackColor = true;
+            this.rBtnPlasmaModeVoltage.AutoSize = true;
+            this.rBtnPlasmaModeVoltage.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.rBtnPlasmaModeVoltage.Location = new System.Drawing.Point(314, 84);
+            this.rBtnPlasmaModeVoltage.Name = "rBtnPlasmaModeVoltage";
+            this.rBtnPlasmaModeVoltage.Size = new System.Drawing.Size(86, 24);
+            this.rBtnPlasmaModeVoltage.TabIndex = 18;
+            this.rBtnPlasmaModeVoltage.TabStop = true;
+            this.rBtnPlasmaModeVoltage.Text = "Voltage";
+            this.rBtnPlasmaModeVoltage.UseVisualStyleBackColor = true;
+            this.rBtnPlasmaModeVoltage.Click += new System.EventHandler(this.rBtnPlasmaMode_Click);
             // 
-            // radioButton7
+            // rBtnPlasmaModeCurent
             // 
-            this.radioButton7.AutoSize = true;
-            this.radioButton7.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.radioButton7.Location = new System.Drawing.Point(314, 119);
-            this.radioButton7.Name = "radioButton7";
-            this.radioButton7.Size = new System.Drawing.Size(80, 24);
-            this.radioButton7.TabIndex = 17;
-            this.radioButton7.TabStop = true;
-            this.radioButton7.Text = "Curent";
-            this.radioButton7.UseVisualStyleBackColor = true;
+            this.rBtnPlasmaModeCurent.AutoSize = true;
+            this.rBtnPlasmaModeCurent.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.rBtnPlasmaModeCurent.Location = new System.Drawing.Point(314, 119);
+            this.rBtnPlasmaModeCurent.Name = "rBtnPlasmaModeCurent";
+            this.rBtnPlasmaModeCurent.Size = new System.Drawing.Size(80, 24);
+            this.rBtnPlasmaModeCurent.TabIndex = 17;
+            this.rBtnPlasmaModeCurent.TabStop = true;
+            this.rBtnPlasmaModeCurent.Text = "Curent";
+            this.rBtnPlasmaModeCurent.UseVisualStyleBackColor = true;
+            this.rBtnPlasmaModeCurent.Click += new System.EventHandler(this.rBtnPlasmaMode_Click);
             // 
-            // radioButton6
+            // rBtnPlasmaModePower
             // 
-            this.radioButton6.AutoSize = true;
-            this.radioButton6.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.radioButton6.Location = new System.Drawing.Point(314, 50);
-            this.radioButton6.Name = "radioButton6";
-            this.radioButton6.Size = new System.Drawing.Size(77, 24);
-            this.radioButton6.TabIndex = 16;
-            this.radioButton6.TabStop = true;
-            this.radioButton6.Text = "Power";
-            this.radioButton6.UseVisualStyleBackColor = true;
+            this.rBtnPlasmaModePower.AutoSize = true;
+            this.rBtnPlasmaModePower.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.rBtnPlasmaModePower.Location = new System.Drawing.Point(314, 50);
+            this.rBtnPlasmaModePower.Name = "rBtnPlasmaModePower";
+            this.rBtnPlasmaModePower.Size = new System.Drawing.Size(77, 24);
+            this.rBtnPlasmaModePower.TabIndex = 16;
+            this.rBtnPlasmaModePower.TabStop = true;
+            this.rBtnPlasmaModePower.Text = "Power";
+            this.rBtnPlasmaModePower.UseVisualStyleBackColor = true;
+            this.rBtnPlasmaModePower.Click += new System.EventHandler(this.rBtnPlasmaMode_Click);
             // 
             // label142
             // 
@@ -990,13 +1022,15 @@
             this.label140.TabIndex = 13;
             this.label140.Text = "[hh:mm:ss]";
             // 
-            // dateTimePicker3
+            // timePlasma
             // 
-            this.dateTimePicker3.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePicker3.Location = new System.Drawing.Point(314, 26);
-            this.dateTimePicker3.Name = "dateTimePicker3";
-            this.dateTimePicker3.Size = new System.Drawing.Size(100, 27);
-            this.dateTimePicker3.TabIndex = 12;
+            this.timePlasma.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.timePlasma.Location = new System.Drawing.Point(314, 26);
+            this.timePlasma.Name = "timePlasma";
+            this.timePlasma.ShowUpDown = true;
+            this.timePlasma.Size = new System.Drawing.Size(100, 27);
+            this.timePlasma.TabIndex = 12;
+            this.timePlasma.ValueChanged += new System.EventHandler(this.timePlasma_ValueChanged);
             // 
             // label86
             // 
@@ -1067,7 +1101,7 @@
             // 
             // groupBox20
             // 
-            this.groupBox20.Controls.Add(this.dateTimePicker3);
+            this.groupBox20.Controls.Add(this.timePlasma);
             this.groupBox20.Controls.Add(this.label139);
             this.groupBox20.Controls.Add(this.label140);
             this.groupBox20.Dock = System.Windows.Forms.DockStyle.Top;
@@ -1080,16 +1114,16 @@
             // 
             // groupBox21
             // 
-            this.groupBox21.Controls.Add(this.hScrollBar19);
-            this.groupBox21.Controls.Add(this.radioButton8);
+            this.groupBox21.Controls.Add(this.scrollPlasmaDevistion);
+            this.groupBox21.Controls.Add(this.rBtnPlasmaModeVoltage);
             this.groupBox21.Controls.Add(this.label34);
             this.groupBox21.Controls.Add(this.label144);
-            this.groupBox21.Controls.Add(this.textBox44);
-            this.groupBox21.Controls.Add(this.radioButton7);
-            this.groupBox21.Controls.Add(this.textBox43);
+            this.groupBox21.Controls.Add(this.tBoxPlasmaDeviation);
+            this.groupBox21.Controls.Add(this.rBtnPlasmaModeCurent);
+            this.groupBox21.Controls.Add(this.tBoxPlasmaSetpoint);
             this.groupBox21.Controls.Add(this.label146);
-            this.groupBox21.Controls.Add(this.radioButton6);
-            this.groupBox21.Controls.Add(this.hScrollBar18);
+            this.groupBox21.Controls.Add(this.rBtnPlasmaModePower);
+            this.groupBox21.Controls.Add(this.scrollPlasmaSetpoint);
             this.groupBox21.Controls.Add(this.label145);
             this.groupBox21.Controls.Add(this.label142);
             this.groupBox21.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -1120,13 +1154,15 @@
             this.label84.TabIndex = 9;
             this.label84.Text = "[hh:mm:ss]";
             // 
-            // dateTimePicker2
+            // timeGas
             // 
-            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePicker2.Location = new System.Drawing.Point(198, 15);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(100, 27);
-            this.dateTimePicker2.TabIndex = 8;
+            this.timeGas.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.timeGas.Location = new System.Drawing.Point(198, 15);
+            this.timeGas.Name = "timeGas";
+            this.timeGas.ShowUpDown = true;
+            this.timeGas.Size = new System.Drawing.Size(100, 27);
+            this.timeGas.TabIndex = 8;
+            this.timeGas.ValueChanged += new System.EventHandler(this.timeGas_ValueChanged);
             // 
             // label85
             // 
@@ -1198,10 +1234,10 @@
             // 
             // groupBox19
             // 
-            this.groupBox19.Controls.Add(this.hScrollBar14);
+            this.groupBox19.Controls.Add(this.scrollPumpSetpoint);
             this.groupBox19.Controls.Add(this.label82);
             this.groupBox19.Controls.Add(this.label80);
-            this.groupBox19.Controls.Add(this.textBox16);
+            this.groupBox19.Controls.Add(this.tBoxPumpSetpoint);
             this.groupBox19.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox19.Location = new System.Drawing.Point(3, 123);
             this.groupBox19.Name = "groupBox19";
@@ -1210,15 +1246,16 @@
             this.groupBox19.TabStop = false;
             this.groupBox19.Text = "Parameters";
             // 
-            // hScrollBar14
+            // scrollPumpSetpoint
             // 
-            this.hScrollBar14.Location = new System.Drawing.Point(333, 48);
-            this.hScrollBar14.Maximum = 1000;
-            this.hScrollBar14.Minimum = 10;
-            this.hScrollBar14.Name = "hScrollBar14";
-            this.hScrollBar14.Size = new System.Drawing.Size(143, 22);
-            this.hScrollBar14.TabIndex = 26;
-            this.hScrollBar14.Value = 10;
+            this.scrollPumpSetpoint.Location = new System.Drawing.Point(333, 48);
+            this.scrollPumpSetpoint.Maximum = 120000;
+            this.scrollPumpSetpoint.Minimum = 1;
+            this.scrollPumpSetpoint.Name = "scrollPumpSetpoint";
+            this.scrollPumpSetpoint.Size = new System.Drawing.Size(143, 22);
+            this.scrollPumpSetpoint.TabIndex = 26;
+            this.scrollPumpSetpoint.Value = 10;
+            this.scrollPumpSetpoint.ValueChanged += new System.EventHandler(this.scrollPumpSetpoint_ValueChanged);
             // 
             // label82
             // 
@@ -1240,17 +1277,19 @@
             this.label80.TabIndex = 0;
             this.label80.Text = "Pumping down pressure:";
             // 
-            // textBox16
+            // tBoxPumpSetpoint
             // 
-            this.textBox16.Location = new System.Drawing.Point(495, 45);
-            this.textBox16.Name = "textBox16";
-            this.textBox16.ReadOnly = true;
-            this.textBox16.Size = new System.Drawing.Size(60, 27);
-            this.textBox16.TabIndex = 25;
+            this.tBoxPumpSetpoint.Location = new System.Drawing.Point(495, 45);
+            this.tBoxPumpSetpoint.Name = "tBoxPumpSetpoint";
+            this.tBoxPumpSetpoint.Size = new System.Drawing.Size(74, 27);
+            this.tBoxPumpSetpoint.TabIndex = 25;
+            this.tBoxPumpSetpoint.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkFloatValue_KeyPress);
+            this.tBoxPumpSetpoint.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxPumpSetpoint_KeyUp);
+            this.tBoxPumpSetpoint.Validated += new System.EventHandler(this.tBoxPumpSetpoint_Validated);
             // 
             // groupBox18
             // 
-            this.groupBox18.Controls.Add(this.dateTimePicker1);
+            this.groupBox18.Controls.Add(this.timePump);
             this.groupBox18.Controls.Add(this.label81);
             this.groupBox18.Controls.Add(this.label83);
             this.groupBox18.Dock = System.Windows.Forms.DockStyle.Top;
@@ -1261,13 +1300,15 @@
             this.groupBox18.TabStop = false;
             this.groupBox18.Text = "Time";
             // 
-            // dateTimePicker1
+            // timePump
             // 
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePicker1.Location = new System.Drawing.Point(333, 34);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(101, 27);
-            this.dateTimePicker1.TabIndex = 5;
+            this.timePump.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.timePump.Location = new System.Drawing.Point(333, 34);
+            this.timePump.Name = "timePump";
+            this.timePump.ShowUpDown = true;
+            this.timePump.Size = new System.Drawing.Size(101, 27);
+            this.timePump.TabIndex = 5;
+            this.timePump.ValueChanged += new System.EventHandler(this.timePump_ValueChanged);
             // 
             // label81
             // 
@@ -1355,35 +1396,37 @@
             this.tBoxDescProgram.TabIndex = 29;
             this.tBoxDescProgram.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxDescProgram_KeyUp);
             // 
-            // checkBox5
+            // cBoxMFC3
             // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.checkBox5.Location = new System.Drawing.Point(593, 24);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(85, 24);
-            this.checkBox5.TabIndex = 18;
-            this.checkBox5.Text = "MFC 3.";
-            this.checkBox5.UseVisualStyleBackColor = true;
+            this.cBoxMFC3.AutoSize = true;
+            this.cBoxMFC3.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.cBoxMFC3.Location = new System.Drawing.Point(593, 24);
+            this.cBoxMFC3.Name = "cBoxMFC3";
+            this.cBoxMFC3.Size = new System.Drawing.Size(85, 24);
+            this.cBoxMFC3.TabIndex = 18;
+            this.cBoxMFC3.Text = "MFC 3.";
+            this.cBoxMFC3.UseVisualStyleBackColor = true;
+            this.cBoxMFC3.Click += new System.EventHandler(this.cBoxMFC3_Click);
             // 
-            // comboBox6
+            // cBoxGasListMFC1
             // 
-            this.comboBox6.FormattingEnabled = true;
-            this.comboBox6.Location = new System.Drawing.Point(147, 21);
-            this.comboBox6.Name = "comboBox6";
-            this.comboBox6.Size = new System.Drawing.Size(134, 28);
-            this.comboBox6.TabIndex = 17;
+            this.cBoxGasListMFC1.FormattingEnabled = true;
+            this.cBoxGasListMFC1.Location = new System.Drawing.Point(147, 21);
+            this.cBoxGasListMFC1.Name = "cBoxGasListMFC1";
+            this.cBoxGasListMFC1.Size = new System.Drawing.Size(134, 28);
+            this.cBoxGasListMFC1.TabIndex = 17;
             // 
-            // checkBox4
+            // cBoxMFC2
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.checkBox4.Location = new System.Drawing.Point(311, 23);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(85, 24);
-            this.checkBox4.TabIndex = 15;
-            this.checkBox4.Text = "MFC 2.";
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this.cBoxMFC2.AutoSize = true;
+            this.cBoxMFC2.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.cBoxMFC2.Location = new System.Drawing.Point(311, 23);
+            this.cBoxMFC2.Name = "cBoxMFC2";
+            this.cBoxMFC2.Size = new System.Drawing.Size(85, 24);
+            this.cBoxMFC2.TabIndex = 15;
+            this.cBoxMFC2.Text = "MFC 2.";
+            this.cBoxMFC2.UseVisualStyleBackColor = true;
+            this.cBoxMFC2.Click += new System.EventHandler(this.cBoxMFC2_Click);
             // 
             // btnRemoveSubprogram
             // 
@@ -1429,9 +1472,9 @@
             // 
             this.grBoxGas.Controls.Add(this.groupBox1);
             this.grBoxGas.Controls.Add(this.groupBox5);
-            this.grBoxGas.Controls.Add(this.groupBox6);
+            this.grBoxGas.Controls.Add(this.grBoxGasPressure);
             this.grBoxGas.Controls.Add(this.groupBox2);
-            this.grBoxGas.Controls.Add(this.groupBox3);
+            this.grBoxGas.Controls.Add(this.grBoxGasFlow);
             this.grBoxGas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grBoxGas.Enabled = false;
             this.grBoxGas.Location = new System.Drawing.Point(3, 23);
@@ -1442,7 +1485,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.dateTimePicker2);
+            this.groupBox1.Controls.Add(this.timeGas);
             this.groupBox1.Controls.Add(this.label84);
             this.groupBox1.Controls.Add(this.label86);
             this.groupBox1.Location = new System.Drawing.Point(6, 16);
@@ -1454,8 +1497,8 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.radioButton2);
-            this.groupBox5.Controls.Add(this.radioButton1);
+            this.groupBox5.Controls.Add(this.rBtnModePressure);
+            this.groupBox5.Controls.Add(this.rBtnModeFlow);
             this.groupBox5.Location = new System.Drawing.Point(522, 15);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(509, 52);
@@ -1463,39 +1506,40 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Mode";
             // 
-            // radioButton2
+            // rBtnModePressure
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.radioButton2.Location = new System.Drawing.Point(237, 19);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(98, 24);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Pressure";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.rBtnModePressure.AutoSize = true;
+            this.rBtnModePressure.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.rBtnModePressure.Location = new System.Drawing.Point(237, 19);
+            this.rBtnModePressure.Name = "rBtnModePressure";
+            this.rBtnModePressure.Size = new System.Drawing.Size(98, 24);
+            this.rBtnModePressure.TabIndex = 1;
+            this.rBtnModePressure.TabStop = true;
+            this.rBtnModePressure.Text = "Pressure";
+            this.rBtnModePressure.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // rBtnModeFlow
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.radioButton1.Location = new System.Drawing.Point(77, 20);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(79, 24);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Gases";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.rBtnModeFlow.AutoSize = true;
+            this.rBtnModeFlow.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.rBtnModeFlow.Location = new System.Drawing.Point(77, 20);
+            this.rBtnModeFlow.Name = "rBtnModeFlow";
+            this.rBtnModeFlow.Size = new System.Drawing.Size(79, 24);
+            this.rBtnModeFlow.TabIndex = 0;
+            this.rBtnModeFlow.TabStop = true;
+            this.rBtnModeFlow.Text = "Gases";
+            this.rBtnModeFlow.UseVisualStyleBackColor = true;
+            this.rBtnModeFlow.CheckedChanged += new System.EventHandler(this.rBtnGasMode_CheckedChanged);
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.checkBox1);
-            this.groupBox2.Controls.Add(this.comboBox1);
-            this.groupBox2.Controls.Add(this.checkBox4);
-            this.groupBox2.Controls.Add(this.checkBox5);
-            this.groupBox2.Controls.Add(this.checkBox8);
-            this.groupBox2.Controls.Add(this.comboBox7);
-            this.groupBox2.Controls.Add(this.comboBox6);
+            this.groupBox2.Controls.Add(this.cBoxVaporiser);
+            this.groupBox2.Controls.Add(this.cBoxGasListMFC3);
+            this.groupBox2.Controls.Add(this.cBoxMFC2);
+            this.groupBox2.Controls.Add(this.cBoxMFC3);
+            this.groupBox2.Controls.Add(this.cBoxMFC1);
+            this.groupBox2.Controls.Add(this.cBoxGasListMFC2);
+            this.groupBox2.Controls.Add(this.cBoxGasListMFC1);
             this.groupBox2.Location = new System.Drawing.Point(8, 69);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(1032, 60);
@@ -1503,77 +1547,79 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Select gases line";
             // 
-            // checkBox1
+            // cBoxVaporiser
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.checkBox1.Location = new System.Drawing.Point(889, 23);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(103, 24);
-            this.checkBox1.TabIndex = 23;
-            this.checkBox1.Text = "Vaporiser";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.cBoxVaporiser.AutoSize = true;
+            this.cBoxVaporiser.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.cBoxVaporiser.Location = new System.Drawing.Point(889, 23);
+            this.cBoxVaporiser.Name = "cBoxVaporiser";
+            this.cBoxVaporiser.Size = new System.Drawing.Size(103, 24);
+            this.cBoxVaporiser.TabIndex = 23;
+            this.cBoxVaporiser.Text = "Vaporiser";
+            this.cBoxVaporiser.UseVisualStyleBackColor = true;
+            this.cBoxVaporiser.Click += new System.EventHandler(this.cBoxVaporiser_Click);
             // 
-            // comboBox1
+            // cBoxGasListMFC3
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(699, 21);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(134, 28);
-            this.comboBox1.TabIndex = 22;
+            this.cBoxGasListMFC3.FormattingEnabled = true;
+            this.cBoxGasListMFC3.Location = new System.Drawing.Point(699, 21);
+            this.cBoxGasListMFC3.Name = "cBoxGasListMFC3";
+            this.cBoxGasListMFC3.Size = new System.Drawing.Size(134, 28);
+            this.cBoxGasListMFC3.TabIndex = 22;
             // 
-            // checkBox8
+            // cBoxMFC1
             // 
-            this.checkBox8.AutoSize = true;
-            this.checkBox8.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.checkBox8.Location = new System.Drawing.Point(36, 25);
-            this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(85, 24);
-            this.checkBox8.TabIndex = 21;
-            this.checkBox8.Text = "MFC 1.";
-            this.checkBox8.UseVisualStyleBackColor = true;
+            this.cBoxMFC1.AutoSize = true;
+            this.cBoxMFC1.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.cBoxMFC1.Location = new System.Drawing.Point(36, 25);
+            this.cBoxMFC1.Name = "cBoxMFC1";
+            this.cBoxMFC1.Size = new System.Drawing.Size(85, 24);
+            this.cBoxMFC1.TabIndex = 21;
+            this.cBoxMFC1.Text = "MFC 1.";
+            this.cBoxMFC1.UseVisualStyleBackColor = true;
+            this.cBoxMFC1.Click += new System.EventHandler(this.cBoxMFC1_Click);
             // 
-            // comboBox7
+            // cBoxGasListMFC2
             // 
-            this.comboBox7.FormattingEnabled = true;
-            this.comboBox7.Location = new System.Drawing.Point(423, 22);
-            this.comboBox7.Name = "comboBox7";
-            this.comboBox7.Size = new System.Drawing.Size(134, 28);
-            this.comboBox7.TabIndex = 20;
+            this.cBoxGasListMFC2.FormattingEnabled = true;
+            this.cBoxGasListMFC2.Location = new System.Drawing.Point(423, 22);
+            this.cBoxGasListMFC2.Name = "cBoxGasListMFC2";
+            this.cBoxGasListMFC2.Size = new System.Drawing.Size(134, 28);
+            this.cBoxGasListMFC2.TabIndex = 20;
             // 
-            // groupBox3
+            // grBoxGasFlow
             // 
-            this.groupBox3.Controls.Add(this.groupBox7);
-            this.groupBox3.Controls.Add(this.groupBox11);
-            this.groupBox3.Controls.Add(this.groupBox9);
-            this.groupBox3.Controls.Add(this.groupBox4);
-            this.groupBox3.Location = new System.Drawing.Point(8, 130);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(1030, 286);
-            this.groupBox3.TabIndex = 25;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Gases mode";
+            this.grBoxGasFlow.Controls.Add(this.grBoxMFC1);
+            this.grBoxGasFlow.Controls.Add(this.grBoxMFC3);
+            this.grBoxGasFlow.Controls.Add(this.grBoxMFC2);
+            this.grBoxGasFlow.Controls.Add(this.grBoxVaporiser);
+            this.grBoxGasFlow.Location = new System.Drawing.Point(8, 130);
+            this.grBoxGasFlow.Name = "grBoxGasFlow";
+            this.grBoxGasFlow.Size = new System.Drawing.Size(1030, 286);
+            this.grBoxGasFlow.TabIndex = 25;
+            this.grBoxGasFlow.TabStop = false;
+            this.grBoxGasFlow.Text = "Gases mode";
             // 
-            // groupBox7
+            // grBoxMFC1
             // 
-            this.groupBox7.Controls.Add(this.label5);
-            this.groupBox7.Controls.Add(this.hScrollBar21);
-            this.groupBox7.Controls.Add(this.label6);
-            this.groupBox7.Controls.Add(this.textBox3);
-            this.groupBox7.Controls.Add(this.label7);
-            this.groupBox7.Controls.Add(this.hScrollBar22);
-            this.groupBox7.Controls.Add(this.label8);
-            this.groupBox7.Controls.Add(this.textBox4);
-            this.groupBox7.Controls.Add(this.label9);
-            this.groupBox7.Controls.Add(this.hScrollBar23);
-            this.groupBox7.Controls.Add(this.label10);
-            this.groupBox7.Controls.Add(this.textBox5);
-            this.groupBox7.Location = new System.Drawing.Point(13, 21);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(233, 252);
-            this.groupBox7.TabIndex = 26;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "MFC 1 - Oxygen";
+            this.grBoxMFC1.Controls.Add(this.label5);
+            this.grBoxMFC1.Controls.Add(this.scrollFlow1Min);
+            this.grBoxMFC1.Controls.Add(this.label6);
+            this.grBoxMFC1.Controls.Add(this.tBoxFlow1Min);
+            this.grBoxMFC1.Controls.Add(this.label7);
+            this.grBoxMFC1.Controls.Add(this.scrollFlow1Max);
+            this.grBoxMFC1.Controls.Add(this.label8);
+            this.grBoxMFC1.Controls.Add(this.tBoxFlow1Max);
+            this.grBoxMFC1.Controls.Add(this.label9);
+            this.grBoxMFC1.Controls.Add(this.scrollFlow1);
+            this.grBoxMFC1.Controls.Add(this.label10);
+            this.grBoxMFC1.Controls.Add(this.tBoxFlow1);
+            this.grBoxMFC1.Location = new System.Drawing.Point(13, 21);
+            this.grBoxMFC1.Name = "grBoxMFC1";
+            this.grBoxMFC1.Size = new System.Drawing.Size(233, 252);
+            this.grBoxMFC1.TabIndex = 26;
+            this.grBoxMFC1.TabStop = false;
+            this.grBoxMFC1.Text = "MFC 1 - Oxygen";
             // 
             // label5
             // 
@@ -1585,15 +1631,15 @@
             this.label5.TabIndex = 33;
             this.label5.Text = "Gas flow min:";
             // 
-            // hScrollBar21
+            // scrollFlow1Min
             // 
-            this.hScrollBar21.Location = new System.Drawing.Point(24, 123);
-            this.hScrollBar21.Maximum = 1000;
-            this.hScrollBar21.Minimum = 10;
-            this.hScrollBar21.Name = "hScrollBar21";
-            this.hScrollBar21.Size = new System.Drawing.Size(135, 22);
-            this.hScrollBar21.TabIndex = 32;
-            this.hScrollBar21.Value = 10;
+            this.scrollFlow1Min.Location = new System.Drawing.Point(24, 123);
+            this.scrollFlow1Min.Maximum = 1000;
+            this.scrollFlow1Min.Name = "scrollFlow1Min";
+            this.scrollFlow1Min.Size = new System.Drawing.Size(135, 22);
+            this.scrollFlow1Min.TabIndex = 32;
+            this.scrollFlow1Min.Value = 10;
+            this.scrollFlow1Min.ValueChanged += new System.EventHandler(this.scrollFlow1Min_ValueChanged);
             // 
             // label6
             // 
@@ -1605,13 +1651,15 @@
             this.label6.TabIndex = 31;
             this.label6.Text = "sccm";
             // 
-            // textBox3
+            // tBoxFlow1Min
             // 
-            this.textBox3.Location = new System.Drawing.Point(167, 118);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(60, 27);
-            this.textBox3.TabIndex = 30;
+            this.tBoxFlow1Min.Location = new System.Drawing.Point(167, 118);
+            this.tBoxFlow1Min.Name = "tBoxFlow1Min";
+            this.tBoxFlow1Min.Size = new System.Drawing.Size(60, 27);
+            this.tBoxFlow1Min.TabIndex = 30;
+            this.tBoxFlow1Min.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkIntValue_KeyPress);
+            this.tBoxFlow1Min.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxGas_KeyUp);
+            this.tBoxFlow1Min.Validated += new System.EventHandler(this.tBoxGas_Validated);
             // 
             // label7
             // 
@@ -1623,15 +1671,15 @@
             this.label7.TabIndex = 29;
             this.label7.Text = "Gas flow max:";
             // 
-            // hScrollBar22
+            // scrollFlow1Max
             // 
-            this.hScrollBar22.Location = new System.Drawing.Point(24, 191);
-            this.hScrollBar22.Maximum = 1000;
-            this.hScrollBar22.Minimum = 10;
-            this.hScrollBar22.Name = "hScrollBar22";
-            this.hScrollBar22.Size = new System.Drawing.Size(135, 22);
-            this.hScrollBar22.TabIndex = 28;
-            this.hScrollBar22.Value = 10;
+            this.scrollFlow1Max.Location = new System.Drawing.Point(24, 191);
+            this.scrollFlow1Max.Maximum = 1000;
+            this.scrollFlow1Max.Name = "scrollFlow1Max";
+            this.scrollFlow1Max.Size = new System.Drawing.Size(135, 22);
+            this.scrollFlow1Max.TabIndex = 28;
+            this.scrollFlow1Max.Value = 10;
+            this.scrollFlow1Max.ValueChanged += new System.EventHandler(this.scrollFlow1Max_ValueChanged);
             // 
             // label8
             // 
@@ -1643,13 +1691,15 @@
             this.label8.TabIndex = 27;
             this.label8.Text = "sccm";
             // 
-            // textBox4
+            // tBoxFlow1Max
             // 
-            this.textBox4.Location = new System.Drawing.Point(167, 186);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(60, 27);
-            this.textBox4.TabIndex = 26;
+            this.tBoxFlow1Max.Location = new System.Drawing.Point(167, 186);
+            this.tBoxFlow1Max.Name = "tBoxFlow1Max";
+            this.tBoxFlow1Max.Size = new System.Drawing.Size(60, 27);
+            this.tBoxFlow1Max.TabIndex = 26;
+            this.tBoxFlow1Max.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkIntValue_KeyPress);
+            this.tBoxFlow1Max.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxGas_KeyUp);
+            this.tBoxFlow1Max.Validated += new System.EventHandler(this.tBoxGas_Validated);
             // 
             // label9
             // 
@@ -1661,15 +1711,14 @@
             this.label9.TabIndex = 25;
             this.label9.Text = "Gas flow:";
             // 
-            // hScrollBar23
+            // scrollFlow1
             // 
-            this.hScrollBar23.Location = new System.Drawing.Point(25, 54);
-            this.hScrollBar23.Maximum = 1000;
-            this.hScrollBar23.Minimum = 10;
-            this.hScrollBar23.Name = "hScrollBar23";
-            this.hScrollBar23.Size = new System.Drawing.Size(135, 22);
-            this.hScrollBar23.TabIndex = 24;
-            this.hScrollBar23.Value = 10;
+            this.scrollFlow1.Location = new System.Drawing.Point(24, 54);
+            this.scrollFlow1.Name = "scrollFlow1";
+            this.scrollFlow1.Size = new System.Drawing.Size(135, 22);
+            this.scrollFlow1.TabIndex = 24;
+            this.scrollFlow1.Value = 10;
+            this.scrollFlow1.ValueChanged += new System.EventHandler(this.scrollFlow1_ValueChanged);
             // 
             // label10
             // 
@@ -1681,34 +1730,36 @@
             this.label10.TabIndex = 23;
             this.label10.Text = "sccm";
             // 
-            // textBox5
+            // tBoxFlow1
             // 
-            this.textBox5.Location = new System.Drawing.Point(167, 49);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.ReadOnly = true;
-            this.textBox5.Size = new System.Drawing.Size(60, 27);
-            this.textBox5.TabIndex = 22;
+            this.tBoxFlow1.Location = new System.Drawing.Point(167, 49);
+            this.tBoxFlow1.Name = "tBoxFlow1";
+            this.tBoxFlow1.Size = new System.Drawing.Size(60, 27);
+            this.tBoxFlow1.TabIndex = 22;
+            this.tBoxFlow1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkIntValue_KeyPress);
+            this.tBoxFlow1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxGas_KeyUp);
+            this.tBoxFlow1.Validated += new System.EventHandler(this.tBoxGas_Validated);
             // 
-            // groupBox11
+            // grBoxMFC3
             // 
-            this.groupBox11.Controls.Add(this.label17);
-            this.groupBox11.Controls.Add(this.hScrollBar9);
-            this.groupBox11.Controls.Add(this.label18);
-            this.groupBox11.Controls.Add(this.textBox9);
-            this.groupBox11.Controls.Add(this.label19);
-            this.groupBox11.Controls.Add(this.hScrollBar10);
-            this.groupBox11.Controls.Add(this.label20);
-            this.groupBox11.Controls.Add(this.textBox10);
-            this.groupBox11.Controls.Add(this.label21);
-            this.groupBox11.Controls.Add(this.hScrollBar11);
-            this.groupBox11.Controls.Add(this.label22);
-            this.groupBox11.Controls.Add(this.textBox11);
-            this.groupBox11.Location = new System.Drawing.Point(530, 26);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(233, 252);
-            this.groupBox11.TabIndex = 34;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "MFC 3 - N/A";
+            this.grBoxMFC3.Controls.Add(this.label17);
+            this.grBoxMFC3.Controls.Add(this.scrollFlow3Min);
+            this.grBoxMFC3.Controls.Add(this.label18);
+            this.grBoxMFC3.Controls.Add(this.tBoxFlow3Min);
+            this.grBoxMFC3.Controls.Add(this.label19);
+            this.grBoxMFC3.Controls.Add(this.scrollFlow3Max);
+            this.grBoxMFC3.Controls.Add(this.label20);
+            this.grBoxMFC3.Controls.Add(this.tBoxFlow3Max);
+            this.grBoxMFC3.Controls.Add(this.label21);
+            this.grBoxMFC3.Controls.Add(this.scrollFlow3);
+            this.grBoxMFC3.Controls.Add(this.label22);
+            this.grBoxMFC3.Controls.Add(this.tBoxFlow3);
+            this.grBoxMFC3.Location = new System.Drawing.Point(530, 21);
+            this.grBoxMFC3.Name = "grBoxMFC3";
+            this.grBoxMFC3.Size = new System.Drawing.Size(233, 252);
+            this.grBoxMFC3.TabIndex = 34;
+            this.grBoxMFC3.TabStop = false;
+            this.grBoxMFC3.Text = "MFC 3 - N/A";
             // 
             // label17
             // 
@@ -1720,15 +1771,15 @@
             this.label17.TabIndex = 33;
             this.label17.Text = "Gas flow min:";
             // 
-            // hScrollBar9
+            // scrollFlow3Min
             // 
-            this.hScrollBar9.Location = new System.Drawing.Point(24, 123);
-            this.hScrollBar9.Maximum = 1000;
-            this.hScrollBar9.Minimum = 10;
-            this.hScrollBar9.Name = "hScrollBar9";
-            this.hScrollBar9.Size = new System.Drawing.Size(135, 22);
-            this.hScrollBar9.TabIndex = 32;
-            this.hScrollBar9.Value = 10;
+            this.scrollFlow3Min.Location = new System.Drawing.Point(24, 123);
+            this.scrollFlow3Min.Maximum = 1000;
+            this.scrollFlow3Min.Name = "scrollFlow3Min";
+            this.scrollFlow3Min.Size = new System.Drawing.Size(135, 22);
+            this.scrollFlow3Min.TabIndex = 32;
+            this.scrollFlow3Min.Value = 10;
+            this.scrollFlow3Min.ValueChanged += new System.EventHandler(this.scrollFlow3Min_ValueChanged);
             // 
             // label18
             // 
@@ -1740,13 +1791,15 @@
             this.label18.TabIndex = 31;
             this.label18.Text = "sccm";
             // 
-            // textBox9
+            // tBoxFlow3Min
             // 
-            this.textBox9.Location = new System.Drawing.Point(167, 118);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.ReadOnly = true;
-            this.textBox9.Size = new System.Drawing.Size(60, 27);
-            this.textBox9.TabIndex = 30;
+            this.tBoxFlow3Min.Location = new System.Drawing.Point(167, 118);
+            this.tBoxFlow3Min.Name = "tBoxFlow3Min";
+            this.tBoxFlow3Min.Size = new System.Drawing.Size(60, 27);
+            this.tBoxFlow3Min.TabIndex = 30;
+            this.tBoxFlow3Min.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkIntValue_KeyPress);
+            this.tBoxFlow3Min.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxGas_KeyUp);
+            this.tBoxFlow3Min.Validated += new System.EventHandler(this.tBoxGas_Validated);
             // 
             // label19
             // 
@@ -1758,15 +1811,15 @@
             this.label19.TabIndex = 29;
             this.label19.Text = "Gas flow max:";
             // 
-            // hScrollBar10
+            // scrollFlow3Max
             // 
-            this.hScrollBar10.Location = new System.Drawing.Point(24, 191);
-            this.hScrollBar10.Maximum = 1000;
-            this.hScrollBar10.Minimum = 10;
-            this.hScrollBar10.Name = "hScrollBar10";
-            this.hScrollBar10.Size = new System.Drawing.Size(135, 22);
-            this.hScrollBar10.TabIndex = 28;
-            this.hScrollBar10.Value = 10;
+            this.scrollFlow3Max.Location = new System.Drawing.Point(24, 191);
+            this.scrollFlow3Max.Maximum = 1000;
+            this.scrollFlow3Max.Name = "scrollFlow3Max";
+            this.scrollFlow3Max.Size = new System.Drawing.Size(135, 22);
+            this.scrollFlow3Max.TabIndex = 28;
+            this.scrollFlow3Max.Value = 10;
+            this.scrollFlow3Max.ValueChanged += new System.EventHandler(this.scrollFlow3Max_ValueChanged);
             // 
             // label20
             // 
@@ -1778,13 +1831,15 @@
             this.label20.TabIndex = 27;
             this.label20.Text = "sccm";
             // 
-            // textBox10
+            // tBoxFlow3Max
             // 
-            this.textBox10.Location = new System.Drawing.Point(167, 186);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.ReadOnly = true;
-            this.textBox10.Size = new System.Drawing.Size(60, 27);
-            this.textBox10.TabIndex = 26;
+            this.tBoxFlow3Max.Location = new System.Drawing.Point(167, 186);
+            this.tBoxFlow3Max.Name = "tBoxFlow3Max";
+            this.tBoxFlow3Max.Size = new System.Drawing.Size(60, 27);
+            this.tBoxFlow3Max.TabIndex = 26;
+            this.tBoxFlow3Max.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkIntValue_KeyPress);
+            this.tBoxFlow3Max.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxGas_KeyUp);
+            this.tBoxFlow3Max.Validated += new System.EventHandler(this.tBoxGas_Validated);
             // 
             // label21
             // 
@@ -1796,15 +1851,15 @@
             this.label21.TabIndex = 25;
             this.label21.Text = "Gas flow:";
             // 
-            // hScrollBar11
+            // scrollFlow3
             // 
-            this.hScrollBar11.Location = new System.Drawing.Point(25, 54);
-            this.hScrollBar11.Maximum = 1000;
-            this.hScrollBar11.Minimum = 10;
-            this.hScrollBar11.Name = "hScrollBar11";
-            this.hScrollBar11.Size = new System.Drawing.Size(135, 22);
-            this.hScrollBar11.TabIndex = 24;
-            this.hScrollBar11.Value = 10;
+            this.scrollFlow3.Location = new System.Drawing.Point(25, 54);
+            this.scrollFlow3.Maximum = 1000;
+            this.scrollFlow3.Name = "scrollFlow3";
+            this.scrollFlow3.Size = new System.Drawing.Size(135, 22);
+            this.scrollFlow3.TabIndex = 24;
+            this.scrollFlow3.Value = 10;
+            this.scrollFlow3.ValueChanged += new System.EventHandler(this.scrollFlow3_ValueChanged);
             // 
             // label22
             // 
@@ -1816,34 +1871,36 @@
             this.label22.TabIndex = 23;
             this.label22.Text = "sccm";
             // 
-            // textBox11
+            // tBoxFlow3
             // 
-            this.textBox11.Location = new System.Drawing.Point(167, 49);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.ReadOnly = true;
-            this.textBox11.Size = new System.Drawing.Size(60, 27);
-            this.textBox11.TabIndex = 22;
+            this.tBoxFlow3.Location = new System.Drawing.Point(167, 49);
+            this.tBoxFlow3.Name = "tBoxFlow3";
+            this.tBoxFlow3.Size = new System.Drawing.Size(60, 27);
+            this.tBoxFlow3.TabIndex = 22;
+            this.tBoxFlow3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkIntValue_KeyPress);
+            this.tBoxFlow3.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxGas_KeyUp);
+            this.tBoxFlow3.Validated += new System.EventHandler(this.tBoxGas_Validated);
             // 
-            // groupBox9
+            // grBoxMFC2
             // 
-            this.groupBox9.Controls.Add(this.label11);
-            this.groupBox9.Controls.Add(this.hScrollBar1);
-            this.groupBox9.Controls.Add(this.label12);
-            this.groupBox9.Controls.Add(this.textBox6);
-            this.groupBox9.Controls.Add(this.label13);
-            this.groupBox9.Controls.Add(this.hScrollBar7);
-            this.groupBox9.Controls.Add(this.label14);
-            this.groupBox9.Controls.Add(this.textBox7);
-            this.groupBox9.Controls.Add(this.label15);
-            this.groupBox9.Controls.Add(this.hScrollBar8);
-            this.groupBox9.Controls.Add(this.label16);
-            this.groupBox9.Controls.Add(this.textBox8);
-            this.groupBox9.Location = new System.Drawing.Point(275, 26);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(233, 252);
-            this.groupBox9.TabIndex = 27;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "MFC 2 - N/A";
+            this.grBoxMFC2.Controls.Add(this.label11);
+            this.grBoxMFC2.Controls.Add(this.scrollFlow2Min);
+            this.grBoxMFC2.Controls.Add(this.label12);
+            this.grBoxMFC2.Controls.Add(this.tBoxFlow2Min);
+            this.grBoxMFC2.Controls.Add(this.label13);
+            this.grBoxMFC2.Controls.Add(this.scrollFlow2Max);
+            this.grBoxMFC2.Controls.Add(this.label14);
+            this.grBoxMFC2.Controls.Add(this.tBoxFlow2Max);
+            this.grBoxMFC2.Controls.Add(this.label15);
+            this.grBoxMFC2.Controls.Add(this.scrollFlow2);
+            this.grBoxMFC2.Controls.Add(this.label16);
+            this.grBoxMFC2.Controls.Add(this.tBoxFlow2);
+            this.grBoxMFC2.Location = new System.Drawing.Point(275, 21);
+            this.grBoxMFC2.Name = "grBoxMFC2";
+            this.grBoxMFC2.Size = new System.Drawing.Size(233, 252);
+            this.grBoxMFC2.TabIndex = 27;
+            this.grBoxMFC2.TabStop = false;
+            this.grBoxMFC2.Text = "MFC 2 - N/A";
             // 
             // label11
             // 
@@ -1855,15 +1912,15 @@
             this.label11.TabIndex = 33;
             this.label11.Text = "Gas flow min:";
             // 
-            // hScrollBar1
+            // scrollFlow2Min
             // 
-            this.hScrollBar1.Location = new System.Drawing.Point(24, 123);
-            this.hScrollBar1.Maximum = 1000;
-            this.hScrollBar1.Minimum = 10;
-            this.hScrollBar1.Name = "hScrollBar1";
-            this.hScrollBar1.Size = new System.Drawing.Size(135, 22);
-            this.hScrollBar1.TabIndex = 32;
-            this.hScrollBar1.Value = 10;
+            this.scrollFlow2Min.Location = new System.Drawing.Point(24, 123);
+            this.scrollFlow2Min.Maximum = 1000;
+            this.scrollFlow2Min.Name = "scrollFlow2Min";
+            this.scrollFlow2Min.Size = new System.Drawing.Size(135, 22);
+            this.scrollFlow2Min.TabIndex = 32;
+            this.scrollFlow2Min.Value = 10;
+            this.scrollFlow2Min.ValueChanged += new System.EventHandler(this.scrollFlow2Min_ValueChanged);
             // 
             // label12
             // 
@@ -1875,13 +1932,15 @@
             this.label12.TabIndex = 31;
             this.label12.Text = "sccm";
             // 
-            // textBox6
+            // tBoxFlow2Min
             // 
-            this.textBox6.Location = new System.Drawing.Point(167, 118);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.ReadOnly = true;
-            this.textBox6.Size = new System.Drawing.Size(60, 27);
-            this.textBox6.TabIndex = 30;
+            this.tBoxFlow2Min.Location = new System.Drawing.Point(167, 118);
+            this.tBoxFlow2Min.Name = "tBoxFlow2Min";
+            this.tBoxFlow2Min.Size = new System.Drawing.Size(60, 27);
+            this.tBoxFlow2Min.TabIndex = 30;
+            this.tBoxFlow2Min.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkIntValue_KeyPress);
+            this.tBoxFlow2Min.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxGas_KeyUp);
+            this.tBoxFlow2Min.Validated += new System.EventHandler(this.tBoxGas_Validated);
             // 
             // label13
             // 
@@ -1893,15 +1952,15 @@
             this.label13.TabIndex = 29;
             this.label13.Text = "Gas flow max:";
             // 
-            // hScrollBar7
+            // scrollFlow2Max
             // 
-            this.hScrollBar7.Location = new System.Drawing.Point(24, 191);
-            this.hScrollBar7.Maximum = 1000;
-            this.hScrollBar7.Minimum = 10;
-            this.hScrollBar7.Name = "hScrollBar7";
-            this.hScrollBar7.Size = new System.Drawing.Size(135, 22);
-            this.hScrollBar7.TabIndex = 28;
-            this.hScrollBar7.Value = 10;
+            this.scrollFlow2Max.Location = new System.Drawing.Point(24, 191);
+            this.scrollFlow2Max.Maximum = 1000;
+            this.scrollFlow2Max.Name = "scrollFlow2Max";
+            this.scrollFlow2Max.Size = new System.Drawing.Size(135, 22);
+            this.scrollFlow2Max.TabIndex = 28;
+            this.scrollFlow2Max.Value = 10;
+            this.scrollFlow2Max.ValueChanged += new System.EventHandler(this.scrollFlow2Max_ValueChanged);
             // 
             // label14
             // 
@@ -1913,13 +1972,15 @@
             this.label14.TabIndex = 27;
             this.label14.Text = "sccm";
             // 
-            // textBox7
+            // tBoxFlow2Max
             // 
-            this.textBox7.Location = new System.Drawing.Point(167, 186);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.ReadOnly = true;
-            this.textBox7.Size = new System.Drawing.Size(60, 27);
-            this.textBox7.TabIndex = 26;
+            this.tBoxFlow2Max.Location = new System.Drawing.Point(167, 186);
+            this.tBoxFlow2Max.Name = "tBoxFlow2Max";
+            this.tBoxFlow2Max.Size = new System.Drawing.Size(60, 27);
+            this.tBoxFlow2Max.TabIndex = 26;
+            this.tBoxFlow2Max.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkIntValue_KeyPress);
+            this.tBoxFlow2Max.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxGas_KeyUp);
+            this.tBoxFlow2Max.Validated += new System.EventHandler(this.tBoxGas_Validated);
             // 
             // label15
             // 
@@ -1931,15 +1992,15 @@
             this.label15.TabIndex = 25;
             this.label15.Text = "Gas flow:";
             // 
-            // hScrollBar8
+            // scrollFlow2
             // 
-            this.hScrollBar8.Location = new System.Drawing.Point(25, 54);
-            this.hScrollBar8.Maximum = 1000;
-            this.hScrollBar8.Minimum = 10;
-            this.hScrollBar8.Name = "hScrollBar8";
-            this.hScrollBar8.Size = new System.Drawing.Size(135, 22);
-            this.hScrollBar8.TabIndex = 24;
-            this.hScrollBar8.Value = 10;
+            this.scrollFlow2.Location = new System.Drawing.Point(25, 54);
+            this.scrollFlow2.Maximum = 1000;
+            this.scrollFlow2.Name = "scrollFlow2";
+            this.scrollFlow2.Size = new System.Drawing.Size(135, 22);
+            this.scrollFlow2.TabIndex = 24;
+            this.scrollFlow2.Value = 10;
+            this.scrollFlow2.ValueChanged += new System.EventHandler(this.scrollFlow2_ValueChanged);
             // 
             // label16
             // 
@@ -1951,40 +2012,41 @@
             this.label16.TabIndex = 23;
             this.label16.Text = "sccm";
             // 
-            // textBox8
+            // tBoxFlow2
             // 
-            this.textBox8.Location = new System.Drawing.Point(167, 49);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.ReadOnly = true;
-            this.textBox8.Size = new System.Drawing.Size(60, 27);
-            this.textBox8.TabIndex = 22;
+            this.tBoxFlow2.Location = new System.Drawing.Point(167, 49);
+            this.tBoxFlow2.Name = "tBoxFlow2";
+            this.tBoxFlow2.Size = new System.Drawing.Size(60, 27);
+            this.tBoxFlow2.TabIndex = 22;
+            this.tBoxFlow2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkIntValue_KeyPress);
+            this.tBoxFlow2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxGas_KeyUp);
+            this.tBoxFlow2.Validated += new System.EventHandler(this.tBoxGas_Validated);
             // 
-            // groupBox4
+            // grBoxVaporiser
             // 
-            this.groupBox4.Controls.Add(this.hScrollBar3);
-            this.groupBox4.Controls.Add(this.label97);
-            this.groupBox4.Controls.Add(this.textBox25);
-            this.groupBox4.Controls.Add(this.hScrollBar2);
-            this.groupBox4.Controls.Add(this.label96);
-            this.groupBox4.Controls.Add(this.textBox24);
-            this.groupBox4.Controls.Add(this.label95);
-            this.groupBox4.Controls.Add(this.label94);
-            this.groupBox4.Location = new System.Drawing.Point(784, 26);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(233, 247);
-            this.groupBox4.TabIndex = 12;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Vaporiser";
+            this.grBoxVaporiser.Controls.Add(this.scrollGasVaporOnTime);
+            this.grBoxVaporiser.Controls.Add(this.label97);
+            this.grBoxVaporiser.Controls.Add(this.tBoxGasVaporOnTime);
+            this.grBoxVaporiser.Controls.Add(this.scrollGasVaporCycleTime);
+            this.grBoxVaporiser.Controls.Add(this.label96);
+            this.grBoxVaporiser.Controls.Add(this.tBoxGasVaporCycleTime);
+            this.grBoxVaporiser.Controls.Add(this.label95);
+            this.grBoxVaporiser.Controls.Add(this.label94);
+            this.grBoxVaporiser.Location = new System.Drawing.Point(784, 21);
+            this.grBoxVaporiser.Name = "grBoxVaporiser";
+            this.grBoxVaporiser.Size = new System.Drawing.Size(233, 252);
+            this.grBoxVaporiser.TabIndex = 12;
+            this.grBoxVaporiser.TabStop = false;
+            this.grBoxVaporiser.Text = "Vaporiser";
             // 
-            // hScrollBar3
+            // scrollGasVaporOnTime
             // 
-            this.hScrollBar3.Location = new System.Drawing.Point(23, 130);
-            this.hScrollBar3.Maximum = 1000;
-            this.hScrollBar3.Minimum = 10;
-            this.hScrollBar3.Name = "hScrollBar3";
-            this.hScrollBar3.Size = new System.Drawing.Size(135, 22);
-            this.hScrollBar3.TabIndex = 30;
-            this.hScrollBar3.Value = 10;
+            this.scrollGasVaporOnTime.Location = new System.Drawing.Point(23, 130);
+            this.scrollGasVaporOnTime.Name = "scrollGasVaporOnTime";
+            this.scrollGasVaporOnTime.Size = new System.Drawing.Size(135, 22);
+            this.scrollGasVaporOnTime.TabIndex = 30;
+            this.scrollGasVaporOnTime.Value = 10;
+            this.scrollGasVaporOnTime.ValueChanged += new System.EventHandler(this.scrollGasVaporOnTime_ValueChanged);
             // 
             // label97
             // 
@@ -1992,27 +2054,29 @@
             this.label97.ForeColor = System.Drawing.Color.Green;
             this.label97.Location = new System.Drawing.Point(173, 157);
             this.label97.Name = "label97";
-            this.label97.Size = new System.Drawing.Size(50, 20);
+            this.label97.Size = new System.Drawing.Size(24, 20);
             this.label97.TabIndex = 29;
-            this.label97.Text = "mBar";
+            this.label97.Text = "%";
             // 
-            // textBox25
+            // tBoxGasVaporOnTime
             // 
-            this.textBox25.Location = new System.Drawing.Point(166, 125);
-            this.textBox25.Name = "textBox25";
-            this.textBox25.ReadOnly = true;
-            this.textBox25.Size = new System.Drawing.Size(60, 27);
-            this.textBox25.TabIndex = 28;
+            this.tBoxGasVaporOnTime.Location = new System.Drawing.Point(166, 125);
+            this.tBoxGasVaporOnTime.Name = "tBoxGasVaporOnTime";
+            this.tBoxGasVaporOnTime.Size = new System.Drawing.Size(60, 27);
+            this.tBoxGasVaporOnTime.TabIndex = 28;
+            this.tBoxGasVaporOnTime.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkIntValue_KeyPress);
+            this.tBoxGasVaporOnTime.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxGas_KeyUp);
+            this.tBoxGasVaporOnTime.Validated += new System.EventHandler(this.tBoxGas_Validated);
             // 
-            // hScrollBar2
+            // scrollGasVaporCycleTime
             // 
-            this.hScrollBar2.Location = new System.Drawing.Point(23, 54);
-            this.hScrollBar2.Maximum = 1000;
-            this.hScrollBar2.Minimum = 10;
-            this.hScrollBar2.Name = "hScrollBar2";
-            this.hScrollBar2.Size = new System.Drawing.Size(135, 22);
-            this.hScrollBar2.TabIndex = 27;
-            this.hScrollBar2.Value = 10;
+            this.scrollGasVaporCycleTime.Location = new System.Drawing.Point(23, 54);
+            this.scrollGasVaporCycleTime.Maximum = 10000;
+            this.scrollGasVaporCycleTime.Name = "scrollGasVaporCycleTime";
+            this.scrollGasVaporCycleTime.Size = new System.Drawing.Size(135, 22);
+            this.scrollGasVaporCycleTime.TabIndex = 27;
+            this.scrollGasVaporCycleTime.Value = 10;
+            this.scrollGasVaporCycleTime.ValueChanged += new System.EventHandler(this.scrollGasVaporCycleTime_ValueChanged);
             // 
             // label96
             // 
@@ -2020,17 +2084,19 @@
             this.label96.ForeColor = System.Drawing.Color.Green;
             this.label96.Location = new System.Drawing.Point(174, 81);
             this.label96.Name = "label96";
-            this.label96.Size = new System.Drawing.Size(50, 20);
+            this.label96.Size = new System.Drawing.Size(32, 20);
             this.label96.TabIndex = 26;
-            this.label96.Text = "mBar";
+            this.label96.Text = "ms";
             // 
-            // textBox24
+            // tBoxGasVaporCycleTime
             // 
-            this.textBox24.Location = new System.Drawing.Point(166, 49);
-            this.textBox24.Name = "textBox24";
-            this.textBox24.ReadOnly = true;
-            this.textBox24.Size = new System.Drawing.Size(60, 27);
-            this.textBox24.TabIndex = 25;
+            this.tBoxGasVaporCycleTime.Location = new System.Drawing.Point(166, 49);
+            this.tBoxGasVaporCycleTime.Name = "tBoxGasVaporCycleTime";
+            this.tBoxGasVaporCycleTime.Size = new System.Drawing.Size(60, 27);
+            this.tBoxGasVaporCycleTime.TabIndex = 25;
+            this.tBoxGasVaporCycleTime.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkIntValue_KeyPress);
+            this.tBoxGasVaporCycleTime.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxGas_KeyUp);
+            this.tBoxGasVaporCycleTime.Validated += new System.EventHandler(this.tBoxGas_Validated);
             // 
             // label95
             // 
@@ -2038,9 +2104,9 @@
             this.label95.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label95.Location = new System.Drawing.Point(12, 101);
             this.label95.Name = "label95";
-            this.label95.Size = new System.Drawing.Size(116, 20);
+            this.label95.Size = new System.Drawing.Size(73, 20);
             this.label95.TabIndex = 2;
-            this.label95.Text = "Max deviation:";
+            this.label95.Text = "On time:";
             // 
             // label94
             // 
@@ -2048,9 +2114,9 @@
             this.label94.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label94.Location = new System.Drawing.Point(12, 30);
             this.label94.Name = "label94";
-            this.label94.Size = new System.Drawing.Size(75, 20);
+            this.label94.Size = new System.Drawing.Size(88, 20);
             this.label94.TabIndex = 1;
-            this.label94.Text = "Setpoint:";
+            this.label94.Text = "Cycle time";
             // 
             // label23
             // 
@@ -2309,8 +2375,8 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Name = "ProgramsConfigPanel";
             this.Size = new System.Drawing.Size(1698, 758);
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
+            this.grBoxGasPressure.ResumeLayout(false);
+            this.grBoxGasPressure.PerformLayout();
             this.groupBox13.ResumeLayout(false);
             this.groupBox13.PerformLayout();
             this.groupBox12.ResumeLayout(false);
@@ -2353,15 +2419,15 @@
             this.groupBox5.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
+            this.grBoxGasFlow.ResumeLayout(false);
+            this.grBoxMFC1.ResumeLayout(false);
+            this.grBoxMFC1.PerformLayout();
+            this.grBoxMFC3.ResumeLayout(false);
+            this.grBoxMFC3.PerformLayout();
+            this.grBoxMFC2.ResumeLayout(false);
+            this.grBoxMFC2.PerformLayout();
+            this.grBoxVaporiser.ResumeLayout(false);
+            this.grBoxVaporiser.PerformLayout();
             this.grBoxSubprogram.ResumeLayout(false);
             this.grBoxSubprogram.PerformLayout();
             this.groupBox10.ResumeLayout(false);
@@ -2370,57 +2436,55 @@
         }
 
         #endregion
-        private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.CheckBox checkBox7;
-        private System.Windows.Forms.CheckBox checkBox6;
+        private System.Windows.Forms.GroupBox grBoxGasPressure;
         private System.Windows.Forms.Label label105;
-        private System.Windows.Forms.HScrollBar hScrollBar6;
+        private System.Windows.Forms.HScrollBar scrollGasPressureDevaDown;
         private System.Windows.Forms.Label label103;
-        private System.Windows.Forms.TextBox textBox28;
+        private System.Windows.Forms.TextBox tBoxGasPressureDevaDown;
         private System.Windows.Forms.Label label104;
-        private System.Windows.Forms.HScrollBar hScrollBar5;
+        private System.Windows.Forms.HScrollBar scrollGasPressureDevaUp;
         private System.Windows.Forms.Label label101;
-        private System.Windows.Forms.TextBox textBox27;
+        private System.Windows.Forms.TextBox tBoxGasPressureDevaUp;
         private System.Windows.Forms.Label label102;
-        private System.Windows.Forms.HScrollBar hScrollBar4;
+        private System.Windows.Forms.HScrollBar scrollGasPressure;
         private System.Windows.Forms.Label label98;
-        private System.Windows.Forms.TextBox textBox26;
+        private System.Windows.Forms.TextBox tBoxGasPressure;
         private System.Windows.Forms.Label label99;
-        private System.Windows.Forms.DateTimePicker dateTimePicker5;
+        private System.Windows.Forms.DateTimePicker timeVent;
         private System.Windows.Forms.Label label150;
         private System.Windows.Forms.Label label151;
         private System.Windows.Forms.Label label152;
         private System.Windows.Forms.TabPage tabPageVent;
         private System.Windows.Forms.Label label147;
         private System.Windows.Forms.Label label148;
-        private System.Windows.Forms.DateTimePicker dateTimePicker4;
+        private System.Windows.Forms.DateTimePicker timePurge;
         private System.Windows.Forms.Label label149;
         private System.Windows.Forms.TabPage tabPagePurge;
         private System.Windows.Forms.Label label146;
         private System.Windows.Forms.Label label145;
-        private System.Windows.Forms.HScrollBar hScrollBar19;
-        private System.Windows.Forms.TextBox textBox44;
-        private System.Windows.Forms.HScrollBar hScrollBar18;
-        private System.Windows.Forms.TextBox textBox43;
+        private System.Windows.Forms.HScrollBar scrollPlasmaDevistion;
+        private System.Windows.Forms.TextBox tBoxPlasmaDeviation;
+        private System.Windows.Forms.HScrollBar scrollPlasmaSetpoint;
+        private System.Windows.Forms.TextBox tBoxPlasmaSetpoint;
         private System.Windows.Forms.Label label144;
         private System.Windows.Forms.Label label143;
-        private System.Windows.Forms.RadioButton radioButton8;
-        private System.Windows.Forms.RadioButton radioButton7;
-        private System.Windows.Forms.RadioButton radioButton6;
+        private System.Windows.Forms.RadioButton rBtnPlasmaModeVoltage;
+        private System.Windows.Forms.RadioButton rBtnPlasmaModeCurent;
+        private System.Windows.Forms.RadioButton rBtnPlasmaModePower;
         private System.Windows.Forms.Label label142;
         private System.Windows.Forms.Label label139;
         private System.Windows.Forms.Label label140;
-        private System.Windows.Forms.DateTimePicker dateTimePicker3;
+        private System.Windows.Forms.DateTimePicker timePlasma;
         private System.Windows.Forms.Label label86;
         private System.Windows.Forms.Label label141;
         private System.Windows.Forms.TabPage tabPagePlasma;
         private System.Windows.Forms.Label label84;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker timeGas;
         private System.Windows.Forms.Label label85;
         private System.Windows.Forms.Label label127;
         private System.Windows.Forms.TabPage tabPagePump;
         private System.Windows.Forms.Label label83;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker timePump;
         private System.Windows.Forms.Label label82;
         private System.Windows.Forms.Label label81;
         private System.Windows.Forms.Label label80;
@@ -2430,23 +2494,23 @@
         private System.Windows.Forms.Label label77;
         private System.Windows.Forms.TextBox tBoxNameProgram;
         private System.Windows.Forms.TextBox tBoxDescProgram;
-        private System.Windows.Forms.CheckBox checkBox5;
-        private System.Windows.Forms.ComboBox comboBox6;
-        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.CheckBox cBoxMFC3;
+        private System.Windows.Forms.ComboBox cBoxGasListMFC1;
+        private System.Windows.Forms.CheckBox cBoxMFC2;
         private System.Windows.Forms.Button btnRemoveSubprogram;
         private System.Windows.Forms.TabControl tabControlProcess;
         private System.Windows.Forms.TabPage tabPageGas;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.HScrollBar hScrollBar3;
+        private System.Windows.Forms.GroupBox grBoxVaporiser;
+        private System.Windows.Forms.HScrollBar scrollGasVaporOnTime;
         private System.Windows.Forms.Label label97;
-        private System.Windows.Forms.TextBox textBox25;
-        private System.Windows.Forms.HScrollBar hScrollBar2;
+        private System.Windows.Forms.TextBox tBoxGasVaporOnTime;
+        private System.Windows.Forms.HScrollBar scrollGasVaporCycleTime;
         private System.Windows.Forms.Label label96;
-        private System.Windows.Forms.TextBox textBox24;
+        private System.Windows.Forms.TextBox tBoxGasVaporCycleTime;
         private System.Windows.Forms.Label label95;
         private System.Windows.Forms.Label label94;
-        private System.Windows.Forms.CheckBox checkBox8;
-        private System.Windows.Forms.ComboBox comboBox7;
+        private System.Windows.Forms.CheckBox cBoxMFC1;
+        private System.Windows.Forms.ComboBox cBoxGasListMFC2;
         private System.Windows.Forms.GroupBox grBoxSubprogram;
         private System.Windows.Forms.Label label78;
         private System.Windows.Forms.TextBox tBoxDescSubprgoram;
@@ -2465,76 +2529,76 @@
         private System.Windows.Forms.Button btnAddNewSubprogram;
         private System.Windows.Forms.Label label69;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox grBoxGasFlow;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton rBtnModePressure;
+        private System.Windows.Forms.RadioButton rBtnModeFlow;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.HScrollBar hScrollBar20;
+        private System.Windows.Forms.TextBox tBoxGasShareMFC1;
+        private System.Windows.Forms.HScrollBar scrollGasDevaShareMFC1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.TextBox tBoxGasDevaShareMFC1;
+        private System.Windows.Forms.GroupBox grBoxMFC1;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.HScrollBar hScrollBar21;
+        private System.Windows.Forms.HScrollBar scrollFlow1Min;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox tBoxFlow1Min;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.HScrollBar hScrollBar22;
+        private System.Windows.Forms.HScrollBar scrollFlow1Max;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox tBoxFlow1Max;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.HScrollBar hScrollBar23;
+        private System.Windows.Forms.HScrollBar scrollFlow1;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox tBoxFlow1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.CheckBox cBoxVaporiser;
+        private System.Windows.Forms.ComboBox cBoxGasListMFC3;
+        private System.Windows.Forms.GroupBox grBoxMFC3;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.HScrollBar hScrollBar9;
+        private System.Windows.Forms.HScrollBar scrollFlow3Min;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.TextBox tBoxFlow3Min;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.HScrollBar hScrollBar10;
+        private System.Windows.Forms.HScrollBar scrollFlow3Max;
         private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.TextBox tBoxFlow3Max;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.HScrollBar hScrollBar11;
+        private System.Windows.Forms.HScrollBar scrollFlow3;
         private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.TextBox textBox11;
-        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.TextBox tBoxFlow3;
+        private System.Windows.Forms.GroupBox grBoxMFC2;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.HScrollBar hScrollBar1;
+        private System.Windows.Forms.HScrollBar scrollFlow2Min;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox tBoxFlow2Min;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.HScrollBar hScrollBar7;
+        private System.Windows.Forms.HScrollBar scrollFlow2Max;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox tBoxFlow2Max;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.HScrollBar hScrollBar8;
+        private System.Windows.Forms.HScrollBar scrollFlow2;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.TextBox tBoxFlow2;
         private System.Windows.Forms.GroupBox groupBox13;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.TextBox textBox14;
-        private System.Windows.Forms.HScrollBar hScrollBar13;
+        private System.Windows.Forms.TextBox tBoxGasShareMFC3;
+        private System.Windows.Forms.HScrollBar scrollGasDevaShareMFC3;
         private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.TextBox textBox15;
+        private System.Windows.Forms.TextBox tBoxGasDevaShareMFC3;
         private System.Windows.Forms.GroupBox groupBox12;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.TextBox textBox12;
-        private System.Windows.Forms.HScrollBar hScrollBar12;
+        private System.Windows.Forms.TextBox tBoxGasShareMFC2;
+        private System.Windows.Forms.HScrollBar scrollGasDevaShareMFC2;
         private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.TextBox textBox13;
+        private System.Windows.Forms.TextBox tBoxGasDevaShareMFC2;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.GroupBox grBoxPump;
         private System.Windows.Forms.GroupBox groupBox14;
@@ -2545,8 +2609,8 @@
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.GroupBox groupBox19;
         private System.Windows.Forms.GroupBox groupBox18;
-        private System.Windows.Forms.HScrollBar hScrollBar14;
-        private System.Windows.Forms.TextBox textBox16;
+        private System.Windows.Forms.HScrollBar scrollPumpSetpoint;
+        private System.Windows.Forms.TextBox tBoxPumpSetpoint;
         private System.Windows.Forms.GroupBox groupBox23;
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.Label label35;
@@ -2556,5 +2620,7 @@
         private System.Windows.Forms.GroupBox grBoxVent;
         private System.Windows.Forms.GroupBox grBoxPurge;
         private System.Windows.Forms.GroupBox grBoxPlasma;
+        private System.Windows.Forms.RadioButton rBtnPressureViaVapo;
+        private System.Windows.Forms.RadioButton rBtnPressureViaGases;
     }
 }

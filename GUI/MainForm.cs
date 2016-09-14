@@ -25,15 +25,18 @@ namespace HPT1000.GUI
         
         #endregion
 
+
         public MainForm()
         {
             InitializeComponent();
 
             programsConfigPanel.HPT1000 = hpt1000;
+            programPanel.HPT1000        = hpt1000;
 
-        //    listView1.Items.S Add()
+            programsConfigPanel.AddToRefreshList(new RefreshProgram(programPanel.RefreshPanel));
+
         }
-
+        void Test() { }
         private void button1_Click(object sender, EventArgs e)
         {
             txtBoxMsg.Text = "Connecting ...";
@@ -84,6 +87,11 @@ namespace HPT1000.GUI
         }
 
         private void groupBox3_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
         {
 
         }

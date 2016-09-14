@@ -48,7 +48,7 @@
             this.grBoxGasPressure = new System.Windows.Forms.GroupBox();
             this.rBtnPressureViaVapo = new System.Windows.Forms.RadioButton();
             this.rBtnPressureViaGases = new System.Windows.Forms.RadioButton();
-            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.grBoxGasesMFC3 = new System.Windows.Forms.GroupBox();
             this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
@@ -56,7 +56,7 @@
             this.scrollGasDevaShareMFC3 = new System.Windows.Forms.HScrollBar();
             this.label31 = new System.Windows.Forms.Label();
             this.tBoxGasDevaShareMFC3 = new System.Windows.Forms.TextBox();
-            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.grBoxGasesMFC2 = new System.Windows.Forms.GroupBox();
             this.label24 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
@@ -64,7 +64,7 @@
             this.scrollGasDevaShareMFC2 = new System.Windows.Forms.HScrollBar();
             this.label27 = new System.Windows.Forms.Label();
             this.tBoxGasDevaShareMFC2 = new System.Windows.Forms.TextBox();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.grBoxGasesMFC1 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -232,9 +232,9 @@
             this.btnAddNewSubprogram = new System.Windows.Forms.Button();
             this.label69 = new System.Windows.Forms.Label();
             this.grBoxGasPressure.SuspendLayout();
-            this.groupBox13.SuspendLayout();
-            this.groupBox12.SuspendLayout();
-            this.groupBox8.SuspendLayout();
+            this.grBoxGasesMFC3.SuspendLayout();
+            this.grBoxGasesMFC2.SuspendLayout();
+            this.grBoxGasesMFC1.SuspendLayout();
             this.tabPageVent.SuspendLayout();
             this.grBoxVent.SuspendLayout();
             this.groupBox23.SuspendLayout();
@@ -271,9 +271,9 @@
             // 
             this.grBoxGasPressure.Controls.Add(this.rBtnPressureViaVapo);
             this.grBoxGasPressure.Controls.Add(this.rBtnPressureViaGases);
-            this.grBoxGasPressure.Controls.Add(this.groupBox13);
-            this.grBoxGasPressure.Controls.Add(this.groupBox12);
-            this.grBoxGasPressure.Controls.Add(this.groupBox8);
+            this.grBoxGasPressure.Controls.Add(this.grBoxGasesMFC3);
+            this.grBoxGasPressure.Controls.Add(this.grBoxGasesMFC2);
+            this.grBoxGasPressure.Controls.Add(this.grBoxGasesMFC1);
             this.grBoxGasPressure.Controls.Add(this.label105);
             this.grBoxGasPressure.Controls.Add(this.scrollGasPressureDevaDown);
             this.grBoxGasPressure.Controls.Add(this.label103);
@@ -305,7 +305,7 @@
             this.rBtnPressureViaVapo.TabStop = true;
             this.rBtnPressureViaVapo.Text = "Control pressure via vapor";
             this.rBtnPressureViaVapo.UseVisualStyleBackColor = true;
-            this.rBtnPressureViaVapo.CheckedChanged += new System.EventHandler(this.rBtnGasMode_CheckedChanged);
+            this.rBtnPressureViaVapo.CheckedChanged += new System.EventHandler(this.rBtnGasModePressure_CheckedChanged);
             // 
             // rBtnPressureViaGases
             // 
@@ -318,23 +318,23 @@
             this.rBtnPressureViaGases.TabStop = true;
             this.rBtnPressureViaGases.Text = "Control pressure via gases";
             this.rBtnPressureViaGases.UseVisualStyleBackColor = true;
-            this.rBtnPressureViaGases.CheckedChanged += new System.EventHandler(this.rBtnGasMode_CheckedChanged);
+            this.rBtnPressureViaGases.CheckedChanged += new System.EventHandler(this.rBtnGasModePressure_CheckedChanged);
             // 
-            // groupBox13
+            // grBoxGasesMFC3
             // 
-            this.groupBox13.Controls.Add(this.label28);
-            this.groupBox13.Controls.Add(this.label29);
-            this.groupBox13.Controls.Add(this.label30);
-            this.groupBox13.Controls.Add(this.tBoxGasShareMFC3);
-            this.groupBox13.Controls.Add(this.scrollGasDevaShareMFC3);
-            this.groupBox13.Controls.Add(this.label31);
-            this.groupBox13.Controls.Add(this.tBoxGasDevaShareMFC3);
-            this.groupBox13.Location = new System.Drawing.Point(533, 87);
-            this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(233, 148);
-            this.groupBox13.TabIndex = 42;
-            this.groupBox13.TabStop = false;
-            this.groupBox13.Text = "MFC 3 - N/A";
+            this.grBoxGasesMFC3.Controls.Add(this.label28);
+            this.grBoxGasesMFC3.Controls.Add(this.label29);
+            this.grBoxGasesMFC3.Controls.Add(this.label30);
+            this.grBoxGasesMFC3.Controls.Add(this.tBoxGasShareMFC3);
+            this.grBoxGasesMFC3.Controls.Add(this.scrollGasDevaShareMFC3);
+            this.grBoxGasesMFC3.Controls.Add(this.label31);
+            this.grBoxGasesMFC3.Controls.Add(this.tBoxGasDevaShareMFC3);
+            this.grBoxGasesMFC3.Location = new System.Drawing.Point(533, 87);
+            this.grBoxGasesMFC3.Name = "grBoxGasesMFC3";
+            this.grBoxGasesMFC3.Size = new System.Drawing.Size(233, 148);
+            this.grBoxGasesMFC3.TabIndex = 42;
+            this.grBoxGasesMFC3.TabStop = false;
+            this.grBoxGasesMFC3.Text = "MFC 3 - N/A";
             // 
             // label28
             // 
@@ -405,21 +405,21 @@
             this.tBoxGasDevaShareMFC3.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxGas_KeyUp);
             this.tBoxGasDevaShareMFC3.Validated += new System.EventHandler(this.tBoxGas_Validated);
             // 
-            // groupBox12
+            // grBoxGasesMFC2
             // 
-            this.groupBox12.Controls.Add(this.label24);
-            this.groupBox12.Controls.Add(this.label25);
-            this.groupBox12.Controls.Add(this.label26);
-            this.groupBox12.Controls.Add(this.tBoxGasShareMFC2);
-            this.groupBox12.Controls.Add(this.scrollGasDevaShareMFC2);
-            this.groupBox12.Controls.Add(this.label27);
-            this.groupBox12.Controls.Add(this.tBoxGasDevaShareMFC2);
-            this.groupBox12.Location = new System.Drawing.Point(278, 87);
-            this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(233, 148);
-            this.groupBox12.TabIndex = 42;
-            this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "MFC 2 - N/A";
+            this.grBoxGasesMFC2.Controls.Add(this.label24);
+            this.grBoxGasesMFC2.Controls.Add(this.label25);
+            this.grBoxGasesMFC2.Controls.Add(this.label26);
+            this.grBoxGasesMFC2.Controls.Add(this.tBoxGasShareMFC2);
+            this.grBoxGasesMFC2.Controls.Add(this.scrollGasDevaShareMFC2);
+            this.grBoxGasesMFC2.Controls.Add(this.label27);
+            this.grBoxGasesMFC2.Controls.Add(this.tBoxGasDevaShareMFC2);
+            this.grBoxGasesMFC2.Location = new System.Drawing.Point(278, 87);
+            this.grBoxGasesMFC2.Name = "grBoxGasesMFC2";
+            this.grBoxGasesMFC2.Size = new System.Drawing.Size(233, 148);
+            this.grBoxGasesMFC2.TabIndex = 42;
+            this.grBoxGasesMFC2.TabStop = false;
+            this.grBoxGasesMFC2.Text = "MFC 2 - N/A";
             // 
             // label24
             // 
@@ -490,21 +490,21 @@
             this.tBoxGasDevaShareMFC2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tBoxGas_KeyUp);
             this.tBoxGasDevaShareMFC2.Validated += new System.EventHandler(this.tBoxGas_Validated);
             // 
-            // groupBox8
+            // grBoxGasesMFC1
             // 
-            this.groupBox8.Controls.Add(this.label3);
-            this.groupBox8.Controls.Add(this.label1);
-            this.groupBox8.Controls.Add(this.label2);
-            this.groupBox8.Controls.Add(this.tBoxGasShareMFC1);
-            this.groupBox8.Controls.Add(this.scrollGasDevaShareMFC1);
-            this.groupBox8.Controls.Add(this.label4);
-            this.groupBox8.Controls.Add(this.tBoxGasDevaShareMFC1);
-            this.groupBox8.Location = new System.Drawing.Point(16, 87);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(233, 148);
-            this.groupBox8.TabIndex = 27;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "MFC 1 - Oxygen";
+            this.grBoxGasesMFC1.Controls.Add(this.label3);
+            this.grBoxGasesMFC1.Controls.Add(this.label1);
+            this.grBoxGasesMFC1.Controls.Add(this.label2);
+            this.grBoxGasesMFC1.Controls.Add(this.tBoxGasShareMFC1);
+            this.grBoxGasesMFC1.Controls.Add(this.scrollGasDevaShareMFC1);
+            this.grBoxGasesMFC1.Controls.Add(this.label4);
+            this.grBoxGasesMFC1.Controls.Add(this.tBoxGasDevaShareMFC1);
+            this.grBoxGasesMFC1.Location = new System.Drawing.Point(16, 87);
+            this.grBoxGasesMFC1.Name = "grBoxGasesMFC1";
+            this.grBoxGasesMFC1.Size = new System.Drawing.Size(233, 148);
+            this.grBoxGasesMFC1.TabIndex = 27;
+            this.grBoxGasesMFC1.TabStop = false;
+            this.grBoxGasesMFC1.Text = "MFC 1 - Oxygen";
             // 
             // label3
             // 
@@ -1517,6 +1517,7 @@
             this.rBtnModePressure.TabStop = true;
             this.rBtnModePressure.Text = "Pressure";
             this.rBtnModePressure.UseVisualStyleBackColor = true;
+            this.rBtnModePressure.CheckedChanged += new System.EventHandler(this.rBtnGasMode_CheckedChanged);
             // 
             // rBtnModeFlow
             // 
@@ -2377,12 +2378,12 @@
             this.Size = new System.Drawing.Size(1698, 758);
             this.grBoxGasPressure.ResumeLayout(false);
             this.grBoxGasPressure.PerformLayout();
-            this.groupBox13.ResumeLayout(false);
-            this.groupBox13.PerformLayout();
-            this.groupBox12.ResumeLayout(false);
-            this.groupBox12.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
+            this.grBoxGasesMFC3.ResumeLayout(false);
+            this.grBoxGasesMFC3.PerformLayout();
+            this.grBoxGasesMFC2.ResumeLayout(false);
+            this.grBoxGasesMFC2.PerformLayout();
+            this.grBoxGasesMFC1.ResumeLayout(false);
+            this.grBoxGasesMFC1.PerformLayout();
             this.tabPageVent.ResumeLayout(false);
             this.tabPageVent.PerformLayout();
             this.grBoxVent.ResumeLayout(false);
@@ -2533,7 +2534,7 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.RadioButton rBtnModePressure;
         private System.Windows.Forms.RadioButton rBtnModeFlow;
-        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.GroupBox grBoxGasesMFC1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -2583,7 +2584,7 @@
         private System.Windows.Forms.HScrollBar scrollFlow2;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox tBoxFlow2;
-        private System.Windows.Forms.GroupBox groupBox13;
+        private System.Windows.Forms.GroupBox grBoxGasesMFC3;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label30;
@@ -2591,7 +2592,7 @@
         private System.Windows.Forms.HScrollBar scrollGasDevaShareMFC3;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.TextBox tBoxGasDevaShareMFC3;
-        private System.Windows.Forms.GroupBox groupBox12;
+        private System.Windows.Forms.GroupBox grBoxGasesMFC2;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label26;

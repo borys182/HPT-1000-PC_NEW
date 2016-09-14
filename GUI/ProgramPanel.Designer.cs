@@ -30,15 +30,15 @@
         {
             System.Windows.Forms.RadioButton radioButton2;
             System.Windows.Forms.RadioButton radioButton1;
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "Pump",
             "Working"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
             "Gas",
             "Wait"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("Plasma");
-            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("Purge");
-            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem("Vent");
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Plasma");
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("Purge");
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("Vent");
             this.label4 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.listViewSubprograms = new System.Windows.Forms.ListView();
@@ -47,7 +47,6 @@
             this.cBoxPrograms = new System.Windows.Forms.ComboBox();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.txtBoxDesc = new System.Windows.Forms.TextBox();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panelGas = new System.Windows.Forms.Panel();
             this.labGasVaporiser = new System.Windows.Forms.Label();
@@ -55,7 +54,6 @@
             this.labGasMFC2 = new System.Windows.Forms.Label();
             this.labGasMFC1 = new System.Windows.Forms.Label();
             this.labGasSetpointPressure = new System.Windows.Forms.Label();
-            this.labGasMode = new System.Windows.Forms.Label();
             this.labGasTimeTarget = new System.Windows.Forms.Label();
             this.labGasTime = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
@@ -82,7 +80,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             radioButton2 = new System.Windows.Forms.RadioButton();
             radioButton1 = new System.Windows.Forms.RadioButton();
@@ -94,18 +91,6 @@
             this.panelPurge.SuspendLayout();
             this.panel6.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // label4
-            // 
-            this.label4.BackColor = System.Drawing.Color.Silver;
-            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(0, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(565, 25);
-            this.label4.TabIndex = 48;
-            this.label4.Text = "OPERATING MODE";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // radioButton2
             // 
@@ -131,6 +116,18 @@
             radioButton1.Text = "AUTOMATIC";
             radioButton1.UseVisualStyleBackColor = true;
             // 
+            // label4
+            // 
+            this.label4.BackColor = System.Drawing.Color.Silver;
+            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label4.Location = new System.Drawing.Point(0, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(538, 25);
+            this.label4.TabIndex = 48;
+            this.label4.Text = "OPERATING MODE";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // label34
             // 
             this.label34.BackColor = System.Drawing.Color.Silver;
@@ -138,7 +135,7 @@
             this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label34.Location = new System.Drawing.Point(0, 0);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(562, 25);
+            this.label34.Size = new System.Drawing.Size(535, 25);
             this.label34.TabIndex = 55;
             this.label34.Text = "AUTOMATIC";
             this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -151,15 +148,15 @@
             this.listViewSubprograms.FullRowSelect = true;
             this.listViewSubprograms.GridLines = true;
             this.listViewSubprograms.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem6,
-            listViewItem7,
-            listViewItem8,
-            listViewItem9,
-            listViewItem10});
+            listViewItem1,
+            listViewItem2,
+            listViewItem3,
+            listViewItem4,
+            listViewItem5});
             this.listViewSubprograms.Location = new System.Drawing.Point(8, 66);
             this.listViewSubprograms.MultiSelect = false;
             this.listViewSubprograms.Name = "listViewSubprograms";
-            this.listViewSubprograms.Size = new System.Drawing.Size(291, 132);
+            this.listViewSubprograms.Size = new System.Drawing.Size(429, 171);
             this.listViewSubprograms.TabIndex = 54;
             this.listViewSubprograms.UseCompatibleStateImageBehavior = false;
             this.listViewSubprograms.View = System.Windows.Forms.View.Details;
@@ -168,50 +165,39 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Sub program name";
-            this.columnHeader1.Width = 159;
+            this.columnHeader1.Width = 251;
             // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Status";
-            this.columnHeader2.Width = 88;
+            this.columnHeader2.Width = 156;
             // 
             // cBoxPrograms
             // 
             this.cBoxPrograms.FormattingEnabled = true;
-            this.cBoxPrograms.Location = new System.Drawing.Point(85, 30);
+            this.cBoxPrograms.Location = new System.Drawing.Point(136, 30);
             this.cBoxPrograms.Name = "cBoxPrograms";
-            this.cBoxPrograms.Size = new System.Drawing.Size(201, 28);
+            this.cBoxPrograms.Size = new System.Drawing.Size(209, 28);
             this.cBoxPrograms.TabIndex = 47;
             this.cBoxPrograms.SelectedIndexChanged += new System.EventHandler(this.cBoxPrograms_SelectedIndexChanged);
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(468, 139);
+            this.button4.Location = new System.Drawing.Point(443, 158);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(91, 58);
+            this.button4.Size = new System.Drawing.Size(91, 76);
             this.button4.TabIndex = 53;
             this.button4.Text = "Stop";
             this.button4.UseVisualStyleBackColor = true;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(468, 66);
+            this.button3.Location = new System.Drawing.Point(443, 66);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(91, 65);
+            this.button3.Size = new System.Drawing.Size(91, 86);
             this.button3.TabIndex = 52;
             this.button3.Text = "Start";
             this.button3.UseVisualStyleBackColor = true;
-            // 
-            // txtBoxDesc
-            // 
-            this.txtBoxDesc.Enabled = false;
-            this.txtBoxDesc.Location = new System.Drawing.Point(305, 66);
-            this.txtBoxDesc.Multiline = true;
-            this.txtBoxDesc.Name = "txtBoxDesc";
-            this.txtBoxDesc.ReadOnly = true;
-            this.txtBoxDesc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtBoxDesc.Size = new System.Drawing.Size(157, 131);
-            this.txtBoxDesc.TabIndex = 51;
             // 
             // panel8
             // 
@@ -224,9 +210,9 @@
             this.panel8.Controls.Add(this.label9);
             this.panel8.Controls.Add(this.label10);
             this.panel8.Controls.Add(this.label35);
-            this.panel8.Location = new System.Drawing.Point(3, 208);
+            this.panel8.Location = new System.Drawing.Point(3, 243);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(561, 391);
+            this.panel8.Size = new System.Drawing.Size(558, 353);
             this.panel8.TabIndex = 57;
             // 
             // panelGas
@@ -236,19 +222,18 @@
             this.panelGas.Controls.Add(this.labGasMFC2);
             this.panelGas.Controls.Add(this.labGasMFC1);
             this.panelGas.Controls.Add(this.labGasSetpointPressure);
-            this.panelGas.Controls.Add(this.labGasMode);
             this.panelGas.Controls.Add(this.labGasTimeTarget);
             this.panelGas.Controls.Add(this.labGasTime);
             this.panelGas.Controls.Add(this.label26);
             this.panelGas.Location = new System.Drawing.Point(3, 249);
             this.panelGas.Name = "panelGas";
-            this.panelGas.Size = new System.Drawing.Size(551, 140);
+            this.panelGas.Size = new System.Drawing.Size(524, 101);
             this.panelGas.TabIndex = 35;
             // 
             // labGasVaporiser
             // 
             this.labGasVaporiser.AutoSize = true;
-            this.labGasVaporiser.Location = new System.Drawing.Point(150, 100);
+            this.labGasVaporiser.Location = new System.Drawing.Point(28, 74);
             this.labGasVaporiser.Name = "labGasVaporiser";
             this.labGasVaporiser.Size = new System.Drawing.Size(337, 20);
             this.labGasVaporiser.TabIndex = 9;
@@ -258,7 +243,7 @@
             // 
             this.labGasMFC3.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.labGasMFC3.AutoSize = true;
-            this.labGasMFC3.Location = new System.Drawing.Point(371, 68);
+            this.labGasMFC3.Location = new System.Drawing.Point(371, 42);
             this.labGasMFC3.Name = "labGasMFC3";
             this.labGasMFC3.Size = new System.Drawing.Size(166, 20);
             this.labGasMFC3.TabIndex = 8;
@@ -268,7 +253,7 @@
             // 
             this.labGasMFC2.AutoSize = true;
             this.labGasMFC2.Cursor = System.Windows.Forms.Cursors.No;
-            this.labGasMFC2.Location = new System.Drawing.Point(196, 68);
+            this.labGasMFC2.Location = new System.Drawing.Point(196, 42);
             this.labGasMFC2.Name = "labGasMFC2";
             this.labGasMFC2.Size = new System.Drawing.Size(166, 20);
             this.labGasMFC2.TabIndex = 7;
@@ -277,7 +262,7 @@
             // labGasMFC1
             // 
             this.labGasMFC1.AutoSize = true;
-            this.labGasMFC1.Location = new System.Drawing.Point(28, 68);
+            this.labGasMFC1.Location = new System.Drawing.Point(28, 42);
             this.labGasMFC1.Name = "labGasMFC1";
             this.labGasMFC1.Size = new System.Drawing.Size(166, 20);
             this.labGasMFC1.TabIndex = 6;
@@ -291,15 +276,6 @@
             this.labGasSetpointPressure.Size = new System.Drawing.Size(167, 20);
             this.labGasSetpointPressure.TabIndex = 5;
             this.labGasSetpointPressure.Text = "Setpoint: 0.01 [mBar]";
-            // 
-            // labGasMode
-            // 
-            this.labGasMode.AutoSize = true;
-            this.labGasMode.Location = new System.Drawing.Point(150, 42);
-            this.labGasMode.Name = "labGasMode";
-            this.labGasMode.Size = new System.Drawing.Size(252, 20);
-            this.labGasMode.TabIndex = 4;
-            this.labGasMode.Text = "Mode: Control presure via gases";
             // 
             // labGasTimeTarget
             // 
@@ -339,7 +315,7 @@
             this.panelPump.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.panelPump.Location = new System.Drawing.Point(3, 49);
             this.panelPump.Name = "panelPump";
-            this.panelPump.Size = new System.Drawing.Size(554, 41);
+            this.panelPump.Size = new System.Drawing.Size(527, 41);
             this.panelPump.TabIndex = 29;
             // 
             // labPumpTimeTarget
@@ -388,7 +364,7 @@
             this.panelPlasma.Controls.Add(this.label21);
             this.panelPlasma.Location = new System.Drawing.Point(3, 200);
             this.panelPlasma.Name = "panelPlasma";
-            this.panelPlasma.Size = new System.Drawing.Size(554, 41);
+            this.panelPlasma.Size = new System.Drawing.Size(527, 41);
             this.panelPlasma.TabIndex = 34;
             // 
             // labPlasmaSetpoint
@@ -436,7 +412,7 @@
             this.panelVent.Controls.Add(this.label16);
             this.panelVent.Location = new System.Drawing.Point(3, 100);
             this.panelVent.Name = "panelVent";
-            this.panelVent.Size = new System.Drawing.Size(554, 41);
+            this.panelVent.Size = new System.Drawing.Size(527, 41);
             this.panelVent.TabIndex = 30;
             // 
             // labVentTimeTarget
@@ -485,7 +461,7 @@
             this.panelPurge.Controls.Add(this.label18);
             this.panelPurge.Location = new System.Drawing.Point(3, 153);
             this.panelPurge.Name = "panelPurge";
-            this.panelPurge.Size = new System.Drawing.Size(554, 41);
+            this.panelPurge.Size = new System.Drawing.Size(527, 41);
             this.panelPurge.TabIndex = 31;
             // 
             // labPurgeTimeTarget
@@ -544,45 +520,34 @@
             this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label35.Location = new System.Drawing.Point(-3, 0);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(562, 25);
+            this.label35.Size = new System.Drawing.Size(535, 25);
             this.label35.TabIndex = 56;
             this.label35.Text = "PROCESS STAGE";
             this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label5
             // 
+            this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.WhiteSmoke;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label5.Location = new System.Drawing.Point(5, 36);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(74, 17);
+            this.label5.Size = new System.Drawing.Size(118, 17);
             this.label5.TabIndex = 39;
-            this.label5.Text = "Program:";
-            // 
-            // label32
-            // 
-            this.label32.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label32.Location = new System.Drawing.Point(302, 36);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(95, 17);
-            this.label32.TabIndex = 40;
-            this.label32.Text = "Description:";
+            this.label5.Text = "Program name:";
             // 
             // panel6
             // 
             this.panel6.Controls.Add(this.panel8);
-            this.panel6.Controls.Add(this.label32);
             this.panel6.Controls.Add(this.label34);
             this.panel6.Controls.Add(this.label5);
             this.panel6.Controls.Add(this.listViewSubprograms);
-            this.panel6.Controls.Add(this.txtBoxDesc);
             this.panel6.Controls.Add(this.button3);
             this.panel6.Controls.Add(this.button4);
             this.panel6.Controls.Add(this.cBoxPrograms);
             this.panel6.Location = new System.Drawing.Point(0, 55);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(565, 602);
+            this.panel6.Size = new System.Drawing.Size(538, 602);
             this.panel6.TabIndex = 58;
             // 
             // ProgramPanel
@@ -595,7 +560,7 @@
             this.Controls.Add(radioButton1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Name = "ProgramPanel";
-            this.Size = new System.Drawing.Size(562, 656);
+            this.Size = new System.Drawing.Size(535, 656);
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
             this.panelGas.ResumeLayout(false);
@@ -625,7 +590,6 @@
         private System.Windows.Forms.ComboBox cBoxPrograms;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox txtBoxDesc;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Panel panelGas;
         private System.Windows.Forms.Label labGasVaporiser;
@@ -633,7 +597,6 @@
         private System.Windows.Forms.Label labGasMFC2;
         private System.Windows.Forms.Label labGasMFC1;
         private System.Windows.Forms.Label labGasSetpointPressure;
-        private System.Windows.Forms.Label labGasMode;
         private System.Windows.Forms.Label labGasTimeTarget;
         private System.Windows.Forms.Label labGasTime;
         private System.Windows.Forms.Label label26;
@@ -660,7 +623,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Panel panel6;
     }
 }

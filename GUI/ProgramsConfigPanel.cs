@@ -405,6 +405,10 @@ namespace HPT1000.GUI
                 grBoxMFC2.Enabled = cBoxMFC2.Checked;
                 grBoxMFC3.Enabled = cBoxMFC3.Checked;
 
+                grBoxGasesMFC1.Enabled = cBoxMFC1.Checked;
+                grBoxGasesMFC2.Enabled = cBoxMFC2.Checked;
+                grBoxGasesMFC3.Enabled = cBoxMFC3.Checked;
+
                 grBoxGasFlow.Enabled = rBtnModeFlow.Checked;
                 grBoxGasPressure.Enabled = rBtnModePressure.Checked;
 
@@ -444,11 +448,15 @@ namespace HPT1000.GUI
         void ShowInfoPurgeStage(FlushProces purgeStage)
         {
             cBoxPurge.Checked = purgeStage.Active;
+            if(purgeStage != null)
+                timePurge.Value = purgeStage.GetTimePurge();
         }
         //--------------------------------------------------------------------------------------------------------------------------------------
         void ShowInfoVentStage(VentProces ventStage)
         {
             cBoxVent.Checked = ventStage.Active;
+            if (ventStage != null)
+                timeVent.Value = ventStage.GetTimeVent();
         }
         //--------------------------------------------------------------------------------------------------------------------------------------
         void SetLimitGasScroll(GasProces gasStage)
@@ -885,11 +893,11 @@ namespace HPT1000.GUI
         //-----------------------------------------------------------------------------------------
         //------------------------------GAS------------------------------------------
         //----------------------------------------------------------------------------------------
-        private void rBtnGasMode_CheckedChanged(object sender, EventArgs e)
+        private void SetModeGas()
         {
             Types.GasProcesMode mode = Types.GasProcesMode.FlowSP;
 
-            if (rBtnModeFlow.Checked)
+           if (rBtnModeFlow.Checked)
                 mode = Types.GasProcesMode.FlowSP;
             else
             {
@@ -902,8 +910,25 @@ namespace HPT1000.GUI
             if (GetSubprogram() != null && GetSubprogram().GasProces != null)
                 ((GasProces)GetSubprogram().GasProces).SetModeProces(mode);
 
-            grBoxGasFlow.Enabled = rBtnModeFlow.Checked;
-            grBoxGasPressure.Enabled = rBtnModePressure.Checked;
+            grBoxGasFlow.Enabled        = rBtnModeFlow.Checked;
+            grBoxGasPressure.Enabled    = rBtnModePressure.Checked;
+            grBoxGasesMFC1.Enabled      = cBoxMFC1.Checked && rBtnPressureViaGases.Checked;
+            grBoxGasesMFC2.Enabled      = cBoxMFC2.Checked && rBtnPressureViaGases.Checked;
+            grBoxGasesMFC3.Enabled      = cBoxMFC3.Checked && rBtnPressureViaGases.Checked;
+        }
+        //-------------------------------------------------------------------------------------------------------------------------------------
+        private void rBtnGasMode_CheckedChanged(object sender, EventArgs e)
+        {
+            //Ustaw domyslnie tryb flow
+            if (((Control)sender).Name == "rBtnModePressure" && ((RadioButton)sender).Checked == true )
+                rBtnPressureViaGases.Checked = true;
+
+            SetModeGas();
+        }
+        //-------------------------------------------------------------------------------------------------------------------------------------
+        private void rBtnGasModePressure_CheckedChanged(object sender, EventArgs e)
+        {
+            SetModeGas();
         }
         //-------------------------------------------------------------------------------------------------------------------------------------
         private void timeGas_ValueChanged(object sender, EventArgs e)
@@ -916,6 +941,7 @@ namespace HPT1000.GUI
         {
             cBoxGasListMFC1.Enabled = cBoxMFC1.Checked;
             grBoxMFC1.Enabled       = cBoxMFC1.Checked;
+            grBoxGasesMFC1.Enabled  = cBoxMFC1.Checked;
 
             if (GetSubprogram() != null && GetSubprogram().GasProces != null)
                 ((GasProces)GetSubprogram().GasProces).SetActiveFlow(cBoxMFC1.Checked,1);
@@ -925,6 +951,7 @@ namespace HPT1000.GUI
         {
             cBoxGasListMFC2.Enabled = cBoxMFC2.Checked;
             grBoxMFC2.Enabled       = cBoxMFC2.Checked;
+            grBoxGasesMFC2.Enabled  = cBoxMFC2.Checked;
 
             if (GetSubprogram() != null && GetSubprogram().GasProces != null)
                 ((GasProces)GetSubprogram().GasProces).SetActiveFlow(cBoxMFC2.Checked, 2);
@@ -934,6 +961,7 @@ namespace HPT1000.GUI
         {
             cBoxGasListMFC3.Enabled = cBoxMFC3.Checked;
             grBoxMFC3.Enabled       = cBoxMFC3.Checked;
+            grBoxGasesMFC3.Enabled  = cBoxMFC3.Checked;
 
             if (GetSubprogram() != null && GetSubprogram().GasProces != null)
                 ((GasProces)GetSubprogram().GasProces).SetActiveFlow(cBoxMFC3.Checked, 3);

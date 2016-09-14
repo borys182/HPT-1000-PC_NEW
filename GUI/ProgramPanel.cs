@@ -33,7 +33,7 @@ namespace HPT1000.GUI
         {
             cBoxPrograms.Items.Clear();
             listViewSubprograms.Items.Clear();
-            txtBoxDesc.Text = "";
+            //txtBoxDesc.Text = "";
 
             labPumpSetpoint.Text        = "";
             labPumpTime.Text            = "--:--:--";
@@ -52,7 +52,7 @@ namespace HPT1000.GUI
             labGasMFC1.Text             = "";
             labGasMFC2.Text             = "";
             labGasMFC3.Text             = "";
-            labGasMode.Text             = "";
+        //    labGasMode.Text             = "";
             labGasSetpointPressure.Text = "";
             labGasTime.Text             = "--:--:--";
             labGasTimeTarget.Text       = "--:--:--";
@@ -82,7 +82,7 @@ namespace HPT1000.GUI
         {
             if (pr != null)
             {
-                txtBoxDesc.Text = pr.GetDescription();
+          //      txtBoxDesc.Text = pr.GetDescription();
                 //uzupe;nij liste sub programow
                 listViewSubprograms.Items.Clear();
                 foreach (Subprogram subPr in pr.GetSubPrograms())
@@ -121,7 +121,7 @@ namespace HPT1000.GUI
 
                 labPumpTime.Text = pumpProces.TimeWorking.ToLongTimeString();
                 labPumpTimeTarget.Text  = pumpProces.GetTimeWaitForPumpDown().ToLongTimeString();
-                labPumpSetpoint.Text    = "Setpoint - " + pumpProces.GetSetpoint().ToString();
+                labPumpSetpoint.Text    = "Setpoint - " + pumpProces.GetSetpoint().ToString() + " mBar";
             }
         }
         //--------------------------------------------------------------------------------------
@@ -165,9 +165,9 @@ namespace HPT1000.GUI
                 panelPlasma.Enabled = plasmaProces.Active;
 
                 string aUnit = "";
-                if (plasmaProces.GetWorkMode() == Types.WorkModeHV.Curent) aUnit = "[A]";
-                if (plasmaProces.GetWorkMode() == Types.WorkModeHV.Voltage) aUnit = "[V]";
-                if (plasmaProces.GetWorkMode() == Types.WorkModeHV.Power) aUnit = "[W]";
+                if (plasmaProces.GetWorkMode() == Types.WorkModeHV.Curent) aUnit    = " A";
+                if (plasmaProces.GetWorkMode() == Types.WorkModeHV.Voltage) aUnit   = " V";
+                if (plasmaProces.GetWorkMode() == Types.WorkModeHV.Power) aUnit     = " W";
 
                 if (plasmaProces.Active)
                     panelPlasma.Font = new Font(panelPlasma.Font, FontStyle.Bold);
@@ -191,41 +191,41 @@ namespace HPT1000.GUI
                 else
                     panelGas.Font = new Font(panelGas.Font, FontStyle.Regular);
 
-                labGasTime.Text = gasProces.TimeWorking.ToLongTimeString();
-                labGasTime.Text = gasProces.GetTimeProcesDuration().ToLongTimeString();
+                labGasTime.Text         = gasProces.TimeWorking.ToLongTimeString();
+                labGasTimeTarget.Text   = gasProces.GetTimeProcesDuration().ToLongTimeString();
 
                 labGasSetpointPressure.Visible  = true;
-                labGasMFC1.Visible              = true;
-                labGasMFC2.Visible              = true;
-                labGasMFC3.Visible              = true;
                 labGasVaporiser.Visible         = true;
                 switch (gasProces.GetModeProces())
                 {
                     case Types.GasProcesMode.FlowSP:
-                        labGasMode.Text = "Mode: Dosing gases to chamber accordnig set flow";
+                        //labGasMode.Text = "";//"Mode: Dosing gases to chamber accordnig set flow";
                         labGasSetpointPressure.Visible = false;
-                        labGasMFC1.Text = gasProces.GetGasFlow(Types.UnitFlow.sccm, 1).ToString();
-                        labGasMFC2.Text = gasProces.GetGasFlow(Types.UnitFlow.sccm, 2).ToString();
-                        labGasMFC3.Text = gasProces.GetGasFlow(Types.UnitFlow.sccm, 3).ToString();
-                        labGasVaporiser.Text = "Vaporiser: Cycle - " + gasProces.GetCycleTime().ToString() + " [ms] " + "  " + gasProces.GetOnTime().ToString() + " [%]";
+                        labGasMFC1.Text = "MFC1 : " + gasProces.GetGasFlow(Types.UnitFlow.sccm, 1).ToString() + " sccm";
+                        labGasMFC2.Text = "MFC2 : " + gasProces.GetGasFlow(Types.UnitFlow.sccm, 2).ToString() + " sccm";
+                        labGasMFC3.Text = "MFC3 : " + gasProces.GetGasFlow(Types.UnitFlow.sccm, 3).ToString() + " sccm";
+                        labGasVaporiser.Text = "Vaporiser: Cycle time - " + gasProces.GetCycleTime().ToString() + " ms " + " On time - " + gasProces.GetOnTime().ToString() + " %";
                         break;
                     case Types.GasProcesMode.Pressure_Vap:
-                        labGasMode.Text = "Mode: Control pressure via vaporiator";
-                        labGasSetpointPressure.Text = gasProces.GetSetpointPressure().ToString();
-                        labGasMFC1.Visible      = false;
-                        labGasMFC2.Visible      = false;
-                        labGasMFC3.Visible      = false;
-                        labGasVaporiser.Visible = false;
+                      //  labGasMode.Text = "";// "Mode: Control pressure via vaporiator";
+                        labGasSetpointPressure.Text = gasProces.GetSetpointPressure().ToString() + " mBar";
+                        labGasMFC1.Text = "MFC1 : 0  %";
+                        labGasMFC2.Text = "MFC2 : 0 %";
+                        labGasMFC3.Text = "MFC3 : 0 %";
+                        labGasVaporiser.Text = "Vaporiser: 100 %";
                         break;
                     case Types.GasProcesMode.Presure_MFC:
-                        labGasMode.Text = "Mode: Control pressure via mas flow control";
-                        labGasSetpointPressure.Text = gasProces.GetSetpointPressure().ToString();
-                        labGasMFC1.Text = gasProces.GetShareGas(1).ToString();
-                        labGasMFC2.Text = gasProces.GetShareGas(2).ToString();
-                        labGasMFC3.Text = gasProces.GetShareGas(3).ToString();
-                        labGasVaporiser.Visible = false;
+                     //   labGasMode.Text = "";// "Mode: Control pressure via mas flow control";
+                        labGasSetpointPressure.Text = gasProces.GetSetpointPressure().ToString() + " mBar";
+                        labGasMFC1.Text = "MFC1 : " + gasProces.GetShareGas(1).ToString() + " %";
+                        labGasMFC2.Text = "MFC2 : " + gasProces.GetShareGas(2).ToString() + " %";
+                        labGasMFC3.Text = "MFC3 : " + gasProces.GetShareGas(3).ToString() + " %";
+                        labGasVaporiser.Text = "Vaporiser: 0 %";
                         break;
-                }         
+                }
+                labGasMFC1.Visible = gasProces.GetActiveFlow(1);
+                labGasMFC2.Visible = gasProces.GetActiveFlow(2);
+                labGasMFC3.Visible = gasProces.GetActiveFlow(3);
             }
         }
         //--------------------------------------------------------------------------------------

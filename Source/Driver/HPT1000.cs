@@ -61,9 +61,9 @@ namespace HPT1000.Source.Driver
         {
             return (PowerSupplay)chamber.GetObject(Types.TypeObject.HV);
         }
-        public FlowMeter GetFlowMeter()
+        public MFC GetMFC()
         {
-            return (FlowMeter)chamber.GetObject(Types.TypeObject.FM);
+            return (MFC)chamber.GetObject(Types.TypeObject.FM);
         }
         public ForePump GetForePump()
         {

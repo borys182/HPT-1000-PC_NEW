@@ -10,7 +10,7 @@ namespace HPT1000.Source.Chamber
     public abstract class ChamberObject
     {
         protected PLC plc = null;
-        protected Types.TypeObject type = Types.TypeObject.None;
+        protected Types.ControlMode controlMode = Types.ControlMode.Manual;
 
         public abstract void UpdateData(int[] aData);
         public virtual void UpdateSettings(int[] aData) { }
@@ -19,9 +19,15 @@ namespace HPT1000.Source.Chamber
         {
             plc = ptrPLC;
         }
-        public Types.TypeObject GetTypeObject()
+       
+
+        public void SetControlMode(Types.ControlMode aControlMode)
         {
-            return type;
+            controlMode = aControlMode;
+        }
+        public Types.ControlMode GetControlMode()
+        {
+            return controlMode;
         }
 
     }

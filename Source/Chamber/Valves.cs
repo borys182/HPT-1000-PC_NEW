@@ -22,7 +22,6 @@ namespace HPT1000.Source.Chamber
         {
             name = Name;
             id = ID;
-            type = Types.TypeObject.VL;
         }
         public Valve()
         {
@@ -71,9 +70,9 @@ namespace HPT1000.Source.Chamber
             }
             return aState;
         }
-        public int SetState(Types.StateValve aState, Types.TypeValve aTypeValve)
+        public ERROR SetState(Types.StateValve aState, Types.TypeValve aTypeValve)
         {
-            int aResult = 0;
+            ERROR aErr = new ERROR(0);
             int []ctrlValve = {0};
 
             //ustaw na odpowidnim miejscu bity sterujace zgodnie z ID zaworu powiazanego z PLC
@@ -87,15 +86,15 @@ namespace HPT1000.Source.Chamber
             if (aState == Types.StateValve.Close || aState == Types.StateValve.Open)
             {
                 if (plc != null)
-                    aResult = plc.WriteWords(Types.ADDR_VALVES_CTRL, 1, ctrlValve);
+                    aErr.ErrorCodePLC = plc.WriteWords(Types.ADDR_VALVES_CTRL, 1, ctrlValve);
                 else
-                    aResult = Types.ERROR_PLC_PTR_NULL;
+                    aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
             }
             else
-                aResult = Types.ERROR_CALL_INCORRECT_OPERATION;
+                aErr.ErrorCode = Types.ERROR_CODE.CALL_INCORRECT_OPERATION;
 
 
-            return aResult;
+            return aErr;
         }
     }
 }

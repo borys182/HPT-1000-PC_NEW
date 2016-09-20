@@ -19,7 +19,7 @@ namespace HPT1000.Source.Chamber
         {
             objects.Add(new Valve());
             objects.Add(new ForePump());
-            objects.Add(new FlowMeter());
+            objects.Add(new MFC());
             objects.Add(new PowerSupplay());
         }
 
@@ -46,10 +46,15 @@ namespace HPT1000.Source.Chamber
         public ChamberObject GetObject(Types.TypeObject typeObj)
         {
             ChamberObject aObject = null;
-
-            foreach(ChamberObject obj in objects)
+            foreach (ChamberObject obj in objects)
             {
-                if (obj.GetTypeObject() == typeObj)
+                if (typeObj == Types.TypeObject.FM && obj is MFC)
+                    aObject = obj;
+                if (typeObj == Types.TypeObject.FP && obj is ForePump)
+                    aObject = obj;
+                if (typeObj == Types.TypeObject.HV && obj is PowerSupplay)
+                    aObject = obj;
+                if (typeObj == Types.TypeObject.VL && obj is Valve)
                     aObject = obj;
             }
             return aObject;

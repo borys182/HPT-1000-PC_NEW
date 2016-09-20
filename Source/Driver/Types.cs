@@ -6,6 +6,35 @@ using System.Threading.Tasks;
 
 namespace HPT1000.Source.Driver
 {
+    public struct ERROR
+    {
+        private Types.ERROR_CODE     errorCode    { set; get; }
+        private int                  errorCodePLC { set; get; }
+
+        public int ErrorCodePLC
+        {
+            set
+            {
+                errorCodePLC = value;
+                if (value == 0) errorCode = Types.ERROR_CODE.NONE;
+                else            errorCode = Types.ERROR_CODE.PLC_WRITE;
+            }
+            get { return errorCodePLC; }
+        }
+
+        public Types.ERROR_CODE ErrorCode
+        {
+            set { errorCode = value; }
+            get { return errorCode; }
+        }
+
+        public ERROR(int aDifer)
+        {
+            errorCode       = Types.ERROR_CODE.NONE;
+            errorCodePLC    = 0;
+        }
+    }
+
     /// <summary>
     /// Klasa zawiera definicje typow oraz adresy komorek
     /// </summary>
@@ -27,8 +56,18 @@ namespace HPT1000.Source.Driver
         public enum ControlProgram  { Start,Stop,Resume };
         public enum WorkModeHV      { Power = 1, Voltage = 2, Curent = 3};
         public enum Word            { LOW , HIGH};
-        public enum GasProcesMode   { Presure_MFC, Pressure_Vap, FlowSP}; //okreslenie sposobu sterowania gazami w komorze {Presure_MFC - proznia jest utrzymywana przez PID z 3 przeplywek, Pressure_Vap proznia jest utrzymywana przez PID z vaporatora, FlowSP - sterujemy zgodnie z ustawionymi setpontami}
+        public enum GasProcesMode   { Unknown = 0, Presure_MFC = 1, Pressure_Vap = 2, FlowSP = 3}; //okreslenie sposobu sterowania gazami w komorze {Presure_MFC - proznia jest utrzymywana przez PID z 3 przeplywek, Pressure_Vap proznia jest utrzymywana przez PID z vaporatora, FlowSP - sterujemy zgodnie z ustawionymi setpontami}
         public enum StatusSubprogram { Wait , Working , Suspended , Done , Warning , Error  };
+        public enum ControlMode     { Automatic , Manual}
+
+        public enum ERROR_CODE
+        {
+            NONE                        = 0x00,
+            PLC_PTR_NULL                = 0x01,         //Brak wskaznika na obiekt protokolu PLC
+            CALL_INCORRECT_OPERATION    = 0x02,         //Wywolanie zabronienioej operacji na danym obiekcie
+            BAD_FLOW_ID                 = 0x03,         //proba wykonia zapisu do plc info o przeplywkach o id roznym niz 0-2 (innych nie ma w plc)
+            PLC_WRITE                   = 0x04          //Nie powiodl sie zapis do sterownika PLC. Dodatkowe informacje sa zwrocone w kodzie bezposrednio ze sterownika PLC (MX Components)
+        }
         
         /// <summary>
         /// ADRESY KOMOREK PLC
@@ -36,9 +75,8 @@ namespace HPT1000.Source.Driver
         public static string ADDR_START_STATUS_CHAMBER      = "D1000"; //poczatek bufora z danymi przedstawiajacymi stan systemu 
         public static string ADDR_START_BUFFER_PROGRAM      = "D2000";
 
-        public static string ADDR_CONTROL_PROGRAM           = "D102";
-
-
+     
+        //Adresy komorek do sterowania recznego
         public static string ADDR_VALVES_CTRL               = "D102";
         public static string ADDR_FP_CTRL                   = "D104";
         public static string ADDR_CYCLE_TIME                = "D106";
@@ -46,10 +84,17 @@ namespace HPT1000.Source.Driver
         public static string ADDR_FLOW_1_CTR                = "D100";
         public static string ADDR_FLOW_2_CTR                = "D100";
         public static string ADDR_FLOW_3_CTR                = "D100";
-        public static string ADDR_POWER                     = "D123";
-        public static string ADDR_VOLTAGE                   = "D124";
-        public static string ADDR_CURENT                    = "D125";
+        public static string ADDR_POWER_SUPPLAY_SETPOINT    = "D123";
+        public static string ADDR_POWER_SUPPLAY_MODE        = "D124";
+        public static string ADDR_POWER_SUPPLAY_OPERATE     = "D125";
+        public static string ADDR_PRESSURE_SETPOINT         = "D125";
+        public static string ADDR_PRESSURE_MODE             = "D125";
 
+
+        //Adresy komorek do dostrajania parametrow programu. Jest to adres poczatku buforu danych gdzie sa przechowywane parametry aktualnie wykonywanego programu
+        //Pamietaj zmienijac adres tej przestrzeniu tutaj tez musisz zmienic adres
+        //Kolejne parametry urządzen posiadaja adresy zgodnie z ofsetem danego parametru w programie
+        public static string ADDR_CONTROL_PROGRAM           = "D1050";
 
         public const int    LENGHT_STATUS_DATA              = 100;
         public const int    SEGMENT_SIZE                    = 30;
@@ -74,8 +119,10 @@ namespace HPT1000.Source.Driver
         public static int OFFSET_ACTUAL_FLOW_3  = 18;
         public static int OFFSET_CYCLE_TIME     = 20;
         public static int OFFSET_ON_TIME        = 22;
+        public static int OFFSET_MODE_PRESSURE  = 24;
 
-        //Dane programow
+
+        //Dane aktualnie wykonywanego programu i subprogramu odczytywane ciagle
         public static int OFFSET_PRG_CONTROL        = 0;
         public static int OFFSET_PRG_STATUS         = 1;
         public static int OFFSET_PRG_SEQ_COUNTS     = 2;
@@ -97,7 +144,7 @@ namespace HPT1000.Source.Driver
         public static int OFFSET_LIMIT_VOLTAGE  = 15;
 
 
-        //Miejsce na kolejene parametry segmentu programu
+        //Offset od bazowego adresu dla kolejnych parametrow subprogramu
         public static int OFFSET_SEQ_CMD                = 0;
         public static int OFFSET_SEQ_STATUS             = 2;
         public static int OFFSET_SEQ_PUMP_MAX_TIME      = 3;
@@ -153,15 +200,7 @@ namespace HPT1000.Source.Driver
         public static int BIT_CMD_DELAY             = 12;
         public static int BIT_CMD_CHECK_VACUM       = 13;
         public static int BIT_CMD_END               = 14;
-
-
-        /// <summary>
-        /// KODY BLEDOW
-        /// </summary>
-        public static int ERROR_PLC_PTR_NULL                = 0x01;     //Brak wskaznika na obiekt protokolu PLC
-        public static int ERROR_CALL_INCORRECT_OPERATION    = 0x02;     //Wywolanie zabronienioej operacji na danym obiekcie
-        public static int ERROR_BAD_FLOW_ID                 = 0x03;     //proba wykonia zapisu do plc info o przeplywkach o id roznym niz 0-2 (innych nie ma w plc)
-
+    
         /// <summary>
         /// Pomocniecze funkcje
         /// </summary>

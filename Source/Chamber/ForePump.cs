@@ -11,11 +11,7 @@ namespace HPT1000.Source.Chamber
     {
         private Types.StateFP state = Types.StateFP.Error;
 
-        public ForePump()
-        {
-            type = Types.TypeObject.FP;
-        }
-
+        //-----------------------------------------------------------------------------------------
         override public void UpdateData(int []aData)
         {
             if(Enum.IsDefined(typeof(Types.StateFP),aData[Types.OFFSET_STATE_FP]))
@@ -23,29 +19,31 @@ namespace HPT1000.Source.Chamber
             else
                 state = Types.StateFP.Error;
         }
-
+        //-----------------------------------------------------------------------------------------
         public Types.StateFP GetState()
         {
             return state;
         }
+        //-----------------------------------------------------------------------------------------
         //Funkcja umozliwia alaczenie/wylaczenie pompy
-        public int ControlPump(Types.StateFP state)
+        public ERROR ControlPump(Types.StateFP state)
         {
-            int iResult = 0;
+            ERROR aErr = new ERROR(0);
+
             int[] aData = {(int)state};
 
             if (state == Types.StateFP.ON || state == Types.StateFP.OFF)
             {
                 if (plc != null)
-                    iResult = plc.WriteWords(Types.ADDR_FP_CTRL, 1, aData);
+                    aErr.ErrorCodePLC = plc.WriteWords(Types.ADDR_FP_CTRL, 1, aData);
                 else
-                    iResult = Types.ERROR_PLC_PTR_NULL;
+                    aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
             }
             else
-                iResult = Types.ERROR_CALL_INCORRECT_OPERATION;
+                aErr.ErrorCode = Types.ERROR_CODE.CALL_INCORRECT_OPERATION;
 
-
-            return iResult;
+            return aErr;
         }
+        //-----------------------------------------------------------------------------------------
     }
 }

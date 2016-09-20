@@ -19,10 +19,7 @@ namespace HPT1000.Source.Chamber
         private double          limitCurent  = 0;
         private double          limitPower   = 0;
 
-        public PowerSupplay()
-        {
-            type = Types.TypeObject.HV;
-        }
+       //-------------------------------------------------------------------------------------------
         override public void UpdateData(int []aData)
         {
             power           = Types.ConvertDWORDToDouble(aData, Types.OFFSET_POWER);
@@ -39,44 +36,95 @@ namespace HPT1000.Source.Chamber
             else
                 state = Types.StateHV.Error;
         }
+        //-------------------------------------------------------------------------------------------
         override public void UpdateSettings(int[] aData)
         {
             limitPower      = Types.ConvertDWORDToDouble(aData, Types.OFFSET_POWER);
             limitVoltage    = Types.ConvertDWORDToDouble(aData, Types.OFFSET_VOLTAGE);
             limitCurent     = Types.ConvertDWORDToDouble(aData, Types.OFFSET_CURENT);
         }
-        public int SetPower(double aPower)
+        //-------------------------------------------------------------------------------------------
+        public double GetPower()
         {
-            int aResult = 0;
+            return power;
+        }
+        //------------------------------------------------------------------------------------------
+        public double GetVoltage()
+        {
+            return voltage;
+        }
+        //------------------------------------------------------------------------------------------
+        public double GetCurent()
+        {
+            return curent;
+        }
+        //-----------------------------------------------------------------------------------------
+        public Types.ModeHV GetMode()
+        {
+            return mode;
+        }
+        //-----------------------------------------------------------------------------------------
+        public Types.StateHV GetState()
+        {
+            return state;
+        }
+        //-----------------------------------------------------------------------------------------
+
+        public ERROR SetSetpoint(double aSetpoint)
+        {
+            ERROR aErr = new ERROR(0);
 
             if (plc != null)
-                aResult = plc.WriteRealData(Types.ADDR_POWER, (float)aPower);
+            {
+                if(controlMode == Types.ControlMode.Automatic)
+                    aErr.ErrorCodePLC = plc.WriteRealData(Types.ADDR_CONTROL_PROGRAM + Types.OFFSET_SEQ_HV_SETPOINT, (float)aSetpoint);
+                if(controlMode == Types.ControlMode.Manual)
+                    aErr.ErrorCodePLC = plc.WriteRealData(Types.ADDR_POWER_SUPPLAY_SETPOINT, (float)aSetpoint);
+            }
             else
-                aResult = Types.ERROR_PLC_PTR_NULL;
+                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
 
-            return aResult;
-        }
-        public int SetVoltage(double aVoltage)
+            return aErr;
+        }       
+        //-----------------------------------------------------------------------------------------
+        //Mozliwosc ustawienia tylko w trybie recznym
+        public ERROR SetMode(Types.ModeHV aMode)
         {
-            int aResult = 0;
+            ERROR aErr = new ERROR(0);
+            int []aData = new int[1] ;
+
+            aData[0] =  (int)aMode;
 
             if (plc != null)
-                aResult = plc.WriteRealData(Types.ADDR_VOLTAGE, (float)aVoltage);
+            {
+                if (controlMode == Types.ControlMode.Manual)
+                    aErr.ErrorCodePLC = plc.WriteWords(Types.ADDR_POWER_SUPPLAY_MODE, 1,aData);
+            }
             else
-                aResult = Types.ERROR_PLC_PTR_NULL;
+                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
 
-            return aResult;
+            return aErr;
         }
-        public int SetCurent(double aCurent)
+        //-----------------------------------------------------------------------------------------
+        //Mozliwosc ustawienia tylko w trybie recznym
+        public ERROR SetOperate(bool aOperate)
         {
-            int aResult = 0;
+            ERROR aErr = new ERROR(0);
 
+            int[] aData = new int[1];
+
+            aData[0] = Convert.ToInt32(aOperate);
             if (plc != null)
-                aResult = plc.WriteRealData(Types.ADDR_CURENT, (float)aCurent);
+            {
+                if (controlMode == Types.ControlMode.Manual)
+                    aErr.ErrorCodePLC = plc.WriteWords(Types.ADDR_POWER_SUPPLAY_OPERATE,1, aData);
+            }
             else
-                aResult = Types.ERROR_PLC_PTR_NULL;
+                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
 
-            return aResult;
+            return aErr;
         }
+        //-------------------------------------------------------------------------------------------
+    
     }
 }

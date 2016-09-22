@@ -22,10 +22,10 @@ namespace HPT1000.GUI
         #region Private
 
         private HPT1000.Source.Driver.HPT1000 hpt1000 = new HPT1000.Source.Driver.HPT1000();
-        
+
         #endregion
 
-
+        //------------------------------------------------------------------------------------------
         public MainForm()
         {
             InitializeComponent();
@@ -33,32 +33,32 @@ namespace HPT1000.GUI
             programsConfigPanel.HPT1000 = hpt1000;
             programPanel.HPT1000        = hpt1000;
 
+            generatorPanel.SetGeneratorPtr(hpt1000.GetPowerSupply());
+            pressurePanel.SetPresureControlPtr(hpt1000.GetPressureControl());
+            pumpPanel.SetPumpPtr(hpt1000.GetForePump());
+            vaporiserPanel.SetVaporizerPtr(hpt1000.GetVaporizer());
+            mfcPanel1.SetMFC(hpt1000.GetMFC(),1);
+            mfcPanel2.SetMFC(hpt1000.GetMFC(),2);
+            mfcPanel3.SetMFC(hpt1000.GetMFC(),3);
+
+            valve_Gas.SetValvePtr(hpt1000.GetValve(), Types.TypeValve.Gas);
+            valve_Purge.SetValvePtr(hpt1000.GetValve(), Types.TypeValve.Purge);
+            valve_SV.SetValvePtr(hpt1000.GetValve(), Types.TypeValve.SV);
+            valve_Vent.SetValvePtr(hpt1000.GetValve(), Types.TypeValve.VV);
+
             programsConfigPanel.AddToRefreshList(new RefreshProgram(programPanel.RefreshPanel));
 
         }
-        void Test() { }
+        //------------------------------------------------------------------------------------------
         private void button1_Click(object sender, EventArgs e)
         {
-            txtBoxMsg.Text = "Connecting ...";
-            
-            int aRes = hpt1000.Connect();
+            int aRes = 0;
 
-            if (aRes == 0)
-                txtBoxMsg.Text = "Connection OK";
-            else
-                txtBoxMsg.Text = "Connection faild " + String.Format("0x{0:x8}", aRes);
+            if (hpt1000.GetPLC() != null)
+                aRes = hpt1000.GetPLC().Connect();
+
         }
-
-        private void btnWrite_Click(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void btnRead_Click(object sender, EventArgs e)
-        {
-            
-        }
-
+        //------------------------------------------------------------------------------------------
         private void btnTest_Click(object sender, EventArgs e)
         {
             /*
@@ -74,26 +74,45 @@ namespace HPT1000.GUI
                 txtBoxMsg.Text = "Set faild " + String.Format("0x{0:x8}", iRes);
              */
         }
-
-        private void btnUpdate_Click(object sender, EventArgs e)
-        {
-            hpt1000.Run();
-        }
-
         private void btnGetState_Click(object sender, EventArgs e)
         {
 
             Types.StateValve state = hpt1000.GetValve().GetState(Types.TypeValve.SV);
         }
-
-        private void groupBox3_Enter(object sender, EventArgs e)
+        //----------------------------------------------------------------------------------
+        private void timer_Tick(object sender, EventArgs e)
         {
+            //Odswiezaj dane elementow komory na panelach systemu
+            generatorPanel.RefreshData();
+            pumpPanel.RefreshData();
+            vaporiserPanel.RefreshData();
+            pressurePanel.RefreshData();
+            mfcPanel1.RefreshData();
+            mfcPanel2.RefreshData();
+            mfcPanel3.RefreshData();
 
+            switch (hpt1000.GetStatus())
+            {
+                case Types.DriverStatus.OK:
+                    statusLabel.Text = "Communication OK";
+                    statusLabel.ForeColor = Color.Blue;
+                    break;
+                case Types.DriverStatus.NoComm:
+                    statusLabel.Text        = "No communication";
+                    statusLabel.ForeColor   = Color.Red;
+                    break;
+            }          
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void cBoxComm_SelectedValueChanged(object sender, EventArgs e)
         {
-
+            if (hpt1000.GetPLC() != null)
+            {
+                if (cBoxComm.SelectedItem.ToString() == "USB")
+                    hpt1000.GetPLC().SetTypeComm(TypeComm.USB);
+                if (cBoxComm.SelectedItem.ToString() == "TCP")
+                    hpt1000.GetPLC().SetTypeComm(TypeComm.TCP);
+            }
         }
     }
 }

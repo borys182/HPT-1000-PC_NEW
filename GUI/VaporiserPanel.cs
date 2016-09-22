@@ -15,7 +15,8 @@ namespace HPT1000.GUI
 {
     public partial class VaporiserPanel : UserControl
     {
-        Vaporizer vaporizer = null;
+        Vaporizer vaporizer     = null;
+        bool      aUnitPercent  = true;   //flaga okresla czy mam pokazywac jednostki w procentach czy ms
 
         //-----------------------------------------------------------------------------------
         public VaporiserPanel()
@@ -32,31 +33,70 @@ namespace HPT1000.GUI
         {
             if (vaporizer != null)
             {
-                tBoxCycleTime.Text  = vaporizer.GetCycleTime().ToString();
-                tBoxOnTime.Text     = vaporizer.GetOnTime().ToString();
+                dEditCycleTImne.Value  = vaporizer.GetCycleTime();
+
+                if(aUnitPercent)
+                    dEditOnTime.Value = vaporizer.GetOnTime(Types.UnitFlow.percent);
+                else
+                    dEditOnTime.Value = vaporizer.GetOnTime(Types.UnitFlow.ms);
+            }
+            RefreshUnit();
+        }
+        //-----------------------------------------------------------------------------------
+        private void RefreshUnit()
+        {
+            if (aUnitPercent)
+            {
+                labUnit.Text = "[%]";
+                dEditOnTime.Mask = "{0:F2}";
+                dEditOnTime.MaximumValue = 100;
+            }
+            else
+            {
+                labUnit.Text = "[ms]";
+                dEditOnTime.Mask = "{0:F3}";
+                dEditOnTime.MaximumValue = 100000;
             }
         }
         //-----------------------------------------------------------------------------------
-        private void btnSetCycleTime_Click(object sender, EventArgs e)
+        private void labUnit_Click(object sender, EventArgs e)
+        {
+            aUnitPercent = !aUnitPercent;
+            RefreshUnit();
+        }
+        //-----------------------------------------------------------------------------------
+        private void dEditOnTime_EnterOn()
         {
             ERROR aErr = new ERROR(0);
-            if(vaporizer != null)
+            Types.UnitFlow aUnit = Types.UnitFlow.ms;
+
+            if (vaporizer != null)
             {
-                float aCycleTiem = (float)Double.Parse(tBoxCycleTime.Text);
-                aErr = vaporizer.SetCycleTime(aCycleTiem);
+                if (aUnitPercent) aUnit = Types.UnitFlow.percent;
+
+                aErr = vaporizer.SetOnTime((float)dEditOnTime.Value, aUnit);
             }
-           Logger.AddError(aErr);
+            Logger.AddError(aErr);
         }
         //-----------------------------------------------------------------------------------
-        private void btnSetOnTime_Click(object sender, EventArgs e)
+        private void dEditCycleTImne_EnterOn()
         {
             ERROR aErr = new ERROR(0);
             if (vaporizer != null)
             {
-                float aOnTiem = (float)Double.Parse(tBoxOnTime.Text);
-                aErr = vaporizer.SetCycleTime(aOnTiem);
+                aErr = vaporizer.SetCycleTime((float)dEditCycleTImne.Value);
             }
             Logger.AddError(aErr);
+        }
+        //-----------------------------------------------------------------------------------
+        private void labUnit_MouseHover(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Hand;
+        }
+        //-----------------------------------------------------------------------------------
+        private void labUnit_MouseLeave(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Arrow;
         }
         //-----------------------------------------------------------------------------------
     }

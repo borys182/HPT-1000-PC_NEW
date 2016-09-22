@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using HPT1000.Source.Chamber;
 using HPT1000.Source.Program;
 
@@ -18,63 +18,102 @@ namespace HPT1000.Source.Driver
             private PLC             plc             = new PLC_Mitsubishi();
             private Chamber.Chamber chamber         = new Chamber.Chamber();
             private List<Program.Program> programs  = new List<Program.Program>(); //Lista wszystkich programow zapisanych w aplikacji
+                
+        private Types.DriverStatus    status        = Types.DriverStatus.Unknown;
 
-        private Types.StatusDevice    statusDevice  = Types.StatusDevice.Fail;
-     
+        private ThreadStart    funThr;
+        private Thread         threadReadData;
+
         #endregion
 
         #region Method
+        //-----------------------------------------------------------------------------------------
         public HPT1000()
         {
             chamber.SetPtrPLC(plc);
             foreach(Program.Program pr in programs)
                 pr.SetPtrPLC(plc);
-        }
-        public void SetIPAddres(string aIPAddress)
-        {
-            plc.SetAddrIP(aIPAddress);
-        }
-        public int Connect()
-        {
-            int aRes = -1;
-            aRes = plc.Connect();
-            return aRes;
-        }
 
+            funThr          = new ThreadStart(Run);
+            threadReadData  = new Thread(funThr);
+
+            threadReadData.Start();
+        }
+        //-----------------------------------------------------------------------------------------
         //Funkcaj watku drivera
-        public void Run()
+        private void Run()
         {
+            int aRes = 0;
             int[] aData = new int[Types.LENGHT_STATUS_DATA];
 
-            plc.ReadWords(Types.ADDR_START_STATUS_CHAMBER, Types.LENGHT_STATUS_DATA, aData);
-        
-            chamber.UpdateData(aData); //aktualizuju dane komponentow komory
-            foreach(Program.Program pr in programs)
-                pr.UpdateData(aData);//aktualizuj dane na temat progrmu
-        }
+            while (true)
+            {         
+                aRes = plc.ReadWords(Types.ADDR_START_STATUS_CHAMBER, Types.LENGHT_STATUS_DATA, aData);
 
+/*                if (Enum.IsDefined(typeof(Types.DriverStatus), aData[Types.OFFSET_DEVICE_STATUS]))
+                    status = (Types.DriverStatus)Enum.Parse(typeof(Types.DriverStatus), (aData[Types.OFFSET_DEVICE_STATUS]).ToString()); // konwertuj int na Enum
+                else
+                    status = Types.DriverStatus.Unknown;
+ */               
+                //aktualizuju dane komponentow komory
+                chamber.UpdateData(aData);
+                //aktualizuj dane na temat progrmu
+                foreach (Program.Program pr in programs)
+                    pr.UpdateData(aData);
+                //Sprawdz czy jest komunikacja
+                if (aRes == 0)  status = Types.DriverStatus.OK;
+                else            status = Types.DriverStatus.NoComm;
+
+                //Odczytuj dane co 0.5 s
+                Thread.Sleep(500);
+            }
+        }
+        //-----------------------------------------------------------------------------------------
         public Valve GetValve()
         {
             return (Valve)chamber.GetObject(Types.TypeObject.VL);
         }
+        //-----------------------------------------------------------------------------------------
         public PowerSupplay GetPowerSupply()
         {
             return (PowerSupplay)chamber.GetObject(Types.TypeObject.HV);
         }
+        //-----------------------------------------------------------------------------------------
         public MFC GetMFC()
         {
             return (MFC)chamber.GetObject(Types.TypeObject.FM);
         }
+        //-----------------------------------------------------------------------------------------
         public ForePump GetForePump()
         {
             return (ForePump)chamber.GetObject(Types.TypeObject.FP);
         }
-
+        //-----------------------------------------------------------------------------------------
+        public Vaporizer GetVaporizer()
+        {
+            return (Vaporizer)chamber.GetObject(Types.TypeObject.VP);
+        }
+        //-----------------------------------------------------------------------------------------
+        public PressureControl GetPressureControl()
+        {
+            return (PressureControl)chamber.GetObject(Types.TypeObject.PC);
+        }
+        //-----------------------------------------------------------------------------------------
+        public PLC GetPLC()
+        {
+            return plc;
+        }
+        //-----------------------------------------------------------------------------------------
+        public Types.DriverStatus GetStatus()
+        {
+            return status;
+        }
+        //-----------------------------------------------------------------------------------------
         public List<Program.Program> GetPrograms()
         {
             return programs;
         }
-
+        //-----------------------------------------------------------------------------------------
         public void AddProgram()
         {
             Program.Program program = new Program.Program();
@@ -82,6 +121,7 @@ namespace HPT1000.Source.Driver
             program.SetPtrPLC(plc);
             programs.Add(program);  
         }
+        //-----------------------------------------------------------------------------------------
         public bool RemoveProgram(Program.Program program)
         {
             bool aRes = false;
@@ -90,6 +130,7 @@ namespace HPT1000.Source.Driver
 
             return aRes;
         }
+        //-----------------------------------------------------------------------------------------
 
 
         #endregion

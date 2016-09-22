@@ -31,33 +31,36 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.btnConnect = new System.Windows.Forms.Button();
-            this.txtBoxMsg = new System.Windows.Forms.TextBox();
-            this.btnRead = new System.Windows.Forms.Button();
-            this.btnWrite = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtBoxAddr = new System.Windows.Forms.TextBox();
-            this.txtBoxValue = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.btnTest = new System.Windows.Forms.Button();
             this.rBtnClose = new System.Windows.Forms.RadioButton();
             this.rBtnOpen = new System.Windows.Forms.RadioButton();
-            this.btnUpdate = new System.Windows.Forms.Button();
-            this.btnGetState = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.button2 = new System.Windows.Forms.Button();
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.pictureBox34 = new System.Windows.Forms.PictureBox();
+            this.pictureBox33 = new System.Windows.Forms.PictureBox();
+            this.pictureBox32 = new System.Windows.Forms.PictureBox();
+            this.pictureBox31 = new System.Windows.Forms.PictureBox();
+            this.pictureBox30 = new System.Windows.Forms.PictureBox();
+            this.pictureBox29 = new System.Windows.Forms.PictureBox();
+            this.pictureBox25 = new System.Windows.Forms.PictureBox();
+            this.pictureBox23 = new System.Windows.Forms.PictureBox();
+            this.pictureBox14 = new System.Windows.Forms.PictureBox();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.pictureBox28 = new System.Windows.Forms.PictureBox();
             this.pictureBox27 = new System.Windows.Forms.PictureBox();
             this.pictureBox26 = new System.Windows.Forms.PictureBox();
@@ -71,44 +74,44 @@
             this.pictureBox16 = new System.Windows.Forms.PictureBox();
             this.pictureBox15 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox13 = new System.Windows.Forms.PictureBox();
             this.pictureBox12 = new System.Windows.Forms.PictureBox();
             this.pictureBox10 = new System.Windows.Forms.PictureBox();
             this.pictureBox9 = new System.Windows.Forms.PictureBox();
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox34 = new System.Windows.Forms.PictureBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.pictureBox33 = new System.Windows.Forms.PictureBox();
-            this.pictureBox32 = new System.Windows.Forms.PictureBox();
-            this.pictureBox31 = new System.Windows.Forms.PictureBox();
-            this.pictureBox30 = new System.Windows.Forms.PictureBox();
-            this.pictureBox29 = new System.Windows.Forms.PictureBox();
-            this.pictureBox25 = new System.Windows.Forms.PictureBox();
-            this.pictureBox23 = new System.Windows.Forms.PictureBox();
-            this.pictureBox14 = new System.Windows.Forms.PictureBox();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.label37 = new System.Windows.Forms.Label();
-            this.label36 = new System.Windows.Forms.Label();
-            this.vaporiserPanel1 = new HPT1000.GUI.VaporiserPanel();
-            this.generatorPanel1 = new HPT1000.GUI.GeneratorPanel();
-            this.pumpPanel1 = new HPT1000.GUI.PumpPanel();
-            this.pressurePanel1 = new HPT1000.GUI.PressurePanel();
+            this.valve_Purge = new HPT1000.GUI.ValvePanel();
+            this.vaporiserPanel = new HPT1000.GUI.VaporiserPanel();
+            this.generatorPanel = new HPT1000.GUI.GeneratorPanel();
+            this.pumpPanel = new HPT1000.GUI.PumpPanel();
+            this.pressurePanel = new HPT1000.GUI.PressurePanel();
             this.mfcPanel3 = new HPT1000.GUI.MFCPanel();
-            this.mfcPanel2 = new HPT1000.GUI.MFCPanel();
             this.mfcPanel1 = new HPT1000.GUI.MFCPanel();
+            this.mfcPanel2 = new HPT1000.GUI.MFCPanel();
             this.programPanel = new HPT1000.GUI.ProgramPanel();
             this.programsConfigPanel = new HPT1000.GUI.ProgramsConfigPanel();
+            this.valve_SV = new HPT1000.GUI.ValvePanel();
+            this.valve_Vent = new HPT1000.GUI.ValvePanel();
+            this.valve_Gas = new HPT1000.GUI.ValvePanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cBoxComm = new System.Windows.Forms.ComboBox();
+            this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage5.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox34)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox33)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox32)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox31)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox30)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox25)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox23)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox28)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox27)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox26)).BeginInit();
@@ -122,115 +125,23 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox16)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox34)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox33)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox32)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox31)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox30)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox25)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox23)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             this.SuspendLayout();
             // 
             // btnConnect
             // 
-            this.btnConnect.Location = new System.Drawing.Point(353, 74);
+            this.btnConnect.Location = new System.Drawing.Point(307, 193);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(82, 52);
             this.btnConnect.TabIndex = 0;
             this.btnConnect.Text = "Connect";
             this.btnConnect.UseVisualStyleBackColor = true;
             this.btnConnect.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // txtBoxMsg
-            // 
-            this.txtBoxMsg.Location = new System.Drawing.Point(139, 164);
-            this.txtBoxMsg.Name = "txtBoxMsg";
-            this.txtBoxMsg.Size = new System.Drawing.Size(278, 27);
-            this.txtBoxMsg.TabIndex = 5;
-            // 
-            // btnRead
-            // 
-            this.btnRead.Location = new System.Drawing.Point(228, 105);
-            this.btnRead.Name = "btnRead";
-            this.btnRead.Size = new System.Drawing.Size(82, 26);
-            this.btnRead.TabIndex = 6;
-            this.btnRead.Text = "Read";
-            this.btnRead.UseVisualStyleBackColor = true;
-            this.btnRead.Click += new System.EventHandler(this.btnRead_Click);
-            // 
-            // btnWrite
-            // 
-            this.btnWrite.Location = new System.Drawing.Point(229, 74);
-            this.btnWrite.Name = "btnWrite";
-            this.btnWrite.Size = new System.Drawing.Size(82, 25);
-            this.btnWrite.TabIndex = 7;
-            this.btnWrite.Text = "Write";
-            this.btnWrite.UseVisualStyleBackColor = true;
-            this.btnWrite.Click += new System.EventHandler(this.btnWrite_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(66, 69);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 20);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Address";
-            // 
-            // txtBoxAddr
-            // 
-            this.txtBoxAddr.Location = new System.Drawing.Point(64, 89);
-            this.txtBoxAddr.Name = "txtBoxAddr";
-            this.txtBoxAddr.Size = new System.Drawing.Size(109, 27);
-            this.txtBoxAddr.TabIndex = 9;
-            // 
-            // txtBoxValue
-            // 
-            this.txtBoxValue.Location = new System.Drawing.Point(64, 134);
-            this.txtBoxValue.Name = "txtBoxValue";
-            this.txtBoxValue.Size = new System.Drawing.Size(109, 27);
-            this.txtBoxValue.TabIndex = 11;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(66, 112);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(51, 20);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Value";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(61, 164);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(77, 20);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "Message";
-            // 
-            // btnTest
-            // 
-            this.btnTest.Location = new System.Drawing.Point(131, 228);
-            this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(100, 27);
-            this.btnTest.TabIndex = 13;
-            this.btnTest.Text = "Set State";
-            this.btnTest.UseVisualStyleBackColor = true;
-            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
             // 
             // rBtnClose
             // 
@@ -253,26 +164,6 @@
             this.rBtnOpen.TabStop = true;
             this.rBtnOpen.Text = "Open";
             this.rBtnOpen.UseVisualStyleBackColor = true;
-            // 
-            // btnUpdate
-            // 
-            this.btnUpdate.Location = new System.Drawing.Point(353, 192);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(76, 25);
-            this.btnUpdate.TabIndex = 16;
-            this.btnUpdate.Text = "Update";
-            this.btnUpdate.UseVisualStyleBackColor = true;
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
-            // 
-            // btnGetState
-            // 
-            this.btnGetState.Location = new System.Drawing.Point(354, 225);
-            this.btnGetState.Name = "btnGetState";
-            this.btnGetState.Size = new System.Drawing.Size(75, 26);
-            this.btnGetState.TabIndex = 17;
-            this.btnGetState.Text = "Get State";
-            this.btnGetState.UseVisualStyleBackColor = true;
-            this.btnGetState.Click += new System.EventHandler(this.btnGetState_Click);
             // 
             // button1
             // 
@@ -305,19 +196,15 @@
             this.button2.Text = "Logout";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // notifyIcon1
-            // 
-            this.notifyIcon1.Text = "notifyIcon1";
-            this.notifyIcon1.Visible = true;
-            // 
             // statusStrip1
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.statusStrip1.Location = new System.Drawing.Point(0, 793);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusLabel});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 790);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1706, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1706, 25);
             this.statusStrip1.TabIndex = 25;
-            this.statusStrip1.Text = "statusStrip1";
             // 
             // tabControl1
             // 
@@ -332,7 +219,7 @@
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1706, 793);
+            this.tabControl1.Size = new System.Drawing.Size(1706, 790);
             this.tabControl1.TabIndex = 26;
             // 
             // tabPage1
@@ -345,83 +232,16 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1698, 760);
+            this.tabPage1.Size = new System.Drawing.Size(1698, 757);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Main screen";
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.programPanel);
-            this.groupBox1.Location = new System.Drawing.Point(9, 3);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(546, 673);
-            this.groupBox1.TabIndex = 19;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Program";
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.programsConfigPanel);
-            this.tabPage2.Location = new System.Drawing.Point(4, 29);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(1698, 760);
-            this.tabPage2.TabIndex = 6;
-            this.tabPage2.Text = "Programs";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 29);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1698, 760);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Alerts";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Location = new System.Drawing.Point(4, 29);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1698, 760);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Archive";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.btnWrite);
-            this.tabPage5.Controls.Add(this.btnConnect);
-            this.tabPage5.Controls.Add(this.txtBoxMsg);
-            this.tabPage5.Controls.Add(this.btnRead);
-            this.tabPage5.Controls.Add(this.btnGetState);
-            this.tabPage5.Controls.Add(this.label1);
-            this.tabPage5.Controls.Add(this.btnUpdate);
-            this.tabPage5.Controls.Add(this.txtBoxAddr);
-            this.tabPage5.Controls.Add(this.rBtnOpen);
-            this.tabPage5.Controls.Add(this.label2);
-            this.tabPage5.Controls.Add(this.rBtnClose);
-            this.tabPage5.Controls.Add(this.txtBoxValue);
-            this.tabPage5.Controls.Add(this.btnTest);
-            this.tabPage5.Controls.Add(this.label3);
-            this.tabPage5.Location = new System.Drawing.Point(4, 29);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(1698, 760);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Settings";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // tabPage6
-            // 
-            this.tabPage6.Location = new System.Drawing.Point(4, 29);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(1698, 760);
-            this.tabPage6.TabIndex = 5;
-            this.tabPage6.Text = "Mainteances";
-            this.tabPage6.UseVisualStyleBackColor = true;
-            // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.valve_Gas);
+            this.groupBox2.Controls.Add(this.valve_Vent);
+            this.groupBox2.Controls.Add(this.valve_SV);
+            this.groupBox2.Controls.Add(this.valve_Purge);
             this.groupBox2.Controls.Add(this.pictureBox34);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.pictureBox33);
@@ -432,7 +252,7 @@
             this.groupBox2.Controls.Add(this.pictureBox25);
             this.groupBox2.Controls.Add(this.pictureBox23);
             this.groupBox2.Controls.Add(this.pictureBox14);
-            this.groupBox2.Controls.Add(this.vaporiserPanel1);
+            this.groupBox2.Controls.Add(this.vaporiserPanel);
             this.groupBox2.Controls.Add(this.pictureBox6);
             this.groupBox2.Controls.Add(this.label37);
             this.groupBox2.Controls.Add(this.label36);
@@ -449,28 +269,229 @@
             this.groupBox2.Controls.Add(this.pictureBox16);
             this.groupBox2.Controls.Add(this.pictureBox15);
             this.groupBox2.Controls.Add(this.pictureBox3);
-            this.groupBox2.Controls.Add(this.pictureBox13);
             this.groupBox2.Controls.Add(this.pictureBox12);
             this.groupBox2.Controls.Add(this.pictureBox10);
             this.groupBox2.Controls.Add(this.pictureBox9);
             this.groupBox2.Controls.Add(this.pictureBox8);
             this.groupBox2.Controls.Add(this.pictureBox7);
-            this.groupBox2.Controls.Add(this.pictureBox5);
-            this.groupBox2.Controls.Add(this.pictureBox4);
             this.groupBox2.Controls.Add(this.pictureBox2);
-            this.groupBox2.Controls.Add(this.pictureBox1);
-            this.groupBox2.Controls.Add(this.generatorPanel1);
-            this.groupBox2.Controls.Add(this.pumpPanel1);
-            this.groupBox2.Controls.Add(this.pressurePanel1);
+            this.groupBox2.Controls.Add(this.generatorPanel);
+            this.groupBox2.Controls.Add(this.pumpPanel);
+            this.groupBox2.Controls.Add(this.pressurePanel);
             this.groupBox2.Controls.Add(this.mfcPanel3);
-            this.groupBox2.Controls.Add(this.mfcPanel2);
             this.groupBox2.Controls.Add(this.mfcPanel1);
+            this.groupBox2.Controls.Add(this.mfcPanel2);
             this.groupBox2.Location = new System.Drawing.Point(561, 1);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(1124, 746);
             this.groupBox2.TabIndex = 25;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "System";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label4.Location = new System.Drawing.Point(300, 720);
+            this.label4.Name = "label4";
+            this.label4.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label4.Size = new System.Drawing.Size(109, 20);
+            this.label4.TabIndex = 101;
+            this.label4.Text = "Atmosphare";
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label37.Location = new System.Drawing.Point(93, 720);
+            this.label37.Name = "label37";
+            this.label37.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label37.Size = new System.Drawing.Size(109, 20);
+            this.label37.TabIndex = 90;
+            this.label37.Text = "Atmosphare";
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label36.Location = new System.Drawing.Point(18, 719);
+            this.label36.Name = "label36";
+            this.label36.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label36.Size = new System.Drawing.Size(73, 20);
+            this.label36.TabIndex = 89;
+            this.label36.Text = "Purging";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.programPanel);
+            this.groupBox1.Location = new System.Drawing.Point(9, 3);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(546, 673);
+            this.groupBox1.TabIndex = 19;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Program";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.programsConfigPanel);
+            this.tabPage2.Location = new System.Drawing.Point(4, 29);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Size = new System.Drawing.Size(1698, 757);
+            this.tabPage2.TabIndex = 6;
+            this.tabPage2.Text = "Programs";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 29);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1698, 757);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Alerts";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Location = new System.Drawing.Point(4, 29);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(1698, 757);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Archive";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.cBoxComm);
+            this.tabPage5.Controls.Add(this.label1);
+            this.tabPage5.Controls.Add(this.btnConnect);
+            this.tabPage5.Controls.Add(this.rBtnOpen);
+            this.tabPage5.Controls.Add(this.rBtnClose);
+            this.tabPage5.Location = new System.Drawing.Point(4, 29);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(1698, 757);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Settings";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Location = new System.Drawing.Point(4, 29);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(1698, 757);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "Mainteances";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // timer
+            // 
+            this.timer.Enabled = true;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // statusLabel
+            // 
+            this.statusLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.statusLabel.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(114, 20);
+            this.statusLabel.Text = "Connection fail";
+            // 
+            // pictureBox34
+            // 
+            this.pictureBox34.Image = global::HPT1000.Properties.Resources.Line;
+            this.pictureBox34.Location = new System.Drawing.Point(351, 620);
+            this.pictureBox34.Name = "pictureBox34";
+            this.pictureBox34.Size = new System.Drawing.Size(4, 16);
+            this.pictureBox34.TabIndex = 102;
+            this.pictureBox34.TabStop = false;
+            // 
+            // pictureBox33
+            // 
+            this.pictureBox33.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox33.ErrorImage")));
+            this.pictureBox33.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox33.Image")));
+            this.pictureBox33.Location = new System.Drawing.Point(33, 638);
+            this.pictureBox33.Name = "pictureBox33";
+            this.pictureBox33.Size = new System.Drawing.Size(49, 78);
+            this.pictureBox33.TabIndex = 100;
+            this.pictureBox33.TabStop = false;
+            // 
+            // pictureBox32
+            // 
+            this.pictureBox32.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox32.ErrorImage")));
+            this.pictureBox32.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox32.Image")));
+            this.pictureBox32.Location = new System.Drawing.Point(122, 638);
+            this.pictureBox32.Name = "pictureBox32";
+            this.pictureBox32.Size = new System.Drawing.Size(49, 78);
+            this.pictureBox32.TabIndex = 99;
+            this.pictureBox32.TabStop = false;
+            // 
+            // pictureBox31
+            // 
+            this.pictureBox31.ErrorImage = null;
+            this.pictureBox31.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox31.Image")));
+            this.pictureBox31.Location = new System.Drawing.Point(335, 638);
+            this.pictureBox31.Name = "pictureBox31";
+            this.pictureBox31.Size = new System.Drawing.Size(49, 78);
+            this.pictureBox31.TabIndex = 98;
+            this.pictureBox31.TabStop = false;
+            // 
+            // pictureBox30
+            // 
+            this.pictureBox30.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox30.Image")));
+            this.pictureBox30.Location = new System.Drawing.Point(710, 680);
+            this.pictureBox30.Name = "pictureBox30";
+            this.pictureBox30.Size = new System.Drawing.Size(15, 4);
+            this.pictureBox30.TabIndex = 97;
+            this.pictureBox30.TabStop = false;
+            // 
+            // pictureBox29
+            // 
+            this.pictureBox29.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox29.ErrorImage")));
+            this.pictureBox29.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox29.Image")));
+            this.pictureBox29.Location = new System.Drawing.Point(680, 653);
+            this.pictureBox29.Name = "pictureBox29";
+            this.pictureBox29.Size = new System.Drawing.Size(31, 31);
+            this.pictureBox29.TabIndex = 96;
+            this.pictureBox29.TabStop = false;
+            // 
+            // pictureBox25
+            // 
+            this.pictureBox25.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox25.Image")));
+            this.pictureBox25.Location = new System.Drawing.Point(499, 562);
+            this.pictureBox25.Name = "pictureBox25";
+            this.pictureBox25.Size = new System.Drawing.Size(183, 4);
+            this.pictureBox25.TabIndex = 95;
+            this.pictureBox25.TabStop = false;
+            // 
+            // pictureBox23
+            // 
+            this.pictureBox23.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox23.Image")));
+            this.pictureBox23.Location = new System.Drawing.Point(684, 538);
+            this.pictureBox23.Name = "pictureBox23";
+            this.pictureBox23.Size = new System.Drawing.Size(38, 4);
+            this.pictureBox23.TabIndex = 94;
+            this.pictureBox23.TabStop = false;
+            // 
+            // pictureBox14
+            // 
+            this.pictureBox14.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox14.ErrorImage")));
+            this.pictureBox14.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox14.Image")));
+            this.pictureBox14.Location = new System.Drawing.Point(468, 535);
+            this.pictureBox14.Name = "pictureBox14";
+            this.pictureBox14.Size = new System.Drawing.Size(31, 31);
+            this.pictureBox14.TabIndex = 93;
+            this.pictureBox14.TabStop = false;
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.ErrorImage = null;
+            this.pictureBox6.Image = global::HPT1000.Properties.Resources.ForePump;
+            this.pictureBox6.InitialImage = null;
+            this.pictureBox6.Location = new System.Drawing.Point(304, 537);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(94, 85);
+            this.pictureBox6.TabIndex = 91;
+            this.pictureBox6.TabStop = false;
             // 
             // pictureBox28
             // 
@@ -593,16 +614,6 @@
             this.pictureBox3.TabIndex = 76;
             this.pictureBox3.TabStop = false;
             // 
-            // pictureBox13
-            // 
-            this.pictureBox13.ErrorImage = null;
-            this.pictureBox13.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox13.Image")));
-            this.pictureBox13.Location = new System.Drawing.Point(337, 473);
-            this.pictureBox13.Name = "pictureBox13";
-            this.pictureBox13.Size = new System.Drawing.Size(37, 64);
-            this.pictureBox13.TabIndex = 75;
-            this.pictureBox13.TabStop = false;
-            // 
             // pictureBox12
             // 
             this.pictureBox12.Image = global::HPT1000.Properties.Resources.Line;
@@ -648,24 +659,6 @@
             this.pictureBox7.TabIndex = 70;
             this.pictureBox7.TabStop = false;
             // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox5.Image")));
-            this.pictureBox5.Location = new System.Drawing.Point(457, 473);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(37, 64);
-            this.pictureBox5.TabIndex = 69;
-            this.pictureBox5.TabStop = false;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
-            this.pictureBox4.Location = new System.Drawing.Point(127, 439);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(37, 64);
-            this.pictureBox4.TabIndex = 68;
-            this.pictureBox4.TabStop = false;
-            // 
             // pictureBox2
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
@@ -677,184 +670,53 @@
             this.pictureBox2.TabIndex = 67;
             this.pictureBox2.TabStop = false;
             // 
-            // pictureBox1
+            // valve_Purge
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(36, 439);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(37, 64);
-            this.pictureBox1.TabIndex = 66;
-            this.pictureBox1.TabStop = false;
+            this.valve_Purge.Location = new System.Drawing.Point(30, 439);
+            this.valve_Purge.Margin = new System.Windows.Forms.Padding(4);
+            this.valve_Purge.Name = "valve_Purge";
+            this.valve_Purge.Size = new System.Drawing.Size(45, 65);
+            this.valve_Purge.TabIndex = 103;
             // 
-            // pictureBox34
+            // vaporiserPanel
             // 
-            this.pictureBox34.Image = global::HPT1000.Properties.Resources.Line;
-            this.pictureBox34.Location = new System.Drawing.Point(351, 620);
-            this.pictureBox34.Name = "pictureBox34";
-            this.pictureBox34.Size = new System.Drawing.Size(4, 16);
-            this.pictureBox34.TabIndex = 102;
-            this.pictureBox34.TabStop = false;
+            this.vaporiserPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.vaporiserPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.vaporiserPanel.Location = new System.Drawing.Point(721, 595);
+            this.vaporiserPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.vaporiserPanel.Name = "vaporiserPanel";
+            this.vaporiserPanel.Size = new System.Drawing.Size(372, 132);
+            this.vaporiserPanel.TabIndex = 92;
             // 
-            // label4
+            // generatorPanel
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(300, 720);
-            this.label4.Name = "label4";
-            this.label4.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label4.Size = new System.Drawing.Size(109, 20);
-            this.label4.TabIndex = 101;
-            this.label4.Text = "Atmosphare";
+            this.generatorPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.generatorPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.generatorPanel.Location = new System.Drawing.Point(10, 20);
+            this.generatorPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.generatorPanel.Name = "generatorPanel";
+            this.generatorPanel.Size = new System.Drawing.Size(263, 279);
+            this.generatorPanel.TabIndex = 50;
             // 
-            // pictureBox33
+            // pumpPanel
             // 
-            this.pictureBox33.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox33.ErrorImage")));
-            this.pictureBox33.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox33.Image")));
-            this.pictureBox33.Location = new System.Drawing.Point(33, 638);
-            this.pictureBox33.Name = "pictureBox33";
-            this.pictureBox33.Size = new System.Drawing.Size(49, 78);
-            this.pictureBox33.TabIndex = 100;
-            this.pictureBox33.TabStop = false;
+            this.pumpPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pumpPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.pumpPanel.Location = new System.Drawing.Point(725, 20);
+            this.pumpPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.pumpPanel.Name = "pumpPanel";
+            this.pumpPanel.Size = new System.Drawing.Size(371, 118);
+            this.pumpPanel.TabIndex = 49;
             // 
-            // pictureBox32
+            // pressurePanel
             // 
-            this.pictureBox32.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox32.ErrorImage")));
-            this.pictureBox32.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox32.Image")));
-            this.pictureBox32.Location = new System.Drawing.Point(122, 638);
-            this.pictureBox32.Name = "pictureBox32";
-            this.pictureBox32.Size = new System.Drawing.Size(49, 78);
-            this.pictureBox32.TabIndex = 99;
-            this.pictureBox32.TabStop = false;
-            // 
-            // pictureBox31
-            // 
-            this.pictureBox31.ErrorImage = null;
-            this.pictureBox31.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox31.Image")));
-            this.pictureBox31.Location = new System.Drawing.Point(335, 638);
-            this.pictureBox31.Name = "pictureBox31";
-            this.pictureBox31.Size = new System.Drawing.Size(49, 78);
-            this.pictureBox31.TabIndex = 98;
-            this.pictureBox31.TabStop = false;
-            // 
-            // pictureBox30
-            // 
-            this.pictureBox30.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox30.Image")));
-            this.pictureBox30.Location = new System.Drawing.Point(710, 680);
-            this.pictureBox30.Name = "pictureBox30";
-            this.pictureBox30.Size = new System.Drawing.Size(15, 4);
-            this.pictureBox30.TabIndex = 97;
-            this.pictureBox30.TabStop = false;
-            // 
-            // pictureBox29
-            // 
-            this.pictureBox29.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox29.ErrorImage")));
-            this.pictureBox29.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox29.Image")));
-            this.pictureBox29.Location = new System.Drawing.Point(680, 653);
-            this.pictureBox29.Name = "pictureBox29";
-            this.pictureBox29.Size = new System.Drawing.Size(31, 31);
-            this.pictureBox29.TabIndex = 96;
-            this.pictureBox29.TabStop = false;
-            // 
-            // pictureBox25
-            // 
-            this.pictureBox25.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox25.Image")));
-            this.pictureBox25.Location = new System.Drawing.Point(499, 562);
-            this.pictureBox25.Name = "pictureBox25";
-            this.pictureBox25.Size = new System.Drawing.Size(183, 4);
-            this.pictureBox25.TabIndex = 95;
-            this.pictureBox25.TabStop = false;
-            // 
-            // pictureBox23
-            // 
-            this.pictureBox23.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox23.Image")));
-            this.pictureBox23.Location = new System.Drawing.Point(684, 538);
-            this.pictureBox23.Name = "pictureBox23";
-            this.pictureBox23.Size = new System.Drawing.Size(38, 4);
-            this.pictureBox23.TabIndex = 94;
-            this.pictureBox23.TabStop = false;
-            // 
-            // pictureBox14
-            // 
-            this.pictureBox14.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox14.ErrorImage")));
-            this.pictureBox14.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox14.Image")));
-            this.pictureBox14.Location = new System.Drawing.Point(468, 535);
-            this.pictureBox14.Name = "pictureBox14";
-            this.pictureBox14.Size = new System.Drawing.Size(31, 31);
-            this.pictureBox14.TabIndex = 93;
-            this.pictureBox14.TabStop = false;
-            // 
-            // pictureBox6
-            // 
-            this.pictureBox6.ErrorImage = null;
-            this.pictureBox6.Image = global::HPT1000.Properties.Resources.ForePump;
-            this.pictureBox6.InitialImage = null;
-            this.pictureBox6.Location = new System.Drawing.Point(304, 537);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(94, 85);
-            this.pictureBox6.TabIndex = 91;
-            this.pictureBox6.TabStop = false;
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label37.Location = new System.Drawing.Point(93, 720);
-            this.label37.Name = "label37";
-            this.label37.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label37.Size = new System.Drawing.Size(109, 20);
-            this.label37.TabIndex = 90;
-            this.label37.Text = "Atmosphare";
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label36.Location = new System.Drawing.Point(18, 719);
-            this.label36.Name = "label36";
-            this.label36.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label36.Size = new System.Drawing.Size(73, 20);
-            this.label36.TabIndex = 89;
-            this.label36.Text = "Purging";
-            // 
-            // vaporiserPanel1
-            // 
-            this.vaporiserPanel1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.vaporiserPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.vaporiserPanel1.Location = new System.Drawing.Point(721, 595);
-            this.vaporiserPanel1.Margin = new System.Windows.Forms.Padding(4);
-            this.vaporiserPanel1.Name = "vaporiserPanel1";
-            this.vaporiserPanel1.Size = new System.Drawing.Size(372, 132);
-            this.vaporiserPanel1.TabIndex = 92;
-            // 
-            // generatorPanel1
-            // 
-            this.generatorPanel1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.generatorPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.generatorPanel1.Location = new System.Drawing.Point(10, 20);
-            this.generatorPanel1.Margin = new System.Windows.Forms.Padding(4);
-            this.generatorPanel1.Name = "generatorPanel1";
-            this.generatorPanel1.Size = new System.Drawing.Size(263, 279);
-            this.generatorPanel1.TabIndex = 50;
-            // 
-            // pumpPanel1
-            // 
-            this.pumpPanel1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.pumpPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.pumpPanel1.Location = new System.Drawing.Point(725, 20);
-            this.pumpPanel1.Margin = new System.Windows.Forms.Padding(4);
-            this.pumpPanel1.Name = "pumpPanel1";
-            this.pumpPanel1.Size = new System.Drawing.Size(371, 118);
-            this.pumpPanel1.TabIndex = 49;
-            // 
-            // pressurePanel1
-            // 
-            this.pressurePanel1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.pressurePanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.pressurePanel1.Location = new System.Drawing.Point(310, 20);
-            this.pressurePanel1.Margin = new System.Windows.Forms.Padding(4);
-            this.pressurePanel1.Name = "pressurePanel1";
-            this.pressurePanel1.Size = new System.Drawing.Size(325, 180);
-            this.pressurePanel1.TabIndex = 48;
+            this.pressurePanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pressurePanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.pressurePanel.Location = new System.Drawing.Point(310, 20);
+            this.pressurePanel.Margin = new System.Windows.Forms.Padding(4);
+            this.pressurePanel.Name = "pressurePanel";
+            this.pressurePanel.Size = new System.Drawing.Size(325, 180);
+            this.pressurePanel.TabIndex = 48;
             // 
             // mfcPanel3
             // 
@@ -866,25 +728,25 @@
             this.mfcPanel3.Size = new System.Drawing.Size(378, 131);
             this.mfcPanel3.TabIndex = 47;
             // 
-            // mfcPanel2
-            // 
-            this.mfcPanel2.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.mfcPanel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.mfcPanel2.Location = new System.Drawing.Point(725, 157);
-            this.mfcPanel2.Margin = new System.Windows.Forms.Padding(5);
-            this.mfcPanel2.Name = "mfcPanel2";
-            this.mfcPanel2.Size = new System.Drawing.Size(378, 131);
-            this.mfcPanel2.TabIndex = 46;
-            // 
             // mfcPanel1
             // 
             this.mfcPanel1.BackColor = System.Drawing.SystemColors.ControlDark;
             this.mfcPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.mfcPanel1.Location = new System.Drawing.Point(725, 306);
-            this.mfcPanel1.Margin = new System.Windows.Forms.Padding(4);
+            this.mfcPanel1.Location = new System.Drawing.Point(725, 157);
+            this.mfcPanel1.Margin = new System.Windows.Forms.Padding(5);
             this.mfcPanel1.Name = "mfcPanel1";
-            this.mfcPanel1.Size = new System.Drawing.Size(378, 133);
-            this.mfcPanel1.TabIndex = 45;
+            this.mfcPanel1.Size = new System.Drawing.Size(378, 131);
+            this.mfcPanel1.TabIndex = 46;
+            // 
+            // mfcPanel2
+            // 
+            this.mfcPanel2.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.mfcPanel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.mfcPanel2.Location = new System.Drawing.Point(725, 306);
+            this.mfcPanel2.Margin = new System.Windows.Forms.Padding(4);
+            this.mfcPanel2.Name = "mfcPanel2";
+            this.mfcPanel2.Size = new System.Drawing.Size(378, 133);
+            this.mfcPanel2.TabIndex = 45;
             // 
             // programPanel
             // 
@@ -904,8 +766,53 @@
             this.programsConfigPanel.HPT1000 = null;
             this.programsConfigPanel.Location = new System.Drawing.Point(0, 0);
             this.programsConfigPanel.Name = "programsConfigPanel";
-            this.programsConfigPanel.Size = new System.Drawing.Size(1698, 764);
+            this.programsConfigPanel.Size = new System.Drawing.Size(1698, 757);
             this.programsConfigPanel.TabIndex = 1;
+            // 
+            // valve_SV
+            // 
+            this.valve_SV.Location = new System.Drawing.Point(331, 469);
+            this.valve_SV.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.valve_SV.Name = "valve_SV";
+            this.valve_SV.Size = new System.Drawing.Size(43, 58);
+            this.valve_SV.TabIndex = 104;
+            // 
+            // valve_Vent
+            // 
+            this.valve_Vent.Location = new System.Drawing.Point(120, 439);
+            this.valve_Vent.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.valve_Vent.Name = "valve_Vent";
+            this.valve_Vent.Size = new System.Drawing.Size(41, 59);
+            this.valve_Vent.TabIndex = 105;
+            // 
+            // valve_Gas
+            // 
+            this.valve_Gas.Location = new System.Drawing.Point(448, 465);
+            this.valve_Gas.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.valve_Gas.Name = "valve_Gas";
+            this.valve_Gas.Size = new System.Drawing.Size(41, 58);
+            this.valve_Gas.TabIndex = 106;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(58, 106);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(182, 20);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "Type of communication";
+            // 
+            // cBoxComm
+            // 
+            this.cBoxComm.FormattingEnabled = true;
+            this.cBoxComm.Items.AddRange(new object[] {
+            "USB",
+            "TCP"});
+            this.cBoxComm.Location = new System.Drawing.Point(268, 103);
+            this.cBoxComm.Name = "cBoxComm";
+            this.cBoxComm.Size = new System.Drawing.Size(121, 28);
+            this.cBoxComm.TabIndex = 17;
+            this.cBoxComm.SelectedValueChanged += new System.EventHandler(this.cBoxComm_SelectedValueChanged);
             // 
             // MainForm
             // 
@@ -917,14 +824,26 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Name = "MainForm";
             this.Text = "HPT 1000";
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox34)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox33)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox32)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox31)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox30)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox25)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox23)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox28)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox27)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox26)).EndInit();
@@ -938,26 +857,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox16)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox34)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox33)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox32)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox31)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox30)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox25)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox23)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -966,23 +871,11 @@
         #endregion
 
         private System.Windows.Forms.Button btnConnect;
-        private System.Windows.Forms.TextBox txtBoxMsg;
-        private System.Windows.Forms.Button btnRead;
-        private System.Windows.Forms.Button btnWrite;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtBoxAddr;
-        private System.Windows.Forms.TextBox txtBoxValue;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button btnTest;
         private System.Windows.Forms.RadioButton rBtnClose;
         private System.Windows.Forms.RadioButton rBtnOpen;
-        private System.Windows.Forms.Button btnUpdate;
-        private System.Windows.Forms.Button btnGetState;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
@@ -1005,7 +898,7 @@
         private System.Windows.Forms.PictureBox pictureBox25;
         private System.Windows.Forms.PictureBox pictureBox23;
         private System.Windows.Forms.PictureBox pictureBox14;
-        private VaporiserPanel vaporiserPanel1;
+        private VaporiserPanel vaporiserPanel;
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.Label label36;
@@ -1022,22 +915,26 @@
         private System.Windows.Forms.PictureBox pictureBox16;
         private System.Windows.Forms.PictureBox pictureBox15;
         private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox pictureBox13;
         private System.Windows.Forms.PictureBox pictureBox12;
         private System.Windows.Forms.PictureBox pictureBox10;
         private System.Windows.Forms.PictureBox pictureBox9;
         private System.Windows.Forms.PictureBox pictureBox8;
         private System.Windows.Forms.PictureBox pictureBox7;
-        private System.Windows.Forms.PictureBox pictureBox5;
-        private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private GeneratorPanel generatorPanel1;
-        private PumpPanel pumpPanel1;
-        private PressurePanel pressurePanel1;
+        private GeneratorPanel generatorPanel;
+        private PumpPanel pumpPanel;
+        private PressurePanel pressurePanel;
         private MFCPanel mfcPanel3;
-        private MFCPanel mfcPanel2;
         private MFCPanel mfcPanel1;
+        private MFCPanel mfcPanel2;
+        private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.ToolStripStatusLabel statusLabel;
+        private ValvePanel valve_Purge;
+        private ValvePanel valve_Gas;
+        private ValvePanel valve_Vent;
+        private ValvePanel valve_SV;
+        private System.Windows.Forms.ComboBox cBoxComm;
+        private System.Windows.Forms.Label label1;
     }
 }
 

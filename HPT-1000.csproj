@@ -72,6 +72,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GUI\Cotrols\DoubleEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Cotrols\DoubleEdit.Designer.cs">
+      <DependentUpon>DoubleEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\GeneratorPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -107,6 +113,12 @@
     </Compile>
     <Compile Include="GUI\PumpPanel.Designer.cs">
       <DependentUpon>PumpPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ValvePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\ValvePanel.Designer.cs">
+      <DependentUpon>ValvePanel.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\VaporiserPanel.cs">
       <SubType>UserControl</SubType>
@@ -145,6 +157,9 @@
     <Compile Include="Source\Program\Subprogram.cs" />
     <Compile Include="Source\Program\VentProces.cs" />
     <Compile Include="Source\Translate.cs" />
+    <EmbeddedResource Include="GUI\Cotrols\DoubleEdit.resx">
+      <DependentUpon>DoubleEdit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\GeneratorPanel.resx">
       <DependentUpon>GeneratorPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -166,6 +181,9 @@
     <EmbeddedResource Include="GUI\PumpPanel.resx">
       <DependentUpon>PumpPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ValvePanel.resx">
+      <DependentUpon>ValvePanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\VaporiserPanel.resx">
       <DependentUpon>VaporiserPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -182,6 +200,7 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </None>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

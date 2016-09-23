@@ -90,6 +90,10 @@ namespace HPT1000.GUI
             mfcPanel1.RefreshData();
             mfcPanel2.RefreshData();
             mfcPanel3.RefreshData();
+            valve_Gas.RefreshData();
+            valve_Purge.RefreshData();
+            valve_SV.RefreshData();
+            valve_Vent.RefreshData();
 
             switch (hpt1000.GetStatus())
             {

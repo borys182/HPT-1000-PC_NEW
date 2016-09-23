@@ -37,21 +37,12 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.button2 = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label37 = new System.Windows.Forms.Label();
-            this.label36 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.timer = new System.Windows.Forms.Timer(this.components);
-            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.pictureBox34 = new System.Windows.Forms.PictureBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.pictureBox33 = new System.Windows.Forms.PictureBox();
             this.pictureBox32 = new System.Windows.Forms.PictureBox();
             this.pictureBox31 = new System.Windows.Forms.PictureBox();
@@ -61,6 +52,8 @@
             this.pictureBox23 = new System.Windows.Forms.PictureBox();
             this.pictureBox14 = new System.Windows.Forms.PictureBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
             this.pictureBox28 = new System.Windows.Forms.PictureBox();
             this.pictureBox27 = new System.Windows.Forms.PictureBox();
             this.pictureBox26 = new System.Windows.Forms.PictureBox();
@@ -80,6 +73,18 @@
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.cBoxComm = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.valve_Gas = new HPT1000.GUI.ValvePanel();
+            this.valve_Vent = new HPT1000.GUI.ValvePanel();
+            this.valve_SV = new HPT1000.GUI.ValvePanel();
             this.valve_Purge = new HPT1000.GUI.ValvePanel();
             this.vaporiserPanel = new HPT1000.GUI.VaporiserPanel();
             this.generatorPanel = new HPT1000.GUI.GeneratorPanel();
@@ -90,18 +95,10 @@
             this.mfcPanel2 = new HPT1000.GUI.MFCPanel();
             this.programPanel = new HPT1000.GUI.ProgramPanel();
             this.programsConfigPanel = new HPT1000.GUI.ProgramsConfigPanel();
-            this.valve_SV = new HPT1000.GUI.ValvePanel();
-            this.valve_Vent = new HPT1000.GUI.ValvePanel();
-            this.valve_Gas = new HPT1000.GUI.ValvePanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cBoxComm = new System.Windows.Forms.ComboBox();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox34)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox33)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox32)).BeginInit();
@@ -131,6 +128,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnConnect
@@ -205,6 +205,14 @@
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1706, 25);
             this.statusStrip1.TabIndex = 25;
+            // 
+            // statusLabel
+            // 
+            this.statusLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.statusLabel.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(114, 20);
+            this.statusLabel.Text = "Connection fail";
             // 
             // tabControl1
             // 
@@ -288,6 +296,15 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "System";
             // 
+            // pictureBox34
+            // 
+            this.pictureBox34.Image = global::HPT1000.Properties.Resources.Line;
+            this.pictureBox34.Location = new System.Drawing.Point(351, 620);
+            this.pictureBox34.Name = "pictureBox34";
+            this.pictureBox34.Size = new System.Drawing.Size(4, 16);
+            this.pictureBox34.TabIndex = 102;
+            this.pictureBox34.TabStop = false;
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -298,112 +315,6 @@
             this.label4.Size = new System.Drawing.Size(109, 20);
             this.label4.TabIndex = 101;
             this.label4.Text = "Atmosphare";
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label37.Location = new System.Drawing.Point(93, 720);
-            this.label37.Name = "label37";
-            this.label37.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label37.Size = new System.Drawing.Size(109, 20);
-            this.label37.TabIndex = 90;
-            this.label37.Text = "Atmosphare";
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label36.Location = new System.Drawing.Point(18, 719);
-            this.label36.Name = "label36";
-            this.label36.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label36.Size = new System.Drawing.Size(73, 20);
-            this.label36.TabIndex = 89;
-            this.label36.Text = "Purging";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.programPanel);
-            this.groupBox1.Location = new System.Drawing.Point(9, 3);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(546, 673);
-            this.groupBox1.TabIndex = 19;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Program";
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.programsConfigPanel);
-            this.tabPage2.Location = new System.Drawing.Point(4, 29);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(1698, 757);
-            this.tabPage2.TabIndex = 6;
-            this.tabPage2.Text = "Programs";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 29);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1698, 757);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Alerts";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Location = new System.Drawing.Point(4, 29);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1698, 757);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Archive";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.cBoxComm);
-            this.tabPage5.Controls.Add(this.label1);
-            this.tabPage5.Controls.Add(this.btnConnect);
-            this.tabPage5.Controls.Add(this.rBtnOpen);
-            this.tabPage5.Controls.Add(this.rBtnClose);
-            this.tabPage5.Location = new System.Drawing.Point(4, 29);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(1698, 757);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Settings";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // tabPage6
-            // 
-            this.tabPage6.Location = new System.Drawing.Point(4, 29);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(1698, 757);
-            this.tabPage6.TabIndex = 5;
-            this.tabPage6.Text = "Mainteances";
-            this.tabPage6.UseVisualStyleBackColor = true;
-            // 
-            // timer
-            // 
-            this.timer.Enabled = true;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
-            // 
-            // statusLabel
-            // 
-            this.statusLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.statusLabel.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(114, 20);
-            this.statusLabel.Text = "Connection fail";
-            // 
-            // pictureBox34
-            // 
-            this.pictureBox34.Image = global::HPT1000.Properties.Resources.Line;
-            this.pictureBox34.Location = new System.Drawing.Point(351, 620);
-            this.pictureBox34.Name = "pictureBox34";
-            this.pictureBox34.Size = new System.Drawing.Size(4, 16);
-            this.pictureBox34.TabIndex = 102;
-            this.pictureBox34.TabStop = false;
             // 
             // pictureBox33
             // 
@@ -492,6 +403,28 @@
             this.pictureBox6.Size = new System.Drawing.Size(94, 85);
             this.pictureBox6.TabIndex = 91;
             this.pictureBox6.TabStop = false;
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label37.Location = new System.Drawing.Point(93, 720);
+            this.label37.Name = "label37";
+            this.label37.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label37.Size = new System.Drawing.Size(109, 20);
+            this.label37.TabIndex = 90;
+            this.label37.Text = "Atmosphare";
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label36.Location = new System.Drawing.Point(18, 719);
+            this.label36.Name = "label36";
+            this.label36.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label36.Size = new System.Drawing.Size(73, 20);
+            this.label36.TabIndex = 89;
+            this.label36.Text = "Purging";
             // 
             // pictureBox28
             // 
@@ -626,9 +559,9 @@
             // pictureBox10
             // 
             this.pictureBox10.Image = global::HPT1000.Properties.Resources.Line;
-            this.pictureBox10.Location = new System.Drawing.Point(440, 200);
+            this.pictureBox10.Location = new System.Drawing.Point(440, 206);
             this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.Size = new System.Drawing.Size(4, 92);
+            this.pictureBox10.Size = new System.Drawing.Size(4, 85);
             this.pictureBox10.TabIndex = 73;
             this.pictureBox10.TabStop = false;
             // 
@@ -669,6 +602,118 @@
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 67;
             this.pictureBox2.TabStop = false;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.programPanel);
+            this.groupBox1.Location = new System.Drawing.Point(9, 3);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(546, 673);
+            this.groupBox1.TabIndex = 19;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Program";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.programsConfigPanel);
+            this.tabPage2.Location = new System.Drawing.Point(4, 29);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Size = new System.Drawing.Size(1698, 757);
+            this.tabPage2.TabIndex = 6;
+            this.tabPage2.Text = "Programs";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 29);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1698, 757);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Alerts";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Location = new System.Drawing.Point(4, 29);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(1698, 757);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Archive";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.cBoxComm);
+            this.tabPage5.Controls.Add(this.label1);
+            this.tabPage5.Controls.Add(this.btnConnect);
+            this.tabPage5.Controls.Add(this.rBtnOpen);
+            this.tabPage5.Controls.Add(this.rBtnClose);
+            this.tabPage5.Location = new System.Drawing.Point(4, 29);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(1698, 757);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Settings";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // cBoxComm
+            // 
+            this.cBoxComm.FormattingEnabled = true;
+            this.cBoxComm.Items.AddRange(new object[] {
+            "USB",
+            "TCP"});
+            this.cBoxComm.Location = new System.Drawing.Point(268, 103);
+            this.cBoxComm.Name = "cBoxComm";
+            this.cBoxComm.Size = new System.Drawing.Size(121, 28);
+            this.cBoxComm.TabIndex = 17;
+            this.cBoxComm.SelectedValueChanged += new System.EventHandler(this.cBoxComm_SelectedValueChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(58, 106);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(182, 20);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "Type of communication";
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Location = new System.Drawing.Point(4, 29);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(1698, 757);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "Mainteances";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // timer
+            // 
+            this.timer.Enabled = true;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // valve_Gas
+            // 
+            this.valve_Gas.Location = new System.Drawing.Point(448, 465);
+            this.valve_Gas.Margin = new System.Windows.Forms.Padding(5);
+            this.valve_Gas.Name = "valve_Gas";
+            this.valve_Gas.Size = new System.Drawing.Size(41, 58);
+            this.valve_Gas.TabIndex = 106;
+            // 
+            // valve_Vent
+            // 
+            this.valve_Vent.Location = new System.Drawing.Point(120, 439);
+            this.valve_Vent.Margin = new System.Windows.Forms.Padding(5);
+            this.valve_Vent.Name = "valve_Vent";
+            this.valve_Vent.Size = new System.Drawing.Size(41, 59);
+            this.valve_Vent.TabIndex = 105;
+            // 
+            // valve_SV
+            // 
+            this.valve_SV.Location = new System.Drawing.Point(331, 469);
+            this.valve_SV.Margin = new System.Windows.Forms.Padding(5);
+            this.valve_SV.Name = "valve_SV";
+            this.valve_SV.Size = new System.Drawing.Size(43, 58);
+            this.valve_SV.TabIndex = 104;
             // 
             // valve_Purge
             // 
@@ -715,7 +760,7 @@
             this.pressurePanel.Location = new System.Drawing.Point(310, 20);
             this.pressurePanel.Margin = new System.Windows.Forms.Padding(4);
             this.pressurePanel.Name = "pressurePanel";
-            this.pressurePanel.Size = new System.Drawing.Size(325, 180);
+            this.pressurePanel.Size = new System.Drawing.Size(325, 189);
             this.pressurePanel.TabIndex = 48;
             // 
             // mfcPanel3
@@ -766,53 +811,8 @@
             this.programsConfigPanel.HPT1000 = null;
             this.programsConfigPanel.Location = new System.Drawing.Point(0, 0);
             this.programsConfigPanel.Name = "programsConfigPanel";
-            this.programsConfigPanel.Size = new System.Drawing.Size(1698, 757);
+            this.programsConfigPanel.Size = new System.Drawing.Size(1698, 761);
             this.programsConfigPanel.TabIndex = 1;
-            // 
-            // valve_SV
-            // 
-            this.valve_SV.Location = new System.Drawing.Point(331, 469);
-            this.valve_SV.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.valve_SV.Name = "valve_SV";
-            this.valve_SV.Size = new System.Drawing.Size(43, 58);
-            this.valve_SV.TabIndex = 104;
-            // 
-            // valve_Vent
-            // 
-            this.valve_Vent.Location = new System.Drawing.Point(120, 439);
-            this.valve_Vent.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.valve_Vent.Name = "valve_Vent";
-            this.valve_Vent.Size = new System.Drawing.Size(41, 59);
-            this.valve_Vent.TabIndex = 105;
-            // 
-            // valve_Gas
-            // 
-            this.valve_Gas.Location = new System.Drawing.Point(448, 465);
-            this.valve_Gas.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.valve_Gas.Name = "valve_Gas";
-            this.valve_Gas.Size = new System.Drawing.Size(41, 58);
-            this.valve_Gas.TabIndex = 106;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(58, 106);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(182, 20);
-            this.label1.TabIndex = 16;
-            this.label1.Text = "Type of communication";
-            // 
-            // cBoxComm
-            // 
-            this.cBoxComm.FormattingEnabled = true;
-            this.cBoxComm.Items.AddRange(new object[] {
-            "USB",
-            "TCP"});
-            this.cBoxComm.Location = new System.Drawing.Point(268, 103);
-            this.cBoxComm.Name = "cBoxComm";
-            this.cBoxComm.Size = new System.Drawing.Size(121, 28);
-            this.cBoxComm.TabIndex = 17;
-            this.cBoxComm.SelectedValueChanged += new System.EventHandler(this.cBoxComm_SelectedValueChanged);
             // 
             // MainForm
             // 
@@ -830,10 +830,6 @@
             this.tabPage1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage5.ResumeLayout(false);
-            this.tabPage5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox34)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox33)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox32)).EndInit();
@@ -863,6 +859,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

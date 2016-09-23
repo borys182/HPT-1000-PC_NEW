@@ -17,16 +17,18 @@ namespace HPT1000.Source.Chamber
         private int                 id                  = 0;                    //parametr wiaze dany zawor z zaworem po stronie PLC 
         private Types.StateValve    state               = Types.StateValve.Error;
       
-
+        //-----------------------------------------------------------------------------------------
         private Valve(int ID , string Name)
         {
             name = Name;
             id = ID;
         }
+        //-----------------------------------------------------------------------------------------
         public Valve()
         {
             CreateValves();
         }
+        //-----------------------------------------------------------------------------------------
         //Funkacja ma za zadanie utworzenie listy zaworow dostepnych w systemie
         private void CreateValves()
         {
@@ -39,23 +41,29 @@ namespace HPT1000.Source.Chamber
                 valves.Add(new Valve(ID, Name));
             }
         }
-
+        //-----------------------------------------------------------------------------------------
         //Funkcja ma za zadanie aktualizacje stanow zaworow odczytane z PLC
         override public void UpdateData(int []aData)
         {
-            foreach(Valve valve in valves)//ustaw stany zaworow dla wszystkich zaworow zawartych w systemie
+            if (aData.Length > Types.OFFSET_STATE_VALVES + 1)
             {
-                int aShiftBits = valve.id * 2; // o ile musze przesunac bity slowa aby uzyskac dane interesujacego mnie zaworu
-                if (valve.id == 0) aShiftBits = 0;
-                int aMask = 0x03 << aShiftBits;                          //maska bitowa wyodrebniajace stan danego zaworu
-                int aState = (aData[Types.OFFSET_STATE_VALVES] & aMask) >> (int)aShiftBits;
+                foreach (Valve valve in valves)//ustaw stany zaworow dla wszystkich zaworow zawartych w systemie
+                {
+                    int aValvesState = (aData[Types.OFFSET_STATE_VALVES + 1] << 16) | aData[Types.OFFSET_STATE_VALVES];
 
-                if (Enum.IsDefined(typeof(Types.StateValve), aState))
-                    valve.state = (Types.StateValve)Enum.Parse(typeof(Types.StateValve), (aState).ToString()); // konwertuj int na Enum
-                else
-                    valve.state = Types.StateValve.Error;
+                    int aShiftBits = valve.id * 2; // o ile musze przesunac bity slowa aby uzyskac dane interesujacego mnie zaworu
+                    if (valve.id == 0) aShiftBits = 0;
+                    int aMask = 0x03 << aShiftBits;                          //maska bitowa wyodrebniajace stan danego zaworu
+                    int aState = (aValvesState & aMask) >> (int)aShiftBits;
+
+                    if (Enum.IsDefined(typeof(Types.StateValve), aState))
+                        valve.state = (Types.StateValve)Enum.Parse(typeof(Types.StateValve), (aState).ToString()); // konwertuj int na Enum
+                    else
+                        valve.state = Types.StateValve.Error;
+                }
             }
         }
+        //-----------------------------------------------------------------------------------------
         //Zwroc stan danego zaworu
         public Types.StateValve GetState(Types.TypeValve aTypeValve)
         {
@@ -70,6 +78,7 @@ namespace HPT1000.Source.Chamber
             }
             return aState;
         }
+        //-----------------------------------------------------------------------------------------
         public ERROR SetState(Types.StateValve aState, Types.TypeValve aTypeValve)
         {
             ERROR aErr = new ERROR(0);
@@ -86,7 +95,7 @@ namespace HPT1000.Source.Chamber
             if (aState == Types.StateValve.Close || aState == Types.StateValve.Open)
             {
                 if (plc != null)
-                    aErr.ErrorCodePLC = plc.WriteWords(Types.ADDR_VALVES_CTRL, 1, ctrlValve);
+                    aErr.ErrorCodePLC = plc.WriteWords(Types.ADDR_VALVES_CTRL, 2, ctrlValve);
                 else
                     aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
             }
@@ -96,5 +105,6 @@ namespace HPT1000.Source.Chamber
 
             return aErr;
         }
+        //-----------------------------------------------------------------------------------------
     }
 }

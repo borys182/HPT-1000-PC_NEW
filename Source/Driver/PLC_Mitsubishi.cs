@@ -16,7 +16,8 @@ namespace HPT1000.Source.Driver
         #region Private
             //obiekt umozliwiajacy komunikacje z PLC bez uzycia narzedzia SetupUtility
             private ActProgTypeLib.ActProgTypeClass plc = new ActProgTypeLib.ActProgTypeClass();
-           
+
+        private static object sync_Object = new object();
         #endregion
 
         #region Method
@@ -30,20 +31,23 @@ namespace HPT1000.Source.Driver
         override public int Connect()
         {
             int aResult = -1;                //Return code
-            try
+            lock (sync_Object)
             {
-                plc.Disconnect();
+                try
+                {
+                    plc.Disconnect();
 
-                plc.ActUnitType     = (int)typePLC;     //Set the value of 'UnitType' to the property(UNIT_QNUSB).
-                plc.ActProtocolType = (int)typeComm;    //Set the value of 'ProtocolType' to the property(PROTOCOL_USB).                     
-                plc.ActHostAddress  = addressIP;
-                plc.ActPassword     = "txt_Password.Text";//Set the value of 'Password'.
-                
-                aResult = plc.Open();       //The Open method is executed.
-            }
-            catch (Exception exception)
-            {
-                string aMessage = exception.Message;
+                    plc.ActUnitType = (int)typePLC;     //Set the value of 'UnitType' to the property(UNIT_QNUSB).
+                    plc.ActProtocolType = (int)typeComm;    //Set the value of 'ProtocolType' to the property(PROTOCOL_USB).                     
+                    plc.ActHostAddress = addressIP;
+                    plc.ActPassword = "txt_Password.Text";//Set the value of 'Password'.
+
+                    aResult = plc.Open();       //The Open method is executed.
+                }
+                catch (Exception exception)
+                {
+                    string aMessage = exception.Message;
+                }
             }
              return aResult;
         }
@@ -51,13 +55,17 @@ namespace HPT1000.Source.Driver
         override public int SetDevice(string aAddr, int aState)
         {
             int aResult = -1;
-            try
+            lock (sync_Object)
             {
-                aResult = plc.SetDevice(aAddr, aState);
-            }
-            catch(Exception exception)
-            {
-                string aMsg = exception.Message;
+
+                try
+                {
+                    aResult = plc.SetDevice(aAddr, aState);
+                }
+                catch (Exception exception)
+                {
+                    string aMsg = exception.Message;
+                }
             }
             return aResult;
         }
@@ -65,14 +73,18 @@ namespace HPT1000.Source.Driver
         override public int GetDevice(string aAddr, out int aState)
         {
             int aResult = -1;
-            aState = 0;
-            try
+            lock (sync_Object)
             {
-                aResult = plc.GetDevice(aAddr, out aState);
-            }
-            catch (Exception exception)
-            {
-                string aMsg = exception.Message;
+
+                aState = 0;
+                try
+                {
+                    aResult = plc.GetDevice(aAddr, out aState);
+                }
+                catch (Exception exception)
+                {
+                    string aMsg = exception.Message;
+                }
             }
             return aResult;
         }
@@ -80,13 +92,17 @@ namespace HPT1000.Source.Driver
         override public int WriteWords(string aAddr, int aSize, int []aData)
         {
             int aResult = -1;
-            try
+            lock (sync_Object)
             {
-                aResult = plc.WriteDeviceBlock(aAddr, aSize, ref aData[0]);
-            }
-            catch (Exception exception)
-            {
-                string aMsg = exception.Message;
+
+                try
+                {
+                    aResult = plc.WriteDeviceBlock(aAddr, aSize, ref aData[0]);
+                }
+                catch (Exception exception)
+                {
+                    string aMsg = exception.Message;
+                }
             }
             return aResult;
         }
@@ -95,17 +111,24 @@ namespace HPT1000.Source.Driver
         {
             int aResult = -1;
             int aStartAddr = 1000;
-            try
+
+            Int32.TryParse(aAddr.Remove(0,1),out aStartAddr);
+
+            lock (sync_Object)
             {
-                for (int i = 0; i < aSize; i++)
+
+                try
                 {
-                    aAddr = "D" + (aStartAddr + i).ToString(); 
-                    aResult = plc.ReadDeviceBlock(aAddr, aSize, out aData[i]);
+                    for (int i = 0; i < aSize; i++)
+                    {
+                        aAddr = "D" + (aStartAddr + i).ToString();
+                        aResult = plc.ReadDeviceBlock(aAddr, aSize, out aData[i]);
+                    }
                 }
-            }
-            catch (Exception exception)
-            {
-                string aMsg = exception.Message;
+                catch (Exception exception)
+                {
+                    string aMsg = exception.Message;
+                }
             }
             return aResult;
         }
@@ -116,13 +139,16 @@ namespace HPT1000.Source.Driver
             int []aData    = new int[2];
             byte[]aBytes   = new byte[4];
 
-            aBytes = BitConverter.GetBytes(aValue);         // przkonwertuj float na tablice bajtow
+            lock (sync_Object)
+            {
 
-            aData[0] = (int)(aBytes[1] << 8 | aBytes[0]);   //zluz bajty w odpowiednie slowa
-            aData[1] = (int)(aBytes[3] << 8 | aBytes[2]);
+                aBytes = BitConverter.GetBytes(aValue);         // przkonwertuj float na tablice bajtow
 
-            aResult = WriteWords(aAddr, 2, aData);          //wgraj do PLC
+                aData[0] = (int)(aBytes[1] << 8 | aBytes[0]);   //zluz bajty w odpowiednie slowa
+                aData[1] = (int)(aBytes[3] << 8 | aBytes[2]);
 
+                aResult = WriteWords(aAddr, 2, aData);          //wgraj do PLC
+            }
             return aResult;
         }
         //-----------------------------------------------------------------------------------------
@@ -133,17 +159,20 @@ namespace HPT1000.Source.Driver
             int[] aData = new int[2];
             byte[] aBytes = new byte[4];
 
-            aResult = ReadWords(aAddr, 2, aData);
+            lock (sync_Object)
+            {
 
-            if (aResult == 0)
-            { 
-                aBytes[0] = (byte)( aData[0] & 0xFF);
-                aBytes[1] = (byte)((aData[0] & 0xFF00) >> 8);
-                aBytes[2] = (byte)( aData[1] & 0xFF);
-                aBytes[3] = (byte)((aData[1] & 0xFF00) >> 8);
+                aResult = ReadWords(aAddr, 2, aData);
+
+                if (aResult == 0)
+                {
+                    aBytes[0] = (byte)(aData[0] & 0xFF);
+                    aBytes[1] = (byte)((aData[0] & 0xFF00) >> 8);
+                    aBytes[2] = (byte)(aData[1] & 0xFF);
+                    aBytes[3] = (byte)((aData[1] & 0xFF00) >> 8);
+                }
+                aValue = BitConverter.ToSingle(aBytes, 0);
             }
-            aValue = BitConverter.ToSingle(aBytes, 0);
-
             return aResult;
         }
         //-----------------------------------------------------------------------------------------

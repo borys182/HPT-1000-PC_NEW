@@ -16,13 +16,16 @@ namespace HPT1000.Source.Chamber
         //Ustwa aktualny przeplyw dla wszystkich przeplywek
         override public void UpdateData(int[] aData)
         {
-            //z PLC dostaje DWORD ktorego nalezy przekonwertowac na double
-            actualPressure = Types.ConvertDWORDToDouble(aData, Types.OFFSET_PRESSURE);
+            if (aData.Length > Types.OFFSET_PRESSURE && aData.Length > Types.OFFSET_MODE_PRESSURE)
+            {
+                //z PLC dostaje DWORD ktorego nalezy przekonwertowac na double
+                actualPressure = Types.ConvertDWORDToDouble(aData, Types.OFFSET_PRESSURE);
 
-            if (Enum.IsDefined(typeof(Types.GasProcesMode), aData[Types.OFFSET_MODE_PRESSURE]))
-                mode = (Types.GasProcesMode)Enum.Parse(typeof(Types.GasProcesMode), (aData[Types.OFFSET_MODE_PRESSURE]).ToString()); // konwertuj int na Enum
-            else
-                mode = Types.GasProcesMode.Unknown;
+                if (Enum.IsDefined(typeof(Types.GasProcesMode), aData[Types.OFFSET_MODE_PRESSURE]))
+                    mode = (Types.GasProcesMode)Enum.Parse(typeof(Types.GasProcesMode), (aData[Types.OFFSET_MODE_PRESSURE]).ToString()); // konwertuj int na Enum
+                else
+                    mode = Types.GasProcesMode.Unknown;
+            }
         }
         //-----------------------------------------------------------------------------------------
         //Funkcja umozliwia ustawianie setpointa prozni dla regulatora PID

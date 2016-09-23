@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dEditOnTime = new HPT1000.GUI.Cotrols.DoubleEdit();
+            this.dEditCycleTImne = new HPT1000.GUI.Cotrols.DoubleEdit();
             this.label1 = new System.Windows.Forms.Label();
             this.labUnit = new System.Windows.Forms.Label();
             this.label71 = new System.Windows.Forms.Label();
             this.label72 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
-            this.dEditOnTime = new HPT1000.GUI.Cotrols.DoubleEdit();
-            this.dEditCycleTImne = new HPT1000.GUI.Cotrols.DoubleEdit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,6 +53,34 @@
             this.groupBox1.Size = new System.Drawing.Size(365, 142);
             this.groupBox1.TabIndex = 66;
             this.groupBox1.TabStop = false;
+            // 
+            // dEditOnTime
+            // 
+            this.dEditOnTime.Location = new System.Drawing.Point(125, 104);
+            this.dEditOnTime.Margin = new System.Windows.Forms.Padding(5);
+            this.dEditOnTime.Mask = "0.000";
+            this.dEditOnTime.MaximumValue = 100000D;
+            this.dEditOnTime.MinimumValue = 0D;
+            this.dEditOnTime.Name = "dEditOnTime";
+            this.dEditOnTime.ReadOnly = false;
+            this.dEditOnTime.Size = new System.Drawing.Size(100, 28);
+            this.dEditOnTime.TabIndex = 74;
+            this.dEditOnTime.Value = 100000D;
+            this.dEditOnTime.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditOnTime_EnterOn);
+            // 
+            // dEditCycleTImne
+            // 
+            this.dEditCycleTImne.Location = new System.Drawing.Point(125, 65);
+            this.dEditCycleTImne.Margin = new System.Windows.Forms.Padding(4);
+            this.dEditCycleTImne.Mask = "0.000";
+            this.dEditCycleTImne.MaximumValue = 100000D;
+            this.dEditCycleTImne.MinimumValue = 0D;
+            this.dEditCycleTImne.Name = "dEditCycleTImne";
+            this.dEditCycleTImne.ReadOnly = false;
+            this.dEditCycleTImne.Size = new System.Drawing.Size(102, 27);
+            this.dEditCycleTImne.TabIndex = 73;
+            this.dEditCycleTImne.Value = 100000D;
+            this.dEditCycleTImne.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditCycleTImne_EnterOn);
             // 
             // label1
             // 
@@ -111,32 +139,6 @@
             this.label74.TabIndex = 60;
             this.label74.Text = "VAPORISER";
             this.label74.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // dEditOnTime
-            // 
-            this.dEditOnTime.Location = new System.Drawing.Point(125, 104);
-            this.dEditOnTime.Margin = new System.Windows.Forms.Padding(5);
-            this.dEditOnTime.Mask = "{0:F3}";
-            this.dEditOnTime.MaximumValue = 100000D;
-            this.dEditOnTime.MinimumValue = 0D;
-            this.dEditOnTime.Name = "dEditOnTime";
-            this.dEditOnTime.Size = new System.Drawing.Size(100, 28);
-            this.dEditOnTime.TabIndex = 74;
-            this.dEditOnTime.Value = 100000D;
-            this.dEditOnTime.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditOnTime_EnterOn);
-            // 
-            // dEditCycleTImne
-            // 
-            this.dEditCycleTImne.Location = new System.Drawing.Point(125, 65);
-            this.dEditCycleTImne.Margin = new System.Windows.Forms.Padding(4);
-            this.dEditCycleTImne.Mask = "{0:F3}";
-            this.dEditCycleTImne.MaximumValue = 100000D;
-            this.dEditCycleTImne.MinimumValue = 0D;
-            this.dEditCycleTImne.Name = "dEditCycleTImne";
-            this.dEditCycleTImne.Size = new System.Drawing.Size(102, 27);
-            this.dEditCycleTImne.TabIndex = 73;
-            this.dEditCycleTImne.Value = 100000D;
-            this.dEditCycleTImne.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditCycleTImne_EnterOn);
             // 
             // VaporiserPanel
             // 

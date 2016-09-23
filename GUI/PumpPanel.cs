@@ -31,7 +31,8 @@ namespace HPT1000.GUI
         //-----------------------------------------------------------------------------------------
         public void RefreshData()
         {
-            if(pump != null)
+            /*
+            if (pump != null)
             {
                 if (pump.GetState() == Types.StateFP.ON)
                 {
@@ -49,6 +50,7 @@ namespace HPT1000.GUI
                     labState.ForeColor = System.Drawing.Color.Red;
                 }
             }
+            */
         }
         //-----------------------------------------------------------------------------------------
         private void btnStart_Click(object sender, EventArgs e)

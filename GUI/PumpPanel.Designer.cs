@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.labState = new System.Windows.Forms.Label();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
             this.label68 = new System.Windows.Forms.Label();
@@ -38,7 +37,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.labState);
             this.groupBox1.Controls.Add(this.btnStop);
             this.groupBox1.Controls.Add(this.btnStart);
             this.groupBox1.Controls.Add(this.label68);
@@ -48,20 +46,9 @@
             this.groupBox1.TabIndex = 67;
             this.groupBox1.TabStop = false;
             // 
-            // labState
-            // 
-            this.labState.AutoSize = true;
-            this.labState.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labState.ForeColor = System.Drawing.Color.Green;
-            this.labState.Location = new System.Drawing.Point(2, 54);
-            this.labState.Name = "labState";
-            this.labState.Size = new System.Drawing.Size(216, 20);
-            this.labState.TabIndex = 51;
-            this.labState.Text = "Fore pump state: Runnig";
-            // 
             // btnStop
             // 
-            this.btnStop.Location = new System.Drawing.Point(181, 79);
+            this.btnStop.Location = new System.Drawing.Point(181, 73);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(177, 32);
             this.btnStop.TabIndex = 50;
@@ -71,7 +58,7 @@
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(6, 79);
+            this.btnStart.Location = new System.Drawing.Point(6, 73);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(172, 32);
             this.btnStart.TabIndex = 49;
@@ -102,7 +89,6 @@
             this.Name = "PumpPanel";
             this.Size = new System.Drawing.Size(370, 116);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -113,6 +99,5 @@
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Label label68;
-        private System.Windows.Forms.Label labState;
     }
 }

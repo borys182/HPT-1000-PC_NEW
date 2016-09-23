@@ -16,7 +16,8 @@ namespace HPT1000.GUI
 {
     public partial class MFCPanel : UserControl
     {
-        MFC_Channel mfc_Channel     = null;
+        MFC mfc             = null;
+        int channelId       = 0;
         
         //-----------------------------------------------------------------------------------------
         public MFCPanel()
@@ -26,34 +27,75 @@ namespace HPT1000.GUI
         //-----------------------------------------------------------------------------------------
         public void RefreshData()
         {
-            if (mfc_Channel != null)
+            if (mfc != null)
             {
-                tBoxActualFlow_percent.Text = mfc_Channel.GetActualFlow(Types.UnitFlow.percent).ToString();
-                tBoxActualFlow_sccm.Text    = mfc_Channel.GetActualFlow(Types.UnitFlow.sccm).ToString();
+                dEditActualFlow_percent.Value   = mfc.GetActualFlow(channelId,Types.UnitFlow.percent);
+                dEditActualFlow_sccm.Value      = mfc.GetActualFlow(channelId,Types.UnitFlow.sccm);
+            }
+            SetLimit();
+        }
+        //-----------------------------------------------------------------------------------------
+        public void SetMFC(MFC aMFCPtr,int aChannelID)
+        {
+            mfc         = aMFCPtr;
+            channelId   = aChannelID;
+            labNameMFC.Text = "MFC " + aChannelID.ToString();          
+        }
+        //-----------------------------------------------------------------------------------------
+        private void SetLimit()
+        {
+            if (mfc != null)
+            {
+                scrollFlow.Maximum          = (int)mfc.GetMaxFlow(channelId);
+                dEditFlow_sccm.MaximumValue = (int)mfc.GetMaxFlow(channelId);
             }
         }
         //-----------------------------------------------------------------------------------------
-        public void SetMFC(MFC_Channel aMFCPtr)
+        private void SetScrollValue(int aValue)
         {
-            mfc_Channel = aMFCPtr;
+            if (aValue <= scrollFlow.Maximum && aValue >= scrollFlow.Minimum)
+                scrollFlow.Value = aValue;
         }
         //-----------------------------------------------------------------------------------------
-        private void tBoxFlow_sccm_Validated(object sender, EventArgs e)
+        private void scrollFlow_ValueChanged(object sender, EventArgs e)
         {
-            if(mfc_Channel != null)
-            {
-                double aFlow = Double.Parse(tBoxFlow_sccm.Text);
-                mfc_Channel.SetFlow((float)aFlow, Types.UnitFlow.sccm);
-            }
+            dEditFlow_sccm.Value = scrollFlow.Value;
+
+            dEditFlow_sccm.tBox_KeyUp(sender, new KeyEventArgs(Keys.Enter));
         }
         //-----------------------------------------------------------------------------------------
-        private void tBoxFlow_percent_Validated(object sender, EventArgs e)
+        private bool dEditFlow_sccm_EnterOn()
         {
-            if (mfc_Channel != null)
-            {
-                double aFlow = Double.Parse(tBoxFlow_percent.Text);
-                mfc_Channel.SetFlow((float)aFlow, Types.UnitFlow.percent);
-            }
+            bool aRes = false;
+            ERROR aErr = new ERROR(0);
+
+            if (mfc != null)
+                aErr = mfc.SetFlow(channelId,(int)dEditFlow_sccm.Value,Types.UnitFlow.sccm);
+
+            if (aErr.ErrorCode == Types.ERROR_CODE.NONE && aErr.ErrorCodePLC == 0)
+                aRes = true;
+
+            SetScrollValue((int)dEditFlow_sccm.Value);
+
+            Logger.AddError(aErr);
+
+            return aRes;
+        }
+        //-----------------------------------------------------------------------------------------
+        private bool dEditFlow_percent_EnterOn()
+        {
+            bool aRes = false;
+            ERROR aErr = new ERROR(0);
+
+            if (mfc != null)
+                aErr = mfc.SetFlow(channelId, (int)dEditFlow_percent.Value, Types.UnitFlow.percent);
+
+            if (aErr.ErrorCode == Types.ERROR_CODE.NONE && aErr.ErrorCodePLC == 0)
+                aRes = true;
+
+           Logger.AddError(aErr);
+
+            return aRes;
         }
         //-----------------------------------------------------------------------------------------
 

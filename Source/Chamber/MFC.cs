@@ -11,7 +11,7 @@ namespace HPT1000.Source.Chamber
     {
         private int     id              = 0;                //powiazanie obiketu po stronie PC z obiektem po stronie PLC
         private bool    enabled         = false;            //flaga okresla czy przplywka wchodzi w sklad danej konfiguracji komory 
-        private double  maxFlow_sccm    = 0;                //okreslenie max przeplywu przeplywki wyrazonego w jednostkach sccm
+        private double  maxFlow_sccm    = 10000;                //okreslenie max przeplywu przeplywki wyrazonego w jednostkach sccm
         private double  actualVoltage   = 0;                //wartosc napiecia sterujacego przeplywka
         private string  gasName         = "none";
         private double  factor          = 1;                //okresleneie factora dla danego gazu podpietego do danej przeplywki. Przeplywki
@@ -34,11 +34,14 @@ namespace HPT1000.Source.Chamber
         {
             int aAddr = 0;
 
-            if (id == 1) aAddr = Types.OFFSET_ACTUAL_FLOW_1;
-            if (id == 2) aAddr = Types.OFFSET_ACTUAL_FLOW_2;
-            if (id == 3) aAddr = Types.OFFSET_ACTUAL_FLOW_3;
+            if (aData.Length > Types.OFFSET_ACTUAL_FLOW_1 && aData.Length > Types.OFFSET_ACTUAL_FLOW_2 && aData.Length > Types.OFFSET_ACTUAL_FLOW_3)
+            {
+                if (id == 1) aAddr = Types.OFFSET_ACTUAL_FLOW_1;
+                if (id == 2) aAddr = Types.OFFSET_ACTUAL_FLOW_2;
+                if (id == 3) aAddr = Types.OFFSET_ACTUAL_FLOW_3;
 
-             actualVoltage = Types.ConvertDWORDToDouble(aData, aAddr);
+                actualVoltage = Types.ConvertDWORDToDouble(aData, aAddr);
+            }
         }
         //-----------------------------------------------------------------------------------------
         public override void UpdateSettings(int[] aData)
@@ -66,21 +69,21 @@ namespace HPT1000.Source.Chamber
             string aAddr = "";
             if(controlMode == Types.ControlMode.Automatic)
             {
-                if (id == 0) aAddr = Types.ADDR_CONTROL_PROGRAM + Types.OFFSET_SEQ_FLOW_1_FLOW;
-                if (id == 1) aAddr = Types.ADDR_CONTROL_PROGRAM + Types.OFFSET_SEQ_FLOW_2_FLOW;
-                if (id == 2) aAddr = Types.ADDR_CONTROL_PROGRAM + Types.OFFSET_SEQ_FLOW_3_FLOW;
+                if (id == 1) aAddr = Types.ADDR_CONTROL_PROGRAM + Types.OFFSET_SEQ_FLOW_1_FLOW;
+                if (id == 2) aAddr = Types.ADDR_CONTROL_PROGRAM + Types.OFFSET_SEQ_FLOW_2_FLOW;
+                if (id == 3) aAddr = Types.ADDR_CONTROL_PROGRAM + Types.OFFSET_SEQ_FLOW_3_FLOW;
             }
             if (controlMode == Types.ControlMode.Manual)
             {
-                if (id == 0) aAddr = Types.ADDR_FLOW_1_CTR;
-                if (id == 1) aAddr = Types.ADDR_FLOW_2_CTR;
-                if (id == 2) aAddr = Types.ADDR_FLOW_3_CTR;
+                if (id == 1) aAddr = Types.ADDR_FLOW_1_CTR;
+                if (id == 2) aAddr = Types.ADDR_FLOW_2_CTR;
+                if (id == 3) aAddr = Types.ADDR_FLOW_3_CTR;
             }
 
             if (aAddr.Length > 0)
             {
                 if (plc != null)
-                    aErr.ErrorCodePLC = plc.WriteRealData(aAddr, aValue);
+                    aErr.ErrorCodePLC = plc.WriteRealData(aAddr, (float)aVoltage);
                 else
                     aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
             }
@@ -98,9 +101,9 @@ namespace HPT1000.Source.Chamber
                 case Types.UnitFlow.sccm:
                     if (actualVoltage < 0)              actualFlow = 0;
                     if (actualVoltage > rangeVoltage)   actualFlow = maxFlow_sccm;
-                    if (actualVoltage > 0 && actualVoltage < rangeVoltage && maxFlow_sccm != 0)
+                    if (actualVoltage > 0 && actualVoltage < rangeVoltage && rangeVoltage != 0)
                     {
-                        actualFlow = actualVoltage / maxFlow_sccm;
+                        actualFlow = actualVoltage * maxFlow_sccm / rangeVoltage;
                     }
                     break;
                 case Types.UnitFlow.percent:
@@ -108,10 +111,8 @@ namespace HPT1000.Source.Chamber
                     if (actualVoltage > rangeVoltage)   actualFlow = 100;
                     if (actualVoltage > 0 && actualVoltage < rangeVoltage && rangeVoltage != 0)
                     {
-                        actualFlow = actualVoltage / rangeVoltage;
+                        actualFlow = actualVoltage / rangeVoltage * 100;
                     }
-
-
                     break;
             }
             return actualFlow;
@@ -126,11 +127,20 @@ namespace HPT1000.Source.Chamber
         {
             return enabled;
         }
-       //-----------------------------------------------------------------------------------------
-
+        //-----------------------------------------------------------------------------------------
+        public void SetMaxFlow(double aMaxFlow)
+        {
+            maxFlow_sccm = aMaxFlow;
+        }
+        //-----------------------------------------------------------------------------------------
+        public double GetMaxFlow()
+        {
+            return maxFlow_sccm;
+        }
+        //-----------------------------------------------------------------------------------------
     }
     //-----------------------------------------------------------------------------------------
-    //-----------------------------------------------------------------------------------------
+    //------------------------------------MFC-------------------------------------------------
     //-----------------------------------------------------------------------------------------
 
     public class MFC : ChamberObject
@@ -140,9 +150,9 @@ namespace HPT1000.Source.Chamber
         //-----------------------------------------------------------------------------------------
         public MFC()
         {
-            flowMeters.Add(new MFC_Channel(0));
             flowMeters.Add(new MFC_Channel(1));
             flowMeters.Add(new MFC_Channel(2));
+            flowMeters.Add(new MFC_Channel(3));
         }
         //-----------------------------------------------------------------------------------------
         private MFC_Channel GetMFC_Channel(int aId)
@@ -219,8 +229,37 @@ namespace HPT1000.Source.Chamber
 
             return aEnabled;
         }
-
         //-----------------------------------------------------------------------------------------
+        public double GetMaxFlow(int aId)
+        {
+            double aMaxFlow = 0;
+            MFC_Channel mfc_Channel = GetMFC_Channel(aId);
+
+            if (mfc_Channel != null)
+                aMaxFlow = mfc_Channel.GetMaxFlow();
+
+            return aMaxFlow;
+        }
+        //-----------------------------------------------------------------------------------------
+        public void SetMaxFlow(int aId,double aMaxFlow)
+        {
+            MFC_Channel mfc_Channel = GetMFC_Channel(aId);
+
+            if (mfc_Channel != null)
+                mfc_Channel.SetMaxFlow(aMaxFlow);
+        }
+        //-----------------------------------------------------------------------------------------
+        public override void SetPonterPLC(PLC ptrPLC)
+        {
+            plc = ptrPLC;
+            foreach (MFC_Channel mfc in flowMeters)
+            {
+                if (mfc != null)
+                    mfc.SetPonterPLC(ptrPLC);
+            }
+        }
+        //-----------------------------------------------------------------------------------------
+
     }
 }
   

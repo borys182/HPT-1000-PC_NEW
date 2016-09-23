@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace HPT1000.Source.Driver
 {
+  
     /// <summary>
     /// Klasa rzeczywistego urzadzenia PLC firmy Mitsubushhi. Jest ona odpowiedzialna za wymianę danych z PLC
     /// </summary>
@@ -15,30 +16,26 @@ namespace HPT1000.Source.Driver
         #region Private
             //obiekt umozliwiajacy komunikacje z PLC bez uzycia narzedzia SetupUtility
             private ActProgTypeLib.ActProgTypeClass plc = new ActProgTypeLib.ActProgTypeClass();
-            //parametry komunikacyjne okreslajcae typ PLC seri L
-            private int typePLC         = 0x51 ; //typ PLC seri L
-            private int typeProtocol    = 0x05 ; //ustawienie komunikacji jako TCP
-        #endregion
-
-        #region Public
-            public string addressIP = "127.0.0.1";
+           
         #endregion
 
         #region Method
-
-        override public void SetAddrIP(string aAddrIP)
+        //-----------------------------------------------------------------------------------------
+        public PLC_Mitsubishi()
         {
-            addressIP = aAddrIP;
+            typePLC = TypePLC.L;
         }
-
+        //-----------------------------------------------------------------------------------------
         //Metoda ma za zadanie otwarcie połączenia z PLC
         override public int Connect()
         {
             int aResult = -1;                //Return code
             try
             {
-                plc.ActUnitType     = typePLC;  //Set the value of 'UnitType' to the property(UNIT_QNUSB).
-                plc.ActProtocolType = 0x0D;     //Set the value of 'ProtocolType' to the property(PROTOCOL_USB).                     
+                plc.Disconnect();
+
+                plc.ActUnitType     = (int)typePLC;     //Set the value of 'UnitType' to the property(UNIT_QNUSB).
+                plc.ActProtocolType = (int)typeComm;    //Set the value of 'ProtocolType' to the property(PROTOCOL_USB).                     
                 plc.ActHostAddress  = addressIP;
                 plc.ActPassword     = "txt_Password.Text";//Set the value of 'Password'.
                 
@@ -50,7 +47,7 @@ namespace HPT1000.Source.Driver
             }
              return aResult;
         }
-
+        //-----------------------------------------------------------------------------------------
         override public int SetDevice(string aAddr, int aState)
         {
             int aResult = -1;
@@ -64,7 +61,7 @@ namespace HPT1000.Source.Driver
             }
             return aResult;
         }
-
+        //-----------------------------------------------------------------------------------------
         override public int GetDevice(string aAddr, out int aState)
         {
             int aResult = -1;
@@ -79,7 +76,7 @@ namespace HPT1000.Source.Driver
             }
             return aResult;
         }
-
+        //-----------------------------------------------------------------------------------------
         override public int WriteWords(string aAddr, int aSize, int []aData)
         {
             int aResult = -1;
@@ -93,13 +90,18 @@ namespace HPT1000.Source.Driver
             }
             return aResult;
         }
-
+        //-----------------------------------------------------------------------------------------
         override public int ReadWords(string aAddr, int aSize, int[] aData)
         {
             int aResult = -1;
+            int aStartAddr = 1000;
             try
             {
-                aResult = plc.ReadDeviceBlock(aAddr, aSize, out aData[0]);
+                for (int i = 0; i < aSize; i++)
+                {
+                    aAddr = "D" + (aStartAddr + i).ToString(); 
+                    aResult = plc.ReadDeviceBlock(aAddr, aSize, out aData[i]);
+                }
             }
             catch (Exception exception)
             {
@@ -107,7 +109,7 @@ namespace HPT1000.Source.Driver
             }
             return aResult;
         }
-
+        //-----------------------------------------------------------------------------------------
         override public int WriteRealData(string aAddr, float aValue)
         {
             int aResult    = 0;
@@ -123,7 +125,7 @@ namespace HPT1000.Source.Driver
 
             return aResult;
         }
-
+        //-----------------------------------------------------------------------------------------
         override public int ReadRealData(string aAddr, out float aValue)
         {
             int aResult = 0;
@@ -135,17 +137,17 @@ namespace HPT1000.Source.Driver
 
             if (aResult == 0)
             { 
-                aBytes[0] = (byte)(aData[0] & 0xFF);
+                aBytes[0] = (byte)( aData[0] & 0xFF);
                 aBytes[1] = (byte)((aData[0] & 0xFF00) >> 8);
-                aBytes[2] = (byte)(aData[1] & 0xFF);
+                aBytes[2] = (byte)( aData[1] & 0xFF);
                 aBytes[3] = (byte)((aData[1] & 0xFF00) >> 8);
             }
             aValue = BitConverter.ToSingle(aBytes, 0);
 
             return aResult;
         }
-    
+        //-----------------------------------------------------------------------------------------
+
         #endregion
     }
-
 }

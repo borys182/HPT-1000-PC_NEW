@@ -44,15 +44,14 @@ namespace HPT1000.Source.Driver
         /// <summary>
         /// TYPY WYLICZENIOWE
         /// </summary>
-        public enum TypeValve       { SV = 0, VV = 1, V2 = 2, V3 = 3, V4 = 4, Flow1 = 5, Flow2 = 6, Flow3 = 7, Flow4 = 8 }; //Kolejnosc zaworow odpowiada kolejnosci stanow zaworow przesylanych w zbiorczym DWORD z PLC
-        public enum StatusDevice    { Fail  = 1, OK   = 2 };
+        public enum TypeValve       { SV = 0, VV = 1, Purge = 2, Gas = 3, None }; //Kolejnosc zaworow odpowiada kolejnosci stanow zaworow przesylanych w zbiorczym DWORD z PLC
+        public enum DriverStatus    { Unknown = 0, OK = 1, NoComm = 2, Error = 3, Warning = 4 };
         public enum StateValve      { Close = 1, Open = 2, Error = 3, HalfOpen = 4 };
         public enum StateFP         { OFF   = 1, ON   = 2, Error = 3 };
         public enum StateHV         { OFF   = 1, ON   = 2, Error = 3 };
-        public enum UnitFlow        { sccm, percent };
+        public enum UnitFlow        { sccm, percent, ms };
         public enum ModeHV          { Power = 1 , Voltage = 2 , Curent = 3, Unknown = 4};
-        public enum TypeObject      { None, VL, FP,HV,FM }; //VL - vavle , FP - fore pump , HV - power suplay , FN - flow meter
-        public enum DeviceStatus    { OK, NoComm, Error, Warning, Unknown };
+        public enum TypeObject      { None, VL, FP, HV, FM, VP, PC }; //VL - vavle , FP - fore pump , HV - power suplay , FN - flow meter, VP - Vaporizer, PC-pressure control
         public enum ControlProgram  { Start,Stop,Resume };
         public enum WorkModeHV      { Power = 1, Voltage = 2, Curent = 3};
         public enum Word            { LOW , HIGH};
@@ -66,39 +65,37 @@ namespace HPT1000.Source.Driver
             PLC_PTR_NULL                = 0x01,         //Brak wskaznika na obiekt protokolu PLC
             CALL_INCORRECT_OPERATION    = 0x02,         //Wywolanie zabronienioej operacji na danym obiekcie
             BAD_FLOW_ID                 = 0x03,         //proba wykonia zapisu do plc info o przeplywkach o id roznym niz 0-2 (innych nie ma w plc)
-            PLC_WRITE                   = 0x04          //Nie powiodl sie zapis do sterownika PLC. Dodatkowe informacje sa zwrocone w kodzie bezposrednio ze sterownika PLC (MX Components)
+            PLC_WRITE                   = 0x04,          //Nie powiodl sie zapis do sterownika PLC. Dodatkowe informacje sa zwrocone w kodzie bezposrednio ze sterownika PLC (MX Components)
+            BAD_CYCLE_TIME              = 0x05,          //Podana wartosc cyklu szybkiego zaworu jest mniejsz niz czas wlaczenia
+            BAD_ON_TIME                 = 0x06          //Podana wartosc czasu wlaczenia zaworu szybkieg jest wieksza niz czas cyklu
         }
-        
+
         /// <summary>
         /// ADRESY KOMOREK PLC
         /// </summary>
+
+        //Adresy komorek do sterowania recznego
+        public static string ADDR_VALVES_CTRL               = "D200";
+        public static string ADDR_FP_CTRL                   = "D202";
+        public static string ADDR_CYCLE_TIME                = "D203";
+        public static string ADDR_ON_TIME                   = "D205";
+        public static string ADDR_FLOW_1_CTR                = "D207";
+        public static string ADDR_FLOW_2_CTR                = "D209";
+        public static string ADDR_FLOW_3_CTR                = "D211";
+        public static string ADDR_POWER_SUPPLAY_SETPOINT    = "D213";
+        public static string ADDR_POWER_SUPPLAY_MODE        = "D215";
+        public static string ADDR_POWER_SUPPLAY_OPERATE     = "D216";
+        public static string ADDR_PRESSURE_SETPOINT         = "D217";
+        public static string ADDR_PRESSURE_MODE             = "D219";
+
         public static string ADDR_START_STATUS_CHAMBER      = "D1000"; //poczatek bufora z danymi przedstawiajacymi stan systemu 
+        public static string ADDR_CONTROL_PROGRAM           = "D1040"; //Adres parametrow aktualnie wykonywanego programu i wykorzystuje go do dostrajania parametrow programu. Jest to adres poczatku buforu danych gdzie sa przechowywane parametry aktualnie wykonywanego programu
+                                                                       //Pamietaj ze ten adres jest odzwierciedleniem PLC. Kolejne parametry urządzen posiadaja adresy zgodnie z ofsetem danego parametru w programie
         public static string ADDR_START_BUFFER_PROGRAM      = "D2000";
 
-     
-        //Adresy komorek do sterowania recznego
-        public static string ADDR_VALVES_CTRL               = "D102";
-        public static string ADDR_FP_CTRL                   = "D104";
-        public static string ADDR_CYCLE_TIME                = "D106";
-        public static string ADDR_ON_TIME                   = "D108";
-        public static string ADDR_FLOW_1_CTR                = "D100";
-        public static string ADDR_FLOW_2_CTR                = "D100";
-        public static string ADDR_FLOW_3_CTR                = "D100";
-        public static string ADDR_POWER_SUPPLAY_SETPOINT    = "D123";
-        public static string ADDR_POWER_SUPPLAY_MODE        = "D124";
-        public static string ADDR_POWER_SUPPLAY_OPERATE     = "D125";
-        public static string ADDR_PRESSURE_SETPOINT         = "D125";
-        public static string ADDR_PRESSURE_MODE             = "D125";
-
-
-        //Adresy komorek do dostrajania parametrow programu. Jest to adres poczatku buforu danych gdzie sa przechowywane parametry aktualnie wykonywanego programu
-        //Pamietaj zmienijac adres tej przestrzeniu tutaj tez musisz zmienic adres
-        //Kolejne parametry urządzen posiadaja adresy zgodnie z ofsetem danego parametru w programie
-        public static string ADDR_CONTROL_PROGRAM           = "D1050";
-
-        public const int    LENGHT_STATUS_DATA              = 100;
-        public const int    SEGMENT_SIZE                    = 30;
-        public const int    MAX_SEGMENTS                    = 100;//Max liczba segmentow z ktorych moze sie skladac program po stronie PLC
+        public const int    LENGHT_STATUS_DATA              = 40;
+        public const int    SEGMENT_SIZE                    = 30;   //Rozmiar parametrow subprogramu
+        public const int    MAX_SEGMENTS                    = 100;  //Max liczba segmentow z ktorych moze sie skladac program po stronie PLC
         /// <summary>
         /// OFFSET KONKRETNYCH DANYCH ODCZYTANYCH W ZBIORCZYM BUFORZE Z PLC
         /// </summary>
@@ -114,12 +111,12 @@ namespace HPT1000.Source.Driver
         public static int OFFSET_CURENT         = 9;
         public static int OFFSET_POWER          = 11;
         public static int OFFSET_STATE_VALVES   = 13;
-        public static int OFFSET_ACTUAL_FLOW_1  = 14;
-        public static int OFFSET_ACTUAL_FLOW_2  = 16;
-        public static int OFFSET_ACTUAL_FLOW_3  = 18;
-        public static int OFFSET_CYCLE_TIME     = 20;
-        public static int OFFSET_ON_TIME        = 22;
-        public static int OFFSET_MODE_PRESSURE  = 24;
+        public static int OFFSET_ACTUAL_FLOW_1  = 15;
+        public static int OFFSET_ACTUAL_FLOW_2  = 17;
+        public static int OFFSET_ACTUAL_FLOW_3  = 19;
+        public static int OFFSET_CYCLE_TIME     = 21;
+        public static int OFFSET_ON_TIME        = 23;
+        public static int OFFSET_MODE_PRESSURE  = 25;
 
 
         //Dane aktualnie wykonywanego programu i subprogramu odczytywane ciagle
@@ -133,9 +130,6 @@ namespace HPT1000.Source.Driver
         public static int OFFSET_PRG_TIME_VENT      = 8;
         public static int OFFSET_PRG_TIME_FLUSH     = 9;
         public static int OFFSET_PRG_SEQ_DATA       = 10;
-
-
-
 
 
         //Dane odczytywane jako setings tylko na zdarzenie

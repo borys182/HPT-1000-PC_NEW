@@ -14,13 +14,14 @@ namespace HPT1000.GUI.Cotrols
     {
         private bool flagChangeFontColor = false;
         private bool flagChangeBackColor = false;
-        private int counter = 0;
+        private bool isOperationOK      = true;   //flaga okresla czy udalo sie wykonac poprawnie operacje w zdarzeniu EnterOn
+        private int  counter = 0;
          
         private double minValue { get; set; }
         private double maxValue { get; set; }
-        private string mask     { get; set; }
+        private string mask     { get; set; } 
 
-        public delegate void MakeOperation();
+        public delegate bool MakeOperation();
         public event MakeOperation EnterOn;
 
         //-----------------------------------------------------------------------------
@@ -43,8 +44,14 @@ namespace HPT1000.GUI.Cotrols
         //-----------------------------------------------------------------------------
         public string Mask
         {
-            set { mask = value; }
+            set { mask =  value; }
             get { return mask; }
+        }
+        //-----------------------------------------------------------------------------
+        public bool ReadOnly
+        {
+            set { tBox.ReadOnly = value; }
+            get { return tBox.ReadOnly; }
         }
         //-----------------------------------------------------------------------------
         public double Value
@@ -54,13 +61,27 @@ namespace HPT1000.GUI.Cotrols
                 double aValue = value;
                 if (aValue < minValue) aValue = minValue;
                 if (aValue > maxValue) aValue = maxValue;
-                if (!tBox.Focused)
-                    tBox.Text = String.Format(mask, aValue);
+                if (!tBox.Focused && mask != null)
+                    tBox.Text = String.Format(GetMask(), aValue);
             }
             get { return GetValue(tBox.Text); }
         }
         //-----------------------------------------------------------------------------
-       public double GetValue(string aTxt)
+        public string GetMask()
+        {
+            string aRes = "{0:F}";
+            int aPlaceComa = 0;
+
+            if (mask.Contains(",")) aPlaceComa = mask.IndexOf(',');
+            if (mask.Contains(".")) aPlaceComa = mask.IndexOf('.');
+
+            if (mask.Contains(",") || mask.Contains("."))
+                aRes = "{0:F" + (mask.Length - aPlaceComa - 1).ToString() + "}";
+           
+            return aRes;
+        }
+        //-----------------------------------------------------------------------------
+        public double GetValue(string aTxt)
         {
             double aValue = 0;
 
@@ -89,13 +110,13 @@ namespace HPT1000.GUI.Cotrols
                 e.Handled = true;
         }
         //-----------------------------------------------------------------------------
-        private void tBox_KeyUp(object sender, KeyEventArgs e)
+        public void tBox_KeyUp(object sender, KeyEventArgs e)
         {
             double aValue = 0;
             if (e.KeyCode == Keys.Enter && CheckFloatStringValue(tBox.Text, out aValue))
             {
                 if (EnterOn != null)
-                    EnterOn();
+                    isOperationOK = EnterOn();
                 counter = 0;
                 flagChangeFontColor = true;
             }
@@ -105,11 +126,16 @@ namespace HPT1000.GUI.Cotrols
         //-----------------------------------------------------------------------------
         private void timer_Tick(object sender, EventArgs e)
         {
-            if(flagChangeFontColor) tBox.ForeColor = System.Drawing.Color.Blue;
-            else                    tBox.ForeColor = System.Drawing.Color.Black;
+            if (flagChangeFontColor)
+            {
+                if(isOperationOK)   tBox.ForeColor = Color.Blue;
+                else                tBox.ForeColor = Color.Red;
+            }
+            else
+                tBox.ForeColor = Color.Black;
 
-            if (flagChangeBackColor) tBox.BackColor = System.Drawing.Color.Red;
-            else                     tBox.BackColor = System.Drawing.Color.White;
+            if (flagChangeBackColor) tBox.BackColor = Color.Red;
+            else                     tBox.BackColor = Color.White;
 
             if (counter > 1)
             {
@@ -136,7 +162,8 @@ namespace HPT1000.GUI.Cotrols
                 counter = 0;
                 flagChangeBackColor = true;
             }
-            tBox.Text = String.Format(mask, aValue);
+            if(mask != null)
+                tBox.Text = String.Format(GetMask(), aValue);
         }
         //-----------------------------------------------------------------------------
 

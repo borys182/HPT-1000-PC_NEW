@@ -16,10 +16,10 @@ namespace HPT1000.GUI.Cotrols
         private bool flagChangeBackColor = false;
         private bool isOperationOK      = true;   //flaga okresla czy udalo sie wykonac poprawnie operacje w zdarzeniu EnterOn
         private int  counter = 0;
-         
-        private double minValue { get; set; }
-        private double maxValue { get; set; }
-        private string mask     { get; set; } 
+
+        private double minValue = 0;
+        private double maxValue = 1000;
+        private string mask     = "0.000"; 
 
         public delegate bool MakeOperation();
         public event MakeOperation EnterOn;
@@ -61,15 +61,19 @@ namespace HPT1000.GUI.Cotrols
                 double aValue = value;
                 if (aValue < minValue) aValue = minValue;
                 if (aValue > maxValue) aValue = maxValue;
-                if (!tBox.Focused && mask != null)
-                    tBox.Text = String.Format(GetMask(), aValue);
+                try
+                {
+                    if (!tBox.Focused && mask != null)
+                        tBox.Text = String.Format(GetMask(), aValue);
+                }
+                catch (Exception ex) { }
             }
             get { return GetValue(tBox.Text); }
         }
         //-----------------------------------------------------------------------------
         public string GetMask()
         {
-            string aRes = "{0:F}";
+            string aRes = "{0:F0}";
             int aPlaceComa = 0;
 
             if (mask.Contains(",")) aPlaceComa = mask.IndexOf(',');
@@ -134,7 +138,7 @@ namespace HPT1000.GUI.Cotrols
             else
                 tBox.ForeColor = Color.Black;
 
-            if (flagChangeBackColor) tBox.BackColor = Color.Red;
+            if (flagChangeBackColor) tBox.BackColor = Color.Yellow;
             else                     tBox.BackColor = Color.White;
 
             if (counter > 1)

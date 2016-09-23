@@ -65,8 +65,9 @@ namespace HPT1000.GUI
             RefreshUnit();
         }
         //-----------------------------------------------------------------------------------
-        private void dEditOnTime_EnterOn()
+        private bool dEditOnTime_EnterOn()
         {
+            bool aRes = false;
             ERROR aErr = new ERROR(0);
             Types.UnitFlow aUnit = Types.UnitFlow.ms;
 
@@ -77,16 +78,27 @@ namespace HPT1000.GUI
                 aErr = vaporizer.SetOnTime((float)dEditOnTime.Value, aUnit);
             }
             Logger.AddError(aErr);
+
+            if (aErr.ErrorCode == Types.ERROR_CODE.NONE && aErr.ErrorCodePLC == 0)
+                aRes = true;
+
+            return aRes;
         }
         //-----------------------------------------------------------------------------------
-        private void dEditCycleTImne_EnterOn()
+        private bool dEditCycleTImne_EnterOn()
         {
+            bool aRes = false;
             ERROR aErr = new ERROR(0);
             if (vaporizer != null)
             {
                 aErr = vaporizer.SetCycleTime((float)dEditCycleTImne.Value);
             }
             Logger.AddError(aErr);
+
+            if (aErr.ErrorCode == Types.ERROR_CODE.NONE && aErr.ErrorCodePLC == 0)
+                aRes = true;
+
+            return aRes;
         }
         //-----------------------------------------------------------------------------------
         private void labUnit_MouseHover(object sender, EventArgs e)

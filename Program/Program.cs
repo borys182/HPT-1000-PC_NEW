@@ -7,6 +7,11 @@ using HPT1000.GUI;
 
 namespace WindowsFormsApplication
 {
+    /* TO DO
+     *  - Wielwatkowy dostep do MX Component
+     *  - Blokowe odczytywanie danych z plc
+     *  - po wprowazeniu poprawek w mx componets popraw UpdateSetings w hpt
+     */ 
     static class Program
     {
         /// <summary>

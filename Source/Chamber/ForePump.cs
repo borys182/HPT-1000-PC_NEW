@@ -14,10 +14,13 @@ namespace HPT1000.Source.Chamber
         //-----------------------------------------------------------------------------------------
         override public void UpdateData(int []aData)
         {
-            if(Enum.IsDefined(typeof(Types.StateFP),aData[Types.OFFSET_STATE_FP]))
-                state = (Types.StateFP)Enum.Parse(typeof(Types.StateFP), (aData[Types.OFFSET_STATE_FP]).ToString());
-            else
-                state = Types.StateFP.Error;
+            if (aData.Length > Types.OFFSET_STATE_FP)
+            {
+                if (Enum.IsDefined(typeof(Types.StateFP), aData[Types.OFFSET_STATE_FP]))
+                    state = (Types.StateFP)Enum.Parse(typeof(Types.StateFP), (aData[Types.OFFSET_STATE_FP]).ToString());
+                else
+                    state = Types.StateFP.Error;
+            }
         }
         //-----------------------------------------------------------------------------------------
         public Types.StateFP GetState()

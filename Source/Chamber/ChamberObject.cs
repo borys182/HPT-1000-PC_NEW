@@ -15,7 +15,7 @@ namespace HPT1000.Source.Chamber
         public abstract void UpdateData(int[] aData);
         public virtual void UpdateSettings(int[] aData) { }
 
-        public void SetPonterPLC(PLC ptrPLC)
+        public virtual void SetPonterPLC(PLC ptrPLC)
         {
             plc = ptrPLC;
         }

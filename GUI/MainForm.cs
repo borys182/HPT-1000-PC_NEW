@@ -50,6 +50,22 @@ namespace HPT1000.GUI
 
         }
         //------------------------------------------------------------------------------------------
+        public void RefreshSettingsPanel()
+        {
+            if(hpt1000.GetPowerSupply() != null)
+            {
+                dEditCurentLimit.Value =  hpt1000.GetPowerSupply().LimitCurent;
+                dEditPowerLimit.Value   = hpt1000.GetPowerSupply().LimitPower;
+                dEditVoltageLimit.Value = hpt1000.GetPowerSupply().LimitVoltage;
+            }
+            if(hpt1000.GetMFC() != null)
+            {
+                dEditMaxFlow_MFC1.Value = hpt1000.GetMFC().GetMaxFlow(1);
+                dEditMaxFlow_MFC2.Value = hpt1000.GetMFC().GetMaxFlow(2);
+                dEditMaxFlow_MFC3.Value = hpt1000.GetMFC().GetMaxFlow(3);
+            }
+        }
+        //------------------------------------------------------------------------------------------
         private void button1_Click(object sender, EventArgs e)
         {
             int aRes = 0;
@@ -105,8 +121,10 @@ namespace HPT1000.GUI
                     statusLabel.Text        = "No communication";
                     statusLabel.ForeColor   = Color.Red;
                     break;
-            }          
+            }     
+              
         }
+        //----------------------------------------------------------------------------------
 
         private void cBoxComm_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -118,5 +136,101 @@ namespace HPT1000.GUI
                     hpt1000.GetPLC().SetTypeComm(TypeComm.TCP);
             }
         }
+        //----------------------------------------------------------------------------------
+        private void btnReadSettings_Click(object sender, EventArgs e)
+        {
+            if (hpt1000 != null)
+                hpt1000.UpdateSettings();
+
+            RefreshSettingsPanel();
+        }
+        //----------------------------------------------------------------------------------
+        private bool dEditPowerLimit_EnterOn()
+        {
+            bool aRes = false;
+            ERROR aErr = new ERROR(0);
+
+            if (hpt1000.GetPowerSupply() != null)
+                aErr = hpt1000.GetPowerSupply().SetLimitPower(dEditPowerLimit.Value);
+
+            Logger.AddError(aErr);
+
+            if (aErr.ErrorCode == Types.ERROR_CODE.NONE && aErr.ErrorCodePLC == 0)
+                aRes = true;
+
+            return aRes;
+        }
+        //----------------------------------------------------------------------------------
+        private bool dEditVoltageLimit_EnterOn()
+        {
+            bool aRes = false;
+            ERROR aErr = new ERROR(0);
+
+            if (hpt1000.GetPowerSupply() != null)
+                aErr = hpt1000.GetPowerSupply().SetLimitVoltage(dEditVoltageLimit.Value);
+
+            Logger.AddError(aErr);
+
+            if (aErr.ErrorCode == Types.ERROR_CODE.NONE && aErr.ErrorCodePLC == 0)
+                aRes = true;
+
+            return aRes;
+        }
+        //----------------------------------------------------------------------------------
+        private bool dEditCurentLimit_EnterOn()
+        {
+            bool aRes = false;
+            ERROR aErr = new ERROR(0);
+
+            if (hpt1000.GetPowerSupply() != null)
+                aErr = hpt1000.GetPowerSupply().SetLimitCurent(dEditCurentLimit.Value);
+
+            Logger.AddError(aErr);
+
+            if (aErr.ErrorCode == Types.ERROR_CODE.NONE && aErr.ErrorCodePLC == 0)
+                aRes = true;
+
+            return aRes;
+        }
+        //----------------------------------------------------------------------------------
+        private bool dEditMaxFlow_MFC1_EnterOn()
+        {
+            bool aRes = true;
+
+            if (hpt1000.GetMFC() != null)
+            {
+                hpt1000.GetMFC().SetMaxFlow(1, dEditMaxFlow_MFC1.Value);
+                aRes = true;
+            }
+
+            return aRes;
+        }
+        //----------------------------------------------------------------------------------
+        private bool dEditMaxFlow_MFC2_EnterOn()
+        {
+            bool aRes = true;
+
+            if (hpt1000.GetMFC() != null)
+            {
+                hpt1000.GetMFC().SetMaxFlow(2, dEditMaxFlow_MFC2.Value);
+                aRes = true;
+            }
+
+            return aRes;
+        }
+        //----------------------------------------------------------------------------------
+        private bool dEditMaxFlow_MFC3_EnterOn()
+        {
+            bool aRes = true;
+
+            if (hpt1000.GetMFC() != null)
+            {
+                hpt1000.GetMFC().SetMaxFlow(3, dEditMaxFlow_MFC3.Value);
+                aRes = true;
+            }
+
+            return aRes;
+        }
+        //----------------------------------------------------------------------------------
     }
 }

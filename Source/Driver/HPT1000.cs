@@ -24,6 +24,8 @@ namespace HPT1000.Source.Driver
         private ThreadStart    funThr;
         private Thread         threadReadData;
 
+        private bool  flagUpdateSettings    = false;
+        private int[] dataSettingsPLC       = new int[Types.LENGHT_SETTINGS_DATA];
         #endregion
 
         #region Method
@@ -57,16 +59,37 @@ namespace HPT1000.Source.Driver
  */               
                 //aktualizuju dane komponentow komory
                 chamber.UpdateData(aData);
+                
                 //aktualizuj dane na temat progrmu
                 foreach (Program.Program pr in programs)
                     pr.UpdateData(aData);
-                //Sprawdz czy jest komunikacja
-                if (aRes == 0)  status = Types.DriverStatus.OK;
+
+                if (flagUpdateSettings)
+                {
+                    plc.ReadWords(Types.ADDR_START_SETTINGS, Types.LENGHT_SETTINGS_DATA, dataSettingsPLC);
+                    flagUpdateSettings = false;
+                }
+                    //Sprawdz czy jest komunikacja
+                    if (aRes == 0)  status = Types.DriverStatus.OK;
                 else            status = Types.DriverStatus.NoComm;
 
                 //Odczytuj dane co 0.5 s
                 Thread.Sleep(500);
             }
+        }
+        //-----------------------------------------------------------------------------------------
+        public void UpdateSettings()
+        {
+            ERROR aErr = new ERROR(0);
+            int[] aData = new int[Types.LENGHT_SETTINGS_DATA];
+            flagUpdateSettings = true;
+            //   aErr.ErrorCodePLC = plc.ReadWords(Types.ADDR_START_SETTINGS, Types.LENGHT_SETTINGS_DATA, aData);
+            Thread.Sleep(2000);
+            //aktualizuj dane na temat settingsow
+            if(aErr.ErrorCodePLC == 0)
+                chamber.UpdateSettings(dataSettingsPLC);
+
+            Logger.AddError(aErr);
         }
         //-----------------------------------------------------------------------------------------
         public Valve GetValve()

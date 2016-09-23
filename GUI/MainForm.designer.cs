@@ -78,6 +78,13 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnReadSettings = new System.Windows.Forms.Button();
             this.cBoxComm = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage6 = new System.Windows.Forms.TabPage();
@@ -95,6 +102,18 @@
             this.mfcPanel2 = new HPT1000.GUI.MFCPanel();
             this.programPanel = new HPT1000.GUI.ProgramPanel();
             this.programsConfigPanel = new HPT1000.GUI.ProgramsConfigPanel();
+            this.dEditVoltageLimit = new HPT1000.GUI.Cotrols.DoubleEdit();
+            this.dEditCurentLimit = new HPT1000.GUI.Cotrols.DoubleEdit();
+            this.dEditPowerLimit = new HPT1000.GUI.Cotrols.DoubleEdit();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.dEditMaxFlow_MFC1 = new HPT1000.GUI.Cotrols.DoubleEdit();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.dEditMaxFlow_MFC3 = new HPT1000.GUI.Cotrols.DoubleEdit();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.dEditMaxFlow_MFC2 = new HPT1000.GUI.Cotrols.DoubleEdit();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -289,7 +308,7 @@
             this.groupBox2.Controls.Add(this.mfcPanel3);
             this.groupBox2.Controls.Add(this.mfcPanel1);
             this.groupBox2.Controls.Add(this.mfcPanel2);
-            this.groupBox2.Location = new System.Drawing.Point(561, 1);
+            this.groupBox2.Location = new System.Drawing.Point(561, 3);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(1124, 746);
             this.groupBox2.TabIndex = 25;
@@ -644,17 +663,107 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.BackColor = System.Drawing.Color.Transparent;
+            this.tabPage5.Controls.Add(this.label13);
+            this.tabPage5.Controls.Add(this.label14);
+            this.tabPage5.Controls.Add(this.dEditMaxFlow_MFC2);
+            this.tabPage5.Controls.Add(this.label11);
+            this.tabPage5.Controls.Add(this.label12);
+            this.tabPage5.Controls.Add(this.dEditMaxFlow_MFC3);
+            this.tabPage5.Controls.Add(this.label9);
+            this.tabPage5.Controls.Add(this.label10);
+            this.tabPage5.Controls.Add(this.dEditMaxFlow_MFC1);
+            this.tabPage5.Controls.Add(this.label8);
+            this.tabPage5.Controls.Add(this.label7);
+            this.tabPage5.Controls.Add(this.label6);
+            this.tabPage5.Controls.Add(this.label5);
+            this.tabPage5.Controls.Add(this.label3);
+            this.tabPage5.Controls.Add(this.label2);
+            this.tabPage5.Controls.Add(this.btnReadSettings);
             this.tabPage5.Controls.Add(this.cBoxComm);
             this.tabPage5.Controls.Add(this.label1);
             this.tabPage5.Controls.Add(this.btnConnect);
             this.tabPage5.Controls.Add(this.rBtnOpen);
             this.tabPage5.Controls.Add(this.rBtnClose);
+            this.tabPage5.Controls.Add(this.dEditVoltageLimit);
+            this.tabPage5.Controls.Add(this.dEditCurentLimit);
+            this.tabPage5.Controls.Add(this.dEditPowerLimit);
             this.tabPage5.Location = new System.Drawing.Point(4, 29);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Size = new System.Drawing.Size(1698, 757);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Settings";
-            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.Color.Green;
+            this.label8.Location = new System.Drawing.Point(500, 569);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(30, 20);
+            this.label8.TabIndex = 27;
+            this.label8.Text = "[V]";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.Color.Green;
+            this.label7.Location = new System.Drawing.Point(500, 617);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(30, 20);
+            this.label7.TabIndex = 26;
+            this.label7.Text = "[A]";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.Green;
+            this.label6.Location = new System.Drawing.Point(500, 521);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(35, 20);
+            this.label6.TabIndex = 25;
+            this.label6.Text = "[W]";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label5.Location = new System.Drawing.Point(148, 617);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(95, 20);
+            this.label5.TabIndex = 24;
+            this.label5.Text = "Curent limit";
+            // 
+            // label3
+            // 
+            this.label3.AutoEllipsis = true;
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label3.Location = new System.Drawing.Point(148, 578);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(101, 20);
+            this.label3.TabIndex = 23;
+            this.label3.Text = "Voltage limit";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label2.Location = new System.Drawing.Point(148, 521);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(92, 20);
+            this.label2.TabIndex = 22;
+            this.label2.Text = "Power limit";
+            // 
+            // btnReadSettings
+            // 
+            this.btnReadSettings.Location = new System.Drawing.Point(560, 676);
+            this.btnReadSettings.Name = "btnReadSettings";
+            this.btnReadSettings.Size = new System.Drawing.Size(172, 29);
+            this.btnReadSettings.TabIndex = 18;
+            this.btnReadSettings.Text = "Read Settings";
+            this.btnReadSettings.UseVisualStyleBackColor = true;
+            this.btnReadSettings.Click += new System.EventHandler(this.btnReadSettings_Click);
             // 
             // cBoxComm
             // 
@@ -740,7 +849,7 @@
             this.generatorPanel.Location = new System.Drawing.Point(10, 20);
             this.generatorPanel.Margin = new System.Windows.Forms.Padding(4);
             this.generatorPanel.Name = "generatorPanel";
-            this.generatorPanel.Size = new System.Drawing.Size(263, 279);
+            this.generatorPanel.Size = new System.Drawing.Size(263, 276);
             this.generatorPanel.TabIndex = 50;
             // 
             // pumpPanel
@@ -767,30 +876,30 @@
             // 
             this.mfcPanel3.BackColor = System.Drawing.SystemColors.ControlDark;
             this.mfcPanel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.mfcPanel3.Location = new System.Drawing.Point(725, 457);
+            this.mfcPanel3.Location = new System.Drawing.Point(725, 449);
             this.mfcPanel3.Margin = new System.Windows.Forms.Padding(5);
             this.mfcPanel3.Name = "mfcPanel3";
-            this.mfcPanel3.Size = new System.Drawing.Size(378, 131);
+            this.mfcPanel3.Size = new System.Drawing.Size(378, 139);
             this.mfcPanel3.TabIndex = 47;
             // 
             // mfcPanel1
             // 
             this.mfcPanel1.BackColor = System.Drawing.SystemColors.ControlDark;
             this.mfcPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.mfcPanel1.Location = new System.Drawing.Point(725, 157);
+            this.mfcPanel1.Location = new System.Drawing.Point(725, 155);
             this.mfcPanel1.Margin = new System.Windows.Forms.Padding(5);
             this.mfcPanel1.Name = "mfcPanel1";
-            this.mfcPanel1.Size = new System.Drawing.Size(378, 131);
+            this.mfcPanel1.Size = new System.Drawing.Size(378, 140);
             this.mfcPanel1.TabIndex = 46;
             // 
             // mfcPanel2
             // 
             this.mfcPanel2.BackColor = System.Drawing.SystemColors.ControlDark;
             this.mfcPanel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.mfcPanel2.Location = new System.Drawing.Point(725, 306);
+            this.mfcPanel2.Location = new System.Drawing.Point(725, 302);
             this.mfcPanel2.Margin = new System.Windows.Forms.Padding(4);
             this.mfcPanel2.Name = "mfcPanel2";
-            this.mfcPanel2.Size = new System.Drawing.Size(378, 133);
+            this.mfcPanel2.Size = new System.Drawing.Size(378, 140);
             this.mfcPanel2.TabIndex = 45;
             // 
             // programPanel
@@ -811,8 +920,152 @@
             this.programsConfigPanel.HPT1000 = null;
             this.programsConfigPanel.Location = new System.Drawing.Point(0, 0);
             this.programsConfigPanel.Name = "programsConfigPanel";
-            this.programsConfigPanel.Size = new System.Drawing.Size(1698, 761);
+            this.programsConfigPanel.Size = new System.Drawing.Size(1698, 757);
             this.programsConfigPanel.TabIndex = 1;
+            // 
+            // dEditVoltageLimit
+            // 
+            this.dEditVoltageLimit.Location = new System.Drawing.Point(307, 561);
+            this.dEditVoltageLimit.Margin = new System.Windows.Forms.Padding(5);
+            this.dEditVoltageLimit.Mask = "0.000";
+            this.dEditVoltageLimit.MaximumValue = 1000D;
+            this.dEditVoltageLimit.MinimumValue = 0D;
+            this.dEditVoltageLimit.Name = "dEditVoltageLimit";
+            this.dEditVoltageLimit.ReadOnly = false;
+            this.dEditVoltageLimit.Size = new System.Drawing.Size(134, 28);
+            this.dEditVoltageLimit.TabIndex = 21;
+            this.dEditVoltageLimit.Value = 0D;
+            this.dEditVoltageLimit.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditVoltageLimit_EnterOn);
+            // 
+            // dEditCurentLimit
+            // 
+            this.dEditCurentLimit.Location = new System.Drawing.Point(307, 609);
+            this.dEditCurentLimit.Margin = new System.Windows.Forms.Padding(5);
+            this.dEditCurentLimit.Mask = "0.000";
+            this.dEditCurentLimit.MaximumValue = 1000D;
+            this.dEditCurentLimit.MinimumValue = 0D;
+            this.dEditCurentLimit.Name = "dEditCurentLimit";
+            this.dEditCurentLimit.ReadOnly = false;
+            this.dEditCurentLimit.Size = new System.Drawing.Size(128, 28);
+            this.dEditCurentLimit.TabIndex = 20;
+            this.dEditCurentLimit.Value = 0D;
+            this.dEditCurentLimit.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditCurentLimit_EnterOn);
+            // 
+            // dEditPowerLimit
+            // 
+            this.dEditPowerLimit.Location = new System.Drawing.Point(307, 519);
+            this.dEditPowerLimit.Margin = new System.Windows.Forms.Padding(4);
+            this.dEditPowerLimit.Mask = "0.000";
+            this.dEditPowerLimit.MaximumValue = 1000D;
+            this.dEditPowerLimit.MinimumValue = 0D;
+            this.dEditPowerLimit.Name = "dEditPowerLimit";
+            this.dEditPowerLimit.ReadOnly = false;
+            this.dEditPowerLimit.Size = new System.Drawing.Size(140, 22);
+            this.dEditPowerLimit.TabIndex = 19;
+            this.dEditPowerLimit.Value = 0D;
+            this.dEditPowerLimit.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditPowerLimit_EnterOn);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.ForeColor = System.Drawing.Color.Green;
+            this.label9.Location = new System.Drawing.Point(929, 300);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(60, 20);
+            this.label9.TabIndex = 30;
+            this.label9.Text = "[sccm]";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label10.Location = new System.Drawing.Point(644, 300);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(135, 20);
+            this.label10.TabIndex = 29;
+            this.label10.Text = "Max flow MFC 1:";
+            // 
+            // dEditMaxFlow_MFC1
+            // 
+            this.dEditMaxFlow_MFC1.Location = new System.Drawing.Point(787, 300);
+            this.dEditMaxFlow_MFC1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.dEditMaxFlow_MFC1.Mask = "0.000";
+            this.dEditMaxFlow_MFC1.MaximumValue = 10000000D;
+            this.dEditMaxFlow_MFC1.MinimumValue = 0D;
+            this.dEditMaxFlow_MFC1.Name = "dEditMaxFlow_MFC1";
+            this.dEditMaxFlow_MFC1.ReadOnly = false;
+            this.dEditMaxFlow_MFC1.Size = new System.Drawing.Size(107, 27);
+            this.dEditMaxFlow_MFC1.TabIndex = 28;
+            this.dEditMaxFlow_MFC1.Value = 0D;
+            this.dEditMaxFlow_MFC1.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditMaxFlow_MFC1_EnterOn);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.ForeColor = System.Drawing.Color.Green;
+            this.label11.Location = new System.Drawing.Point(929, 399);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(60, 20);
+            this.label11.TabIndex = 33;
+            this.label11.Text = "[sccm]";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label12.Location = new System.Drawing.Point(644, 396);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(135, 20);
+            this.label12.TabIndex = 32;
+            this.label12.Text = "Max flow MFC 3:";
+            // 
+            // dEditMaxFlow_MFC3
+            // 
+            this.dEditMaxFlow_MFC3.Location = new System.Drawing.Point(787, 392);
+            this.dEditMaxFlow_MFC3.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.dEditMaxFlow_MFC3.Mask = "0.000";
+            this.dEditMaxFlow_MFC3.MaximumValue = 10000000D;
+            this.dEditMaxFlow_MFC3.MinimumValue = 0D;
+            this.dEditMaxFlow_MFC3.Name = "dEditMaxFlow_MFC3";
+            this.dEditMaxFlow_MFC3.ReadOnly = false;
+            this.dEditMaxFlow_MFC3.Size = new System.Drawing.Size(98, 27);
+            this.dEditMaxFlow_MFC3.TabIndex = 31;
+            this.dEditMaxFlow_MFC3.Value = 0D;
+            this.dEditMaxFlow_MFC3.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditMaxFlow_MFC3_EnterOn);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.ForeColor = System.Drawing.Color.Green;
+            this.label13.Location = new System.Drawing.Point(929, 349);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(60, 20);
+            this.label13.TabIndex = 36;
+            this.label13.Text = "[sccm]";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label14.Location = new System.Drawing.Point(644, 349);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(135, 20);
+            this.label14.TabIndex = 35;
+            this.label14.Text = "Max flow MFC 2:";
+            // 
+            // dEditMaxFlow_MFC2
+            // 
+            this.dEditMaxFlow_MFC2.Location = new System.Drawing.Point(787, 349);
+            this.dEditMaxFlow_MFC2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.dEditMaxFlow_MFC2.Mask = "0.000";
+            this.dEditMaxFlow_MFC2.MaximumValue = 10000000D;
+            this.dEditMaxFlow_MFC2.MinimumValue = 0D;
+            this.dEditMaxFlow_MFC2.Name = "dEditMaxFlow_MFC2";
+            this.dEditMaxFlow_MFC2.ReadOnly = false;
+            this.dEditMaxFlow_MFC2.Size = new System.Drawing.Size(98, 27);
+            this.dEditMaxFlow_MFC2.TabIndex = 34;
+            this.dEditMaxFlow_MFC2.Value = 0D;
+            this.dEditMaxFlow_MFC2.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditMaxFlow_MFC2_EnterOn);
             // 
             // MainForm
             // 
@@ -935,6 +1188,25 @@
         private ValvePanel valve_SV;
         private System.Windows.Forms.ComboBox cBoxComm;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnReadSettings;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private Cotrols.DoubleEdit dEditVoltageLimit;
+        private Cotrols.DoubleEdit dEditCurentLimit;
+        private Cotrols.DoubleEdit dEditPowerLimit;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private Cotrols.DoubleEdit dEditMaxFlow_MFC2;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private Cotrols.DoubleEdit dEditMaxFlow_MFC3;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private Cotrols.DoubleEdit dEditMaxFlow_MFC1;
     }
 }
 

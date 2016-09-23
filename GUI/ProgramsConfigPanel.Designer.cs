@@ -713,7 +713,8 @@
             this.timeVent.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.timeVent.Location = new System.Drawing.Point(399, 62);
             this.timeVent.Name = "timeVent";
-            this.timeVent.Size = new System.Drawing.Size(100, 27);
+            this.timeVent.ShowUpDown = true;
+            this.timeVent.Size = new System.Drawing.Size(104, 27);
             this.timeVent.TabIndex = 20;
             this.timeVent.ValueChanged += new System.EventHandler(this.timeVent_ValueChanged);
             // 
@@ -818,7 +819,7 @@
             this.timePurge.Location = new System.Drawing.Point(350, 60);
             this.timePurge.Name = "timePurge";
             this.timePurge.ShowUpDown = true;
-            this.timePurge.Size = new System.Drawing.Size(92, 27);
+            this.timePurge.Size = new System.Drawing.Size(108, 27);
             this.timePurge.TabIndex = 16;
             this.timePurge.ValueChanged += new System.EventHandler(this.timePyrge_ValueChanged);
             // 
@@ -864,6 +865,7 @@
             this.groupBox22.TabIndex = 19;
             this.groupBox22.TabStop = false;
             this.groupBox22.Text = "Parameters";
+            this.groupBox22.Enter += new System.EventHandler(this.groupBox22_Enter);
             // 
             // label35
             // 
@@ -883,9 +885,9 @@
             this.label146.ForeColor = System.Drawing.Color.Green;
             this.label146.Location = new System.Drawing.Point(571, 230);
             this.label146.Name = "label146";
-            this.label146.Size = new System.Drawing.Size(24, 20);
+            this.label146.Size = new System.Drawing.Size(35, 20);
             this.label146.TabIndex = 36;
-            this.label146.Text = "%";
+            this.label146.Text = "[W]";
             // 
             // label145
             // 
@@ -893,9 +895,9 @@
             this.label145.ForeColor = System.Drawing.Color.Green;
             this.label145.Location = new System.Drawing.Point(571, 185);
             this.label145.Name = "label145";
-            this.label145.Size = new System.Drawing.Size(24, 20);
+            this.label145.Size = new System.Drawing.Size(35, 20);
             this.label145.TabIndex = 35;
-            this.label145.Text = "%";
+            this.label145.Text = "[W]";
             // 
             // scrollPlasmaDevistion
             // 

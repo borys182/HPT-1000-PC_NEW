@@ -15,12 +15,14 @@ namespace HPT1000.GUI
 {
     public partial class GeneratorPanel : UserControl
     {
-        private PowerSupplay generator = null;
+        private PowerSupplay generator          = null;
+        private const int    setpointResolution = 1000;    //zmienna okresla z jaka dokladnosci mozna podawac setopinta
 
         //------------------------------------------------------------------------------------------
         public GeneratorPanel()
         {
             InitializeComponent();
+            scrollSetpoint.Minimum = 1;
         }
         //------------------------------------------------------------------------------------------
         public void SetGeneratorPtr(PowerSupplay aGeneraotrPtr)
@@ -30,46 +32,72 @@ namespace HPT1000.GUI
         //------------------------------------------------------------------------------------------
         public void RefreshData()
         {
+            SetLimit();
             if(generator != null)
             {                    
-                tBoxActualPower.Text    = generator.GetPower().ToString();
-                tBoxActualVoltage.Text  = generator.GetVoltage().ToString();
-                tBoxActualCurent.Text   = generator.GetCurent().ToString();
+                dEditActualPower.Value      = generator.Power;
+                dEditActualVoltage.Value    = generator.Voltage;
+                dEditActualCurent.Value     = generator.Curent;
 
-                switch (generator.GetMode())
+                switch (generator.Mode)
                 {
                     case Types.ModeHV.Power:
                         rBtnModePower.Checked = true;
-                        labUnitSP.Text = "W";
+                        labUnitSP.Text = "[W]";
                         break;
                     case Types.ModeHV.Curent:
-                        rBtnModePower.Checked = true;
-                        labUnitSP.Text = "A";
+                        rBtnModeCurent.Checked = true;
+                        labUnitSP.Text = "[A]";
                         break;
                     case Types.ModeHV.Voltage:
-                        rBtnModePower.Checked = true;
-                        labUnitSP.Text = "V";
+                        rBtnModeVoltage.Checked = true;
+                        labUnitSP.Text = "[V]";
                         break;
                 }
-                if (generator.GetState() == Types.StateHV.ON)
+                if (generator.State == Types.StateHV.ON)
                 {
-                    cBoxOperate.Checked = true;
-                    cBoxOperate.BackColor = System.Drawing.Color.Green;
+                    cBoxOperate.Checked   = true;
+                    cBoxOperate.BackColor = Color.Green;
+                    cBoxOperate.Text      = "Operate On";
                 }
-                if (generator.GetState() == Types.StateHV.OFF)
+                if (generator.State == Types.StateHV.OFF)
+                {
+                    cBoxOperate.Checked   = false;
+                    cBoxOperate.BackColor = Color.Silver;
+                    cBoxOperate.Text      = "Operate Off";
+                }
+                if (generator.State == Types.StateHV.Error)
                 {
                     cBoxOperate.Checked = false;
-                    cBoxOperate.BackColor = System.Drawing.Color.Moccasin;
-                }
-                if (generator.GetState() == Types.StateHV.Error)
-                {
-                    cBoxOperate.Checked = false;
-                    cBoxOperate.BackColor = System.Drawing.Color.Red;
+                    cBoxOperate.BackColor = Color.Red;
+                    cBoxOperate.Text      = "Operate Off";
                 }
             }
         }
         //------------------------------------------------------------------------------------------
-        //---------------------Obsluga zdarzen-------------------------
+        private void SetLimit()
+        {
+            double aLimitValue = 0;
+
+            if(generator != null)
+            {
+                switch (generator.Mode)
+                {
+                    case Types.ModeHV.Power:
+                        aLimitValue = generator.LimitPower;
+                        break;
+                    case Types.ModeHV.Curent:
+                        aLimitValue = generator.LimitCurent;
+                        break;
+                    case Types.ModeHV.Voltage:
+                        aLimitValue = generator.LimitVoltage;
+                        break;
+                }
+            }
+            dEditSetpoint.MaximumValue  = aLimitValue;
+            scrollSetpoint.Maximum      = (int)(aLimitValue * setpointResolution);
+        }
+        //------------------------------------------------------------------------------------------
         private void radioButtonMode_Click(object sender, EventArgs e)
         {
             Types.ModeHV mode = Types.ModeHV.Unknown;
@@ -95,14 +123,42 @@ namespace HPT1000.GUI
             Logger.AddError(aErr);
         }
         //------------------------------------------------------------------------------------------
-        private void btnSetSetpoint_Click(object sender, EventArgs e)
+        private void SetScrollValue(double aValue)
         {
+            int aValueScroll = (int)(aValue * setpointResolution);
+
+            if (scrollSetpoint.Maximum >= aValueScroll && scrollSetpoint.Minimum <= aValueScroll)
+                scrollSetpoint.Value = aValueScroll;
+        }
+        //------------------------------------------------------------------------------------------
+        private bool dEditSetpoint_EnterOn()
+        {
+            bool aRes = false;
             ERROR aErr = new ERROR(0);
 
             if (generator != null)
-                aErr = generator.SetOperate(cBoxOperate.Checked);
+                aErr = generator.SetSetpoint(dEditSetpoint.Value);
+
+            SetScrollValue(dEditSetpoint.Value);
 
             Logger.AddError(aErr);
+
+            if (aErr.ErrorCode == Types.ERROR_CODE.NONE && aErr.ErrorCodePLC == 0)
+                aRes = true;
+
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------
+        private void scrollSetpoint_ValueChanged(object sender, EventArgs e)
+        {
+            double aValue = 0;
+
+            if (setpointResolution > 0)
+                aValue = (double)(scrollSetpoint.Value) / (double)(setpointResolution);
+
+            dEditSetpoint.Value = aValue;
+
+            dEditSetpoint.tBox_KeyUp(sender, new KeyEventArgs(Keys.Enter));
         }
         //------------------------------------------------------------------------------------------
 

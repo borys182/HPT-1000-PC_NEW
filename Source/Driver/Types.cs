@@ -58,7 +58,7 @@ namespace HPT1000.Source.Driver
         public enum GasProcesMode   { Unknown = 0, Presure_MFC = 1, Pressure_Vap = 2, FlowSP = 3}; //okreslenie sposobu sterowania gazami w komorze {Presure_MFC - proznia jest utrzymywana przez PID z 3 przeplywek, Pressure_Vap proznia jest utrzymywana przez PID z vaporatora, FlowSP - sterujemy zgodnie z ustawionymi setpontami}
         public enum StatusSubprogram { Wait , Working , Suspended , Done , Warning , Error  };
         public enum ControlMode     { Automatic , Manual}
-
+        public enum AddressSpace    { Settings, Program};
         public enum ERROR_CODE
         {
             NONE                        = 0x00,
@@ -91,9 +91,11 @@ namespace HPT1000.Source.Driver
         public static string ADDR_START_STATUS_CHAMBER      = "D1000"; //poczatek bufora z danymi przedstawiajacymi stan systemu 
         public static string ADDR_CONTROL_PROGRAM           = "D1040"; //Adres parametrow aktualnie wykonywanego programu i wykorzystuje go do dostrajania parametrow programu. Jest to adres poczatku buforu danych gdzie sa przechowywane parametry aktualnie wykonywanego programu
                                                                        //Pamietaj ze ten adres jest odzwierciedleniem PLC. Kolejne parametry urządzen posiadaja adresy zgodnie z ofsetem danego parametru w programie
+        public static string ADDR_START_SETTINGS            = "D1200";
         public static string ADDR_START_BUFFER_PROGRAM      = "D2000";
 
-        public const int    LENGHT_STATUS_DATA              = 40;
+        public const int    LENGHT_STATUS_DATA              = 100;
+        public const int    LENGHT_SETTINGS_DATA            = 40;
         public const int    SEGMENT_SIZE                    = 30;   //Rozmiar parametrow subprogramu
         public const int    MAX_SEGMENTS                    = 100;  //Max liczba segmentow z ktorych moze sie skladac program po stronie PLC
         /// <summary>
@@ -118,6 +120,11 @@ namespace HPT1000.Source.Driver
         public static int OFFSET_ON_TIME        = 23;
         public static int OFFSET_MODE_PRESSURE  = 25;
 
+        //Dane odczytywane na zdarzenie
+        public static int OFFSET_LIMIT_POWER    = 0;
+        public static int OFFSET_LIMIT_CURENT   = 2;
+        public static int OFFSET_LIMIT_VOLTAGE  = 4;
+
 
         //Dane aktualnie wykonywanego programu i subprogramu odczytywane ciagle
         public static int OFFSET_PRG_CONTROL        = 0;
@@ -130,12 +137,6 @@ namespace HPT1000.Source.Driver
         public static int OFFSET_PRG_TIME_VENT      = 8;
         public static int OFFSET_PRG_TIME_FLUSH     = 9;
         public static int OFFSET_PRG_SEQ_DATA       = 10;
-
-
-        //Dane odczytywane jako setings tylko na zdarzenie
-        public static int OFFSET_LIMIT_POWER    = 13;
-        public static int OFFSET_LIMIT_CURENT   = 14;
-        public static int OFFSET_LIMIT_VOLTAGE  = 15;
 
 
         //Offset od bazowego adresu dla kolejnych parametrow subprogramu
@@ -194,10 +195,11 @@ namespace HPT1000.Source.Driver
         public static int BIT_CMD_DELAY             = 12;
         public static int BIT_CMD_CHECK_VACUM       = 13;
         public static int BIT_CMD_END               = 14;
-    
+
         /// <summary>
         /// Pomocniecze funkcje
         /// </summary>
+        //--------------------------------------------------------------------------------------------
         public static double ConvertDWORDToDouble(int[] aData, int aIndex)
         {
             double aValue = 0;
@@ -212,7 +214,7 @@ namespace HPT1000.Source.Driver
 
             return aValue;
         }
-
+        //--------------------------------------------------------------------------------------------
         //Funkcaj ma za zadanie przekonwertowanie float na dwa wordy i zwrocenie mlodszego badz starszego
         public static int ConvertDOUBLEToInt(double aValue,Word whichWord )
         {
@@ -228,5 +230,26 @@ namespace HPT1000.Source.Driver
 
             return aWord;
         }
+        //--------------------------------------------------------------------------------------------
+        public static string GetAddress(AddressSpace aTypeSpace , int aOffsetAddr)
+        {
+            string  aAddrRes = "D0";
+            int     aSpaceAddr = 0;
+
+            switch(aTypeSpace)
+            {
+                case AddressSpace.Settings:
+                    Int32.TryParse(ADDR_START_SETTINGS.Remove(0,1),out aSpaceAddr);
+                    aAddrRes = "D" + (aSpaceAddr + aOffsetAddr).ToString();
+                    break;
+
+                case AddressSpace.Program:
+                    Int32.TryParse(ADDR_START_BUFFER_PROGRAM.Remove(0, 1), out aSpaceAddr);
+                    aAddrRes = "D" + (aSpaceAddr + aOffsetAddr).ToString();
+                    break;
+            }
+            return aAddrRes;
+        }
+        //--------------------------------------------------------------------------------------------
     }
 }

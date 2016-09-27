@@ -46,7 +46,9 @@ namespace HPT1000.GUI
             valve_SV.SetValvePtr(hpt1000.GetValve(), Types.TypeValve.SV);
             valve_Vent.SetValvePtr(hpt1000.GetValve(), Types.TypeValve.VV);
 
-            programsConfigPanel.AddToRefreshList(new RefreshProgram(programPanel.RefreshPanel));
+            pumpComponent.SetPumpPtr(hpt1000.GetForePump());
+
+            programsConfigPanel.AddToRefreshList(new RefreshProgram(programPanel.UpdateListPrograms));
 
         }
         //------------------------------------------------------------------------------------------
@@ -98,6 +100,8 @@ namespace HPT1000.GUI
         //----------------------------------------------------------------------------------
         private void timer_Tick(object sender, EventArgs e)
         {
+            //Odswiez panel programu
+            programPanel.RefreshPanel();
             //Odswiezaj dane elementow komory na panelach systemu
             generatorPanel.RefreshData();
             pumpPanel.RefreshData();
@@ -110,6 +114,7 @@ namespace HPT1000.GUI
             valve_Purge.RefreshData();
             valve_SV.RefreshData();
             valve_Vent.RefreshData();
+            pumpComponent.RefreshData();
 
             switch (hpt1000.GetStatus())
             {

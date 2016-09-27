@@ -14,26 +14,24 @@ namespace HPT1000.Source.Driver
     public class HPT1000
     {
 
-        #region Private
-            private PLC             plc             = new PLC_Mitsubishi();
-            private Chamber.Chamber chamber         = new Chamber.Chamber();
-            private List<Program.Program> programs  = new List<Program.Program>(); //Lista wszystkich programow zapisanych w aplikacji
-                
-        private Types.DriverStatus    status        = Types.DriverStatus.Unknown;
+        private PLC                     plc         = new PLC_Mitsubishi();
+        private Chamber.Chamber         chamber     = new Chamber.Chamber();
+        private List<Program.Program>   programs    = new List<Program.Program>(); //Lista wszystkich programow zapisanych w aplikacji
 
-        private ThreadStart    funThr;
-        private Thread         threadReadData;
+        private Types.DriverStatus      status      = Types.DriverStatus.Unknown;
 
-        private bool  flagUpdateSettings    = false;
-        private int[] dataSettingsPLC       = new int[Types.LENGHT_SETTINGS_DATA];
-        #endregion
+        private ThreadStart             funThr;
+        private Thread                  threadReadData;
 
-        #region Method
+        private bool                    flagUpdateSettings  = false;
+        private int[]                   dataSettingsPLC     = new int[Types.LENGHT_SETTINGS_DATA];
+
+        bool                            connectionPLC       = false;
         //-----------------------------------------------------------------------------------------
         public HPT1000()
         {
             chamber.SetPtrPLC(plc);
-            foreach(Program.Program pr in programs)
+            foreach (Program.Program pr in programs)
                 pr.SetPtrPLC(plc);
 
             funThr          = new ThreadStart(Run);
@@ -49,30 +47,38 @@ namespace HPT1000.Source.Driver
             int[] aData = new int[Types.LENGHT_STATUS_DATA];
 
             while (true)
-            {         
+            {
                 aRes = plc.ReadWords(Types.ADDR_START_STATUS_CHAMBER, Types.LENGHT_STATUS_DATA, aData);
 
-/*                if (Enum.IsDefined(typeof(Types.DriverStatus), aData[Types.OFFSET_DEVICE_STATUS]))
-                    status = (Types.DriverStatus)Enum.Parse(typeof(Types.DriverStatus), (aData[Types.OFFSET_DEVICE_STATUS]).ToString()); // konwertuj int na Enum
-                else
-                    status = Types.DriverStatus.Unknown;
- */               
+                /*                if (Enum.IsDefined(typeof(Types.DriverStatus), aData[Types.OFFSET_DEVICE_STATUS]))
+                                    status = (Types.DriverStatus)Enum.Parse(typeof(Types.DriverStatus), (aData[Types.OFFSET_DEVICE_STATUS]).ToString()); // konwertuj int na Enum
+                                else
+                                    status = Types.DriverStatus.Unknown;
+                 */
                 //aktualizuju dane komponentow komory
                 chamber.UpdateData(aData);
-                
+
                 //aktualizuj dane na temat progrmu
                 foreach (Program.Program pr in programs)
                     pr.UpdateData(aData);
 
-                if (flagUpdateSettings)
+                //Odczytaj z automatu settingsy z PLC po nawiazaniu polaczenia
+                if (flagUpdateSettings || (!connectionPLC && aRes == 0))
                 {
                     plc.ReadWords(Types.ADDR_START_SETTINGS, Types.LENGHT_SETTINGS_DATA, dataSettingsPLC);
                     flagUpdateSettings = false;
                 }
-                    //Sprawdz czy jest komunikacja
-                    if (aRes == 0)  status = Types.DriverStatus.OK;
-                else            status = Types.DriverStatus.NoComm;
-
+                //Sprawdz czy jest komunikacja
+                if (aRes == 0)
+                {
+                    connectionPLC   = true;
+                    status          = Types.DriverStatus.OK;
+                }
+                else
+                {
+                    connectionPLC   = false;
+                    status          = Types.DriverStatus.NoComm;
+                }
                 //Odczytuj dane co 0.5 s
                 Thread.Sleep(500);
             }
@@ -84,9 +90,9 @@ namespace HPT1000.Source.Driver
             int[] aData = new int[Types.LENGHT_SETTINGS_DATA];
             flagUpdateSettings = true;
             //   aErr.ErrorCodePLC = plc.ReadWords(Types.ADDR_START_SETTINGS, Types.LENGHT_SETTINGS_DATA, aData);
-            Thread.Sleep(2000);
+       
             //aktualizuj dane na temat settingsow
-            if(aErr.ErrorCodePLC == 0)
+            if (aErr.ErrorCodePLC == 0)
                 chamber.UpdateSettings(dataSettingsPLC);
 
             Logger.AddError(aErr);
@@ -142,7 +148,7 @@ namespace HPT1000.Source.Driver
             Program.Program program = new Program.Program();
             //  program.id = GetUniqueProgramID();
             program.SetPtrPLC(plc);
-            programs.Add(program);  
+            programs.Add(program);
         }
         //-----------------------------------------------------------------------------------------
         public bool RemoveProgram(Program.Program program)
@@ -154,9 +160,6 @@ namespace HPT1000.Source.Driver
             return aRes;
         }
         //-----------------------------------------------------------------------------------------
-
-
-        #endregion
 
     }
 }

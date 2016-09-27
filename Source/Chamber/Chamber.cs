@@ -12,7 +12,7 @@ namespace HPT1000.Source.Chamber
         private List<ChamberObject> objects = new List<ChamberObject>();
 
         private bool                door;
-   
+        //------------------------------------------------------------------------------------------------
         public Chamber()
         {
             objects.Add(new Valve());
@@ -22,7 +22,7 @@ namespace HPT1000.Source.Chamber
             objects.Add(new Vaporizer());
             objects.Add(new PressureControl());
         }
-
+        //------------------------------------------------------------------------------------------------
         public void UpdateData(int []aData)
         {
             door        = Convert.ToBoolean(aData[Types.OFFSET_DOOR_STATE]);
@@ -31,17 +31,20 @@ namespace HPT1000.Source.Chamber
                 aObject.UpdateData(aData);
             
         }
+        //------------------------------------------------------------------------------------------------
         public void UpdateSettings(int[] aData)
         {
             //aktualizuj dane obiektow
             foreach (ChamberObject aObject in objects)
                 aObject.UpdateSettings(aData);
         }
+        //------------------------------------------------------------------------------------------------
         public void SetPtrPLC(PLC plc)
         {
             foreach (ChamberObject aObject in objects)
                 aObject.SetPonterPLC(plc);
         }
+        //------------------------------------------------------------------------------------------------
         public ChamberObject GetObject(Types.TypeObject typeObj)
         {
             ChamberObject aObject = null;
@@ -62,5 +65,6 @@ namespace HPT1000.Source.Chamber
             }
             return aObject;
         }
+        //------------------------------------------------------------------------------------------------
     }
 }

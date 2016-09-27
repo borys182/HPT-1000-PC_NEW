@@ -63,9 +63,9 @@ namespace HPT1000.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ForePump {
+        internal static System.Drawing.Bitmap ForePumpOff {
             get {
-                object obj = ResourceManager.GetObject("ForePump", resourceCulture);
+                object obj = ResourceManager.GetObject("ForePumpOff", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

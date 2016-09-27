@@ -108,6 +108,12 @@
     <Compile Include="GUI\ProgramsConfigPanel.Designer.cs">
       <DependentUpon>ProgramsConfigPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\PumpComponent.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\PumpComponent.Designer.cs">
+      <DependentUpon>PumpComponent.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\PumpPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -132,6 +138,11 @@
     </Compile>
     <Compile Include="GUI\MainForm.designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Source\Chamber\PressureControl.cs" />
     <Compile Include="Source\Chamber\Vaporizer.cs" />
@@ -178,6 +189,9 @@
     <EmbeddedResource Include="GUI\ProgramsConfigPanel.resx">
       <DependentUpon>ProgramsConfigPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\PumpComponent.resx">
+      <DependentUpon>PumpComponent.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\PumpPanel.resx">
       <DependentUpon>PumpPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -189,14 +203,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -260,13 +269,10 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Images\Valve.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Images\ForePump.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Images\Line.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\ForePumpOff.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

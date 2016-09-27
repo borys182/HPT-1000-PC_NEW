@@ -7,20 +7,16 @@ using System.Threading.Tasks;
 
 namespace HPT1000.Source.Driver
 {
-  
+
     /// <summary>
     /// Klasa rzeczywistego urzadzenia PLC firmy Mitsubushhi. Jest ona odpowiedzialna za wymianę danych z PLC
     /// </summary>
     class PLC_Mitsubishi : PLC
     {
-        #region Private
-            //obiekt umozliwiajacy komunikacje z PLC bez uzycia narzedzia SetupUtility
-            private ActProgTypeLib.ActProgTypeClass plc = new ActProgTypeLib.ActProgTypeClass();
+        //obiekt umozliwiajacy komunikacje z PLC bez uzycia narzedzia SetupUtility
+        private ActProgTypeLib.ActProgTypeClass plc = new ActProgTypeLib.ActProgTypeClass();
 
         private static object sync_Object = new object();
-        #endregion
-
-        #region Method
         //-----------------------------------------------------------------------------------------
         public PLC_Mitsubishi()
         {
@@ -37,19 +33,19 @@ namespace HPT1000.Source.Driver
                 {
                     plc.Disconnect();
 
-                    plc.ActUnitType = (int)typePLC;     //Set the value of 'UnitType' to the property(UNIT_QNUSB).
+                    plc.ActUnitType     = (int)typePLC;     //Set the value of 'UnitType' to the property(UNIT_QNUSB).
                     plc.ActProtocolType = (int)typeComm;    //Set the value of 'ProtocolType' to the property(PROTOCOL_USB).                     
-                    plc.ActHostAddress = addressIP;
-                    plc.ActPassword = "txt_Password.Text";//Set the value of 'Password'.
+                    plc.ActHostAddress  = addressIP;
+                    plc.ActPassword     = "txt_Password.Text";//Set the value of 'Password'.
 
-                    aResult = plc.Open();       //The Open method is executed.
+                    aResult             = plc.Open();       //The Open method is executed.
                 }
                 catch (Exception exception)
                 {
                     string aMessage = exception.Message;
                 }
             }
-             return aResult;
+            return aResult;
         }
         //-----------------------------------------------------------------------------------------
         override public int SetDevice(string aAddr, int aState)
@@ -57,7 +53,6 @@ namespace HPT1000.Source.Driver
             int aResult = -1;
             lock (sync_Object)
             {
-
                 try
                 {
                     aResult = plc.SetDevice(aAddr, aState);
@@ -89,7 +84,7 @@ namespace HPT1000.Source.Driver
             return aResult;
         }
         //-----------------------------------------------------------------------------------------
-        override public int WriteWords(string aAddr, int aSize, int []aData)
+        override public int WriteWords(string aAddr, int aSize, int[] aData)
         {
             int aResult = -1;
             lock (sync_Object)
@@ -112,7 +107,7 @@ namespace HPT1000.Source.Driver
             int aResult = -1;
             int aStartAddr = 1000;
 
-            Int32.TryParse(aAddr.Remove(0,1),out aStartAddr);
+            Int32.TryParse(aAddr.Remove(0, 1), out aStartAddr);
 
             lock (sync_Object)
             {
@@ -166,9 +161,9 @@ namespace HPT1000.Source.Driver
 
                 if (aResult == 0)
                 {
-                    aBytes[0] = (byte)(aData[0] & 0xFF);
+                    aBytes[0] = (byte)(aData[0]  & 0xFF);
                     aBytes[1] = (byte)((aData[0] & 0xFF00) >> 8);
-                    aBytes[2] = (byte)(aData[1] & 0xFF);
+                    aBytes[2] = (byte)(aData[1]  & 0xFF);
                     aBytes[3] = (byte)((aData[1] & 0xFF00) >> 8);
                 }
                 aValue = BitConverter.ToSingle(aBytes, 0);
@@ -177,6 +172,5 @@ namespace HPT1000.Source.Driver
         }
         //-----------------------------------------------------------------------------------------
 
-        #endregion
     }
 }

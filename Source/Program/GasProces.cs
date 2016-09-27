@@ -106,11 +106,11 @@ namespace HPT1000.Source.Program
             aData[Types.OFFSET_SEQ_GAS_SETPOINT]    = Types.ConvertDOUBLEToInt(setpointPressure, Types.Word.HIGH);
             aData[Types.OFFSET_SEQ_GAS_SETPOINT]    = Types.ConvertDOUBLEToInt(setpointPressure, Types.Word.LOW);
 
-            aData[Types.OFFSET_SEQ_GAS_MIN_DIFFER]  = Types.ConvertDOUBLEToInt(minDeviationSP, Types.Word.HIGH);
-            aData[Types.OFFSET_SEQ_GAS_MIN_DIFFER]  = Types.ConvertDOUBLEToInt(minDeviationSP, Types.Word.LOW);
+            aData[Types.OFFSET_SEQ_GAS_DOWN_DIFFER]  = Types.ConvertDOUBLEToInt(minDeviationSP, Types.Word.HIGH);
+            aData[Types.OFFSET_SEQ_GAS_DOWN_DIFFER]  = Types.ConvertDOUBLEToInt(minDeviationSP, Types.Word.LOW);
 
-            aData[Types.OFFSET_SEQ_GAS_MAX_DIFFER] = Types.ConvertDOUBLEToInt(maxDeviationSP, Types.Word.HIGH);
-            aData[Types.OFFSET_SEQ_GAS_MAX_DIFFER] = Types.ConvertDOUBLEToInt(maxDeviationSP, Types.Word.LOW);
+            aData[Types.OFFSET_SEQ_GAS_UP_DIFFER] = Types.ConvertDOUBLEToInt(maxDeviationSP, Types.Word.HIGH);
+            aData[Types.OFFSET_SEQ_GAS_UP_DIFFER] = Types.ConvertDOUBLEToInt(maxDeviationSP, Types.Word.LOW);
         }
 
         public void SetActiveFlow(bool aActive, int AFlowNo)

@@ -231,6 +231,8 @@
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.btnAddNewSubprogram = new System.Windows.Forms.Button();
             this.label69 = new System.Windows.Forms.Label();
+            this.timerRefresh = new System.Windows.Forms.Timer(this.components);
+            this.btnReadFromPLC = new System.Windows.Forms.Button();
             this.grBoxGasPressure.SuspendLayout();
             this.grBoxGasesMFC3.SuspendLayout();
             this.grBoxGasesMFC2.SuspendLayout();
@@ -865,7 +867,6 @@
             this.groupBox22.TabIndex = 19;
             this.groupBox22.TabStop = false;
             this.groupBox22.Text = "Parameters";
-            this.groupBox22.Enter += new System.EventHandler(this.groupBox22_Enter);
             // 
             // label35
             // 
@@ -1334,7 +1335,7 @@
             // 
             // btnAddNewProgram
             // 
-            this.btnAddNewProgram.Location = new System.Drawing.Point(6, 592);
+            this.btnAddNewProgram.Location = new System.Drawing.Point(6, 553);
             this.btnAddNewProgram.Name = "btnAddNewProgram";
             this.btnAddNewProgram.Size = new System.Drawing.Size(139, 33);
             this.btnAddNewProgram.TabIndex = 34;
@@ -1432,7 +1433,7 @@
             // 
             // btnRemoveSubprogram
             // 
-            this.btnRemoveSubprogram.Location = new System.Drawing.Point(6, 669);
+            this.btnRemoveSubprogram.Location = new System.Drawing.Point(6, 630);
             this.btnRemoveSubprogram.Name = "btnRemoveSubprogram";
             this.btnRemoveSubprogram.Size = new System.Drawing.Size(296, 33);
             this.btnRemoveSubprogram.TabIndex = 43;
@@ -2306,7 +2307,7 @@
             this.treeViewProgram.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode8});
             this.treeViewProgram.SelectedImageIndex = 0;
-            this.treeViewProgram.Size = new System.Drawing.Size(296, 562);
+            this.treeViewProgram.Size = new System.Drawing.Size(296, 526);
             this.treeViewProgram.TabIndex = 45;
             this.treeViewProgram.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewProgram_AfterSelect);
             // 
@@ -2321,7 +2322,7 @@
             // 
             // btnRemoveProgram
             // 
-            this.btnRemoveProgram.Location = new System.Drawing.Point(148, 592);
+            this.btnRemoveProgram.Location = new System.Drawing.Point(148, 553);
             this.btnRemoveProgram.Name = "btnRemoveProgram";
             this.btnRemoveProgram.Size = new System.Drawing.Size(156, 33);
             this.btnRemoveProgram.TabIndex = 41;
@@ -2331,6 +2332,7 @@
             // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.btnReadFromPLC);
             this.groupBox10.Controls.Add(this.treeViewProgram);
             this.groupBox10.Controls.Add(this.grBoxSubprogram);
             this.groupBox10.Controls.Add(this.btnRemoveSubprogram);
@@ -2347,7 +2349,7 @@
             // 
             // btnAddNewSubprogram
             // 
-            this.btnAddNewSubprogram.Location = new System.Drawing.Point(6, 630);
+            this.btnAddNewSubprogram.Location = new System.Drawing.Point(6, 591);
             this.btnAddNewSubprogram.Name = "btnAddNewSubprogram";
             this.btnAddNewSubprogram.Size = new System.Drawing.Size(296, 33);
             this.btnAddNewSubprogram.TabIndex = 42;
@@ -2366,6 +2368,21 @@
             this.label69.TabIndex = 54;
             this.label69.Text = "PROGRAM INFORMATION";
             this.label69.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // timerRefresh
+            // 
+            this.timerRefresh.Enabled = true;
+            this.timerRefresh.Tick += new System.EventHandler(this.timerRefresh_Tick);
+            // 
+            // btnReadFromPLC
+            // 
+            this.btnReadFromPLC.Location = new System.Drawing.Point(6, 669);
+            this.btnReadFromPLC.Name = "btnReadFromPLC";
+            this.btnReadFromPLC.Size = new System.Drawing.Size(296, 33);
+            this.btnReadFromPLC.TabIndex = 43;
+            this.btnReadFromPLC.Text = "Read from PLC";
+            this.btnReadFromPLC.UseVisualStyleBackColor = true;
+            this.btnReadFromPLC.Click += new System.EventHandler(this.btnReadFromPLC_Click);
             // 
             // ProgramsConfigPanel
             // 
@@ -2625,5 +2642,7 @@
         private System.Windows.Forms.GroupBox grBoxPlasma;
         private System.Windows.Forms.RadioButton rBtnPressureViaVapo;
         private System.Windows.Forms.RadioButton rBtnPressureViaGases;
+        private System.Windows.Forms.Timer timerRefresh;
+        private System.Windows.Forms.Button btnReadFromPLC;
     }
 }

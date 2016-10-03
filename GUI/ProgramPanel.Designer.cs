@@ -28,25 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.RadioButton radioButton2;
             System.Windows.Forms.RadioButton radioButton1;
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
             "Pump",
             "Working"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new string[] {
             "Gas",
             "Wait"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Plasma");
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("Purge");
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("Vent");
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("Plasma");
+            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("Purge");
+            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem("Vent");
             this.label4 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.listViewSubprograms = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cBoxPrograms = new System.Windows.Forms.ComboBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnStop = new System.Windows.Forms.Button();
+            this.btnStart = new System.Windows.Forms.Button();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panelGas = new System.Windows.Forms.Panel();
             this.labGasVaporiser = new System.Windows.Forms.Label();
@@ -81,6 +82,7 @@
             this.label35 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.timerRefresh = new System.Windows.Forms.Timer(this.components);
             radioButton2 = new System.Windows.Forms.RadioButton();
             radioButton1 = new System.Windows.Forms.RadioButton();
             this.panel8.SuspendLayout();
@@ -148,11 +150,11 @@
             this.listViewSubprograms.FullRowSelect = true;
             this.listViewSubprograms.GridLines = true;
             this.listViewSubprograms.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4,
-            listViewItem5});
+            listViewItem6,
+            listViewItem7,
+            listViewItem8,
+            listViewItem9,
+            listViewItem10});
             this.listViewSubprograms.Location = new System.Drawing.Point(8, 66);
             this.listViewSubprograms.MultiSelect = false;
             this.listViewSubprograms.Name = "listViewSubprograms";
@@ -181,23 +183,25 @@
             this.cBoxPrograms.TabIndex = 47;
             this.cBoxPrograms.SelectedIndexChanged += new System.EventHandler(this.cBoxPrograms_SelectedIndexChanged);
             // 
-            // button4
+            // btnStop
             // 
-            this.button4.Location = new System.Drawing.Point(443, 158);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(91, 76);
-            this.button4.TabIndex = 53;
-            this.button4.Text = "Stop";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnStop.Location = new System.Drawing.Point(443, 158);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(91, 76);
+            this.btnStop.TabIndex = 53;
+            this.btnStop.Text = "Stop";
+            this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
-            // button3
+            // btnStart
             // 
-            this.button3.Location = new System.Drawing.Point(443, 66);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(91, 86);
-            this.button3.TabIndex = 52;
-            this.button3.Text = "Start";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnStart.Location = new System.Drawing.Point(443, 66);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(91, 86);
+            this.btnStart.TabIndex = 52;
+            this.btnStart.Text = "Start";
+            this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // panel8
             // 
@@ -542,13 +546,18 @@
             this.panel6.Controls.Add(this.label34);
             this.panel6.Controls.Add(this.label5);
             this.panel6.Controls.Add(this.listViewSubprograms);
-            this.panel6.Controls.Add(this.button3);
-            this.panel6.Controls.Add(this.button4);
+            this.panel6.Controls.Add(this.btnStart);
+            this.panel6.Controls.Add(this.btnStop);
             this.panel6.Controls.Add(this.cBoxPrograms);
             this.panel6.Location = new System.Drawing.Point(0, 55);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(538, 602);
             this.panel6.TabIndex = 58;
+            // 
+            // timerRefresh
+            // 
+            this.timerRefresh.Enabled = true;
+            this.timerRefresh.Tick += new System.EventHandler(this.timerRefresh_Tick);
             // 
             // ProgramPanel
             // 
@@ -588,8 +597,8 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ComboBox cBoxPrograms;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnStop;
+        private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Panel panelGas;
         private System.Windows.Forms.Label labGasVaporiser;
@@ -624,5 +633,6 @@
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Timer timerRefresh;
     }
 }

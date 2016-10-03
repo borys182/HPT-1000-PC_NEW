@@ -9,15 +9,16 @@ namespace HPT1000.Source.Program
 {
     public class PlasmaProces : ProcesObject
     {
-        private Types.WorkModeHV workMode   = Types.WorkModeHV.Power;
-        private double setpoint             = 0;    //Ustaw wartosc ktora jest moca/pradem/napieciem w zaleznosci od wybranego trybu pracy
-        private DateTime timeOperate        ;    //Czas wlaczenia zasilacza. Ustawienie czasu 0 wlacza zasilacz na czas nieokrelsony i jego wylaczenie nastepuje w momencie wyslania komendy OFF
-        private int deviationSP             = 0; //procentowe okreslenie max odchylki
+        private Types.WorkModeHV workMode       = Types.WorkModeHV.Power;
+        private double           setpoint       = 0;    //Ustaw wartosc ktora jest moca/pradem/napieciem w zaleznosci od wybranego trybu pracy
+        private DateTime         timeOperate;           //Czas wlaczenia zasilacza. Ustawienie czasu 0 wlacza zasilacz na czas nieokrelsony i jego wylaczenie nastepuje w momencie wyslania komendy OFF
+        private double           deviationSP    = 0;    //procentowe okreslenie max odchylki
 
         private double maxPower     = 10;
         private double maxVoltage   = 10;
         private double maxCurrent   = 10;
-
+        
+        //-----------------------------------------------------------------------------------------------------------
         public PlasmaProces()
         {
             //zeruja godziny/minuty/sekundy
@@ -26,43 +27,63 @@ namespace HPT1000.Source.Program
             timeOperate = timeOperate.AddMinutes(-DateTime.Now.Minute);
             timeOperate = timeOperate.AddSeconds(-DateTime.Now.Second);
         }
+        //-----------------------------------------------------------------------------------------------------------
+        public override void UpdateData(SubprogramData aSubprogramData)
+        {
+            workMode    = (Types.WorkModeHV)aSubprogramData.HV_Operate_Mode;
+            setpoint    = aSubprogramData.HV_Setpoint;
+            deviationSP = aSubprogramData.HV_Deviation;
+            timeOperate = ConvertDate(aSubprogramData.HV_TargetTime);
+            timeWorking = ConvertDate(aSubprogramData.WorkingTimeHV);
 
+            ReadActiveWithCMD(aSubprogramData.Command, Types.BIT_CMD_HV);
+            //       deviationSP = aSubprogramData.
+        }
+        //-----------------------------------------------------------------------------------------------------------
         override public void PrepareDataPLC(int[] aData)
         {
-            aData[Types.BIT_CMD_HV] |= (int)System.Math.Pow(2, Types.BIT_CMD_HV);
-            aData[Types.OFFSET_SEQ_HV_OPERATE]      = (int)workMode;
-            aData[Types.OFFSET_SEQ_HV_TIME]         = timeOperate.Hour * 3600 + timeOperate.Minute * 60 + timeOperate.Second; ;
-            aData[Types.OFFSET_SEQ_HV_SETPOINT]     = Types.ConvertDOUBLEToInt(setpoint,Types.Word.HIGH);
-            aData[Types.OFFSET_SEQ_HV_SETPOINT + 1] = Types.ConvertDOUBLEToInt(setpoint, Types.Word.LOW);
+            if (active)
+            {
+                aData[Types.OFFSET_SEQ_CMD] |= (int)System.Math.Pow(2, Types.BIT_CMD_HV);
+                aData[Types.OFFSET_SEQ_HV_OPERATE] = (int)workMode;
+                aData[Types.OFFSET_SEQ_HV_TIME] = timeOperate.Hour * 3600 + timeOperate.Minute * 60 + timeOperate.Second;
+                aData[Types.OFFSET_SEQ_HV_SETPOINT] = Types.ConvertDOUBLEToWORD(setpoint, Types.Word.LOW);
+                aData[Types.OFFSET_SEQ_HV_SETPOINT + 1] = Types.ConvertDOUBLEToWORD(setpoint, Types.Word.HIGH);
+                aData[Types.OFFSET_SEQ_HV_DRIFT_SETPOINT] = Types.ConvertDOUBLEToWORD(deviationSP, Types.Word.LOW);
+                aData[Types.OFFSET_SEQ_HV_DRIFT_SETPOINT + 1] = Types.ConvertDOUBLEToWORD(deviationSP, Types.Word.HIGH);
+            }
         }
-
+        //-----------------------------------------------------------------------------------------------------------
         public void SetTimeOperate(DateTime aTime)
         {
             timeOperate = aTime;
         }
+        //-----------------------------------------------------------------------------------------------------------
         public DateTime GetTimeOperate()
         {
             return timeOperate;
         }
-
+        //-----------------------------------------------------------------------------------------------------------
         public void SetWorkMode(Types.WorkModeHV aWorkMode)
         {
             workMode = aWorkMode;
         }
+        //-----------------------------------------------------------------------------------------------------------
         public Types.WorkModeHV GetWorkMode()
         {
             return workMode;
         }
-
+        //-----------------------------------------------------------------------------------------------------------
         public void SetSetpointValue(double aValueSP)
         {
             setpoint = aValueSP;
         }
+        //-----------------------------------------------------------------------------------------------------------
         public double GetSetpointValue()
         {
             return setpoint;
         }
-
+        //-----------------------------------------------------------------------------------------------------------
         public void SetSetpointPercent(int aValue)
         {
             switch (workMode)
@@ -80,6 +101,7 @@ namespace HPT1000.Source.Program
                     break;
             }
         }
+        //-----------------------------------------------------------------------------------------------------------
         public int GetSetpointPercent()
         {
             int aPercentValue = 0;
@@ -100,15 +122,17 @@ namespace HPT1000.Source.Program
             }
             return aPercentValue;
         }
-
-        public void SetDeviation(int aValue)
+        //-----------------------------------------------------------------------------------------------------------
+        public void SetDeviation(double aValue)
         {
             deviationSP = aValue;
         }
-        public int GetDeviation()
+        //-----------------------------------------------------------------------------------------------------------
+        public double GetDeviation()
         {
             return deviationSP;
         }
+        //-----------------------------------------------------------------------------------------------------------
         //TO DO - okreslenie wartosci maxPower/Curent/Voltage
     }
 }

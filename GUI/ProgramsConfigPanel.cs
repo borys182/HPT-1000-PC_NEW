@@ -14,7 +14,7 @@ using HPT1000.Source;
 
 namespace HPT1000.GUI
 {
-    public delegate void RefreshProgram();
+  
 
     public partial class ProgramsConfigPanel : UserControl
     {
@@ -24,7 +24,8 @@ namespace HPT1000.GUI
         private static Color backGradientEndColor = Color.FromArgb(150, 255, 100);
 
         private const double pressureResolution = 1000;    //zmienna okresla ile miejsc po przecinku mozna wprowadzac do zmiennych presure
-        private RefreshProgram refreshProgram = null;
+
+        private bool        flagRefreshProgram = false;
 
         //--------------------------------------------------------------------------------------------------------------------------------------
         public ProgramsConfigPanel()
@@ -71,7 +72,7 @@ namespace HPT1000.GUI
         }
         //--------------------------------------------------------------------------------------------------------------------------------------
         //Odświez dane w drzewie na temat aktuanych programow i subprogramow. Jezeli czegos brakuje to dodaj i zaktualizuj nazwe
-        private void RefreshTreeViewPrograms()
+        public void RefreshTreeViewPrograms()
         {
             TreeNode nodePrograms = null;
             bool aExistProgram = false;
@@ -100,7 +101,7 @@ namespace HPT1000.GUI
                         nodeProgram = new TreeNode(pr.GetName(), 1, 1);
                         nodeProgram.Tag = pr;
                     }
-                    foreach (Subprogram sub_pr in pr.GetSubPrograms())
+                    foreach (Subprogram sub_pr in pr.GetSubprograms())
                     {
                         TreeNode nodeSubprogram = null;
                         aExistSubprogram = false;
@@ -161,11 +162,8 @@ namespace HPT1000.GUI
         void AddNewProgram()
         {
             if (hpt1000 != null)
-                hpt1000.AddProgram();
+                hpt1000.NewProgram();
             RefreshTreeViewPrograms();
-
-            if (refreshProgram != null)
-                refreshProgram();
         }
         //--------------------------------------------------------------------------------------------------------------------------------------
         void AddNewSubProgram()
@@ -176,19 +174,11 @@ namespace HPT1000.GUI
             program = GetProgram();
 
             if (program != null)
-                program.AddSubprogram();
+                program.NewSubprogram();
             else
                 MessageBox.Show(Translate.GetText("Nie wybrano wezla programu", Language.EN), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             RefreshTreeViewPrograms();
-
-            if (refreshProgram != null)
-                refreshProgram();
-        }
-        //--------------------------------------------------------------------------------------------------------------------------------------
-        public void AddToRefreshList(RefreshProgram aRefresh)
-        {
-            refreshProgram += aRefresh;
         }
         //--------------------------------------------------------------------------------------------------------------------------------------
         bool IsObjectExist(object aObj)
@@ -200,7 +190,7 @@ namespace HPT1000.GUI
                 {
                     if (aObj == program)
                         aRes = true;
-                    foreach (Subprogram subProgram in program.GetSubPrograms())
+                    foreach (Subprogram subProgram in program.GetSubprograms())
                         if (subProgram == aObj)
                             aRes = true;
                 }
@@ -316,8 +306,10 @@ namespace HPT1000.GUI
                 cBoxPump.Checked                = pumpStage.Active;
                 timePump.Value                  = pumpStage.GetTimeWaitForPumpDown();
                 tBoxPumpSetpoint.Text           = pumpStage.GetSetpoint().ToString();
-                if (scrollPumpSetpoint.Maximum > pumpStage.GetSetpoint())
-                    scrollPumpSetpoint.Value    = (int)(pumpStage.GetSetpoint() * pressureResolution);
+                int aValue = (int)(pumpStage.GetSetpoint() * pressureResolution);
+
+                if (scrollPumpSetpoint.Maximum > aValue && aValue > scrollPumpSetpoint.Minimum)
+                    scrollPumpSetpoint.Value    = aValue;
             }
         }
         //--------------------------------------------------------------------------------------------------------------------------------------
@@ -427,7 +419,7 @@ namespace HPT1000.GUI
                 tBoxPlasmaSetpoint.Text     = plasmaStage.GetSetpointPercent().ToString(); 
                 tBoxPlasmaDeviation.Text    = plasmaStage.GetDeviation().ToString();
                 scrollPlasmaSetpoint.Value  = plasmaStage.GetSetpointPercent();
-                scrollPlasmaDevistion.Value = plasmaStage.GetDeviation();
+                scrollPlasmaDevistion.Value = (int)plasmaStage.GetDeviation();
 
                 switch(plasmaStage.GetWorkMode())
                 {
@@ -850,7 +842,7 @@ namespace HPT1000.GUI
             {
                 tBoxPlasmaDeviation.Text = GetCurrentPlasmaProcess().GetDeviation().ToString();
                 if (scrollPlasmaDevistion.Maximum > GetCurrentPlasmaProcess().GetDeviation())
-                    scrollPlasmaDevistion.Value = GetCurrentPlasmaProcess().GetDeviation();
+                    scrollPlasmaDevistion.Value = (int)GetCurrentPlasmaProcess().GetDeviation();
             } 
         }
         //-------------------------------------------------------------------------------------------------------------------------------------
@@ -860,7 +852,7 @@ namespace HPT1000.GUI
             if (e.KeyCode == Keys.Enter && CheckFloatStringValue(tBoxPlasmaDeviation.Text, out aValue))
             {
                 if (GetCurrentPlasmaProcess() != null)
-                    GetCurrentPlasmaProcess().SetDeviation((int)aValue);
+                    GetCurrentPlasmaProcess().SetDeviation(aValue);
                 grBoxPlasma.Focus();
             }
         }
@@ -1396,10 +1388,27 @@ namespace HPT1000.GUI
                 }
             }
         }
-
-        private void groupBox22_Enter(object sender, EventArgs e)
+        //-------------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja jest wywolywana jako delegat w momencie zmian dokonywanych w liscie programow/subprogramow
+        public void RefreshProgram()
         {
-
+            flagRefreshProgram = true;
+        }
+        //-------------------------------------------------------------------------------------------------------------------------------------
+        private void timerRefresh_Tick(object sender, EventArgs e)
+        {
+            //Z uwagi na fakt ze nie mozna odswiez komponentow graficnzych z innego watku niz w ktorycm zostaly one utworzone dlatego odswiezam to przez Timer i flage
+            if (flagRefreshProgram)
+            {
+                RefreshTreeViewPrograms();
+                flagRefreshProgram = false;
+            }
+        }
+        //-------------------------------------------------------------------------------------------------------------------------------------
+        private void btnReadFromPLC_Click(object sender, EventArgs e)
+        {
+            if (hpt1000 != null)
+                hpt1000.ReadProgramFromPLC();
         }
         //-------------------------------------------------------------------------------------------------------------------------------------
 

@@ -14,11 +14,11 @@ namespace HPT1000.Source.Driver
     public class HPT1000
     {
 
-        private PLC                     plc         = new PLC_Mitsubishi();
-        private Chamber.Chamber         chamber     = new Chamber.Chamber();
-        private List<Program.Program>   programs    = new List<Program.Program>(); //Lista wszystkich programow zapisanych w aplikacji
+        private PLC                     plc                 = new PLC_Mitsubishi();
+        private Chamber.Chamber         chamber             = new Chamber.Chamber();
+        private List<Program.Program>   programs            = new List<Program.Program>(); //Lista wszystkich programow zapisanych w aplikacji
 
-        private Types.DriverStatus      status      = Types.DriverStatus.Unknown;
+        private Types.DriverStatus      status              = Types.DriverStatus.Unknown;
 
         private ThreadStart             funThr;
         private Thread                  threadReadData;
@@ -27,6 +27,9 @@ namespace HPT1000.Source.Driver
         private int[]                   dataSettingsPLC     = new int[Types.LENGHT_SETTINGS_DATA];
 
         bool                            connectionPLC       = false;
+
+        private static RefreshProgram   refreshProgram      = null;
+
         //-----------------------------------------------------------------------------------------
         public HPT1000()
         {
@@ -34,8 +37,8 @@ namespace HPT1000.Source.Driver
             foreach (Program.Program pr in programs)
                 pr.SetPtrPLC(plc);
 
-            funThr          = new ThreadStart(Run);
-            threadReadData  = new Thread(funThr);
+            funThr = new ThreadStart(Run);
+            threadReadData = new Thread(funThr);
 
             threadReadData.Start();
         }
@@ -50,38 +53,85 @@ namespace HPT1000.Source.Driver
             {
                 aRes = plc.ReadWords(Types.ADDR_START_STATUS_CHAMBER, Types.LENGHT_STATUS_DATA, aData);
 
-                /*                if (Enum.IsDefined(typeof(Types.DriverStatus), aData[Types.OFFSET_DEVICE_STATUS]))
-                                    status = (Types.DriverStatus)Enum.Parse(typeof(Types.DriverStatus), (aData[Types.OFFSET_DEVICE_STATUS]).ToString()); // konwertuj int na Enum
-                                else
-                                    status = Types.DriverStatus.Unknown;
-                 */
                 //aktualizuju dane komponentow komory
                 chamber.UpdateData(aData);
 
-                //aktualizuj dane na temat progrmu
+                //aktualizuj dane na temat aktualnie wykonywanego subprogramu. Poniewaz dane programow sa odczytywane razem z danymi komponenotw musze je przesunac o dany offset
+                int[] aDataProgram = new int[Types.SIZE_PRG_DATA];
+                CopyData(aData, aDataProgram);
                 foreach (Program.Program pr in programs)
-                    pr.UpdateData(aData);
+                    pr.UpdateActualSubprogramData(aDataProgram);
+           
+                //Wykonaj operacje po nawiazaniu polaczenia z PLC
+                if (!connectionPLC && aRes == 0)
+                    FirstRun();
 
-                //Odczytaj z automatu settingsy z PLC po nawiazaniu polaczenia
-                if (flagUpdateSettings || (!connectionPLC && aRes == 0))
+                //Sprawdz czy jest komunikacja
+                CheckConnection(aRes);
+
+                //Tymczasowe odczytywabie setingsow w watku synchronicznie
+                if (flagUpdateSettings)
                 {
                     plc.ReadWords(Types.ADDR_START_SETTINGS, Types.LENGHT_SETTINGS_DATA, dataSettingsPLC);
                     flagUpdateSettings = false;
                 }
-                //Sprawdz czy jest komunikacja
-                if (aRes == 0)
-                {
-                    connectionPLC   = true;
-                    status          = Types.DriverStatus.OK;
-                }
-                else
-                {
-                    connectionPLC   = false;
-                    status          = Types.DriverStatus.NoComm;
-                }
                 //Odczytuj dane co 0.5 s
                 Thread.Sleep(500);
             }
+        }
+        //-----------------------------------------------------------------------------------------
+        private void FirstRun()
+        {
+            //Odczytaj z automatu settingsy z PLC po nawiazaniu polaczenia
+            plc.ReadWords(Types.ADDR_START_SETTINGS, Types.LENGHT_SETTINGS_DATA, dataSettingsPLC);
+            UpdateSettings();
+            //Odczytaj z PLC parametry programu aktualnie wgranego
+            ReadProgramFromPLC();
+        }
+        //-----------------------------------------------------------------------------------------
+        // Wyodrebnij z bufora danych dane programu
+        void CopyData(int[] aData,int[] aDataProgram)
+        {
+            for (int i = 0; i < aDataProgram.Length; i++)
+            {
+                if (aData.Length > i)
+                    aDataProgram[i] = aData[i + Types.OFFSET_PRG_DATA];
+            }
+        }
+        //-----------------------------------------------------------------------------------------
+        void CheckConnection(int aRes)
+        {
+            if (aRes == 0)
+            {
+                connectionPLC = true;
+                status = Types.DriverStatus.OK;
+            }
+            else
+            {
+                connectionPLC = false;
+                status = Types.DriverStatus.NoComm;
+            }
+        }
+        //-----------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie pobranie parametrow programu z PLC i utworzonie/aktualizacja paramtrow instancji po stronie PC
+        public void ReadProgramFromPLC()
+        {
+            Program.Program programPLC = null;            
+            //Sprawdz czy istnieje juz instanacja programu z parametrami z PLC
+            foreach(Program.Program program in programs )
+            {
+                //Status jest inny niz Niezaladowany do PLC to znaczy ze juz zostal zaladowany
+                if (program.Status != Types.StatusProgram.NoLoad)
+                    programPLC = program;
+            }
+            if (programPLC == null)
+            {
+                programPLC = new Program.Program();
+                programPLC.SetPtrPLC(plc);
+                AddProgram(programPLC);
+            }
+            programPLC.SetName("Program in PLC");
+            programPLC.ReadProgramsData();
         }
         //-----------------------------------------------------------------------------------------
         public void UpdateSettings()
@@ -96,6 +146,11 @@ namespace HPT1000.Source.Driver
                 chamber.UpdateSettings(dataSettingsPLC);
 
             Logger.AddError(aErr);
+        }
+        //-------------------------------------------------------------------------------------------------------------------------
+        public static void AddToRefreshList(RefreshProgram aRefresh)
+        {
+            refreshProgram += aRefresh;
         }
         //-----------------------------------------------------------------------------------------
         public Valve GetValve()
@@ -143,12 +198,19 @@ namespace HPT1000.Source.Driver
             return programs;
         }
         //-----------------------------------------------------------------------------------------
-        public void AddProgram()
+        public void NewProgram()
         {
             Program.Program program = new Program.Program();
-            //  program.id = GetUniqueProgramID();
             program.SetPtrPLC(plc);
+            AddProgram(program);
+        }
+        //-----------------------------------------------------------------------------------------
+        private void AddProgram(Program.Program program)
+        {
             programs.Add(program);
+            //Poinformuj moich obserwatorow aby odswiezyly sobie informacje na temat programow
+            if (refreshProgram != null)
+                refreshProgram();
         }
         //-----------------------------------------------------------------------------------------
         public bool RemoveProgram(Program.Program program)
@@ -157,9 +219,32 @@ namespace HPT1000.Source.Driver
 
             aRes = programs.Remove(program);
 
+            //Poinformuj moich obserwatorow aby odswiezyly sobie informacje na temat programow
+            if (refreshProgram != null)
+                refreshProgram();
+
             return aRes;
         }
         //-----------------------------------------------------------------------------------------
+        private uint GetUniqueProgramID()
+        {
+            uint aId = 0;
+            bool aExist = true;
+
+            while (aExist)
+            {
+                aId++;
+                aExist = false;
+                foreach (Program.Program program in programs)
+                {
+                    if (program.GetID() == aId)
+                        aExist = true;
+                }
+            }
+            return aId;
+        }
+        //-------------------------------------------------------------------------------------------------------------------------
+
 
     }
 }

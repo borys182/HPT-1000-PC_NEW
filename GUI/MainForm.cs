@@ -48,9 +48,13 @@ namespace HPT1000.GUI
 
             pumpComponent.SetPumpPtr(hpt1000.GetForePump());
 
-            programsConfigPanel.AddToRefreshList(new RefreshProgram(programPanel.UpdateListPrograms));
+            //Dodaj obserwatorow
+            Program.AddToRefreshList(new RefreshProgram(programPanel.RefreshProgram));
+            Program.AddToRefreshList(new RefreshProgram(programsConfigPanel.RefreshProgram));
+            Source.Driver.HPT1000.AddToRefreshList(new RefreshProgram(programPanel.RefreshProgram));
+            Source.Driver.HPT1000.AddToRefreshList(new RefreshProgram(programsConfigPanel.RefreshProgram));
 
-        }
+         }
         //------------------------------------------------------------------------------------------
         public void RefreshSettingsPanel()
         {
@@ -133,12 +137,15 @@ namespace HPT1000.GUI
 
         private void cBoxComm_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (hpt1000.GetPLC() != null)
+            lock (cBoxComm)
             {
-                if (cBoxComm.SelectedItem.ToString() == "USB")
-                    hpt1000.GetPLC().SetTypeComm(TypeComm.USB);
-                if (cBoxComm.SelectedItem.ToString() == "TCP")
-                    hpt1000.GetPLC().SetTypeComm(TypeComm.TCP);
+                if (hpt1000.GetPLC() != null)
+                {
+                    if (cBoxComm.SelectedItem.ToString() == "USB")
+                        hpt1000.GetPLC().SetTypeComm(TypeComm.USB);
+                    if (cBoxComm.SelectedItem.ToString() == "TCP")
+                        hpt1000.GetPLC().SetTypeComm(TypeComm.TCP);
+                }
             }
         }
         //----------------------------------------------------------------------------------

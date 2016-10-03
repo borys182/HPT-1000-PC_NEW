@@ -55,8 +55,8 @@ namespace HPT1000.Source.Driver
         public enum ControlProgram  { Start,Stop,Resume };
         public enum WorkModeHV      { Power = 1, Voltage = 2, Curent = 3};
         public enum Word            { LOW , HIGH};
-        public enum GasProcesMode   { Unknown = 0, Presure_MFC = 1, Pressure_Vap = 2, FlowSP = 3}; //okreslenie sposobu sterowania gazami w komorze {Presure_MFC - proznia jest utrzymywana przez PID z 3 przeplywek, Pressure_Vap proznia jest utrzymywana przez PID z vaporatora, FlowSP - sterujemy zgodnie z ustawionymi setpontami}
-        public enum StatusSubprogram { Wait , Working , Suspended , Done , Warning , Error  };
+        public enum GasProcesMode   { Unknown = 0, FlowSP = 1, Presure_MFC = 2, Pressure_Vap = 3}; //okreslenie sposobu sterowania gazami w komorze {Presure_MFC - proznia jest utrzymywana przez PID z 3 przeplywek, Pressure_Vap proznia jest utrzymywana przez PID z vaporatora, FlowSP - sterujemy zgodnie z ustawionymi setpontami}
+        public enum StatusProgram   { Unknown = 0 , Wait = 1 , Working = 2 , Suspended = 3 , Done = 4 , Warning =5 , Error = 6 , NoLoad = 7 };
         public enum ControlMode     { Automatic , Manual}
         public enum AddressSpace    { Settings, Program};
         public enum ERROR_CODE
@@ -73,6 +73,8 @@ namespace HPT1000.Source.Driver
         /// <summary>
         /// ADRESY KOMOREK PLC
         /// </summary>
+        public static string ADDR_REQ_COUNT_SEGMENT         = "M0";
+        public static string ADDR_FINISH_COUNT_SEGMENT      = "M1";
 
         //Adresy komorek do sterowania recznego
         public static string ADDR_VALVES_CTRL               = "D200";
@@ -92,11 +94,13 @@ namespace HPT1000.Source.Driver
         public static string ADDR_CONTROL_PROGRAM           = "D1040"; //Adres parametrow aktualnie wykonywanego programu i wykorzystuje go do dostrajania parametrow programu. Jest to adres poczatku buforu danych gdzie sa przechowywane parametry aktualnie wykonywanego programu
                                                                        //Pamietaj ze ten adres jest odzwierciedleniem PLC. Kolejne parametry urządzen posiadaja adresy zgodnie z ofsetem danego parametru w programie
         public static string ADDR_START_SETTINGS            = "D1200";
-        public static string ADDR_START_BUFFER_PROGRAM      = "D2000";
+        public static string ADDR_PRG_ID                    = "D2000";
+        public static string ADDR_PRG_SEQ_COUNTS            = "D2001";
+        public static string ADDR_START_BUFFER_PROGRAM      = "D2002";
 
         public const int    LENGHT_STATUS_DATA              = 100;
         public const int    LENGHT_SETTINGS_DATA            = 40;
-        public const int    SEGMENT_SIZE                    = 30;   //Rozmiar parametrow subprogramu
+        public const int    SEGMENT_SIZE                    = 50;   //Rozmiar parametrow subprogramu
         public const int    MAX_SEGMENTS                    = 100;  //Max liczba segmentow z ktorych moze sie skladac program po stronie PLC
         /// <summary>
         /// OFFSET KONKRETNYCH DANYCH ODCZYTANYCH W ZBIORCZYM BUFORZE Z PLC
@@ -127,10 +131,14 @@ namespace HPT1000.Source.Driver
 
 
         //Dane aktualnie wykonywanego programu i subprogramu odczytywane ciagle
+        public static int SIZE_PRG_DATA             = 60;
+        public static int OFFSET_PRG_DATA           = 40;   //Okreslenie poczatku gdzie sie znajduje dane na temat aktualnie wykonywanego progrmau w odczytanym buforze
+
         public static int OFFSET_PRG_CONTROL        = 0;
         public static int OFFSET_PRG_STATUS         = 1;
-        public static int OFFSET_PRG_SEQ_COUNTS     = 2;
-        public static int OFFSET_PRG_ACTUAL_SEQ_NO  = 3;
+        public static int OFFSET_PRG_SUBPR_STATUS   = 2;
+        public static int OFFSET_PRG_ACTUAL_PRG_ID  = 3;
+        public static int OFFSET_PRG_ACTUAL_SEQ_ID  = 4;
         public static int OFFSET_PRG_TIME_PUMP      = 5;
         public static int OFFSET_PRG_TIME_GAS       = 6;
         public static int OFFSET_PRG_TIME_HV        = 7;
@@ -138,45 +146,45 @@ namespace HPT1000.Source.Driver
         public static int OFFSET_PRG_TIME_FLUSH     = 9;
         public static int OFFSET_PRG_SEQ_DATA       = 10;
 
-
         //Offset od bazowego adresu dla kolejnych parametrow subprogramu
         public static int OFFSET_SEQ_CMD                = 0;
         public static int OFFSET_SEQ_STATUS             = 2;
         public static int OFFSET_SEQ_PUMP_MAX_TIME      = 3;
         public static int OFFSET_SEQ_PUMP_SP            = 4;
-        public static int OFFSET_SEQ_VENT_TIME          = 7;
-        public static int OFFSET_SEQ_FLUSH_TIME         = 8;
-        public static int OFFSET_SEQ_FLOW_1_FLOW        = 9;
-        public static int OFFSET_SEQ_FLOW_1_MIN_FLOW    = 11;
-        public static int OFFSET_SEQ_FLOW_1_MAX_FLOW    = 11;
-        public static int OFFSET_SEQ_FLOW_1_SHARE       = 11;
-        public static int OFFSET_SEQ_FLOW_1_DEVIATION   = 11;
-        public static int OFFSET_SEQ_FLOW_2_FLOW        = 9;
-        public static int OFFSET_SEQ_FLOW_2_MIN_FLOW    = 11;
-        public static int OFFSET_SEQ_FLOW_2_MAX_FLOW    = 11;
-        public static int OFFSET_SEQ_FLOW_2_SHARE       = 11;
-        public static int OFFSET_SEQ_FLOW_2_DEVIATION   = 11;
-        public static int OFFSET_SEQ_FLOW_3_FLOW        = 9;
-        public static int OFFSET_SEQ_FLOW_3_MIN_FLOW    = 11;
-        public static int OFFSET_SEQ_FLOW_3_MAX_FLOW    = 11;
-        public static int OFFSET_SEQ_FLOW_3_SHARE       = 11;
-        public static int OFFSET_SEQ_FLOW_3_DEVIATION   = 11;
-        public static int OFFSET_SEQ_FLOW_4_ON_TIME     = 18;
-        public static int OFFSET_SEQ_FLOW_4_CYCLE_TIME  = 20;
-        public static int OFFSET_SEQ_MOTOR_1_CMD        = 22;
-        public static int OFFSET_SEQ_MOTOR_1_SPEED      = 23;
-        public static int OFFSET_SEQ_MOTOR_2_CMD        = 25;
-        public static int OFFSET_SEQ_MOTOR_2_SPEED      = 26;
-        public static int OFFSET_SEQ_DELAY_TIME         = 28;
-        public static int OFFSET_SEQ_CHECK_VACUUM_SP    = 29;
-        public static int OFFSET_SEQ_HV_OPERATE         = 31;
-        public static int OFFSET_SEQ_HV_SETPOINT        = 32;
-        public static int OFFSET_SEQ_HV_TIME            = 34;
-        public static int OFFSET_SEQ_GAS_MODE           = 34;
-        public static int OFFSET_SEQ_GAS_TIME           = 34;
-        public static int OFFSET_SEQ_GAS_SETPOINT       = 34;
-        public static int OFFSET_SEQ_GAS_MIN_DIFFER     = 34;
-        public static int OFFSET_SEQ_GAS_MAX_DIFFER     = 34;
+        public static int OFFSET_SEQ_VENT_TIME          = 6;
+        public static int OFFSET_SEQ_FLUSH_TIME         = 7;
+        public static int OFFSET_SEQ_DELAY_TIME         = 8;
+        public static int OFFSET_SEQ_CHECK_VACUUM       = 9;
+        public static int OFFSET_SEQ_MOTOR_1_CMD        = 11;
+        public static int OFFSET_SEQ_MOTOR1_SPEED       = 12;
+        public static int OFFSET_SEQ_MOTOR_2_CMD        = 14;
+        public static int OFFSET_SEQ_MOTOR2_SPEED       = 15;
+        public static int OFFSET_SEQ_HV_OPERATE         = 17;
+        public static int OFFSET_SEQ_HV_SETPOINT        = 18;
+        public static int OFFSET_SEQ_HV_DRIFT_SETPOINT  = 20;
+        public static int OFFSET_SEQ_HV_TIME            = 22;
+        public static int OFFSET_SEQ_FLOW_1_FLOW        = 23;
+        public static int OFFSET_SEQ_FLOW_1_MIN_FLOW    = 24;
+        public static int OFFSET_SEQ_FLOW_1_MAX_FLOW    = 25;
+        public static int OFFSET_SEQ_FLOW_1_SHARE       = 26;
+        public static int OFFSET_SEQ_FLOW_1_DEVIATION   = 27;
+        public static int OFFSET_SEQ_FLOW_2_FLOW        = 28;
+        public static int OFFSET_SEQ_FLOW_2_MIN_FLOW    = 29;
+        public static int OFFSET_SEQ_FLOW_2_MAX_FLOW    = 30;
+        public static int OFFSET_SEQ_FLOW_2_SHARE       = 31;
+        public static int OFFSET_SEQ_FLOW_2_DEVIATION   = 32;
+        public static int OFFSET_SEQ_FLOW_3_FLOW        = 33;
+        public static int OFFSET_SEQ_FLOW_3_MIN_FLOW    = 34;
+        public static int OFFSET_SEQ_FLOW_3_MAX_FLOW    = 35;
+        public static int OFFSET_SEQ_FLOW_3_SHARE       = 36;
+        public static int OFFSET_SEQ_FLOW_3_DEVIATION   = 37;
+        public static int OFFSET_SEQ_FLOW_4_ON_TIME     = 38;
+        public static int OFFSET_SEQ_FLOW_4_CYCLE_TIME  = 40;
+        public static int OFFSET_SEQ_GAS_MODE           = 42;
+        public static int OFFSET_SEQ_GAS_TIME           = 43;
+        public static int OFFSET_SEQ_GAS_SETPOINT       = 44;
+        public static int OFFSET_SEQ_GAS_UP_DIFFER      = 46;
+        public static int OFFSET_SEQ_GAS_DOWN_DIFFER    = 48;
 
 
         //Bity w slowie komendy programu dla kolejnych funkcji
@@ -216,17 +224,16 @@ namespace HPT1000.Source.Driver
         }
         //--------------------------------------------------------------------------------------------
         //Funkcaj ma za zadanie przekonwertowanie float na dwa wordy i zwrocenie mlodszego badz starszego
-        public static int ConvertDOUBLEToInt(double aValue,Word whichWord )
+        public static int ConvertDOUBLEToWORD(double aValue,Word whichWord )
         {
             int aWord = 0;
             byte[] aBytes = new byte[4];
+            aBytes = BitConverter.GetBytes((float)aValue);         // przkonwertuj float na tablice bajtow
 
-            aBytes = BitConverter.GetBytes(aValue);         // przkonwertuj float na tablice bajtow
-
-            if(whichWord == Word.HIGH)
-                aWord = (int)(aBytes[1] << 8 | aBytes[0]);
-            else
+            if (whichWord == Word.HIGH)
                 aWord = (int)(aBytes[3] << 8 | aBytes[2]);
+            else
+                aWord = (int)(aBytes[1] << 8 | aBytes[0]);
 
             return aWord;
         }

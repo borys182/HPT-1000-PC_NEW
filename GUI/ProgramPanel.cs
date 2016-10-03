@@ -14,7 +14,9 @@ namespace HPT1000.GUI
 {
     public partial class ProgramPanel : UserControl
     {
-        private Source.Driver.HPT1000 hpt1000 = null;
+        private Source.Driver.HPT1000   hpt1000 = null;
+
+        private bool                    flagRefreshProgram = false;
 
         //---------------------------------------------------------------------------------------
         public HPT1000.Source.Driver.HPT1000 HPT1000
@@ -29,7 +31,7 @@ namespace HPT1000.GUI
             ClearPanel();
         }
         //---------------------------------------------------------------------------------------
-        void ClearPanel()
+        private void ClearPanel()
         {
             cBoxPrograms.Items.Clear();
             listViewSubprograms.Items.Clear();
@@ -66,8 +68,14 @@ namespace HPT1000.GUI
 
         }
         //---------------------------------------------------------------------------------------
+        //WYnus odswiezenie listy programow w controlce comboBox
+        public void RefreshProgram()
+        {
+            flagRefreshProgram = true;
+        }
+        //---------------------------------------------------------------------------------------
         //Odsiwiez dane na temat programow
-        public void RefreshPanel()
+        private void UpdateListPrograms()
         {
             if (hpt1000 != null)
             {
@@ -76,30 +84,110 @@ namespace HPT1000.GUI
                     cBoxPrograms.Items.Add(pr);         
             }
         }
-        //--------------------------------------------------------------------------------------
-        //Pokaz dane programu-
-        void ShowProgramConfig(Program pr)
+        //---------------------------------------------------------------------------------------
+        //Odsiwiez dane na temat aktualnie wykonywanego programu w PLC
+        public void RefreshPanel()
         {
-            if (pr != null)
+            Program     actualProgram = null;
+            Subprogram  actualSubprogram = null;
+
+            if (hpt1000 != null)
             {
-          //      txtBoxDesc.Text = pr.GetDescription();
-                //uzupe;nij liste sub programow
-                listViewSubprograms.Items.Clear();
-                foreach (Subprogram subPr in pr.GetSubPrograms())
+                //Znajdz aktualnie wykonywany program
+                foreach (Program program in hpt1000.GetPrograms())
                 {
-                    ListViewItem item = new ListViewItem();
-                    item.Text = subPr.GetName();
-                    item.SubItems.Add(subPr.GetStatus().ToString());
-                    item.Tag = subPr;
-                    listViewSubprograms.Items.Add(item);
+                    if (program.IsRun())
+                        actualProgram = program;
+                }             
+                if (actualProgram != null)
+                {
+                    //Znajdz aktualnie wykonywany subprogram wgrany do PLC z programu
+                    actualSubprogram = actualProgram.GetActualSubprogram();
+                    //Wyswietl dane na temat programy=u i subprogrmau
+                    ShowProgramConfig(actualProgram);
+                    ShowSubprogramConfig(actualSubprogram);
+
+                    cBoxPrograms.Enabled        = false;
+                    listViewSubprograms.Enabled = false;
+                }
+                else
+                {
+                    cBoxPrograms.Enabled        = true;
+                    listViewSubprograms.Enabled = true;
                 }
             }
         }
         //--------------------------------------------------------------------------------------
+        //Pokaz dane programu
+        void ShowProgramConfig(Program pr)
+        {
+            if (pr != null)
+            {
+                //Podaj mi dla ktorych subprogramow mam tworzyc liste. Czy user przeglada parametry czy wyswietlam dane z PLC aktulanie wykonywanego prgoramu
+                List<Subprogram> aSubprograms = pr.GetSubprograms();
+                if (pr.IsRun())
+                    aSubprograms = pr.GetSubprogramsPLC();
+
+                //uzupelnij liste sub programow. Jezeli jest mniej w listView to dodaj jezeli jest za duzo to usun
+                if (aSubprograms != null)
+                {
+                    //ListView zawiera za malo wpisow to je utworz
+                    int aCountNewItem = aSubprograms.Count - listViewSubprograms.Items.Count;
+                    AddItem(aCountNewItem);
+                    //ListView zawiera za duzo wpisow to je usun
+                    int aCountRemoveItem = listViewSubprograms.Items.Count - aSubprograms.Count;
+                    RemoveItem(aCountRemoveItem);
+                    //Aktualizuj dane dla kolejnych itemow (subprogramow)
+                    int i = 0;
+                    foreach (Subprogram subPr in aSubprograms)
+                    {
+                        if (listViewSubprograms.Items.Count > i)
+                        {
+                            ListViewItem item = listViewSubprograms.Items[i];
+                            if(item.Text != subPr.GetName())
+                                item.Text   = subPr.GetName();
+                            if(item.SubItems.Count > 1 && item.SubItems[1].Text != subPr.GetStatus().ToString())
+                                item.SubItems[1].Text = subPr.GetStatus().ToString();
+                            item.Tag    = subPr;
+                            i++;
+                        }
+                    }
+                }
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        void AddItem(int aCount)
+        {
+            for (int i = 0; i < aCount; i++)
+            {
+                ListViewItem item = new ListViewItem();
+                item.Text = "New item";
+                item.SubItems.Add("New subitem");
+                item.Tag = null;
+                listViewSubprograms.Items.Add(item);
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        void RemoveItem(int aCount)
+        {
+            for (int i = 0; i < aCount; i++)
+            {
+                if (listViewSubprograms.Items.Count > 0)
+                    listViewSubprograms.Items.Remove(listViewSubprograms.Items[0]);
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        //Pokaz dane subprogramu
         void ShowSubprogramConfig(Subprogram subProgram)
         {
             if (subProgram != null)
             {
+                //podswietl aktualnie prezentowany sub program
+                foreach(ListViewItem item in listViewSubprograms.Items)
+                {
+                    if (item.Tag == subProgram)
+                        item.Selected = true;
+                }
                 ShowPumpProces(subProgram.GetPumpProces());
                 ShowPlasmaProces(subProgram.GetPlasmaProces());
                 ShowPurgeProces(subProgram.GetPurgeProces());
@@ -108,32 +196,37 @@ namespace HPT1000.GUI
             }
         }
         //--------------------------------------------------------------------------------------
+        //Odsiwez dane na temat procesu pompowania. Pamietaj aby odswiezac dane tylko wtedy gdy sie cos zmienilo
         void ShowPumpProces(PumpProces pumpProces)
         {
             if (pumpProces != null)
             {
-                panelPump.Enabled = true;
-                panelPump.Enabled = pumpProces.Active;
-                if (pumpProces.Active)
+                if (pumpProces.Active && !panelPump.Font.Bold)
                     panelPump.Font = new Font(panelPump.Font, FontStyle.Bold);
-                else
+                if (!pumpProces.Active && panelPump.Font.Bold)
                     panelPump.Font = new Font(panelPump.Font, FontStyle.Regular);
 
-                labPumpTime.Text = pumpProces.TimeWorking.ToLongTimeString();
+                if (panelPump.Enabled != pumpProces.Active)
+                    panelPump.Enabled = pumpProces.Active;
+
+                labPumpTime.Text        = pumpProces.TimeWorking.ToLongTimeString();
                 labPumpTimeTarget.Text  = pumpProces.GetTimeWaitForPumpDown().ToLongTimeString();
                 labPumpSetpoint.Text    = "Setpoint - " + pumpProces.GetSetpoint().ToString() + " mBar";
             }
         }
         //--------------------------------------------------------------------------------------
+        //Odsiwez dane na temat procesu purgowania. Pamietaj aby odswiezac dane tylko wtedy gdy sie cos zmienilo
         void ShowPurgeProces(FlushProces purgeProces)
         {
             if (purgeProces != null)
             {
-                panelPurge.Enabled = true;
-                panelPurge.Enabled = purgeProces.Active;
-                if (purgeProces.Active)
+                if (panelPurge.Enabled != purgeProces.Active)
+                    panelPurge.Enabled = purgeProces.Active;
+
+                if (purgeProces.Active && !panelPump.Font.Bold)
                     panelPurge.Font = new Font(panelPurge.Font, FontStyle.Bold);
-                else
+
+                if (!purgeProces.Active && panelPump.Font.Bold)
                     panelPurge.Font = new Font(panelPurge.Font, FontStyle.Regular);
 
                 labPurgeTime.Text       = purgeProces.TimeWorking.ToLongTimeString();
@@ -141,15 +234,18 @@ namespace HPT1000.GUI
             }
         }
         //--------------------------------------------------------------------------------------
+        //Odsiwez dane na temat procesu ventowania. Pamietaj aby odswiezac dane tylko wtedy gdy sie cos zmienilo
         void ShowVentProces(VentProces ventProces)
         {
             if (ventProces != null)
             {
-                panelVent.Enabled = true;
-                panelVent.Enabled = ventProces.Active;
-                if (ventProces.Active)
+                if(panelVent.Enabled != ventProces.Active)
+                    panelVent.Enabled = ventProces.Active;
+
+                if (ventProces.Active && !panelVent.Font.Bold)
                     panelVent.Font = new Font(panelVent.Font, FontStyle.Bold);
-                else
+
+                if (!ventProces.Active && panelVent.Font.Bold)
                     panelVent.Font = new Font(panelVent.Font, FontStyle.Regular);
 
                 labVentTime.Text        = ventProces.TimeWorking.ToLongTimeString();
@@ -157,21 +253,23 @@ namespace HPT1000.GUI
             }
         }
         //--------------------------------------------------------------------------------------
+        //Odsiwez dane na temat procesu plasmy. Pamietaj aby odswiezac dane tylko wtedy gdy sie cos zmienilo
         void ShowPlasmaProces(PlasmaProces plasmaProces)
         {
             if (plasmaProces != null)
             {
-                panelPlasma.Enabled = true;
-                panelPlasma.Enabled = plasmaProces.Active;
+                if(panelPlasma.Enabled != plasmaProces.Active)
+                    panelPlasma.Enabled = plasmaProces.Active;
 
                 string aUnit = "";
                 if (plasmaProces.GetWorkMode() == Types.WorkModeHV.Curent) aUnit    = " A";
                 if (plasmaProces.GetWorkMode() == Types.WorkModeHV.Voltage) aUnit   = " V";
                 if (plasmaProces.GetWorkMode() == Types.WorkModeHV.Power) aUnit     = " W";
 
-                if (plasmaProces.Active)
+                if (plasmaProces.Active && !panelPlasma.Font.Bold)
                     panelPlasma.Font = new Font(panelPlasma.Font, FontStyle.Bold);
-                else
+
+                if (!plasmaProces.Active && panelPlasma.Font.Bold)
                     panelPlasma.Font = new Font(panelPlasma.Font, FontStyle.Regular);
 
                 labPlasmaTime.Text = plasmaProces.TimeWorking.ToLongTimeString();
@@ -180,15 +278,18 @@ namespace HPT1000.GUI
             }
         }
         //--------------------------------------------------------------------------------------
+        //Odsiwez dane na temat procesu dozowania gazu. Pamietaj aby odswiezac dane tylko wtedy gdy sie cos zmienilo
         void ShowGasProces(GasProces gasProces)
         {
             if (gasProces != null)
             {
-                panelGas.Enabled = true;
-                panelGas.Enabled = gasProces.Active;
-                if (gasProces.Active)
+                if(panelGas.Enabled != gasProces.Active)
+                    panelGas.Enabled = gasProces.Active;
+
+                if (gasProces.Active && !panelGas.Font.Bold)
                     panelGas.Font = new Font(panelGas.Font, FontStyle.Bold);
-                else
+
+                if (!gasProces.Active && panelGas.Font.Bold)
                     panelGas.Font = new Font(panelGas.Font, FontStyle.Regular);
 
                 labGasTime.Text         = gasProces.TimeWorking.ToLongTimeString();
@@ -205,6 +306,7 @@ namespace HPT1000.GUI
                         labGasMFC2.Text = "MFC2 : " + gasProces.GetGasFlow(Types.UnitFlow.sccm, 2).ToString() + " sccm";
                         labGasMFC3.Text = "MFC3 : " + gasProces.GetGasFlow(Types.UnitFlow.sccm, 3).ToString() + " sccm";
                         labGasVaporiser.Text = "Vaporiser: Cycle time - " + gasProces.GetCycleTime().ToString() + " ms " + " On time - " + gasProces.GetOnTime().ToString() + " %";
+                        labGasVaporiser.Visible = gasProces.GetVaporiserActive();
                         break;
                     case Types.GasProcesMode.Pressure_Vap:
                       //  labGasMode.Text = "";// "Mode: Control pressure via vaporiator";
@@ -226,6 +328,7 @@ namespace HPT1000.GUI
                 labGasMFC1.Visible = gasProces.GetActiveFlow(1);
                 labGasMFC2.Visible = gasProces.GetActiveFlow(2);
                 labGasMFC3.Visible = gasProces.GetActiveFlow(3);
+          
             }
         }
         //--------------------------------------------------------------------------------------
@@ -241,6 +344,31 @@ namespace HPT1000.GUI
             {
                 Subprogram subProgram = (Subprogram)listViewSubprograms.SelectedItems[0].Tag;
                 ShowSubprogramConfig(subProgram);
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        //Wgraj program do PLC oraz uruchom go
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            Program program = (Program)cBoxPrograms.SelectedItem;
+            if(program != null)
+                program.StartProgram();
+        }
+        //--------------------------------------------------------------------------------------
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            Program program = (Program)cBoxPrograms.SelectedItem;
+            if (program != null)
+                program.StopProgram();
+        }
+        //--------------------------------------------------------------------------------------
+        private void timerRefresh_Tick(object sender, EventArgs e)
+        {
+            //Z uwagi na fakt ze nie mozna odswiez komponentow graficnzych z innego watku niz w ktorycm zostaly one utworzone dlatego odswiezam to przez Timer i flage
+            if (flagRefreshProgram)
+            {
+                UpdateListPrograms();
+                flagRefreshProgram = false;
             }
         }
         //--------------------------------------------------------------------------------------

@@ -138,10 +138,10 @@ namespace HPT1000.GUI
                     if (!IsObjectExist(node.Tag))
                     {
                         treeViewProgram.Nodes[0].Nodes.Remove(node);
-                        i = 0;
+                        i = -1;
                     }
                 }
-                //Usun wezel sub-programu jezeli program juz nie istnieje
+                //Usun wezel sub-programu jezeli subprogram juz nie istnieje
                 for (int i = 0; i < treeViewProgram.Nodes[0].Nodes.Count; i++)
                 {
                     TreeNode node = treeViewProgram.Nodes[0].Nodes[i];
@@ -150,8 +150,8 @@ namespace HPT1000.GUI
                         TreeNode subNode = node.Nodes[j];
                         if (!IsObjectExist(subNode.Tag))
                         {
-                            subNode.Nodes.Remove(subNode);
-                            j = 0;
+                            node.Nodes.Remove(subNode);
+                            j = -1;
                         }
                         //treeViewProgram.Nodes[0].Nodes.Remove(subNode);
                     }
@@ -184,14 +184,14 @@ namespace HPT1000.GUI
         bool IsObjectExist(object aObj)
         {
             bool aRes = false;
-            if (hpt1000 != null)
+            if (hpt1000 != null && aObj != null)
             {
                 foreach (Program program in hpt1000.GetPrograms())
                 {
-                    if (aObj == program)
+                    if (aObj.Equals(program))
                         aRes = true;
                     foreach (Subprogram subProgram in program.GetSubprograms())
-                        if (subProgram == aObj)
+                        if (subProgram.Equals(aObj))
                             aRes = true;
                 }
             }
@@ -224,20 +224,21 @@ namespace HPT1000.GUI
         {
             TreeNode nodeRes = null;
             //sprawdz czy sam go nie mam
-            if (nodeIn.Tag == aObj)
+            if (nodeIn.Tag != null && nodeIn.Tag.Equals(aObj))
                 nodeRes = nodeIn;
+            //Ja nie mam tego obiektu u siebie wiec sprawdz czy nie maja go moje wezly
             else
             {
                 foreach (TreeNode node in nodeIn.Nodes)
                 {
-                    if (node.Tag == aObj)
+                    if (node.Tag != null && node.Tag.Equals(aObj))
                     {
                         nodeRes = node;
                         break;
                     }
                     else
                         if (nodeRes == null)//jezeli jeszcze nie znalazlem to szukaj dalej
-                        nodeRes = GetNode(node, aObj);
+                            nodeRes = GetNode(node, aObj);
                 }
             }
             return nodeRes;

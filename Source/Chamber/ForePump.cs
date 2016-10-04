@@ -31,7 +31,7 @@ namespace HPT1000.Source.Chamber
         //Funkcja umozliwia alaczenie/wylaczenie pompy
         public ERROR ControlPump(Types.StateFP state)
         {
-            ERROR aErr = new ERROR(0);
+            ERROR aErr = new ERROR(0,0);
 
             int[] aData = {(int)state};
 

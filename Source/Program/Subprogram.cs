@@ -10,7 +10,7 @@ namespace HPT1000.Source.Program
      public class Subprogram : Object
     {
         private string                  name        = "Sub-program name";
-        private Types.StatusProgram     status      = Types.StatusProgram.NoLoad;
+        private Types.StatusProgram     status      = Types.StatusProgram.Stop;
         private string                  description = "";
         private uint                    id          = 0;     
 
@@ -33,6 +33,17 @@ namespace HPT1000.Source.Program
             stepObjects[3] = new FlushProces();
             stepObjects[4] = new VentProces();
             name           = "Subprogram " + id.ToString();
+        }
+        //-------------------------------------------------------------------------------------------------------------------------
+        public override bool Equals(object other)
+        {
+            bool aRes = false;
+
+            //Porownuje tylko po referencji bo w kilku miejscach sie odnosze do tej samej referencji i cos zmieniam.
+            if (ReferenceEquals(this, other))// || (this.GetType() == other.GetType() && ((Subprogram)this).id == ((Subprogram)other).ID))
+                aRes = true;
+
+            return aRes;
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------
         //Funkcja aktualizaje dane na temat subprogramu wykonywanego aktulnie w sterowniku PLC

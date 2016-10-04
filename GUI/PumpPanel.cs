@@ -55,7 +55,7 @@ namespace HPT1000.GUI
         //-----------------------------------------------------------------------------------------
         private void btnStart_Click(object sender, EventArgs e)
         {
-            ERROR aErr = new ERROR(0);
+            ERROR aErr = new ERROR(0,0);
             if (pump != null)
             {
                 aErr = pump.ControlPump(Types.StateFP.ON);
@@ -65,7 +65,7 @@ namespace HPT1000.GUI
         //-----------------------------------------------------------------------------------------
         private void btnStop_Click(object sender, EventArgs e)
         {
-            ERROR aErr = new ERROR(0);
+            ERROR aErr = new ERROR(0,0);
             if (pump != null)
             {
                 aErr = pump.ControlPump(Types.StateFP.OFF);

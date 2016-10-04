@@ -10,7 +10,7 @@ namespace HPT1000.Source.Driver
     {
         private Types.ERROR_CODE     errorCode    { set; get; }
         private int                  errorCodePLC { set; get; }
-
+        //-----------------------------------------------------------------------------------------
         public int ErrorCodePLC
         {
             set
@@ -21,18 +21,19 @@ namespace HPT1000.Source.Driver
             }
             get { return errorCodePLC; }
         }
-
+        //-----------------------------------------------------------------------------------------
         public Types.ERROR_CODE ErrorCode
         {
             set { errorCode = value; }
             get { return errorCode; }
         }
-
-        public ERROR(int aDifer)
+        //-----------------------------------------------------------------------------------------
+        public ERROR(Types.ERROR_CODE aErrCode, int aErrCodePLC)
         {
-            errorCode       = Types.ERROR_CODE.NONE;
-            errorCodePLC    = 0;
+            errorCode       = aErrCode;
+            errorCodePLC    = aErrCodePLC;
         }
+        //-----------------------------------------------------------------------------------------
     }
 
     /// <summary>
@@ -56,9 +57,10 @@ namespace HPT1000.Source.Driver
         public enum WorkModeHV      { Power = 1, Voltage = 2, Curent = 3};
         public enum Word            { LOW , HIGH};
         public enum GasProcesMode   { Unknown = 0, FlowSP = 1, Presure_MFC = 2, Pressure_Vap = 3}; //okreslenie sposobu sterowania gazami w komorze {Presure_MFC - proznia jest utrzymywana przez PID z 3 przeplywek, Pressure_Vap proznia jest utrzymywana przez PID z vaporatora, FlowSP - sterujemy zgodnie z ustawionymi setpontami}
-        public enum StatusProgram   { Unknown = 0 , Wait = 1 , Working = 2 , Suspended = 3 , Done = 4 , Warning =5 , Error = 6 , NoLoad = 7 };
+        public enum StatusProgram   { Unknown = 0 , Wait = 1 , Working = 2 , Suspended = 3 , Done = 4 , Warning =5 , Error = 6 , NoLoad = 7, Stop = 8 };
         public enum ControlMode     { Automatic , Manual}
         public enum AddressSpace    { Settings, Program};
+
         public enum ERROR_CODE
         {
             NONE                        = 0x00,
@@ -67,7 +69,8 @@ namespace HPT1000.Source.Driver
             BAD_FLOW_ID                 = 0x03,         //proba wykonia zapisu do plc info o przeplywkach o id roznym niz 0-2 (innych nie ma w plc)
             PLC_WRITE                   = 0x04,          //Nie powiodl sie zapis do sterownika PLC. Dodatkowe informacje sa zwrocone w kodzie bezposrednio ze sterownika PLC (MX Components)
             BAD_CYCLE_TIME              = 0x05,          //Podana wartosc cyklu szybkiego zaworu jest mniejsz niz czas wlaczenia
-            BAD_ON_TIME                 = 0x06          //Podana wartosc czasu wlaczenia zaworu szybkieg jest wieksza niz czas cyklu
+            BAD_ON_TIME                 = 0x06,          //Podana wartosc czasu wlaczenia zaworu szybkieg jest wieksza niz czas cyklu
+            NO_PRG_IN_PLC               = 0x07          //Brak programu w PLC   
         }
 
         /// <summary>

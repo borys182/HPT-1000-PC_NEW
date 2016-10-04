@@ -160,7 +160,7 @@ namespace HPT1000.GUI
         private bool dEditPowerLimit_EnterOn()
         {
             bool aRes = false;
-            ERROR aErr = new ERROR(0);
+            ERROR aErr = new ERROR(0,0);
 
             if (hpt1000.GetPowerSupply() != null)
                 aErr = hpt1000.GetPowerSupply().SetLimitPower(dEditPowerLimit.Value);
@@ -176,7 +176,7 @@ namespace HPT1000.GUI
         private bool dEditVoltageLimit_EnterOn()
         {
             bool aRes = false;
-            ERROR aErr = new ERROR(0);
+            ERROR aErr = new ERROR(0,0);
 
             if (hpt1000.GetPowerSupply() != null)
                 aErr = hpt1000.GetPowerSupply().SetLimitVoltage(dEditVoltageLimit.Value);
@@ -192,7 +192,7 @@ namespace HPT1000.GUI
         private bool dEditCurentLimit_EnterOn()
         {
             bool aRes = false;
-            ERROR aErr = new ERROR(0);
+            ERROR aErr = new ERROR(0,0);
 
             if (hpt1000.GetPowerSupply() != null)
                 aErr = hpt1000.GetPowerSupply().SetLimitCurent(dEditCurentLimit.Value);

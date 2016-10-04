@@ -116,27 +116,48 @@ namespace HPT1000.Source.Driver
         //Funkcja ma za zadanie pobranie parametrow programu z PLC i utworzonie/aktualizacja paramtrow instancji po stronie PC
         public void ReadProgramFromPLC()
         {
-            Program.Program programPLC = null;            
+            Program.Program programPLC = null;
+            //Sprawdz czy w PLC istnieje jakis program oraz czy ma jakies subprogramy
+            int[] aData = new int[1];
+            int aProgramIdInPLC       = 0;
+            int aCountSubprogramInPLC = 0;
+
+            if (plc != null)
+                plc.ReadWords(Types.ADDR_PRG_ID, 2, aData);
+            aProgramIdInPLC = aData[0];
+
+            if (plc != null)
+                plc.ReadWords(Types.ADDR_PRG_SEQ_COUNTS, 1, aData);
+            aCountSubprogramInPLC = aData[0];
+
             //Sprawdz czy istnieje juz instanacja programu z parametrami z PLC
-            foreach(Program.Program program in programs )
+            if (aProgramIdInPLC > 0 && aCountSubprogramInPLC > 0)
             {
-                //Status jest inny niz Niezaladowany do PLC to znaczy ze juz zostal zaladowany
-                if (program.Status != Types.StatusProgram.NoLoad)
-                    programPLC = program;
+                foreach (Program.Program program in programs)
+                {
+                    //Status jest inny niz Niezaladowany do PLC to znaczy ze juz zostal zaladowany
+                    if (program.GetID() == aProgramIdInPLC)
+                        programPLC = program;
+                }
+                if (programPLC == null)
+                {
+                    programPLC = new Program.Program();
+                    programPLC.SetPtrPLC(plc);
+                    AddProgram(programPLC);
+                }
+                programPLC.SetName("Program in PLC");
+                programPLC.ReadProgramsData();
             }
-            if (programPLC == null)
+            else
             {
-                programPLC = new Program.Program();
-                programPLC.SetPtrPLC(plc);
-                AddProgram(programPLC);
+                ERROR aErr = new ERROR(Types.ERROR_CODE.NO_PRG_IN_PLC,0);
+                Logger.AddError(aErr);
             }
-            programPLC.SetName("Program in PLC");
-            programPLC.ReadProgramsData();
         }
         //-----------------------------------------------------------------------------------------
         public void UpdateSettings()
         {
-            ERROR aErr = new ERROR(0);
+            ERROR aErr = new ERROR(0,0);
             int[] aData = new int[Types.LENGHT_SETTINGS_DATA];
             flagUpdateSettings = true;
             //   aErr.ErrorCodePLC = plc.ReadWords(Types.ADDR_START_SETTINGS, Types.LENGHT_SETTINGS_DATA, aData);

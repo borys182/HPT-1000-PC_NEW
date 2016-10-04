@@ -52,7 +52,7 @@ namespace HPT1000.Source.Chamber
         //Funkcja umozliwia ustawianie dango przeplwyu na przeplywce
         public ERROR SetFlow( float aValue, Types.UnitFlow aUnit)
         {
-            ERROR aErr = new ERROR(0);
+            ERROR aErr = new ERROR(0,0);
 
             double aVoltage = 0;
             //przlicz wartosc podana w danych jednostach na napiecie
@@ -190,7 +190,7 @@ namespace HPT1000.Source.Chamber
         //Funkcja umozliwia ustawianie dango przeplwyu na przeplywce
         public ERROR SetFlow(int aId , float aValue , Types.UnitFlow aUnit)
         {
-            ERROR aErr = new ERROR(0);
+            ERROR aErr = new ERROR(0,0);
 
             MFC_Channel mfc_Channel = GetMFC_Channel(aId);
 

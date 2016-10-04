@@ -38,7 +38,7 @@ namespace HPT1000.Source.Chamber
         */
         public ERROR SetCycleTime(float aCycleTime)
         {
-            ERROR aErr = new ERROR(0);
+            ERROR aErr = new ERROR(0,0);
 
             if (aCycleTime < onTime)    aErr.ErrorCode = Types.ERROR_CODE.BAD_CYCLE_TIME;
             if (plc == null)            aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
@@ -65,7 +65,7 @@ namespace HPT1000.Source.Chamber
         */
         public ERROR SetOnTime(float aOnTimeValue, Types.UnitFlow aUnit)
         {
-            ERROR aErr = new ERROR(0);
+            ERROR aErr = new ERROR(0,0);
             double aOnTime = 0;
 
             if (aUnit == Types.UnitFlow.percent)

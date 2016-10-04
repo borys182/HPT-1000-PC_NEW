@@ -89,7 +89,7 @@ namespace HPT1000.Source.Chamber
         //-----------------------------------------------------------------------------------------
         public ERROR SetSetpoint(double aSetpoint)
         {
-            ERROR aErr = new ERROR(0);
+            ERROR aErr = new ERROR(0,0);
 
             if (plc != null)
             {
@@ -108,7 +108,7 @@ namespace HPT1000.Source.Chamber
         //Mozliwosc ustawienia tylko w trybie recznym
         public ERROR SetMode(Types.ModeHV aMode)
         {
-            ERROR aErr = new ERROR(0);
+            ERROR aErr = new ERROR(0,0);
             int []aData = new int[1] ;
 
             aData[0] =  (int)aMode;
@@ -127,7 +127,7 @@ namespace HPT1000.Source.Chamber
         //Mozliwosc ustawienia tylko w trybie recznym
         public ERROR SetOperate(bool aOperate)
         {
-            ERROR aErr = new ERROR(0);
+            ERROR aErr = new ERROR(0,0);
 
             int[] aData = new int[1];
 
@@ -145,7 +145,7 @@ namespace HPT1000.Source.Chamber
         //-------------------------------------------------------------------------------------------  
         public ERROR SetLimitPower(double aValue)
         {
-            ERROR aErr = new ERROR(0);
+            ERROR aErr = new ERROR(0,0);
 
             if (plc != null)
                     aErr.ErrorCodePLC = plc.WriteRealData(Types.GetAddress(Types.AddressSpace.Settings,Types.OFFSET_LIMIT_POWER), (float)aValue);
@@ -157,7 +157,7 @@ namespace HPT1000.Source.Chamber
         //-------------------------------------------------------------------------------------------  
         public ERROR SetLimitCurent(double aValue)
         {
-            ERROR aErr = new ERROR(0);
+            ERROR aErr = new ERROR(0,0);
 
             if (plc != null)
                 aErr.ErrorCodePLC = plc.WriteRealData(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_LIMIT_CURENT), (float)aValue);
@@ -169,7 +169,7 @@ namespace HPT1000.Source.Chamber
         //-------------------------------------------------------------------------------------------  
         public ERROR SetLimitVoltage(double aValue)
         {
-            ERROR aErr = new ERROR(0);
+            ERROR aErr = new ERROR(0,0);
 
             if (plc != null)
                 aErr.ErrorCodePLC = plc.WriteRealData(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_LIMIT_VOLTAGE), (float)aValue);

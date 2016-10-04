@@ -81,7 +81,7 @@ namespace HPT1000.Source.Chamber
         //-----------------------------------------------------------------------------------------
         public ERROR SetState(Types.StateValve aState, Types.TypeValve aTypeValve)
         {
-            ERROR aErr = new ERROR(0);
+            ERROR aErr = new ERROR(0,0);
             int []ctrlValve = {0};
 
             //ustaw na odpowidnim miejscu bity sterujace zgodnie z ID zaworu powiazanego z PLC

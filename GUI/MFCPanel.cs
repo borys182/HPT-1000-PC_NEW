@@ -67,7 +67,7 @@ namespace HPT1000.GUI
         private bool dEditFlow_sccm_EnterOn()
         {
             bool aRes = false;
-            ERROR aErr = new ERROR(0);
+            ERROR aErr = new ERROR(0,0);
 
             if (mfc != null)
                 aErr = mfc.SetFlow(channelId,(int)dEditFlow_sccm.Value,Types.UnitFlow.sccm);
@@ -85,7 +85,7 @@ namespace HPT1000.GUI
         private bool dEditFlow_percent_EnterOn()
         {
             bool aRes = false;
-            ERROR aErr = new ERROR(0);
+            ERROR aErr = new ERROR(0,0);
 
             if (mfc != null)
                 aErr = mfc.SetFlow(channelId, (int)dEditFlow_percent.Value, Types.UnitFlow.percent);

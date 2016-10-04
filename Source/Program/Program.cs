@@ -8,7 +8,7 @@ using HPT1000.Source.Driver;
 namespace HPT1000.Source.Program
 {
     public delegate void RefreshProgram();
-    //Struktrua zwiera dane aktualnie wykonywanego subprogramu
+    //Struktura zawiera dane regultaroa przeplywu. Poniewaz jest ich kilka to lepiej to zgromadzic w tablicy tych samych struktur
     public struct MFCData
     {
         public bool Active;
@@ -28,6 +28,7 @@ namespace HPT1000.Source.Program
             Devaition = 0;
         }
     };
+    //Struktrua zwiera dane aktualnie wykonywanego subprogramu
     public struct SubprogramData
     {
         public int      WorkingTimePump;
@@ -139,6 +140,16 @@ namespace HPT1000.Source.Program
                 id = UniqueID;
                 UniqueID++;
             }
+        }
+        //-------------------------------------------------------------------------------------------------------------------------
+        public override bool Equals(object other)
+        {
+            bool aRes = false;
+            //Porownuje tylko po referencji bo w kilku miejscach sie odnosze do tej samej referencji i cos zmieniam.
+            if (ReferenceEquals(this, other))// || (this.GetType() == other.GetType() && ((Program)this).id == ((Program)other).GetID()))
+                aRes = true;
+
+            return aRes;
         }
         //-------------------------------------------------------------------------------------------------------------------------
         //Funkcja odczytuje dane z PLC na temat aktualnie wykonywanego subprogramu
@@ -254,7 +265,7 @@ namespace HPT1000.Source.Program
         //-------------------------------------------------------------------------------------------------------------------------
         public ERROR StartProgram()
         {
-            ERROR aErr = new ERROR(0);
+            ERROR aErr = new ERROR(0,0);
             //przygotuj dane do wgrania do PLC
             int[] aDataControl  = new int[1];
          
@@ -262,7 +273,7 @@ namespace HPT1000.Source.Program
             {
                 //Wgraj parametry segmentow do PLC   
                  aErr = WriteProgramToPLC();
-                //Utworz struktury danych do przechowyania aktualnych parametrow programu odczytanych z PLC
+                //Utworz struktury danych do przechowyania aktualnych parametrow programu wczytanychy do PLC
                 CreateActualSubprogram();
                 //uruchom program
                 aDataControl[0] = (int)Types.ControlProgram.Start;
@@ -273,26 +284,33 @@ namespace HPT1000.Source.Program
         //-------------------------------------------------------------------------------------------------------------------------
         public ERROR StopProgram()
         {
-            ERROR aErr = new ERROR(0);
+            ERROR aErr = new ERROR(0,0);
 
             return aErr;
         }
         //-------------------------------------------------------------------------------------------------------------------------
         private ERROR WriteProgramToPLC()
         {
-            ERROR aErr = new ERROR(0);
+            ERROR aErr = new ERROR(0,0);
 
             int[] aDataID = new int[1];
             int[] aData = new int[Types.MAX_SEGMENTS * Types.SEGMENT_SIZE];
             int aSizeData = 0;
-
+            
             aDataID[0] = (int)id;
             //Pobierz z kolejnych subprogramow parametry procesow
+            int[] aSeqData = new int[Types.SEGMENT_SIZE];
             for (int i = 0; i < subPrograms.Count; i++)
             {
+                aSeqData = subPrograms[i].GetPLCSegmentData();
                 for (int j = 0; j < Types.SEGMENT_SIZE; j++)
+                {
                     if (aData.Length > i * Types.SEGMENT_SIZE + j)
-                        aData[i * Types.SEGMENT_SIZE + j] = subPrograms[i].GetPLCSegmentData()[j];
+                        aData[i * Types.SEGMENT_SIZE + j] = aSeqData[j];
+                }
+                int aStatusIndex = i * Types.SEGMENT_SIZE + Types.OFFSET_SEQ_STATUS;
+                if (aData.Length > aStatusIndex)
+                    aData[aStatusIndex] = (int)Types.StatusProgram.Stop;
             }
             //uzupelnij subprogramy o ostatni segment END ktory dawany jest z automatu
             if (aData.Length > (subPrograms.Count * Types.SEGMENT_SIZE + Types.OFFSET_SEQ_CMD))
@@ -300,8 +318,12 @@ namespace HPT1000.Source.Program
            
             //wgraj dane programu do PLC 
             aSizeData = subPrograms.Count * Types.SEGMENT_SIZE + Types.OFFSET_SEQ_CMD + 1;
-            plc.WriteWords(Types.ADDR_PRG_ID, 1, aDataID);
-            plc.WriteWords(Types.ADDR_START_BUFFER_PROGRAM, aSizeData, aData);
+            aErr.ErrorCodePLC = plc.WriteWords(Types.ADDR_PRG_ID, 1, aDataID);
+            aErr.ErrorCodePLC = plc.WriteWords(Types.ADDR_START_BUFFER_PROGRAM, aSizeData, aData);
+
+       //     if(aErr.ErrorCodePLC == 0 && aErr.ErrorCode == 0)
+       //         foreach(Subprogram aSubprogram in subPrograms)
+       //             aSubprogram.Set
 
             return aErr;
         }
@@ -335,6 +357,7 @@ namespace HPT1000.Source.Program
                 int[] aDataSeq = new int[countSubprogramsPLC * Types.SEGMENT_SIZE];
                 plc.ReadWords(Types.ADDR_START_BUFFER_PROGRAM, aDataSeq.Length, aDataSeq);
 
+                subPrograms.Clear();
                 SubprogramData subProgramData;
                 for (uint i = 0; i < countSubprogramsPLC; i++)
                 {

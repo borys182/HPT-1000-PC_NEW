@@ -53,11 +53,11 @@ namespace HPT1000.Source.Driver
         public enum UnitFlow        { sccm, percent, ms };
         public enum ModeHV          { Power = 1 , Voltage = 2 , Curent = 3, Unknown = 4};
         public enum TypeObject      { None, VL, FP, HV, FM, VP, PC }; //VL - vavle , FP - fore pump , HV - power suplay , FN - flow meter, VP - Vaporizer, PC-pressure control
-        public enum ControlProgram  { Start,Stop,Resume };
+        public enum ControlProgram  { Start = 1,Stop = 2,Resume = 3 };
         public enum WorkModeHV      { Power = 1, Voltage = 2, Curent = 3};
         public enum Word            { LOW , HIGH};
         public enum GasProcesMode   { Unknown = 0, FlowSP = 1, Presure_MFC = 2, Pressure_Vap = 3}; //okreslenie sposobu sterowania gazami w komorze {Presure_MFC - proznia jest utrzymywana przez PID z 3 przeplywek, Pressure_Vap proznia jest utrzymywana przez PID z vaporatora, FlowSP - sterujemy zgodnie z ustawionymi setpontami}
-        public enum StatusProgram   { Unknown = 0 , Wait = 1 , Working = 2 , Suspended = 3 , Done = 4 , Warning =5 , Error = 6 , NoLoad = 7, Stop = 8 };
+        public enum StatusProgram   { Unknown = 0 , Run = 1 , Stop = 2, Error = 3, Done = 4, Suspended = 5, Wait = 6 , Warning = 7 , NoLoad = 8};
         public enum ControlMode     { Automatic , Manual}
         public enum AddressSpace    { Settings, Program};
 
@@ -101,7 +101,7 @@ namespace HPT1000.Source.Driver
         public static string ADDR_PRG_SEQ_COUNTS            = "D2001";
         public static string ADDR_START_BUFFER_PROGRAM      = "D2002";
 
-        public const int    LENGHT_STATUS_DATA              = 100;
+        public const int LENGHT_STATUS_DATA = 110;//50;
         public const int    LENGHT_SETTINGS_DATA            = 40;
         public const int    SEGMENT_SIZE                    = 50;   //Rozmiar parametrow subprogramu
         public const int    MAX_SEGMENTS                    = 100;  //Max liczba segmentow z ktorych moze sie skladac program po stronie PLC
@@ -134,8 +134,9 @@ namespace HPT1000.Source.Driver
 
 
         //Dane aktualnie wykonywanego programu i subprogramu odczytywane ciagle
-        public static int SIZE_PRG_DATA             = 60;
+        public static int SIZE_PRG_DATA             = 70;//110;
         public static int OFFSET_PRG_DATA           = 40;   //Okreslenie poczatku gdzie sie znajduje dane na temat aktualnie wykonywanego progrmau w odczytanym buforze
+        public static int OFFSET_STATUS_DATA        = 60;
 
         public static int OFFSET_PRG_CONTROL        = 0;
         public static int OFFSET_PRG_STATUS         = 1;

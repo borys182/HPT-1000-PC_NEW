@@ -27,7 +27,7 @@ namespace HPT1000.Source.Driver
         override public int Connect()
         {
             int aResult = -1;                //Return code
-            lock (sync_Object)
+            lock (this)
             {
                 try
                 {
@@ -51,7 +51,7 @@ namespace HPT1000.Source.Driver
         override public int SetDevice(string aAddr, int aState)
         {
             int aResult = -1;
-            lock (sync_Object)
+            lock (this)//sync_Object)
             {
                 try
                 {
@@ -68,7 +68,7 @@ namespace HPT1000.Source.Driver
         override public int GetDevice(string aAddr, out int aState)
         {
             int aResult = -1;
-            lock (sync_Object)
+            lock (this)
             {
 
                 aState = 0;
@@ -87,7 +87,7 @@ namespace HPT1000.Source.Driver
         override public int WriteWords(string aAddr, int aSize, int[] aData)
         {
             int aResult = -1;
-            lock (sync_Object)
+            lock (this)
             {
 
                 try
@@ -109,7 +109,7 @@ namespace HPT1000.Source.Driver
 
             Int32.TryParse(aAddr.Remove(0, 1), out aStartAddr);
 
-            lock (sync_Object)
+            lock (this)
             {
 
                 try
@@ -134,7 +134,7 @@ namespace HPT1000.Source.Driver
             int []aData    = new int[2];
             byte[]aBytes   = new byte[4];
 
-            lock (sync_Object)
+            lock (this)
             {
 
                 aBytes = BitConverter.GetBytes(aValue);         // przkonwertuj float na tablice bajtow
@@ -154,7 +154,7 @@ namespace HPT1000.Source.Driver
             int[] aData = new int[2];
             byte[] aBytes = new byte[4];
 
-            lock (sync_Object)
+            lock (this)
             {
 
                 aResult = ReadWords(aAddr, 2, aData);

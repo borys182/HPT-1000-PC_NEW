@@ -80,7 +80,7 @@ namespace HPT1000.Source.Chamber
             }
         }
         //-------------------------------------------------------------------------------------------
-        override public void UpdateSettings(int[] aData)
+        override public void UpdateSettingsData(int[] aData)
         {
             limitPower      = Types.ConvertDWORDToDouble(aData, Types.OFFSET_LIMIT_POWER);
             limitVoltage    = Types.ConvertDWORDToDouble(aData, Types.OFFSET_LIMIT_VOLTAGE);

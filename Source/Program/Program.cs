@@ -108,7 +108,7 @@ namespace HPT1000.Source.Program
         private uint                    id                  = 0;         //unikalny identyfikator programu po ktorym rozrozniamy programy
         private string                  description         = "";
         private List<Subprogram>        subPrograms         = new List<Subprogram>();
-        private List<Subprogram>        subProgramsActual   = new List<Subprogram>(); //Lista subprogramow ktora sluzy do akutalizacji parametrow uruchomionego procesu. 
+       // private List<Subprogram>        subProgramsActual   = new List<Subprogram>(); //Lista subprogramow ktora sluzy do akutalizacji parametrow uruchomionego procesu. 
                                                                                       //Aby nie nadpisywac parametrow zapisanych w programie tworze alternatywna liste
 
         private static uint             UniqueID            = 1;
@@ -164,7 +164,7 @@ namespace HPT1000.Source.Program
                 //Poniewaz funkcja GetSegmentData pracuje na ofsetach pamieci Segmentu dlatego dane segmentu powinny sie zaczynac od krotki 0 co sie wiaze z koniecznoscia przekopiowania danych do nowej tablicy
                 int[] aDataSeq = new int[Types.SEGMENT_SIZE];
                 for (int i = 0; i < aData.Length; i++)
-                    if (aData.Length > i + Types.OFFSET_PRG_SEQ_DATA)
+                    if (aData.Length > (i + Types.OFFSET_PRG_SEQ_DATA) && aDataSeq.Length > i)
                         aDataSeq[i] = aData[i + Types.OFFSET_PRG_SEQ_DATA];
 
                 SubprogramData aSubprogramData      = GetSegmentData(aDataSeq, 0);
@@ -176,11 +176,13 @@ namespace HPT1000.Source.Program
                 aSubprogramData.WorkingTimePump     = aData[Types.OFFSET_PRG_TIME_PUMP];
                 aSubprogramData.WorkingTimeVent     = aData[Types.OFFSET_PRG_TIME_VENT];
 
-                //aktualizuj dane w aktualnie wykonywanym subprogramie
-                foreach (Subprogram subProgram in subProgramsActual)
+                //aktualizuj status subprogramu oraz dane w aktualnie wykonywanym subprogramie pod warunkiem ze program jest wykonywny 
+                foreach (Subprogram subProgram in subPrograms )//subProgramsActual)
                 {
-                    if (subProgram.ID == actualSubprogramId)
+                    //sprawdz ID subprogramu oraz status Programu
+                    if (subProgram.ID == actualSubprogramId && IsRun())
                         subProgram.UpdateData(aSubprogramData);
+                    subProgram.UpdateStatus(aData);
                 }
             }
             else
@@ -274,7 +276,7 @@ namespace HPT1000.Source.Program
                 //Wgraj parametry segmentow do PLC   
                  aErr = WriteProgramToPLC();
                 //Utworz struktury danych do przechowyania aktualnych parametrow programu wczytanychy do PLC
-                CreateActualSubprogram();
+                //CreateActualSubprogram();
                 //uruchom program
                 aDataControl[0] = (int)Types.ControlProgram.Start;
                 plc.WriteWords(Types.ADDR_CONTROL_PROGRAM, 1, aDataControl);
@@ -285,6 +287,15 @@ namespace HPT1000.Source.Program
         public ERROR StopProgram()
         {
             ERROR aErr = new ERROR(0,0);
+
+            //przygotuj dane do wgrania do PLC
+            int[] aDataControl = new int[1];
+
+            if (plc != null)
+            {
+                aDataControl[0] = (int)Types.ControlProgram.Stop;
+                plc.WriteWords(Types.ADDR_CONTROL_PROGRAM, 1, aDataControl);
+            }
 
             return aErr;
         }
@@ -366,12 +377,12 @@ namespace HPT1000.Source.Program
                     subProgram.UpdateData(subProgramData);
                     AddSubprogram(subProgram);
                 }
-                CreateActualSubprogram();
+                //CreateActualSubprogram();
             }
         }
         //-------------------------------------------------------------------------------------------------------------------------
         //Funkcja tworzy kliste akutalnych subprogramowa na bazie tych co zostalyu wgrane do PLC aby umozliwic prezentacje danych odczytanych z PLC. W innym przypadku parametry subprogramow moglyby zostac nadpisane
-        public void CreateActualSubprogram()
+     /*   public void CreateActualSubprogram()
         {
             lock (subProgramsActual)
             {
@@ -383,12 +394,13 @@ namespace HPT1000.Source.Program
                 }
             }
         }
+        */
         //-------------------------------------------------------------------------------------------------------------------------
         public bool IsRun()
         {
             bool aProgramRun = false;
 
-            if (status == Types.StatusProgram.Suspended || status == Types.StatusProgram.Working)
+            if (status == Types.StatusProgram.Suspended || status == Types.StatusProgram.Run)
                 aProgramRun = true;
 
             return aProgramRun;
@@ -399,7 +411,7 @@ namespace HPT1000.Source.Program
         {
             Subprogram aActualSubprogram = null;
 
-            foreach (Subprogram aSubprogram in subProgramsActual)
+            foreach (Subprogram aSubprogram in subPrograms)
             {
                 if (aSubprogram.ID == actualSubprogramId)
                     aActualSubprogram = aSubprogram;
@@ -470,10 +482,11 @@ namespace HPT1000.Source.Program
         }
         //-------------------------------------------------------------------------------------------------------------------------
         //Zwroc subprogramy ktrorych parametry zostaly odczytane na podstawie pamieci PLC
-        public List<Subprogram> GetSubprogramsPLC()
+       /* public List<Subprogram> GetSubprogramsPLC()
         {
             return subProgramsActual;
         }
+        */
         //-------------------------------------------------------------------------------------------------------------------------
         public uint GetID()
         {

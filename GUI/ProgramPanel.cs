@@ -16,7 +16,8 @@ namespace HPT1000.GUI
     {
         private Source.Driver.HPT1000   hpt1000 = null;
 
-        private bool                    flagRefreshProgram = false;
+        private bool                    flagRefreshProgram  = false;
+        Program                         programActualRun    = null;
 
         //---------------------------------------------------------------------------------------
         public HPT1000.Source.Driver.HPT1000 HPT1000
@@ -85,28 +86,31 @@ namespace HPT1000.GUI
             }
         }
         //---------------------------------------------------------------------------------------
-        //Odsiwiez dane na temat aktualnie wykonywanego programu w PLC
+        //Odsiwiez dane na temat aktualnie wykonywanego programu w PLC. Wyswietl dane takze po zakonczeniu programu
         public void RefreshPanel()
         {
-            Program     actualProgram = null;
-            Subprogram  actualSubprogram = null;
-
+            Subprogram  aActualSubprogram   = null;
+            bool        aAnyProgramRun      = false;
             if (hpt1000 != null)
             {
                 //Znajdz aktualnie wykonywany program
                 foreach (Program program in hpt1000.GetPrograms())
                 {
                     if (program.IsRun())
-                        actualProgram = program;
+                    {
+                        programActualRun = program;
+                        aAnyProgramRun = true;
+                    }
                 }             
-                if (actualProgram != null)
+                if (programActualRun != null)
                 {
                     //Znajdz aktualnie wykonywany subprogram wgrany do PLC z programu
-                    actualSubprogram = actualProgram.GetActualSubprogram();
+                    aActualSubprogram = programActualRun.GetActualSubprogram();
                     //Wyswietl dane na temat programy=u i subprogrmau
-                    ShowProgramConfig(actualProgram);
-                    ShowSubprogramConfig(actualSubprogram);
-
+                    ShowProgramConfig(programActualRun);
+                    ShowSubprogramConfig(aActualSubprogram);
+                    //Ustaw combobox na danym prgoramie
+                    SetProgramInComboBox(programActualRun);
                     cBoxPrograms.Enabled        = false;
                     listViewSubprograms.Enabled = false;
                 }
@@ -115,6 +119,17 @@ namespace HPT1000.GUI
                     cBoxPrograms.Enabled        = true;
                     listViewSubprograms.Enabled = true;
                 }
+            }
+            if(!aAnyProgramRun)
+                programActualRun = null;
+        }
+        //--------------------------------------------------------------------------------------
+        void SetProgramInComboBox(Program program)
+        {
+            for(int i = 0; i < cBoxPrograms.Items.Count; i++)
+            {
+                if (cBoxPrograms.Items[i] == program)
+                    cBoxPrograms.SelectedIndex = i;
             }
         }
         //--------------------------------------------------------------------------------------
@@ -125,9 +140,9 @@ namespace HPT1000.GUI
             {
                 //Podaj mi dla ktorych subprogramow mam tworzyc liste. Czy user przeglada parametry czy wyswietlam dane z PLC aktulanie wykonywanego prgoramu
                 List<Subprogram> aSubprograms = pr.GetSubprograms();
-                if (pr.IsRun())
+            /*    if (pr.IsRun())
                     aSubprograms = pr.GetSubprogramsPLC();
-
+            */    labStatus.Text = "Progrma status: " + pr.Status.ToString();
                 //uzupelnij liste sub programow. Jezeli jest mniej w listView to dodaj jezeli jest za duzo to usun
                 if (aSubprograms != null)
                 {

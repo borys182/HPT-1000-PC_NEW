@@ -83,6 +83,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.timerRefresh = new System.Windows.Forms.Timer(this.components);
+            this.labStatus = new System.Windows.Forms.Label();
             radioButton2 = new System.Windows.Forms.RadioButton();
             radioButton1 = new System.Windows.Forms.RadioButton();
             this.panel8.SuspendLayout();
@@ -177,9 +178,9 @@
             // cBoxPrograms
             // 
             this.cBoxPrograms.FormattingEnabled = true;
-            this.cBoxPrograms.Location = new System.Drawing.Point(136, 30);
+            this.cBoxPrograms.Location = new System.Drawing.Point(124, 30);
             this.cBoxPrograms.Name = "cBoxPrograms";
-            this.cBoxPrograms.Size = new System.Drawing.Size(209, 28);
+            this.cBoxPrograms.Size = new System.Drawing.Size(183, 28);
             this.cBoxPrograms.TabIndex = 47;
             this.cBoxPrograms.SelectedIndexChanged += new System.EventHandler(this.cBoxPrograms_SelectedIndexChanged);
             // 
@@ -542,6 +543,7 @@
             // 
             // panel6
             // 
+            this.panel6.Controls.Add(this.labStatus);
             this.panel6.Controls.Add(this.panel8);
             this.panel6.Controls.Add(this.label34);
             this.panel6.Controls.Add(this.label5);
@@ -558,6 +560,16 @@
             // 
             this.timerRefresh.Enabled = true;
             this.timerRefresh.Tick += new System.EventHandler(this.timerRefresh_Tick);
+            // 
+            // labStatus
+            // 
+            this.labStatus.AutoSize = true;
+            this.labStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labStatus.Location = new System.Drawing.Point(310, 33);
+            this.labStatus.Name = "labStatus";
+            this.labStatus.Size = new System.Drawing.Size(152, 20);
+            this.labStatus.TabIndex = 58;
+            this.labStatus.Text = "Program Status: ";
             // 
             // ProgramPanel
             // 
@@ -634,5 +646,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Timer timerRefresh;
+        private System.Windows.Forms.Label labStatus;
     }
 }

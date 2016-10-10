@@ -15,9 +15,11 @@ namespace HPT1000.Source.Chamber
         //---------------------------------------------------------------------------------------
         public abstract void UpdateData(int[] aData);
         //---------------------------------------------------------------------------------------
-        public virtual void UpdateSettings(int[] aData)
-        {
-        }
+        public virtual void UpdateSettingsData(int[] aData)
+        {}
+        //---------------------------------------------------------------------------------------
+        public virtual void PreapreSettingsData(int[] aData)
+        {}
         //---------------------------------------------------------------------------------------
         public virtual void SetPonterPLC(PLC ptrPLC)
         {

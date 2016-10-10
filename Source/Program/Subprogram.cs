@@ -49,12 +49,18 @@ namespace HPT1000.Source.Program
         //Funkcja aktualizaje dane na temat subprogramu wykonywanego aktulnie w sterowniku PLC
         public void UpdateData(SubprogramData aSubprogramData)
         {
-            status = (Types.StatusProgram)aSubprogramData.Status;
             stepObjects[0].UpdateData(aSubprogramData);
             stepObjects[1].UpdateData(aSubprogramData);
             stepObjects[2].UpdateData(aSubprogramData);
             stepObjects[3].UpdateData(aSubprogramData);
             stepObjects[4].UpdateData(aSubprogramData);
+        }
+        //-------------------------------------------------------------------------------------------------------------------------
+        //Status jest odczytywany ze zbiorczej tablicy w celu optyamlizacji odczytu danych z PLC
+        public void UpdateStatus(int[] aData)
+        {
+            if(aData.Length > (id -1 + Types.OFFSET_STATUS_DATA) )
+                status = (Types.StatusProgram)aData[id - 1 + Types.OFFSET_STATUS_DATA];
         }
         //-------------------------------------------------------------------------------------------------------------------------
         //Funkcja zwraca tablice danych segmentu przygotowana zgodnie z segmentem po stronie PLC

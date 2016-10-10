@@ -419,8 +419,10 @@ namespace HPT1000.GUI
                 timePlasma.Value            = plasmaStage.GetTimeOperate();
                 tBoxPlasmaSetpoint.Text     = plasmaStage.GetSetpointPercent().ToString(); 
                 tBoxPlasmaDeviation.Text    = plasmaStage.GetDeviation().ToString();
-                scrollPlasmaSetpoint.Value  = plasmaStage.GetSetpointPercent();
-                scrollPlasmaDevistion.Value = (int)plasmaStage.GetDeviation();
+                if(scrollPlasmaSetpoint.Maximum > plasmaStage.GetSetpointPercent()  && scrollPlasmaSetpoint.Minimum < plasmaStage.GetSetpointPercent())
+                    scrollPlasmaSetpoint.Value  = plasmaStage.GetSetpointPercent();
+                if (scrollPlasmaDevistion.Maximum > plasmaStage.GetDeviation() && scrollPlasmaDevistion.Minimum < plasmaStage.GetDeviation())
+                    scrollPlasmaDevistion.Value = (int)plasmaStage.GetDeviation();
 
                 switch(plasmaStage.GetWorkMode())
                 {

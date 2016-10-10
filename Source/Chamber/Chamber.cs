@@ -36,7 +36,7 @@ namespace HPT1000.Source.Chamber
         {
             //aktualizuj dane obiektow
             foreach (ChamberObject aObject in objects)
-                aObject.UpdateSettings(aData);
+                aObject.UpdateSettingsData(aData);
         }
         //------------------------------------------------------------------------------------------------
         public void SetPtrPLC(PLC plc)

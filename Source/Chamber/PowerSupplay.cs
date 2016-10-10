@@ -8,17 +8,22 @@ namespace HPT1000.Source.Chamber
 {
     public class PowerSupplay : ChamberObject
     {
-        private Types.StateHV   state = Types.StateHV.Error;
-        private Types.ModeHV    mode = Types.ModeHV.Power;
+        //stan zasilacza
+        private Types.StateHV   state       = Types.StateHV.Error;
+        private Types.ModeHV    mode        = Types.ModeHV.Power;
+        private double          power       = 0;
+        private double          voltage     = 0;
+        private double          curent      = 0;
 
-        private double          power    = 0;
-        private double          voltage  = 0;
-        private double          curent   = 0;
-        
-        private double          limitVoltage = 0;
-        private double          limitCurent  = 0;
-        private double          limitPower   = 0;
-
+        //parametry zasilacza
+        private double          limitVoltage        = 1000;
+        private double          limitCurent         = 50;
+        private double          limitPower          = 500;
+        private double          maxVoltage          = 2000; //wartość max napiecia dla trybu Voltage jaką można ustawić na zasilaczu
+        private double          maxCurent           = 100;  //wartość max prądu dla trybu Curent jaką można ustawić na zasilaczu
+        private double          maxPower            = 1000; //wartość max mocy dla trybu Power jaką można ustawić na zasilaczu
+        private int             timeWaitOnOperate   = 5;    //czas oczekiwania na potwierdzenie wlaczenia zasilacza
+        private int             timeWaitOnSetpoint  = 30;   //czas oczekiwania na sptrawdzenie czy aktualny setpoint miesci sie w wyznaczonych widelkach programu
         //-------------------------------------------------------------------------------------------
         public double LimitVoltage
         {
@@ -60,6 +65,31 @@ namespace HPT1000.Source.Chamber
             get { return mode; }
         }
         //-------------------------------------------------------------------------------------------
+        public double MaxPower
+        {
+            get { return maxPower; }
+        }
+        //-------------------------------------------------------------------------------------------
+        public double MaxVoltage
+        {
+            get { return maxVoltage; }
+        }
+        //-------------------------------------------------------------------------------------------
+        public double MaxCurent
+        {
+            get { return maxCurent; }
+        }
+        //-------------------------------------------------------------------------------------------
+        public double TimeWaitSetpoint
+        {
+            get { return timeWaitOnSetpoint; }
+        }
+        //-------------------------------------------------------------------------------------------
+        public double TimeWaitOperate
+        {
+            get { return timeWaitOnOperate; }
+        }
+        //-------------------------------------------------------------------------------------------
         override public void UpdateData(int []aData)
         {
             if (aData.Length > Types.OFFSET_POWER && aData.Length > Types.OFFSET_VOLTAGE && aData.Length > Types.OFFSET_CURENT && aData.Length > Types.OFFSET_MODE_HV && aData.Length > Types.OFFSET_STATUS_HV)
@@ -82,9 +112,19 @@ namespace HPT1000.Source.Chamber
         //-------------------------------------------------------------------------------------------
         override public void UpdateSettingsData(int[] aData)
         {
-            limitPower      = Types.ConvertDWORDToDouble(aData, Types.OFFSET_LIMIT_POWER);
-            limitVoltage    = Types.ConvertDWORDToDouble(aData, Types.OFFSET_LIMIT_VOLTAGE);
-            limitCurent     = Types.ConvertDWORDToDouble(aData, Types.OFFSET_LIMIT_CURENT);
+            if (aData.Length > Types.OFFSET_HV_LIMIT_POWER  && aData.Length > Types.OFFSET_HV_LIMIT_VOLTAGE && aData.Length > Types.OFFSET_HV_LIMIT_CURENT &&
+                aData.Length > Types.OFFSET_HV_MAX_POWER    && aData.Length > Types.OFFSET_HV_MAX_VOLTAGE   && aData.Length > Types.OFFSET_HV_MAX_CURENT &&
+                aData.Length > Types.OFFSET_HV_WAIT_OPERATE && aData.Length > Types.OFFSET_HV_WAIT_SETPOINT)
+            {
+                limitPower          = Types.ConvertDWORDToDouble(aData, Types.OFFSET_HV_LIMIT_POWER);
+                limitVoltage        = Types.ConvertDWORDToDouble(aData, Types.OFFSET_HV_LIMIT_VOLTAGE);
+                limitCurent         = Types.ConvertDWORDToDouble(aData, Types.OFFSET_HV_LIMIT_CURENT);
+                maxPower            = Types.ConvertDWORDToDouble(aData, Types.OFFSET_HV_MAX_POWER);
+                maxVoltage          = Types.ConvertDWORDToDouble(aData, Types.OFFSET_HV_MAX_VOLTAGE);
+                maxCurent           = Types.ConvertDWORDToDouble(aData, Types.OFFSET_HV_MAX_CURENT);
+                timeWaitOnOperate   = aData[Types.OFFSET_HV_WAIT_OPERATE];
+                timeWaitOnSetpoint  = aData[Types.OFFSET_HV_WAIT_SETPOINT];
+            }
         }
         //-----------------------------------------------------------------------------------------
         public ERROR SetSetpoint(double aSetpoint)
@@ -148,7 +188,7 @@ namespace HPT1000.Source.Chamber
             ERROR aErr = new ERROR(0,0);
 
             if (plc != null)
-                    aErr.ErrorCodePLC = plc.WriteRealData(Types.GetAddress(Types.AddressSpace.Settings,Types.OFFSET_LIMIT_POWER), (float)aValue);
+                    aErr.ErrorCodePLC = plc.WriteRealData(Types.GetAddress(Types.AddressSpace.Settings,Types.OFFSET_HV_LIMIT_POWER), (float)aValue);
             else
                 aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
 
@@ -160,7 +200,7 @@ namespace HPT1000.Source.Chamber
             ERROR aErr = new ERROR(0,0);
 
             if (plc != null)
-                aErr.ErrorCodePLC = plc.WriteRealData(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_LIMIT_CURENT), (float)aValue);
+                aErr.ErrorCodePLC = plc.WriteRealData(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_HV_LIMIT_CURENT), (float)aValue);
             else
                 aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
 
@@ -172,13 +212,82 @@ namespace HPT1000.Source.Chamber
             ERROR aErr = new ERROR(0,0);
 
             if (plc != null)
-                aErr.ErrorCodePLC = plc.WriteRealData(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_LIMIT_VOLTAGE), (float)aValue);
+                aErr.ErrorCodePLC = plc.WriteRealData(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_HV_LIMIT_VOLTAGE), (float)aValue);
             else
                 aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
 
             return aErr;
         }
         //-------------------------------------------------------------------------------------------  
+        //Ustaw max wartosc napiecia jaka jest jest mozliwa do ustawiania z zasilacza
+        public ERROR SetMaxVoltage(double aValue)
+        {
+            ERROR aErr = new ERROR(0, 0);
+
+            if (plc != null)
+                aErr.ErrorCodePLC = plc.WriteRealData(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_HV_MAX_VOLTAGE), (float)aValue);
+            else
+                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+
+            return aErr;
+        }
+        //-------------------------------------------------------------------------------------------  
+        //Ustaw max wartosc mocy jaka jest jest mozliwa do ustawiania z zasilacza
+        public ERROR SetMaxPower(double aValue)
+        {
+            ERROR aErr = new ERROR(0, 0);
+
+            if (plc != null)
+                aErr.ErrorCodePLC = plc.WriteRealData(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_HV_MAX_POWER), (float)aValue);
+            else
+                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+
+            return aErr;
+        }
+        //-------------------------------------------------------------------------------------------  
+        //Ustaw max wartosc pradu jaka jest jest mozliwa do ustawiania z zasilacza
+        public ERROR SetMaxCurent(double aValue)
+        {
+            ERROR aErr = new ERROR(0, 0);
+
+            if (plc != null)
+                aErr.ErrorCodePLC = plc.WriteRealData(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_HV_MAX_CURENT), (float)aValue);
+            else
+                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+
+            return aErr;
+        }
+        //------------------------------------------------------------------------------------------- 
+        //Ustaw czas oczekiwania na sprawdzenie poprawnisci wlaczenia zasilacza
+        public ERROR SetWaitTimeOperate(int aValue)
+        {
+            ERROR aErr = new ERROR(0, 0);
+            int[] aData = new int[1];
+
+            aData[0] = aValue;
+            if (plc != null)
+                aErr.ErrorCodePLC = plc.WriteWords(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_HV_WAIT_OPERATE), 1,aData);
+            else
+                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+
+            return aErr;
+        }
+        //------------------------------------------------------------------------------------------- 
+        //Ustaw czas oczekiwania na stabilizacje sie wartosc setpoint poiedzy zadanymi widelkami programu
+        public ERROR SetWaitTimeSetpoint(int aValue)
+        {
+            ERROR aErr = new ERROR(0, 0);
+            int[] aData = new int[1];
+
+            aData[0] = aValue;
+            if (plc != null)
+                aErr.ErrorCodePLC = plc.WriteWords(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_HV_WAIT_SETPOINT), 1, aData);
+            else
+                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+
+            return aErr;
+        }
+        //------------------------------------------------------------------------------------------- 
 
 
     }

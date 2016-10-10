@@ -23,9 +23,6 @@ namespace HPT1000.Source.Driver
         private ThreadStart             funThr;
         private Thread                  threadReadData;
 
-        private bool                    flagUpdateSettings  = false;
-        private int[]                   dataSettingsPLC     = new int[Types.LENGHT_SETTINGS_DATA];
-
         bool                            connectionPLC       = false;
 
         private static RefreshProgram   refreshProgram      = null;
@@ -69,12 +66,6 @@ namespace HPT1000.Source.Driver
                 //Sprawdz czy jest komunikacja
                 CheckConnection(aRes);
 
-                //Tymczasowe odczytywabie setingsow w watku synchronicznie
-                if (flagUpdateSettings)
-                {
-                    plc.ReadWords(Types.ADDR_START_SETTINGS, Types.LENGHT_SETTINGS_DATA, dataSettingsPLC);
-                    flagUpdateSettings = false;
-                }
                 //Odczytuj dane co 0.5 s
                 Thread.Sleep(500);
             }
@@ -83,7 +74,6 @@ namespace HPT1000.Source.Driver
         private void FirstRun()
         {
             //Odczytaj z automatu settingsy z PLC po nawiazaniu polaczenia
-            plc.ReadWords(Types.ADDR_START_SETTINGS, Types.LENGHT_SETTINGS_DATA, dataSettingsPLC);
             UpdateSettings();
             //Odczytaj z PLC parametry programu aktualnie wgranego
             ReadProgramFromPLC();
@@ -159,12 +149,12 @@ namespace HPT1000.Source.Driver
         {
             ERROR aErr = new ERROR(0,0);
             int[] aData = new int[Types.LENGHT_SETTINGS_DATA];
-            flagUpdateSettings = true;
-            //   aErr.ErrorCodePLC = plc.ReadWords(Types.ADDR_START_SETTINGS, Types.LENGHT_SETTINGS_DATA, aData);
+
+            aErr.ErrorCodePLC = plc.ReadWords(Types.ADDR_START_SETTINGS, Types.LENGHT_SETTINGS_DATA, aData);
        
             //aktualizuj dane na temat settingsow
             if (aErr.ErrorCodePLC == 0)
-                chamber.UpdateSettings(dataSettingsPLC);
+                chamber.UpdateSettings(aData);
 
             Logger.AddError(aErr);
         }

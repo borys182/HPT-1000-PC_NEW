@@ -16,8 +16,8 @@ namespace HPT1000.Source.Chamber
         private double  factor          = 1;                //okresleneie factora dla danego gazu podpietego do danej przeplywki. Przeplywki
                                                             //sa skalibrowane na jeden gaz i podpiecie innego wymusza ustawienie factora dla poprawnych przeliczen przeplywu
         //zmienne konfigurujace przeplywke
-        private int         rangeVoltage = 10000;           //okreslenie zakresu napieciowego pracy przeplywki
-        private double      maxFlow_sccm = 10000;           //okreslenie max przeplywu przeplywki wyrazonego w jednostkach sccm
+        private int     rangeVoltage = 10000;           //okreslenie zakresu napieciowego pracy przeplywki
+        private int     maxFlow_sccm = 10000;           //okreslenie max przeplywu przeplywki wyrazonego w jednostkach sccm
 
         //-----------------------------------------------------------------------------------------
         public MFC_Channel(int aID)
@@ -42,19 +42,36 @@ namespace HPT1000.Source.Chamber
 
                 if(aData.Length > aAddr)
                     actualFlow = aData[aAddr];
-
-                //  actualVoltage = Types.ConvertDWORDToDouble(aData, aAddr);
             }
         }
         //-----------------------------------------------------------------------------------------
+        //Odczytaj ustawienia MFC z PLC
         public override void UpdateSettingsData(int[] aData)
         {
-            base.UpdateSettingsData(aData);
-        }
-        //-----------------------------------------------------------------------------------------
-        public override void PreapreSettingsData(int[] aData)
-        {
-            base.PreapreSettingsData(aData);
+            int aAddrRangeFlow = 0;
+            int aAddrRangeVoltage = 0;
+
+            if (id == 1)
+            {
+                aAddrRangeFlow      = Types.OFFSET_RANGE_FLOW_MFC1;
+                aAddrRangeVoltage   = Types.OFFSET_RANGE_VOLTAGE_MFC1;
+            }
+            if (id == 2)
+            {
+                aAddrRangeFlow      = Types.OFFSET_RANGE_FLOW_MFC2;
+                aAddrRangeVoltage   = Types.OFFSET_RANGE_VOLTAGE_MFC2;
+            }
+            if (id == 3)
+            {
+                aAddrRangeFlow      = Types.OFFSET_RANGE_FLOW_MFC3;
+                aAddrRangeVoltage   = Types.OFFSET_RANGE_VOLTAGE_MFC3;
+            }
+
+            if (aData.Length > aAddrRangeFlow && aData.Length > aAddrRangeVoltage)
+            {
+                rangeVoltage = aData[aAddrRangeVoltage];
+                maxFlow_sccm = aData[aAddrRangeFlow];
+            }
         }
         //-----------------------------------------------------------------------------------------
         //Funkcja umozliwia ustawianie dango przeplwyu na przeplywce
@@ -128,16 +145,56 @@ namespace HPT1000.Source.Chamber
             return enabled;
         }
         //-----------------------------------------------------------------------------------------
-        public void SetMaxFlow(double aMaxFlow)
-        {
-            maxFlow_sccm = aMaxFlow;
-        }
-        //-----------------------------------------------------------------------------------------
-        public double GetMaxFlow()
+        public int GetMaxFlow()
         {
             return maxFlow_sccm;
         }
         //-----------------------------------------------------------------------------------------
+        public int GeRangeVoltage()
+        {
+            return rangeVoltage;
+        }
+        //-----------------------------------------------------------------------------------------
+        //Ustaw max przeplyw jaki jest mozliwy do ustawienia dla danej przeplywki [sccm]
+        public ERROR SetMaxFlow(int aValue)
+        {
+            ERROR   aErr = new ERROR(0, 0);
+            int[]   aData = new int[1];
+            int     aAddr = 0;
+
+            if (id == 1) aAddr = Types.OFFSET_RANGE_FLOW_MFC1;
+            if (id == 2) aAddr = Types.OFFSET_RANGE_FLOW_MFC2;
+            if (id == 3) aAddr = Types.OFFSET_RANGE_FLOW_MFC3;
+
+            aData[0] = aValue;
+            if (plc != null)
+                aErr.ErrorCodePLC = plc.WriteWords(Types.GetAddress(Types.AddressSpace.Settings, aAddr), 1, aData);
+            else
+                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+
+            return aErr;
+        }
+        //------------------------------------------------------------------------------------------- 
+        //Ustaw wartosc max napieica sterujacego dana przeplywka [mV]
+        public ERROR SetRangeVoltage(int aValue)
+        {
+            ERROR aErr = new ERROR(0, 0);
+            int[] aData = new int[1];
+            int aAddr = 0;
+
+            if (id == 1) aAddr = Types.OFFSET_RANGE_VOLTAGE_MFC1;
+            if (id == 2) aAddr = Types.OFFSET_RANGE_VOLTAGE_MFC2;
+            if (id == 3) aAddr = Types.OFFSET_RANGE_VOLTAGE_MFC3;
+
+            aData[0] = aValue;
+            if (plc != null)
+                aErr.ErrorCodePLC = plc.WriteWords(Types.GetAddress(Types.AddressSpace.Settings, aAddr), 1, aData);
+            else
+                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+
+            return aErr;
+        }
+        //------------------------------------------------------------------------------------------- 
     }
     //-----------------------------------------------------------------------------------------
     //------------------------------------MFC-------------------------------------------------
@@ -145,8 +202,15 @@ namespace HPT1000.Source.Chamber
 
     public class MFC : ChamberObject
     {
-        private List<MFC_Channel> flowMeters = new List<MFC_Channel>();
+        private List<MFC_Channel>   flowMeters          = new List<MFC_Channel>();
 
+        private int                 timeFlowStability   = 30; //czas oczekiwania na stablizicacje przeplywu po ustawineiu setpointa
+
+        //-----------------------------------------------------------------------------------------
+        public int TimeFlowStability
+        {
+            get { return timeFlowStability; }
+        }
         //-----------------------------------------------------------------------------------------
         public MFC()
         {
@@ -179,22 +243,17 @@ namespace HPT1000.Source.Chamber
         //-----------------------------------------------------------------------------------------
         public override void UpdateSettingsData(int[] aData)
         {
+            if (aData.Length > Types.OFFSET_TIME_FLOW_STABILITY)
+            {
+                timeFlowStability = aData[Types.OFFSET_TIME_FLOW_STABILITY];             
+            }
+
             foreach (MFC_Channel mfc in flowMeters)
             {
                 if (mfc != null)
                     mfc.UpdateSettingsData(aData);
             }
             base.UpdateSettingsData(aData);
-        }
-        //-----------------------------------------------------------------------------------------
-        public override void PreapreSettingsData(int[] aData)
-        {
-            foreach (MFC_Channel mfc in flowMeters)
-            {
-                if (mfc != null)
-                    mfc.PreapreSettingsData(aData);
-            }
-            base.PreapreSettingsData(aData);
         }
         //-----------------------------------------------------------------------------------------
         //Funkcja umozliwia ustawianie dango przeplwyu na przeplywce
@@ -251,12 +310,31 @@ namespace HPT1000.Source.Chamber
             return aMaxFlow;
         }
         //-----------------------------------------------------------------------------------------
-        public void SetMaxFlow(int aId,double aMaxFlow)
+        public double GetRangeVoltage(int aId)
+        {
+            double aRangeVoltage = 0;
+            MFC_Channel mfc_Channel = GetMFC_Channel(aId);
+
+            if (mfc_Channel != null)
+                aRangeVoltage = mfc_Channel.GeRangeVoltage();
+
+            return aRangeVoltage;
+        }
+        //-----------------------------------------------------------------------------------------
+        public void SetMaxFlow(int aId,int aMaxFlow)
         {
             MFC_Channel mfc_Channel = GetMFC_Channel(aId);
 
             if (mfc_Channel != null)
                 mfc_Channel.SetMaxFlow(aMaxFlow);
+        }
+        //-----------------------------------------------------------------------------------------
+        public void SetRangeVoltage(int aId, int aRangeVoltage)
+        {
+            MFC_Channel mfc_Channel = GetMFC_Channel(aId);
+
+            if (mfc_Channel != null)
+                mfc_Channel.SetRangeVoltage(aRangeVoltage);
         }
         //-----------------------------------------------------------------------------------------
         public override void SetPonterPLC(PLC ptrPLC)
@@ -269,7 +347,21 @@ namespace HPT1000.Source.Chamber
             }
         }
         //-----------------------------------------------------------------------------------------
+        //Ustaw czas oczekiwania na stabilizacje sie wartosc przeplywu poiedzy zadanymi widelkami programu
+        public ERROR SetTimeFlowStability(int aValue)
+        {
+            ERROR aErr = new ERROR(0, 0);
+            int[] aData = new int[1];
 
+            aData[0] = aValue;
+            if (plc != null)
+                aErr.ErrorCodePLC = plc.WriteWords(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_TIME_FLOW_STABILITY), 1, aData);
+            else
+                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+
+            return aErr;
+        }
+        //------------------------------------------------------------------------------------------- 
     }
 }
   

@@ -60,25 +60,30 @@ namespace HPT1000.GUI
         {
             if(hpt1000.GetPowerSupply() != null)
             {
-                dEditCurentLimit.Value =  hpt1000.GetPowerSupply().LimitCurent;
-                dEditPowerLimit.Value   = hpt1000.GetPowerSupply().LimitPower;
-                dEditVoltageLimit.Value = hpt1000.GetPowerSupply().LimitVoltage;
+                dEditCurentLimit.Value      = hpt1000.GetPowerSupply().LimitCurent;
+                dEditPowerLimit.Value       = hpt1000.GetPowerSupply().LimitPower;
+                dEditVoltageLimit.Value     = hpt1000.GetPowerSupply().LimitVoltage;
+                dEditMaxPower.Value         = hpt1000.GetPowerSupply().MaxPower;
+                dEditMaxCurent.Value        = hpt1000.GetPowerSupply().MaxCurent;
+                dEditMaxVoltage.Value       = hpt1000.GetPowerSupply().MaxVoltage;
+                dEditTimeWaitSetpoint.Value = hpt1000.GetPowerSupply().TimeWaitSetpoint;
+                dEditTimeOperate.Value      = hpt1000.GetPowerSupply().TimeWaitOperate;
             }
-            if(hpt1000.GetMFC() != null)
+            if (hpt1000.GetMFC() != null)
             {
-                dEditMaxFlow_MFC1.Value = hpt1000.GetMFC().GetMaxFlow(1);
-                dEditMaxFlow_MFC2.Value = hpt1000.GetMFC().GetMaxFlow(2);
-                dEditMaxFlow_MFC3.Value = hpt1000.GetMFC().GetMaxFlow(3);
+                dEditMaxFlow_MFC1.Value     = hpt1000.GetMFC().GetMaxFlow(1);
+                dEditMaxFlow_MFC2.Value     = hpt1000.GetMFC().GetMaxFlow(2);
+                dEditMaxFlow_MFC3.Value     = hpt1000.GetMFC().GetMaxFlow(3);
+                dEditRangeVoltageMFC1.Value = hpt1000.GetMFC().GetRangeVoltage(1);
+                dEditRangeVoltageMFC2.Value = hpt1000.GetMFC().GetRangeVoltage(2);
+                dEditRangeVoltageMFC3.Value = hpt1000.GetMFC().GetRangeVoltage(3);
+                dEditFlowStability.Value    = hpt1000.GetMFC().TimeFlowStability;
             }
-        }
-        //------------------------------------------------------------------------------------------
-        private void button1_Click(object sender, EventArgs e)
-        {
-            int aRes = 0;
-
-            if (hpt1000.GetPLC() != null)
-                aRes = hpt1000.GetPLC().Connect();
-
+            if (hpt1000.GetForePump() != null)
+            {
+                dEditTimePumpToSV.Value     = hpt1000.GetForePump().TimePumpToSV;
+                dEditTimeWaitPF.Value       = hpt1000.GetForePump().TimeWaitPF;
+            }
         }
         //------------------------------------------------------------------------------------------
         private void btnTest_Click(object sender, EventArgs e)
@@ -211,7 +216,7 @@ namespace HPT1000.GUI
 
             if (hpt1000.GetMFC() != null)
             {
-                hpt1000.GetMFC().SetMaxFlow(1, dEditMaxFlow_MFC1.Value);
+                hpt1000.GetMFC().SetMaxFlow(1, (int)dEditMaxFlow_MFC1.Value);
                 aRes = true;
             }
 
@@ -224,7 +229,7 @@ namespace HPT1000.GUI
 
             if (hpt1000.GetMFC() != null)
             {
-                hpt1000.GetMFC().SetMaxFlow(2, dEditMaxFlow_MFC2.Value);
+                hpt1000.GetMFC().SetMaxFlow(2, (int)dEditMaxFlow_MFC2.Value);
                 aRes = true;
             }
 
@@ -237,11 +242,162 @@ namespace HPT1000.GUI
 
             if (hpt1000.GetMFC() != null)
             {
-                hpt1000.GetMFC().SetMaxFlow(3, dEditMaxFlow_MFC3.Value);
+                hpt1000.GetMFC().SetMaxFlow(3, (int)dEditMaxFlow_MFC3.Value);
                 aRes = true;
             }
 
             return aRes;
+        }
+        //----------------------------------------------------------------------------------
+        private bool dEditMaxPower_EnterOn()
+        {
+            bool aRes = true;
+
+            if (hpt1000.GetPowerSupply() != null)
+            {
+                hpt1000.GetPowerSupply().SetMaxPower(dEditMaxPower.Value);
+                aRes = true;
+            }
+
+            return aRes;
+        }
+        //----------------------------------------------------------------------------------
+        private bool dEditMaxVoltage_EnterOn()
+        {
+            bool aRes = true;
+
+            if (hpt1000.GetPowerSupply() != null)
+            {
+                hpt1000.GetPowerSupply().SetMaxVoltage(dEditMaxVoltage.Value);
+                aRes = true;
+            }
+
+            return aRes;
+        }
+        //----------------------------------------------------------------------------------
+        private bool dEditMaxCurent_EnterOn()
+        {
+            bool aRes = true;
+
+            if (hpt1000.GetPowerSupply() != null)
+            {
+                hpt1000.GetPowerSupply().SetMaxCurent(dEditMaxCurent.Value);
+                aRes = true;
+            }
+
+            return aRes;
+        }
+        //----------------------------------------------------------------------------------
+        private bool dEditTimeOperate_EnterOn()
+        {
+            bool aRes = true;
+
+            if (hpt1000.GetPowerSupply() != null)
+            {
+                hpt1000.GetPowerSupply().SetWaitTimeOperate((int)dEditTimeOperate.Value);
+                aRes = true;
+            }
+
+            return aRes;
+        }
+        //----------------------------------------------------------------------------------
+        private bool dEditTimeWaitSetpoint_EnterOn()
+        {
+            bool aRes = true;
+
+            if (hpt1000.GetPowerSupply() != null)
+            {
+                hpt1000.GetPowerSupply().SetWaitTimeSetpoint((int)dEditTimeWaitSetpoint.Value);
+                aRes = true;
+            }
+
+            return aRes;
+        }
+        //----------------------------------------------------------------------------------
+        private bool dEditRangeVoltageMFC1_EnterOn()
+        {
+            bool aRes = true;
+
+            if (hpt1000.GetMFC() != null)
+            {
+                hpt1000.GetMFC().SetRangeVoltage(1,(int)dEditRangeVoltageMFC1.Value);
+                aRes = true;
+            }
+
+            return aRes;
+        }
+        //----------------------------------------------------------------------------------
+        private bool dEditRangeVoltageMFC2_EnterOn()
+        {
+            bool aRes = true;
+
+            if (hpt1000.GetMFC() != null)
+            {
+                hpt1000.GetMFC().SetRangeVoltage(2, (int)dEditRangeVoltageMFC2.Value);
+                aRes = true;
+            }
+
+            return aRes;
+        }
+        //----------------------------------------------------------------------------------
+        private bool dEditRangeVoltageMFC3_EnterOn()
+        {
+            bool aRes = true;
+
+            if (hpt1000.GetMFC() != null)
+            {
+                hpt1000.GetMFC().SetRangeVoltage(3, (int)dEditRangeVoltageMFC3.Value);
+                aRes = true;
+            }
+
+            return aRes;
+        }
+        //----------------------------------------------------------------------------------
+        private bool dEditFlowStability_EnterOn()
+        {
+            bool aRes = true;
+
+            if (hpt1000.GetMFC() != null)
+            {
+                hpt1000.GetMFC().SetTimeFlowStability((int)dEditFlowStability.Value);
+                aRes = true;
+            }
+
+            return aRes;
+        }
+        //----------------------------------------------------------------------------------
+        private bool dEditTimeWaitPF_EnterOn()
+        {
+            bool aRes = true;
+
+            if (hpt1000.GetForePump() != null)
+            {
+                hpt1000.GetForePump().SetTimeWaitPF((int)dEditTimeWaitPF.Value);
+                aRes = true;
+            }
+
+            return aRes;
+        }
+        //----------------------------------------------------------------------------------
+        private bool dEditTimePumpToSV_EnterOn()
+        {
+            bool aRes = true;
+
+            if (hpt1000.GetForePump() != null)
+            {
+                hpt1000.GetForePump().SetTimePumpToSV((int)dEditTimePumpToSV.Value);
+                aRes = true;
+            }
+
+            return aRes;
+        }
+        //----------------------------------------------------------------------------------
+        private void btnConnect_Click(object sender, EventArgs e)
+        {
+            int aRes = 0;
+
+            if (hpt1000.GetPLC() != null)
+                aRes = hpt1000.GetPLC().Connect();
         }
         //----------------------------------------------------------------------------------
     }

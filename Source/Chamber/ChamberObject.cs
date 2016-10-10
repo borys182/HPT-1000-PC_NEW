@@ -18,9 +18,6 @@ namespace HPT1000.Source.Chamber
         public virtual void UpdateSettingsData(int[] aData)
         {}
         //---------------------------------------------------------------------------------------
-        public virtual void PreapreSettingsData(int[] aData)
-        {}
-        //---------------------------------------------------------------------------------------
         public virtual void SetPonterPLC(PLC ptrPLC)
         {
             plc = ptrPLC;

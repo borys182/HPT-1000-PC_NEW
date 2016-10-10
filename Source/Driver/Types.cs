@@ -101,7 +101,7 @@ namespace HPT1000.Source.Driver
         public static string ADDR_PRG_SEQ_COUNTS            = "D2001";
         public static string ADDR_START_BUFFER_PROGRAM      = "D2002";
 
-        public const int LENGHT_STATUS_DATA = 110;//50;
+        public const int    LENGHT_STATUS_DATA              = 110;//50;
         public const int    LENGHT_SETTINGS_DATA            = 40;
         public const int    SEGMENT_SIZE                    = 50;   //Rozmiar parametrow subprogramu
         public const int    MAX_SEGMENTS                    = 100;  //Max liczba segmentow z ktorych moze sie skladac program po stronie PLC
@@ -128,10 +128,23 @@ namespace HPT1000.Source.Driver
         public static int OFFSET_MODE_PRESSURE  = 25;
 
         //Dane odczytywane na zdarzenie
-        public static int OFFSET_LIMIT_POWER    = 0;
-        public static int OFFSET_LIMIT_CURENT   = 2;
-        public static int OFFSET_LIMIT_VOLTAGE  = 4;
-
+        public static int OFFSET_HV_LIMIT_POWER     = 0;
+        public static int OFFSET_HV_LIMIT_CURENT    = 2;
+        public static int OFFSET_HV_LIMIT_VOLTAGE   = 4;
+        public static int OFFSET_HV_MAX_POWER       = 6;
+        public static int OFFSET_HV_MAX_CURENT      = 8;
+        public static int OFFSET_HV_MAX_VOLTAGE     = 10;
+        public static int OFFSET_HV_WAIT_OPERATE    = 12;
+        public static int OFFSET_HV_WAIT_SETPOINT   = 13;
+        public static int OFFSET_RANGE_FLOW_MFC1    = 14;
+        public static int OFFSET_RANGE_FLOW_MFC2    = 15;
+        public static int OFFSET_RANGE_FLOW_MFC3    = 16;
+        public static int OFFSET_RANGE_VOLTAGE_MFC1 = 17;
+        public static int OFFSET_RANGE_VOLTAGE_MFC2 = 18;
+        public static int OFFSET_RANGE_VOLTAGE_MFC3 = 19;
+        public static int OFFSET_TIME_FLOW_STABILITY = 20;
+        public static int OFFSET_TIME_PUMP_TO_SV    = 21;
+        public static int OFFSET_TIME_WAIT_PF       = 22;
 
         //Dane aktualnie wykonywanego programu i subprogramu odczytywane ciagle
         public static int SIZE_PRG_DATA             = 70;//110;

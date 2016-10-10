@@ -11,13 +11,13 @@ namespace HPT1000.Source.Chamber
     {
         private int     id              = 0;                //powiazanie obiketu po stronie PC z obiektem po stronie PLC
         private bool    enabled         = false;            //flaga okresla czy przplywka wchodzi w sklad danej konfiguracji komory 
-        private double  maxFlow_sccm    = 10000;                //okreslenie max przeplywu przeplywki wyrazonego w jednostkach sccm
-        private double  actualVoltage   = 0;                //wartosc napiecia sterujacego przeplywka
+        private int     actualFlow      = 0;                //wartosc przeplywu wyrazona w sccm
         private string  gasName         = "none";
         private double  factor          = 1;                //okresleneie factora dla danego gazu podpietego do danej przeplywki. Przeplywki
                                                             //sa skalibrowane na jeden gaz i podpiecie innego wymusza ustawienie factora dla poprawnych przeliczen przeplywu
-        //pomocnicze zmienne
-        private const int rangeVoltage = 10000;           //okreslenie zakresu napieciowego pracy przeplywki
+        //zmienne konfigurujace przeplywke
+        private int         rangeVoltage = 10000;           //okreslenie zakresu napieciowego pracy przeplywki
+        private double      maxFlow_sccm = 10000;           //okreslenie max przeplywu przeplywki wyrazonego w jednostkach sccm
 
         //-----------------------------------------------------------------------------------------
         public MFC_Channel(int aID)
@@ -40,30 +40,37 @@ namespace HPT1000.Source.Chamber
                 if (id == 2) aAddr = Types.OFFSET_ACTUAL_FLOW_2;
                 if (id == 3) aAddr = Types.OFFSET_ACTUAL_FLOW_3;
 
-                actualVoltage = Types.ConvertDWORDToDouble(aData, aAddr);
+                if(aData.Length > aAddr)
+                    actualFlow = aData[aAddr];
+
+                //  actualVoltage = Types.ConvertDWORDToDouble(aData, aAddr);
             }
         }
         //-----------------------------------------------------------------------------------------
-        public override void UpdateSettings(int[] aData)
+        public override void UpdateSettingsData(int[] aData)
         {
-            base.UpdateSettings(aData);
+            base.UpdateSettingsData(aData);
+        }
+        //-----------------------------------------------------------------------------------------
+        public override void PreapreSettingsData(int[] aData)
+        {
+            base.PreapreSettingsData(aData);
         }
         //-----------------------------------------------------------------------------------------
         //Funkcja umozliwia ustawianie dango przeplwyu na przeplywce
-        public ERROR SetFlow( float aValue, Types.UnitFlow aUnit)
+        public ERROR SetFlow( double aValue, Types.UnitFlow aUnit)
         {
             ERROR aErr = new ERROR(0,0);
 
-            double aVoltage = 0;
+            int aValueSCCM = 0;
             //przlicz wartosc podana w danych jednostach na napiecie
             switch (aUnit)
             {
                 case Types.UnitFlow.percent:
-                    aVoltage = aValue * rangeVoltage / 100;
+                    aValueSCCM = (int)(aValue / 100 * maxFlow_sccm) ;
                     break;
                 case Types.UnitFlow.sccm:
-                    if(maxFlow_sccm > 0)
-                        aVoltage = aValue * rangeVoltage / maxFlow_sccm;
+                    aValueSCCM = (int)aValue;
                     break;
             }
             string aAddr = "";
@@ -82,8 +89,10 @@ namespace HPT1000.Source.Chamber
 
             if (aAddr.Length > 0)
             {
+                int[] aData = new int[1];
+                aData[0] = aValueSCCM;
                 if (plc != null)
-                    aErr.ErrorCodePLC = plc.WriteRealData(aAddr, (float)aVoltage);
+                    aErr.ErrorCodePLC = plc.WriteWords(aAddr,1, aData);
                 else
                     aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
             }
@@ -95,27 +104,18 @@ namespace HPT1000.Source.Chamber
         //-----------------------------------------------------------------------------------------
         public double GetActualFlow(Types.UnitFlow aUnit)
         {
-            double actualFlow = 0;
+            double aFlow = 0;
             switch (aUnit)
             {
                 case Types.UnitFlow.sccm:
-                    if (actualVoltage < 0)              actualFlow = 0;
-                    if (actualVoltage > rangeVoltage)   actualFlow = maxFlow_sccm;
-                    if (actualVoltage > 0 && actualVoltage < rangeVoltage && rangeVoltage != 0)
-                    {
-                        actualFlow = actualVoltage * maxFlow_sccm / rangeVoltage;
-                    }
+                    aFlow = actualFlow;
                     break;
                 case Types.UnitFlow.percent:
-                    if (actualVoltage < 0)              actualFlow = 0;
-                    if (actualVoltage > rangeVoltage)   actualFlow = 100;
-                    if (actualVoltage > 0 && actualVoltage < rangeVoltage && rangeVoltage != 0)
-                    {
-                        actualFlow = actualVoltage / rangeVoltage * 100;
-                    }
+                    if(maxFlow_sccm > 0)
+                        aFlow = actualFlow / maxFlow_sccm * 100;
                     break;
             }
-            return actualFlow;
+            return aFlow;
         }
         //-----------------------------------------------------------------------------------------
         public void SetActive(bool aState)
@@ -177,14 +177,24 @@ namespace HPT1000.Source.Chamber
             }
         }
         //-----------------------------------------------------------------------------------------
-        public override void UpdateSettings(int[] aData)
+        public override void UpdateSettingsData(int[] aData)
         {
             foreach (MFC_Channel mfc in flowMeters)
             {
                 if (mfc != null)
-                    mfc.UpdateSettings(aData);
+                    mfc.UpdateSettingsData(aData);
             }
-            base.UpdateSettings(aData);
+            base.UpdateSettingsData(aData);
+        }
+        //-----------------------------------------------------------------------------------------
+        public override void PreapreSettingsData(int[] aData)
+        {
+            foreach (MFC_Channel mfc in flowMeters)
+            {
+                if (mfc != null)
+                    mfc.PreapreSettingsData(aData);
+            }
+            base.PreapreSettingsData(aData);
         }
         //-----------------------------------------------------------------------------------------
         //Funkcja umozliwia ustawianie dango przeplwyu na przeplywce

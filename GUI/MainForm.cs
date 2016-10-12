@@ -125,6 +125,9 @@ namespace HPT1000.GUI
             valve_Vent.RefreshData();
             pumpComponent.RefreshData();
 
+            //Odswiez liste bledow
+            ShowErrorList();
+
             switch (hpt1000.GetStatus())
             {
                 case Types.DriverStatus.OK:
@@ -139,7 +142,37 @@ namespace HPT1000.GUI
               
         }
         //----------------------------------------------------------------------------------
+        private void ShowErrorList()
+        {
+            for (int i = 0; i < Logger.GetErrorList().Count; i++)
+            {
+                ERROR aErr = Logger.GetErrorList()[i];
 
+                if (!IsErrorExist(aErr))
+                {
+                    ListViewItem aItem = new ListViewItem();
+                    aItem.Text = "0x" + aErr.GetErrorCode().ToString("X8");
+                    aItem.SubItems.Add(aErr.GetText());
+                    aItem.SubItems.Add(aErr.Time.ToString());
+                    aItem.Tag = aErr;
+
+                    listViewErrors.Items.Add(aItem);
+                }
+            }
+        }
+        //----------------------------------------------------------------------------------
+        private bool IsErrorExist(ERROR aErr)
+        {
+            bool aRes = false;
+
+            foreach (ListViewItem aItem in listViewErrors.Items)
+            {
+                if (aErr.Equals(aItem.Tag))
+                    aRes = true;
+            }
+            return aRes;
+        }
+        //----------------------------------------------------------------------------------
         private void cBoxComm_SelectedValueChanged(object sender, EventArgs e)
         {
             lock (cBoxComm)

@@ -8,8 +8,9 @@ namespace HPT1000.Source.Driver
 {
     public struct ERROR
     {
-        private Types.ERROR_CODE     errorCode    { set; get; }
-        private int                  errorCodePLC { set; get; }
+        private Types.ERROR_CODE     errorCode    { set; get; } // okreslenie typu kodu bledu
+        private int                  errorCodePLC { set; get; } // dodatkowe informacje na temat bledu (kod bledu)
+        private DateTime             time;
         //-----------------------------------------------------------------------------------------
         public int ErrorCodePLC
         {
@@ -18,22 +19,70 @@ namespace HPT1000.Source.Driver
                 errorCodePLC = value;
                 if (value == 0) errorCode = Types.ERROR_CODE.NONE;
                 else            errorCode = Types.ERROR_CODE.PLC_WRITE;
+                time = DateTime.Now;
             }
             get { return errorCodePLC; }
         }
         //-----------------------------------------------------------------------------------------
         public Types.ERROR_CODE ErrorCode
         {
-            set { errorCode = value; }
+            set
+            {
+                errorCode = value;
+                time = DateTime.Now;
+            }
             get { return errorCode; }
+        }
+        //-----------------------------------------------------------------------------------------
+        public DateTime Time
+        {
+            get { return time; }
         }
         //-----------------------------------------------------------------------------------------
         public ERROR(Types.ERROR_CODE aErrCode, int aErrCodePLC)
         {
             errorCode       = aErrCode;
             errorCodePLC    = aErrCodePLC;
+            time            = DateTime.Now;
         }
         //-----------------------------------------------------------------------------------------
+        public void SetErrorCodeFromPLC(int aErrCode,DateTime aDateTime)
+        {
+            errorCode    = Types.ERROR_CODE.PLC_ERROR;
+            errorCodePLC = aErrCode;
+            time         = aDateTime;
+        }
+        //-----------------------------------------------------------------------------------------
+        //Funkcja zwraca kod bledu. Jezeli blad zawiera dodatkowe informacje to sa one nadrzedne dla wyswietlanego bledu kodu bledu
+        public int GetErrorCode()
+        {
+            int aCode = (int)errorCode;
+            if (errorCodePLC != 0)
+                aCode = errorCodePLC;
+
+            return aCode;
+        }
+        //-----------------------------------------------------------------------------------------
+        public string GetText()
+        {
+            string aTxt = "None description";
+
+            return aTxt;
+        }
+        //-----------------------------------------------------------------------------------------
+        public override bool Equals(object other)
+        {
+            bool aRes = false;
+            ERROR aOther = (ERROR)other;
+
+            //Porownuje tylko po referencji bo w kilku miejscach sie odnosze do tej samej referencji i cos zmieniam.
+            if (this.GetType() == other.GetType() && ErrorCode == aOther.ErrorCode && ErrorCodePLC == aOther.ErrorCodePLC && Time == aOther.Time)
+            {
+                aRes = true;
+            }
+
+            return aRes;
+        }
     }
 
     /// <summary>
@@ -60,6 +109,7 @@ namespace HPT1000.Source.Driver
         public enum StatusProgram   { Unknown = 0 , Run = 1 , Stop = 2, Error = 3, Done = 4, Suspended = 5, Wait = 6 , Warning = 7 , NoLoad = 8};
         public enum ControlMode     { Automatic , Manual}
         public enum AddressSpace    { Settings, Program};
+        public enum Language        { PL = 0 , EN = 1 };
 
         public enum ERROR_CODE
         {
@@ -70,7 +120,8 @@ namespace HPT1000.Source.Driver
             PLC_WRITE                   = 0x04,          //Nie powiodl sie zapis do sterownika PLC. Dodatkowe informacje sa zwrocone w kodzie bezposrednio ze sterownika PLC (MX Components)
             BAD_CYCLE_TIME              = 0x05,          //Podana wartosc cyklu szybkiego zaworu jest mniejsz niz czas wlaczenia
             BAD_ON_TIME                 = 0x06,          //Podana wartosc czasu wlaczenia zaworu szybkieg jest wieksza niz czas cyklu
-            NO_PRG_IN_PLC               = 0x07          //Brak programu w PLC   
+            NO_PRG_IN_PLC               = 0x07,          //Brak programu w PLC   
+            PLC_ERROR                   = 0x08           //Okreslenie ze blad zostal odczytany z PLC
         }
 
         /// <summary>
@@ -97,9 +148,13 @@ namespace HPT1000.Source.Driver
         public static string ADDR_CONTROL_PROGRAM           = "D1040"; //Adres parametrow aktualnie wykonywanego programu i wykorzystuje go do dostrajania parametrow programu. Jest to adres poczatku buforu danych gdzie sa przechowywane parametry aktualnie wykonywanego programu
                                                                        //Pamietaj ze ten adres jest odzwierciedleniem PLC. Kolejne parametry urządzen posiadaja adresy zgodnie z ofsetem danego parametru w programie
         public static string ADDR_START_SETTINGS            = "D1200";
+        public static string ADDR_BUFER_ERROR               = "D1230";
         public static string ADDR_PRG_ID                    = "D2000";
         public static string ADDR_PRG_SEQ_COUNTS            = "D2001";
         public static string ADDR_START_BUFFER_PROGRAM      = "D2002";
+
+        public static string ADDR_FLAG_WAS_READ             = "M300";
+        public static string ADDR_FLAGE_SERVICE_MODE        = "M301";
 
         public const int    LENGHT_STATUS_DATA              = 110;//50;
         public const int    LENGHT_SETTINGS_DATA            = 40;
@@ -126,6 +181,7 @@ namespace HPT1000.Source.Driver
         public static int OFFSET_CYCLE_TIME     = 21;
         public static int OFFSET_ON_TIME        = 23;
         public static int OFFSET_MODE_PRESSURE  = 25;
+        public static int OFFSET_OCCURED_ERROR  = 26;
 
         //Dane odczytywane na zdarzenie
         public static int OFFSET_HV_LIMIT_POWER     = 0;
@@ -151,6 +207,9 @@ namespace HPT1000.Source.Driver
         public static int OFFSET_PRG_DATA           = 40;   //Okreslenie poczatku gdzie sie znajduje dane na temat aktualnie wykonywanego progrmau w odczytanym buforze
         public static int OFFSET_STATUS_DATA        = 60;
 
+        public const int  COUNT_ERROR_PLC           = 25;
+        public const  int SIZE_ERROR_BUFFER_PLC     = COUNT_ERROR_PLC * 4 + 2;  //Rozmiar bufora jest mnozony razy 4 poniewaz jeden wpis bledu zajmuje 4 WORDY a 2 wziela sie z odczytu za jednym razem info p StartIndex i CountError
+
         public static int OFFSET_PRG_CONTROL        = 0;
         public static int OFFSET_PRG_STATUS         = 1;
         public static int OFFSET_PRG_SUBPR_STATUS   = 2;
@@ -162,6 +221,10 @@ namespace HPT1000.Source.Driver
         public static int OFFSET_PRG_TIME_VENT      = 8;
         public static int OFFSET_PRG_TIME_FLUSH     = 9;
         public static int OFFSET_PRG_SEQ_DATA       = 10;
+
+        public static int OFFSET_ERR_START_INDEX    = 0;
+        public static int OFFSET_ERR_COUNTS_INDEX   = 1;
+        public static int OFFSET_ERR_BUFFER_INDEX   = 2;
 
         //Offset od bazowego adresu dla kolejnych parametrow subprogramu
         public static int OFFSET_SEQ_CMD                = 0;

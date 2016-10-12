@@ -129,18 +129,21 @@ namespace HPT1000.Source.Chamber
         //-----------------------------------------------------------------------------------------
         public ERROR SetSetpoint(double aSetpoint)
         {
-            ERROR aErr = new ERROR(0,0);
+            ERROR aErr  = new ERROR();
+            int   aCode = 0;
 
             if (plc != null)
             {
                 if(controlMode == Types.ControlMode.Automatic)
-                    aErr.ErrorCodePLC = plc.WriteRealData(Types.ADDR_CONTROL_PROGRAM + Types.OFFSET_SEQ_HV_SETPOINT, (float)aSetpoint);
+                    aCode = plc.WriteRealData(Types.ADDR_CONTROL_PROGRAM + Types.OFFSET_SEQ_HV_SETPOINT, (float)aSetpoint);
 
                 if(controlMode == Types.ControlMode.Manual)
-                    aErr.ErrorCodePLC = plc.WriteRealData(Types.ADDR_POWER_SUPPLAY_SETPOINT, (float)aSetpoint);
+                    aCode = plc.WriteRealData(Types.ADDR_POWER_SUPPLAY_SETPOINT, (float)aSetpoint);
+
+                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_SETPOINT_HV ,aCode);
             }
             else
-                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
             return aErr;
         }       
@@ -148,18 +151,20 @@ namespace HPT1000.Source.Chamber
         //Mozliwosc ustawienia tylko w trybie recznym
         public ERROR SetMode(Types.ModeHV aMode)
         {
-            ERROR aErr = new ERROR(0,0);
+            ERROR aErr = new ERROR();
             int []aData = new int[1] ;
 
             aData[0] =  (int)aMode;
 
             if (plc != null)
             {
+                int aCode = 0;
                 if (controlMode == Types.ControlMode.Manual)
-                    aErr.ErrorCodePLC = plc.WriteWords(Types.ADDR_POWER_SUPPLAY_MODE, 1,aData);
+                    aCode = plc.WriteWords(Types.ADDR_POWER_SUPPLAY_MODE, 1,aData);
+                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_MODE, aCode);
             }
             else
-                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
             return aErr;
         }
@@ -167,54 +172,65 @@ namespace HPT1000.Source.Chamber
         //Mozliwosc ustawienia tylko w trybie recznym
         public ERROR SetOperate(bool aOperate)
         {
-            ERROR aErr = new ERROR(0,0);
+            ERROR aErr = new ERROR();
 
             int[] aData = new int[1];
 
             aData[0] = Convert.ToInt32(aOperate);
             if (plc != null)
             {
+                int aCode = 0;
                 if (controlMode == Types.ControlMode.Manual)
-                    aErr.ErrorCodePLC = plc.WriteWords(Types.ADDR_POWER_SUPPLAY_OPERATE,1, aData);
+                    aCode = plc.WriteWords(Types.ADDR_POWER_SUPPLAY_OPERATE,1, aData);
+                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_OPERATE_HV, aCode);
             }
             else
-                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
             return aErr;
         }
         //-------------------------------------------------------------------------------------------  
         public ERROR SetLimitPower(double aValue)
         {
-            ERROR aErr = new ERROR(0,0);
+            ERROR aErr = new ERROR();
 
             if (plc != null)
-                    aErr.ErrorCodePLC = plc.WriteRealData(Types.GetAddress(Types.AddressSpace.Settings,Types.OFFSET_HV_LIMIT_POWER), (float)aValue);
+            {
+                int aCode = plc.WriteRealData(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_HV_LIMIT_POWER), (float)aValue);
+                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_LIMIT_POWER_HV,aCode);
+            }
             else
-                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
             return aErr;
         }
         //-------------------------------------------------------------------------------------------  
         public ERROR SetLimitCurent(double aValue)
         {
-            ERROR aErr = new ERROR(0,0);
+            ERROR aErr = new ERROR();
 
             if (plc != null)
-                aErr.ErrorCodePLC = plc.WriteRealData(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_HV_LIMIT_CURENT), (float)aValue);
+            {
+                int aCode = plc.WriteRealData(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_HV_LIMIT_CURENT), (float)aValue);
+                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_LIMIT_CURRENT_HV, aCode);
+            }
             else
-                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
             return aErr;
         }
         //-------------------------------------------------------------------------------------------  
         public ERROR SetLimitVoltage(double aValue)
         {
-            ERROR aErr = new ERROR(0,0);
+            ERROR aErr = new ERROR();
 
             if (plc != null)
-                aErr.ErrorCodePLC = plc.WriteRealData(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_HV_LIMIT_VOLTAGE), (float)aValue);
+            {
+                int aCode = plc.WriteRealData(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_HV_LIMIT_VOLTAGE), (float)aValue);
+                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_LIMIT_VOLTAGE_HV, aCode);
+            }
             else
-                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
             return aErr;
         }
@@ -222,12 +238,15 @@ namespace HPT1000.Source.Chamber
         //Ustaw max wartosc napiecia jaka jest jest mozliwa do ustawiania z zasilacza
         public ERROR SetMaxVoltage(double aValue)
         {
-            ERROR aErr = new ERROR(0, 0);
+            ERROR aErr = new ERROR();
 
             if (plc != null)
-                aErr.ErrorCodePLC = plc.WriteRealData(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_HV_MAX_VOLTAGE), (float)aValue);
+            {
+                int aCode = plc.WriteRealData(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_HV_MAX_VOLTAGE), (float)aValue);
+                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_MAX_VOLTAGE_HV, aCode);
+            }
             else
-                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
             return aErr;
         }
@@ -235,12 +254,15 @@ namespace HPT1000.Source.Chamber
         //Ustaw max wartosc mocy jaka jest jest mozliwa do ustawiania z zasilacza
         public ERROR SetMaxPower(double aValue)
         {
-            ERROR aErr = new ERROR(0, 0);
+            ERROR aErr = new ERROR();
 
             if (plc != null)
-                aErr.ErrorCodePLC = plc.WriteRealData(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_HV_MAX_POWER), (float)aValue);
+            {
+                int aCode = plc.WriteRealData(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_HV_MAX_POWER), (float)aValue);
+                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_MAX_POWER_HV, aCode);
+            }
             else
-                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
             return aErr;
         }
@@ -248,12 +270,15 @@ namespace HPT1000.Source.Chamber
         //Ustaw max wartosc pradu jaka jest jest mozliwa do ustawiania z zasilacza
         public ERROR SetMaxCurent(double aValue)
         {
-            ERROR aErr = new ERROR(0, 0);
+            ERROR aErr = new ERROR();
 
             if (plc != null)
-                aErr.ErrorCodePLC = plc.WriteRealData(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_HV_MAX_CURENT), (float)aValue);
+            {
+                int aCode = plc.WriteRealData(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_HV_MAX_CURENT), (float)aValue);
+                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_MAX_CURENT_HV, aCode);
+            }
             else
-                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
             return aErr;
         }
@@ -261,14 +286,17 @@ namespace HPT1000.Source.Chamber
         //Ustaw czas oczekiwania na sprawdzenie poprawnisci wlaczenia zasilacza
         public ERROR SetWaitTimeOperate(int aValue)
         {
-            ERROR aErr = new ERROR(0, 0);
+            ERROR aErr = new ERROR();
             int[] aData = new int[1];
 
             aData[0] = aValue;
             if (plc != null)
-                aErr.ErrorCodePLC = plc.WriteWords(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_HV_WAIT_OPERATE), 1,aData);
+            {
+                int aCode = plc.WriteWords(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_HV_WAIT_OPERATE), 1, aData);
+                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_WAIT_TIME_OPERATE_HV, aCode);
+            }
             else
-                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
             return aErr;
         }
@@ -276,14 +304,17 @@ namespace HPT1000.Source.Chamber
         //Ustaw czas oczekiwania na stabilizacje sie wartosc setpoint poiedzy zadanymi widelkami programu
         public ERROR SetWaitTimeSetpoint(int aValue)
         {
-            ERROR aErr = new ERROR(0, 0);
+            ERROR aErr = new ERROR();
             int[] aData = new int[1];
 
             aData[0] = aValue;
             if (plc != null)
-                aErr.ErrorCodePLC = plc.WriteWords(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_HV_WAIT_SETPOINT), 1, aData);
+            {
+                int aCode = plc.WriteWords(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_HV_WAIT_SETPOINT), 1, aData);
+                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_WAIT_TIME_SETPOINT_HV,aCode);
+            }
             else
-                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
             return aErr;
         }

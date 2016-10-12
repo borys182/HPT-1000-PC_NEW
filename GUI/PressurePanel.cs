@@ -82,12 +82,12 @@ namespace HPT1000.GUI
         private bool dEditSetpoint_EnterOn()
         {
             bool  aRes = false;
-            ERROR aErr = new ERROR(0,0);
+            ERROR aErr = new ERROR();
 
             if (presureControl != null)
                 aErr = presureControl.SetSetpoint(dEditSetpoint.Value);
 
-            if (aErr.ErrorCode == Types.ERROR_CODE.NONE && aErr.ErrorCodePLC == 0)
+            if (!aErr.IsError())
                 aRes = true;
             
             SetScrollValue(dEditSetpoint.Value);
@@ -99,7 +99,7 @@ namespace HPT1000.GUI
         //-----------------------------------------------------------------------------------------
         private void cBoxGases_Click(object sender, EventArgs e)
         {
-            ERROR aErr = new ERROR(0,0);
+            ERROR aErr = new ERROR();
             if (presureControl != null)
             {
                 if (cBoxGases.Checked)

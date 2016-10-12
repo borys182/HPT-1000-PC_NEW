@@ -123,6 +123,8 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnClear = new System.Windows.Forms.Button();
+            this.btnReadAllErrors = new System.Windows.Forms.Button();
+            this.labLastError = new System.Windows.Forms.ToolStripStatusLabel();
             this.pumpComponent = new HPT1000.GUI.PumpComponent();
             this.valve_Gas = new HPT1000.GUI.ValvePanel();
             this.valve_Vent = new HPT1000.GUI.ValvePanel();
@@ -154,7 +156,6 @@
             this.dEditPowerLimit = new HPT1000.GUI.Cotrols.DoubleEdit();
             this.dEditTimePumpToSV = new HPT1000.GUI.Cotrols.DoubleEdit();
             this.dEditTimeWaitPF = new HPT1000.GUI.Cotrols.DoubleEdit();
-            this.btnReadAllErrors = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -232,7 +233,8 @@
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.statusLabel});
+            this.statusLabel,
+            this.labLastError});
             this.statusStrip1.Location = new System.Drawing.Point(0, 790);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1706, 25);
@@ -639,7 +641,7 @@
             this.tabPage2.Controls.Add(this.programsConfigPanel);
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(1698, 757);
+            this.tabPage2.Size = new System.Drawing.Size(1698, 756);
             this.tabPage2.TabIndex = 6;
             this.tabPage2.Text = "Programs";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -652,7 +654,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 29);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1698, 757);
+            this.tabPage3.Size = new System.Drawing.Size(1698, 756);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Alerts";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -661,7 +663,7 @@
             // 
             this.tabPage4.Location = new System.Drawing.Point(4, 29);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1698, 757);
+            this.tabPage4.Size = new System.Drawing.Size(1698, 756);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Archive";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -676,7 +678,7 @@
             this.tabPage5.Controls.Add(this.btnReadSettings);
             this.tabPage5.Location = new System.Drawing.Point(4, 29);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(1698, 757);
+            this.tabPage5.Size = new System.Drawing.Size(1698, 756);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Settings";
             // 
@@ -1158,7 +1160,7 @@
             // 
             this.tabPage6.Location = new System.Drawing.Point(4, 29);
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(1698, 757);
+            this.tabPage6.Size = new System.Drawing.Size(1698, 756);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "Mainteances";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -1204,6 +1206,21 @@
             this.btnClear.TabIndex = 1;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = true;
+            // 
+            // btnReadAllErrors
+            // 
+            this.btnReadAllErrors.Location = new System.Drawing.Point(1522, 717);
+            this.btnReadAllErrors.Name = "btnReadAllErrors";
+            this.btnReadAllErrors.Size = new System.Drawing.Size(153, 34);
+            this.btnReadAllErrors.TabIndex = 2;
+            this.btnReadAllErrors.Text = "Read all errors";
+            this.btnReadAllErrors.UseVisualStyleBackColor = true;
+            // 
+            // labLastError
+            // 
+            this.labLastError.Name = "labLastError";
+            this.labLastError.Size = new System.Drawing.Size(106, 20);
+            this.labLastError.Text = "Last error 0x00";
             // 
             // pumpComponent
             // 
@@ -1333,7 +1350,7 @@
             this.programsConfigPanel.HPT1000 = null;
             this.programsConfigPanel.Location = new System.Drawing.Point(0, 0);
             this.programsConfigPanel.Name = "programsConfigPanel";
-            this.programsConfigPanel.Size = new System.Drawing.Size(1698, 757);
+            this.programsConfigPanel.Size = new System.Drawing.Size(1698, 760);
             this.programsConfigPanel.TabIndex = 1;
             // 
             // dEditFlowStability
@@ -1574,15 +1591,6 @@
             this.dEditTimeWaitPF.Value = 0D;
             this.dEditTimeWaitPF.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditTimeWaitPF_EnterOn);
             // 
-            // btnReadAllErrors
-            // 
-            this.btnReadAllErrors.Location = new System.Drawing.Point(1522, 717);
-            this.btnReadAllErrors.Name = "btnReadAllErrors";
-            this.btnReadAllErrors.Size = new System.Drawing.Size(153, 34);
-            this.btnReadAllErrors.TabIndex = 2;
-            this.btnReadAllErrors.Text = "Read all errors";
-            this.btnReadAllErrors.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -1770,6 +1778,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.Button btnReadAllErrors;
+        private System.Windows.Forms.ToolStripStatusLabel labLastError;
     }
 }
 

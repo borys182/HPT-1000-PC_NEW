@@ -19,11 +19,11 @@ namespace HPT1000.GUI
     ///</summary>
     public partial class MainForm : Form
     {
-        #region Private
+        private Source.Driver.HPT1000 hpt1000 = new HPT1000.Source.Driver.HPT1000();
 
-        private HPT1000.Source.Driver.HPT1000 hpt1000 = new HPT1000.Source.Driver.HPT1000();
+        ERROR lastError = new ERROR();
 
-        #endregion
+        int timerLastErrorShow = 0;
 
         //------------------------------------------------------------------------------------------
         public MainForm()
@@ -138,8 +138,19 @@ namespace HPT1000.GUI
                     statusLabel.Text        = "No communication";
                     statusLabel.ForeColor   = Color.Red;
                     break;
-            }     
-              
+            }
+            //pokaz ostani blad jaki wystapil na dolnym pasku statusu
+            ERROR aErr = Logger.GetLastError();
+            if (aErr.IsError() && !aErr.Equals(lastError))
+            {
+                labLastError.Text  = "Error : " + aErr.GetErrorCode().ToString("X8") + " " + aErr.GetText();
+                lastError = aErr;
+                timerLastErrorShow = 0;
+            }
+            if (timerLastErrorShow > 50)
+                labLastError.Text = "";
+            timerLastErrorShow++;
+    //        if(timerLastErrorShow > int.MaxI)
         }
         //----------------------------------------------------------------------------------
         private void ShowErrorList()
@@ -198,14 +209,14 @@ namespace HPT1000.GUI
         private bool dEditPowerLimit_EnterOn()
         {
             bool aRes = false;
-            ERROR aErr = new ERROR(0,0);
+            ERROR aErr = new ERROR();
 
             if (hpt1000.GetPowerSupply() != null)
                 aErr = hpt1000.GetPowerSupply().SetLimitPower(dEditPowerLimit.Value);
 
             Logger.AddError(aErr);
 
-            if (aErr.ErrorCode == Types.ERROR_CODE.NONE && aErr.ErrorCodePLC == 0)
+            if (!aErr.IsError())
                 aRes = true;
 
             return aRes;
@@ -214,14 +225,14 @@ namespace HPT1000.GUI
         private bool dEditVoltageLimit_EnterOn()
         {
             bool aRes = false;
-            ERROR aErr = new ERROR(0,0);
+            ERROR aErr = new ERROR();
 
             if (hpt1000.GetPowerSupply() != null)
                 aErr = hpt1000.GetPowerSupply().SetLimitVoltage(dEditVoltageLimit.Value);
 
             Logger.AddError(aErr);
 
-            if (aErr.ErrorCode == Types.ERROR_CODE.NONE && aErr.ErrorCodePLC == 0)
+            if (!aErr.IsError())
                 aRes = true;
 
             return aRes;
@@ -230,14 +241,14 @@ namespace HPT1000.GUI
         private bool dEditCurentLimit_EnterOn()
         {
             bool aRes = false;
-            ERROR aErr = new ERROR(0,0);
+            ERROR aErr = new ERROR();
 
             if (hpt1000.GetPowerSupply() != null)
                 aErr = hpt1000.GetPowerSupply().SetLimitCurent(dEditCurentLimit.Value);
 
             Logger.AddError(aErr);
 
-            if (aErr.ErrorCode == Types.ERROR_CODE.NONE && aErr.ErrorCodePLC == 0)
+            if (!aErr.IsError())
                 aRes = true;
 
             return aRes;

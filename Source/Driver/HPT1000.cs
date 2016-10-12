@@ -171,7 +171,7 @@ namespace HPT1000.Source.Driver
             {
                 dateTime = new DateTime(aYear, aMonth, aDay, aHour, aMinute, aSecond);
 
-                aErr.SetErrorCodeFromPLC(aCode,dateTime);
+                aErr.SetErrorPLC(aCode,dateTime);
             }
             catch (Exception e) { }
 
@@ -248,20 +248,22 @@ namespace HPT1000.Source.Driver
             }
             else
             {
-                ERROR aErr = new ERROR(Types.ERROR_CODE.NO_PRG_IN_PLC,0);
+                ERROR aErr = new ERROR();
+                aErr.SetErrorApp(Types.ERROR_CODE.NO_PRG_IN_PLC);
                 Logger.AddError(aErr);
             }
         }
         //-----------------------------------------------------------------------------------------
         public void UpdateSettings()
         {
-            ERROR aErr = new ERROR(0,0);
+            ERROR aErr = new ERROR();
             int[] aData = new int[Types.LENGHT_SETTINGS_DATA];
 
-            aErr.ErrorCodePLC = plc.ReadWords(Types.ADDR_START_SETTINGS, Types.LENGHT_SETTINGS_DATA, aData);
-       
+            int aCode = plc.ReadWords(Types.ADDR_START_SETTINGS, Types.LENGHT_SETTINGS_DATA, aData);
+            aErr.SetErrorMXComponents(Types.ERROR_CODE.UPDATE_SETINGS, aCode);
+
             //aktualizuj dane na temat settingsow
-            if (aErr.ErrorCodePLC == 0)
+            if (aCode == 0)
                 chamber.UpdateSettings(aData);
 
             Logger.AddError(aErr);

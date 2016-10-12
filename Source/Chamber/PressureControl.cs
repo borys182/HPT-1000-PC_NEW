@@ -31,16 +31,19 @@ namespace HPT1000.Source.Chamber
         //Funkcja umozliwia ustawianie setpointa prozni dla regulatora PID
         public ERROR SetSetpoint(double aSetpoint)
         {
-            ERROR aErr = new ERROR(0,0);
+            ERROR aErr = new ERROR();
+
             if (plc != null)
             {
+                int aCode = 0;
                 if (controlMode == Types.ControlMode.Manual)
-                    aErr.ErrorCodePLC = plc.WriteRealData(Types.ADDR_PRESSURE_SETPOINT, (float)aSetpoint);
+                    aCode = plc.WriteRealData(Types.ADDR_PRESSURE_SETPOINT, (float)aSetpoint);
                 if (controlMode == Types.ControlMode.Automatic)
-                    aErr.ErrorCodePLC = plc.WriteRealData(Types.OFFSET_SEQ_GAS_SETPOINT + Types.ADDR_CONTROL_PROGRAM, (float)aSetpoint);
+                    aCode = plc.WriteRealData(Types.OFFSET_SEQ_GAS_SETPOINT + Types.ADDR_CONTROL_PROGRAM, (float)aSetpoint);
+                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_PRESSURE_SETPOINT, aCode);
             }
             else
-                aErr.ErrorCode = Types.ERROR_CODE.BAD_FLOW_ID;
+                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
             return aErr;
         }
@@ -48,19 +51,21 @@ namespace HPT1000.Source.Chamber
         //Funkcja umozliwia ustawianie setpointa prozni dla regulatora PID
         public ERROR SetMode(Types.GasProcesMode aMode)
         {
-            ERROR aErr  = new ERROR(0,0);
+            ERROR aErr  = new ERROR();
             int[] aData = new int[1];
 
             aData[0] = (int)aMode;
             if (plc != null)
             {
+                int aCode = 0;
                 if (controlMode == Types.ControlMode.Manual)
-                    aErr.ErrorCodePLC = plc.WriteWords(Types.ADDR_PRESSURE_MODE,1,aData);
+                    aCode = plc.WriteWords(Types.ADDR_PRESSURE_MODE,1,aData);
                 if (controlMode == Types.ControlMode.Automatic)
-                    aErr.ErrorCodePLC = plc.WriteWords(Types.OFFSET_SEQ_GAS_MODE + Types.ADDR_CONTROL_PROGRAM,1,aData);
+                    aCode = plc.WriteWords(Types.OFFSET_SEQ_GAS_MODE + Types.ADDR_CONTROL_PROGRAM,1,aData);
+                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_MODE_PRESSURE, aCode);
             }
             else
-                aErr.ErrorCode = Types.ERROR_CODE.BAD_FLOW_ID;
+                aErr.SetErrorApp(Types.ERROR_CODE.BAD_FLOW_ID);
 
             return aErr;
         }

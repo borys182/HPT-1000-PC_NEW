@@ -55,47 +55,56 @@ namespace HPT1000.Source.Chamber
         //Funkcja umozliwia alaczenie/wylaczenie pompy
         public ERROR ControlPump(Types.StateFP state)
         {
-            ERROR aErr = new ERROR(0, 0);
+            ERROR aErr = new ERROR();
 
             int[] aData = { (int)state };
 
             if (state == Types.StateFP.ON || state == Types.StateFP.OFF)
             {
                 if (plc != null)
-                    aErr.ErrorCodePLC = plc.WriteWords(Types.ADDR_FP_CTRL, 1, aData);
+                {
+                    int aCode = plc.WriteWords(Types.ADDR_FP_CTRL, 1, aData);
+                    aErr.SetErrorMXComponents(Types.ERROR_CODE.CONTROL_PUMP, aCode);
+                }
                 else
-                    aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+                    aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
             }
             else
-                aErr.ErrorCode = Types.ERROR_CODE.CALL_INCORRECT_OPERATION;
+                aErr.SetErrorApp(Types.ERROR_CODE.CALL_INCORRECT_OPERATION);
 
             return aErr;
         }
         //-----------------------------------------------------------------------------------------
         public ERROR SetTimeWaitPF(int aValue)
         {
-            ERROR aErr = new ERROR(0, 0);
+            ERROR aErr = new ERROR();
             int[] aData = new int[1];
 
             aData[0] = aValue;
             if (plc != null)
-                aErr.ErrorCodePLC = plc.WriteWords(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_TIME_WAIT_PF), 1, aData);
+            {
+                int aCode = plc.WriteWords(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_TIME_WAIT_PF), 1, aData);
+                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_WIAT_TIME_PF, aCode);
+            }
             else
-                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
             return aErr;
         }
         //-----------------------------------------------------------------------------------------
         public ERROR SetTimePumpToSV(int aValue)
         {
-            ERROR aErr = new ERROR(0, 0);
+            ERROR aErr = new ERROR();
             int[] aData = new int[1];
 
             aData[0] = aValue;
             if (plc != null)
-                aErr.ErrorCodePLC = plc.WriteWords(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_TIME_PUMP_TO_SV), 1, aData);
+            {
+                int aCode = plc.WriteWords(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_TIME_PUMP_TO_SV), 1, aData);
+                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_TIME_PUMP_TO_SV, aCode);
+            }
             else
-                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
             return aErr;
         }

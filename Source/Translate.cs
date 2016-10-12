@@ -21,7 +21,7 @@ namespace HPT1000.Source
 
         }
         //-----------------------------------------------------------------------
-        public static string GetText(string aTxt , Types.Language aLanguage)
+        public static string GetText(string aTxt)
         {
             string aMsg = "";
 
@@ -29,7 +29,7 @@ namespace HPT1000.Source
 
             if (aRes == false)
             {
-                AddTextToTranslate(aTxt,aLanguage);
+                AddTextToTranslate(aTxt,Driver.HPT1000.LanguageApp);
                 aMsg = aTxt;    
             }    
             return aMsg;

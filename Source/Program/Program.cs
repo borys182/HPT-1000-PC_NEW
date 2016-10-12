@@ -267,7 +267,7 @@ namespace HPT1000.Source.Program
         //-------------------------------------------------------------------------------------------------------------------------
         public ERROR StartProgram()
         {
-            ERROR aErr = new ERROR(0,0);
+            ERROR aErr = new ERROR();
             //przygotuj dane do wgrania do PLC
             int[] aDataControl  = new int[1];
          
@@ -279,14 +279,19 @@ namespace HPT1000.Source.Program
                 //CreateActualSubprogram();
                 //uruchom program
                 aDataControl[0] = (int)Types.ControlProgram.Start;
-                plc.WriteWords(Types.ADDR_CONTROL_PROGRAM, 1, aDataControl);
+                int aCode = 0;
+                if(!aErr.IsError())
+                    aCode = plc.WriteWords(Types.ADDR_CONTROL_PROGRAM, 1, aDataControl);
+
+                if (aCode != 0)
+                    aErr.SetErrorMXComponents(Types.ERROR_CODE.START_PROGRAM, aCode);
             }
             return aErr;
         }
         //-------------------------------------------------------------------------------------------------------------------------
         public ERROR StopProgram()
         {
-            ERROR aErr = new ERROR(0,0);
+            ERROR aErr = new ERROR();
 
             //przygotuj dane do wgrania do PLC
             int[] aDataControl = new int[1];
@@ -294,7 +299,8 @@ namespace HPT1000.Source.Program
             if (plc != null)
             {
                 aDataControl[0] = (int)Types.ControlProgram.Stop;
-                plc.WriteWords(Types.ADDR_CONTROL_PROGRAM, 1, aDataControl);
+                int aCode = plc.WriteWords(Types.ADDR_CONTROL_PROGRAM, 1, aDataControl);
+                aErr.SetErrorMXComponents(Types.ERROR_CODE.STOP_PROGRAM, aCode);
             }
 
             return aErr;
@@ -302,7 +308,7 @@ namespace HPT1000.Source.Program
         //-------------------------------------------------------------------------------------------------------------------------
         private ERROR WriteProgramToPLC()
         {
-            ERROR aErr = new ERROR(0,0);
+            ERROR aErr = new ERROR();
 
             int[] aDataID = new int[1];
             int[] aData = new int[Types.MAX_SEGMENTS * Types.SEGMENT_SIZE];
@@ -326,15 +332,14 @@ namespace HPT1000.Source.Program
             //uzupelnij subprogramy o ostatni segment END ktory dawany jest z automatu
             if (aData.Length > (subPrograms.Count * Types.SEGMENT_SIZE + Types.OFFSET_SEQ_CMD))
                 aData[subPrograms.Count * Types.SEGMENT_SIZE + Types.OFFSET_SEQ_CMD] = 0x4000; //ustaw komende END
-           
+
             //wgraj dane programu do PLC 
             aSizeData = subPrograms.Count * Types.SEGMENT_SIZE + Types.OFFSET_SEQ_CMD + 1;
-            aErr.ErrorCodePLC = plc.WriteWords(Types.ADDR_PRG_ID, 1, aDataID);
-            aErr.ErrorCodePLC = plc.WriteWords(Types.ADDR_START_BUFFER_PROGRAM, aSizeData, aData);
+            int aCode = plc.WriteWords(Types.ADDR_PRG_ID, 1, aDataID);
+            if(aCode == 0)
+                aCode = plc.WriteWords(Types.ADDR_START_BUFFER_PROGRAM, aSizeData, aData);
 
-       //     if(aErr.ErrorCodePLC == 0 && aErr.ErrorCode == 0)
-       //         foreach(Subprogram aSubprogram in subPrograms)
-       //             aSubprogram.Set
+            aErr.SetErrorMXComponents(Types.ERROR_CODE.WRITE_PROGRAM, aCode);
 
             return aErr;
         }

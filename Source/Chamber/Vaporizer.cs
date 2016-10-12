@@ -38,21 +38,23 @@ namespace HPT1000.Source.Chamber
         */
         public ERROR SetCycleTime(float aCycleTime)
         {
-            ERROR aErr = new ERROR(0,0);
+            ERROR aErr = new ERROR();
 
-            if (aCycleTime < onTime)    aErr.ErrorCode = Types.ERROR_CODE.BAD_CYCLE_TIME;
-            if (plc == null)            aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+            if (aCycleTime < onTime)    aErr.SetErrorApp(Types.ERROR_CODE.BAD_CYCLE_TIME);
+            if (plc == null)            aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
-            if (aErr.ErrorCode == Types.ERROR_CODE.NONE)
+            if (!aErr.IsError())
             {
+                int aCode = 0;
                 if(controlMode == Types.ControlMode.Manual)
-                    aErr.ErrorCodePLC = plc.WriteRealData(Types.ADDR_CYCLE_TIME, aCycleTime);
+                    aCode = plc.WriteRealData(Types.ADDR_CYCLE_TIME, aCycleTime);
                 if (controlMode == Types.ControlMode.Automatic)
-                    aErr.ErrorCodePLC = plc.WriteRealData(Types.OFFSET_SEQ_FLOW_4_CYCLE_TIME + Types.ADDR_CONTROL_PROGRAM, aCycleTime);
+                    aCode = plc.WriteRealData(Types.OFFSET_SEQ_FLOW_4_CYCLE_TIME + Types.ADDR_CONTROL_PROGRAM, aCycleTime);
+                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_CYCLE_TIME, aCode);
             }
                         
             //Aktualizuj czas cyklu pracy. W watku moze byc za wolno dla szybkiego ustawienia czasu wlaczenia zaworu 
-            if (aErr.ErrorCode == 0 && aErr.ErrorCodePLC == 0)
+            if (!aErr.IsError())
                 cycleTime = aCycleTime;
 
             Logger.AddError(aErr);
@@ -65,7 +67,7 @@ namespace HPT1000.Source.Chamber
         */
         public ERROR SetOnTime(float aOnTimeValue, Types.UnitFlow aUnit)
         {
-            ERROR aErr = new ERROR(0,0);
+            ERROR aErr = new ERROR();
             double aOnTime = 0;
 
             if (aUnit == Types.UnitFlow.percent)
@@ -77,15 +79,17 @@ namespace HPT1000.Source.Chamber
             else
                 aOnTime = aOnTimeValue;
 
-            if (aOnTime > cycleTime)    aErr.ErrorCode = Types.ERROR_CODE.BAD_ON_TIME;
-            if (plc == null)            aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+            if (aOnTime > cycleTime)    aErr.SetErrorApp(Types.ERROR_CODE.BAD_ON_TIME);
+            if (plc == null)            aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
-            if (aErr.ErrorCode == Types.ERROR_CODE.NONE)
+            if (!aErr.IsError())
             {
+                int aCode = 0;
                 if (controlMode == Types.ControlMode.Manual)
-                    aErr.ErrorCodePLC = plc.WriteRealData(Types.ADDR_ON_TIME, (float)aOnTime);
+                    aCode = plc.WriteRealData(Types.ADDR_ON_TIME, (float)aOnTime);
                 if (controlMode == Types.ControlMode.Automatic)
-                    aErr.ErrorCodePLC = plc.WriteRealData(Types.OFFSET_SEQ_FLOW_4_ON_TIME + Types.ADDR_CONTROL_PROGRAM, (float)aOnTime);
+                    aCode = plc.WriteRealData(Types.OFFSET_SEQ_FLOW_4_ON_TIME + Types.ADDR_CONTROL_PROGRAM, (float)aOnTime);
+                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_ON_TIME, aCode);
             }
             Logger.AddError(aErr);
             return aErr;

@@ -67,12 +67,12 @@ namespace HPT1000.GUI
         private bool dEditFlow_sccm_EnterOn()
         {
             bool aRes = false;
-            ERROR aErr = new ERROR(0,0);
+            ERROR aErr = new ERROR();
 
             if (mfc != null)
                 aErr = mfc.SetFlow(channelId,(int)dEditFlow_sccm.Value,Types.UnitFlow.sccm);
 
-            if (aErr.ErrorCode == Types.ERROR_CODE.NONE && aErr.ErrorCodePLC == 0)
+            if (!Err.IsError())
                 aRes = true;
 
             SetScrollValue((int)dEditFlow_sccm.Value);
@@ -85,12 +85,12 @@ namespace HPT1000.GUI
         private bool dEditFlow_percent_EnterOn()
         {
             bool aRes = false;
-            ERROR aErr = new ERROR(0,0);
+            ERROR aErr = new ERROR();
 
             if (mfc != null)
                 aErr = mfc.SetFlow(channelId, (int)dEditFlow_percent.Value, Types.UnitFlow.percent);
 
-            if (aErr.ErrorCode == Types.ERROR_CODE.NONE && aErr.ErrorCodePLC == 0)
+            if (!aErr.IsError())
                 aRes = true;
 
            Logger.AddError(aErr);

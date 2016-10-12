@@ -68,7 +68,7 @@ namespace HPT1000.GUI
         private bool dEditOnTime_EnterOn()
         {
             bool aRes = false;
-            ERROR aErr = new ERROR(0,0);
+            ERROR aErr = new ERROR();
             Types.UnitFlow aUnit = Types.UnitFlow.ms;
 
             if (vaporizer != null)
@@ -79,7 +79,7 @@ namespace HPT1000.GUI
             }
             Logger.AddError(aErr);
 
-            if (aErr.ErrorCode == Types.ERROR_CODE.NONE && aErr.ErrorCodePLC == 0)
+            if (!aErr.IsError())
                 aRes = true;
 
             return aRes;
@@ -88,14 +88,14 @@ namespace HPT1000.GUI
         private bool dEditCycleTImne_EnterOn()
         {
             bool aRes = false;
-            ERROR aErr = new ERROR(0,0);
+            ERROR aErr = new ERROR();
             if (vaporizer != null)
             {
                 aErr = vaporizer.SetCycleTime((float)dEditCycleTImne.Value);
             }
             Logger.AddError(aErr);
 
-            if (aErr.ErrorCode == Types.ERROR_CODE.NONE && aErr.ErrorCodePLC == 0)
+            if (!aErr.IsError())
                 aRes = true;
 
             return aRes;

@@ -176,7 +176,7 @@ namespace HPT1000.GUI
             if (program != null)
                 program.NewSubprogram();
             else
-                MessageBox.Show(Translate.GetText("Nie wybrano wezla programu", Language.EN), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Translate.GetText("Nie wybrano wezla programu"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             RefreshTreeViewPrograms();
         }
@@ -683,12 +683,12 @@ namespace HPT1000.GUI
             program = GetProgram();
 
             if (program == null)
-                MessageBox.Show(Translate.GetText("Nie wybrano wezla programu", Language.EN), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Translate.GetText("Nie wybrano wezla programu"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             if (hpt1000.RemoveProgram(program))
-                MessageBox.Show(Translate.GetText("Program zostal poprawnie usuniety", Language.EN), "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Translate.GetText("Program zostal poprawnie usuniety"), "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
-                MessageBox.Show(Translate.GetText("Nie udalo usunac sie programu", Language.EN), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Translate.GetText("Nie udalo usunac sie programu"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             RefreshTreeViewPrograms();
         }
@@ -703,12 +703,12 @@ namespace HPT1000.GUI
             subProgram = GetSubprogram();
 
             if (subProgram == null || program == null)
-                MessageBox.Show(Translate.GetText("Nie wybrano wezla sub-programu", Language.EN), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Translate.GetText("Nie wybrano wezla sub-programu"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             if (program != null && program.RemoveSubprogram(subProgram))
-                MessageBox.Show(Translate.GetText("Sub-program zostal poprawnie usuniety", Language.EN), "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Translate.GetText("Sub-program zostal poprawnie usuniety"), "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
-                MessageBox.Show(Translate.GetText("Nie udalo usunac sie sub-programu", Language.EN), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Translate.GetText("Nie udalo usunac sie sub-programu"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             RefreshTreeViewPrograms();
         }

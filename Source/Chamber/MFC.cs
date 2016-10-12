@@ -77,7 +77,7 @@ namespace HPT1000.Source.Chamber
         //Funkcja umozliwia ustawianie dango przeplwyu na przeplywce
         public ERROR SetFlow( double aValue, Types.UnitFlow aUnit)
         {
-            ERROR aErr = new ERROR(0,0);
+            ERROR aErr = new ERROR();
 
             int aValueSCCM = 0;
             //przlicz wartosc podana w danych jednostach na napiecie
@@ -109,12 +109,15 @@ namespace HPT1000.Source.Chamber
                 int[] aData = new int[1];
                 aData[0] = aValueSCCM;
                 if (plc != null)
-                    aErr.ErrorCodePLC = plc.WriteWords(aAddr,1, aData);
+                {
+                    int aExtCode = plc.WriteWords(aAddr, 1, aData);
+                    aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_FLOW, aExtCode);
+                }
                 else
-                    aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+                    aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
             }
             else
-                aErr.ErrorCode = Types.ERROR_CODE.BAD_FLOW_ID;
+                aErr.SetErrorApp(Types.ERROR_CODE.BAD_FLOW_ID);
 
             return aErr;
         }
@@ -158,7 +161,7 @@ namespace HPT1000.Source.Chamber
         //Ustaw max przeplyw jaki jest mozliwy do ustawienia dla danej przeplywki [sccm]
         public ERROR SetMaxFlow(int aValue)
         {
-            ERROR   aErr = new ERROR(0, 0);
+            ERROR   aErr = new ERROR();
             int[]   aData = new int[1];
             int     aAddr = 0;
 
@@ -168,9 +171,12 @@ namespace HPT1000.Source.Chamber
 
             aData[0] = aValue;
             if (plc != null)
-                aErr.ErrorCodePLC = plc.WriteWords(Types.GetAddress(Types.AddressSpace.Settings, aAddr), 1, aData);
+            {
+                int aExtCode = plc.WriteWords(Types.GetAddress(Types.AddressSpace.Settings, aAddr), 1, aData);
+                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_MAX_FLOW, aExtCode);
+            }
             else
-                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
             return aErr;
         }
@@ -178,7 +184,7 @@ namespace HPT1000.Source.Chamber
         //Ustaw wartosc max napieica sterujacego dana przeplywka [mV]
         public ERROR SetRangeVoltage(int aValue)
         {
-            ERROR aErr = new ERROR(0, 0);
+            ERROR aErr = new ERROR();
             int[] aData = new int[1];
             int aAddr = 0;
 
@@ -188,9 +194,12 @@ namespace HPT1000.Source.Chamber
 
             aData[0] = aValue;
             if (plc != null)
-                aErr.ErrorCodePLC = plc.WriteWords(Types.GetAddress(Types.AddressSpace.Settings, aAddr), 1, aData);
+            {
+                int aExtCode = plc.WriteWords(Types.GetAddress(Types.AddressSpace.Settings, aAddr), 1, aData);
+                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_RANGE_VOLTAGE_MFC, aExtCode);
+            }
             else
-                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
             return aErr;
         }
@@ -259,7 +268,7 @@ namespace HPT1000.Source.Chamber
         //Funkcja umozliwia ustawianie dango przeplwyu na przeplywce
         public ERROR SetFlow(int aId , float aValue , Types.UnitFlow aUnit)
         {
-            ERROR aErr = new ERROR(0,0);
+            ERROR aErr = new ERROR();
 
             MFC_Channel mfc_Channel = GetMFC_Channel(aId);
 
@@ -350,14 +359,17 @@ namespace HPT1000.Source.Chamber
         //Ustaw czas oczekiwania na stabilizacje sie wartosc przeplywu poiedzy zadanymi widelkami programu
         public ERROR SetTimeFlowStability(int aValue)
         {
-            ERROR aErr = new ERROR(0, 0);
+            ERROR aErr = new ERROR();
             int[] aData = new int[1];
 
             aData[0] = aValue;
             if (plc != null)
-                aErr.ErrorCodePLC = plc.WriteWords(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_TIME_FLOW_STABILITY), 1, aData);
+            {
+                int aExtCode = plc.WriteWords(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_TIME_FLOW_STABILITY), 1, aData);
+                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_TIME_FLOW_STABILITY, aExtCode);
+            }
             else
-                aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
             return aErr;
         }

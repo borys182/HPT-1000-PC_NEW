@@ -81,7 +81,7 @@ namespace HPT1000.Source.Chamber
         //-----------------------------------------------------------------------------------------
         public ERROR SetState(Types.StateValve aState, Types.TypeValve aTypeValve)
         {
-            ERROR aErr = new ERROR(0,0);
+            ERROR aErr = new ERROR();
             int []ctrlValve = {0};
 
             //ustaw na odpowidnim miejscu bity sterujace zgodnie z ID zaworu powiazanego z PLC
@@ -95,12 +95,15 @@ namespace HPT1000.Source.Chamber
             if (aState == Types.StateValve.Close || aState == Types.StateValve.Open)
             {
                 if (plc != null)
-                    aErr.ErrorCodePLC = plc.WriteWords(Types.ADDR_VALVES_CTRL, 2, ctrlValve);
+                {
+                    int aCode = plc.WriteWords(Types.ADDR_VALVES_CTRL, 2, ctrlValve);
+                    aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_STATE_VALVE, aCode);
+                }
                 else
-                    aErr.ErrorCode = Types.ERROR_CODE.PLC_PTR_NULL;
+                    aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
             }
             else
-                aErr.ErrorCode = Types.ERROR_CODE.CALL_INCORRECT_OPERATION;
+                aErr.SetErrorApp(Types.ERROR_CODE.CALL_INCORRECT_OPERATION);
 
 
             return aErr;

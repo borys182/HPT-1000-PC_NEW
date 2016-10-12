@@ -6,85 +6,6 @@ using System.Threading.Tasks;
 
 namespace HPT1000.Source.Driver
 {
-    public struct ERROR
-    {
-        private Types.ERROR_CODE     errorCode    { set; get; } // okreslenie typu kodu bledu
-        private int                  errorCodePLC { set; get; } // dodatkowe informacje na temat bledu (kod bledu)
-        private DateTime             time;
-        //-----------------------------------------------------------------------------------------
-        public int ErrorCodePLC
-        {
-            set
-            {
-                errorCodePLC = value;
-                if (value == 0) errorCode = Types.ERROR_CODE.NONE;
-                else            errorCode = Types.ERROR_CODE.PLC_WRITE;
-                time = DateTime.Now;
-            }
-            get { return errorCodePLC; }
-        }
-        //-----------------------------------------------------------------------------------------
-        public Types.ERROR_CODE ErrorCode
-        {
-            set
-            {
-                errorCode = value;
-                time = DateTime.Now;
-            }
-            get { return errorCode; }
-        }
-        //-----------------------------------------------------------------------------------------
-        public DateTime Time
-        {
-            get { return time; }
-        }
-        //-----------------------------------------------------------------------------------------
-        public ERROR(Types.ERROR_CODE aErrCode, int aErrCodePLC)
-        {
-            errorCode       = aErrCode;
-            errorCodePLC    = aErrCodePLC;
-            time            = DateTime.Now;
-        }
-        //-----------------------------------------------------------------------------------------
-        public void SetErrorCodeFromPLC(int aErrCode,DateTime aDateTime)
-        {
-            errorCode    = Types.ERROR_CODE.PLC_ERROR;
-            errorCodePLC = aErrCode;
-            time         = aDateTime;
-        }
-        //-----------------------------------------------------------------------------------------
-        //Funkcja zwraca kod bledu. Jezeli blad zawiera dodatkowe informacje to sa one nadrzedne dla wyswietlanego bledu kodu bledu
-        public int GetErrorCode()
-        {
-            int aCode = (int)errorCode;
-            if (errorCodePLC != 0)
-                aCode = errorCodePLC;
-
-            return aCode;
-        }
-        //-----------------------------------------------------------------------------------------
-        public string GetText()
-        {
-            string aTxt = "None description";
-
-            return aTxt;
-        }
-        //-----------------------------------------------------------------------------------------
-        public override bool Equals(object other)
-        {
-            bool aRes = false;
-            ERROR aOther = (ERROR)other;
-
-            //Porownuje tylko po referencji bo w kilku miejscach sie odnosze do tej samej referencji i cos zmieniam.
-            if (this.GetType() == other.GetType() && ErrorCode == aOther.ErrorCode && ErrorCodePLC == aOther.ErrorCodePLC && Time == aOther.Time)
-            {
-                aRes = true;
-            }
-
-            return aRes;
-        }
-    }
-
     /// <summary>
     /// Klasa zawiera definicje typow oraz adresy komorek
     /// </summary>
@@ -111,17 +32,49 @@ namespace HPT1000.Source.Driver
         public enum AddressSpace    { Settings, Program};
         public enum Language        { PL = 0 , EN = 1 };
 
+        public enum ERROR_CATEGORY
+        {
+            APLICATION      = 0x01,
+            MX_COMPONENTS   = 0x02,
+            PLC             = 0x03
+        }
         public enum ERROR_CODE
         {
             NONE                        = 0x00,
             PLC_PTR_NULL                = 0x01,         //Brak wskaznika na obiekt protokolu PLC
             CALL_INCORRECT_OPERATION    = 0x02,         //Wywolanie zabronienioej operacji na danym obiekcie
             BAD_FLOW_ID                 = 0x03,         //proba wykonia zapisu do plc info o przeplywkach o id roznym niz 0-2 (innych nie ma w plc)
-            PLC_WRITE                   = 0x04,          //Nie powiodl sie zapis do sterownika PLC. Dodatkowe informacje sa zwrocone w kodzie bezposrednio ze sterownika PLC (MX Components)
-            BAD_CYCLE_TIME              = 0x05,          //Podana wartosc cyklu szybkiego zaworu jest mniejsz niz czas wlaczenia
-            BAD_ON_TIME                 = 0x06,          //Podana wartosc czasu wlaczenia zaworu szybkieg jest wieksza niz czas cyklu
-            NO_PRG_IN_PLC               = 0x07,          //Brak programu w PLC   
-            PLC_ERROR                   = 0x08           //Okreslenie ze blad zostal odczytany z PLC
+            BAD_CYCLE_TIME              = 0x04,          //Podana wartosc cyklu szybkiego zaworu jest mniejsz niz czas wlaczenia
+            BAD_ON_TIME                 = 0x05,          //Podana wartosc czasu wlaczenia zaworu szybkieg jest wieksza niz czas cyklu
+            NO_PRG_IN_PLC               = 0x06,          //Brak programu w PLC   
+            PLC_ERROR                   = 0x07,         //Sygnalizacja wystapienia bledu w programie PLC     
+            SET_MAX_FLOW                = 0x08,
+            SET_RANGE_VOLTAGE_MFC       = 0x09,
+            SET_TIME_FLOW_STABILITY     = 0x0A,
+            SET_FLOW                    = 0x0B,
+            UPDATE_SETINGS              = 0x0C,
+            WRITE_PROGRAM               = 0x0D,
+            START_PROGRAM               = 0x0E,
+            STOP_PROGRAM                = 0x0F,
+            SET_PRESSURE_SETPOINT       = 0x10,
+            SET_SETPOINT_HV             = 0x11,
+            SET_MODE                    = 0x12,
+            SET_OPERATE_HV              = 0x13,
+            SET_LIMIT_POWER_HV          = 0x14,
+            SET_LIMIT_CURRENT_HV        = 0x15,
+            SET_LIMIT_VOLTAGE_HV        = 0x16,
+            SET_MAX_VOLTAGE_HV          = 0x17,
+            SET_MAX_POWER_HV            = 0x18,
+            SET_MAX_CURENT_HV           = 0x19,
+            SET_WAIT_TIME_OPERATE_HV    = 0x1A,
+            SET_WAIT_TIME_SETPOINT_HV   = 0x1B,
+            CONTROL_PUMP                = 0x1C,
+            SET_WIAT_TIME_PF            = 0x1D,
+            SET_TIME_PUMP_TO_SV         = 0x1E,
+            SET_CYCLE_TIME              = 0x1F,
+            SET_ON_TIME                 = 0x20,
+            SET_STATE_VALVE             = 0x21,
+            SET_MODE_PRESSURE           = 0x22
         }
 
         /// <summary>

@@ -145,6 +145,9 @@ namespace HPT1000.Source.Chamber
             else
                 aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
+        //    if (!aErr.IsError())
+        //        set = aValue; TO DO - czy jest nam potrzebne znac ten setpoint ???
+
             return aErr;
         }       
         //-----------------------------------------------------------------------------------------
@@ -160,8 +163,12 @@ namespace HPT1000.Source.Chamber
             {
                 int aCode = 0;
                 if (controlMode == Types.ControlMode.Manual)
-                    aCode = plc.WriteWords(Types.ADDR_POWER_SUPPLAY_MODE, 1,aData);
-                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_MODE, aCode);
+                {
+                    aCode = plc.WriteWords(Types.ADDR_POWER_SUPPLAY_MODE, 1, aData);
+                    aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_MODE, aCode);
+                }
+                else
+                    aErr.SetErrorApp(Types.ERROR_CODE.SET_MODE);
             }
             else
                 aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
@@ -181,8 +188,12 @@ namespace HPT1000.Source.Chamber
             {
                 int aCode = 0;
                 if (controlMode == Types.ControlMode.Manual)
-                    aCode = plc.WriteWords(Types.ADDR_POWER_SUPPLAY_OPERATE,1, aData);
-                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_OPERATE_HV, aCode);
+                {
+                    aCode = plc.WriteWords(Types.ADDR_POWER_SUPPLAY_OPERATE, 1, aData);
+                    aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_OPERATE_HV, aCode);
+                }
+                else
+                    aErr.SetErrorApp(Types.ERROR_CODE.SET_OPERATE_HV);
             }
             else
                 aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
@@ -202,6 +213,9 @@ namespace HPT1000.Source.Chamber
             else
                 aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
+            if (!aErr.IsError())
+                limitPower = aValue;
+
             return aErr;
         }
         //-------------------------------------------------------------------------------------------  
@@ -217,6 +231,9 @@ namespace HPT1000.Source.Chamber
             else
                 aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
+            if (!aErr.IsError())
+                limitCurent = aValue;
+
             return aErr;
         }
         //-------------------------------------------------------------------------------------------  
@@ -231,6 +248,9 @@ namespace HPT1000.Source.Chamber
             }
             else
                 aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
+
+            if (!aErr.IsError())
+                limitVoltage = aValue;
 
             return aErr;
         }
@@ -248,6 +268,9 @@ namespace HPT1000.Source.Chamber
             else
                 aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
+            if (!aErr.IsError())
+                maxVoltage = aValue;
+
             return aErr;
         }
         //-------------------------------------------------------------------------------------------  
@@ -264,6 +287,9 @@ namespace HPT1000.Source.Chamber
             else
                 aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
+            if (!aErr.IsError())
+                maxPower = aValue;
+
             return aErr;
         }
         //-------------------------------------------------------------------------------------------  
@@ -279,6 +305,9 @@ namespace HPT1000.Source.Chamber
             }
             else
                 aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
+
+            if (!aErr.IsError())
+                maxCurent = aValue;
 
             return aErr;
         }
@@ -298,6 +327,9 @@ namespace HPT1000.Source.Chamber
             else
                 aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
+            if (!aErr.IsError())
+                timeWaitOnOperate = aValue;
+
             return aErr;
         }
         //------------------------------------------------------------------------------------------- 
@@ -315,6 +347,9 @@ namespace HPT1000.Source.Chamber
             }
             else
                 aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
+
+            if (!aErr.IsError())
+                timeWaitOnSetpoint = aValue;
 
             return aErr;
         }

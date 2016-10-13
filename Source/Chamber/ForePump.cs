@@ -89,6 +89,9 @@ namespace HPT1000.Source.Chamber
             else
                 aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
+            if (!aErr.IsError())
+                timeWaitPF = aValue;
+
             return aErr;
         }
         //-----------------------------------------------------------------------------------------
@@ -105,6 +108,9 @@ namespace HPT1000.Source.Chamber
             }
             else
                 aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
+
+            if (!aErr.IsError())
+                timePumpToSV = aValue;
 
             return aErr;
         }

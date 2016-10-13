@@ -169,7 +169,7 @@ namespace HPT1000.Source.Program
 
                 SubprogramData aSubprogramData      = GetSegmentData(aDataSeq, 0);
 
-                aSubprogramData.Status              = aData[Types.OFFSET_PRG_SUBPR_STATUS];
+               // aSubprogramData.Status              = aData[Types.OFFSET_PRG_SUBPR_STATUS];
                 aSubprogramData.WorkingTimeFlush    = aData[Types.OFFSET_PRG_TIME_FLUSH];
                 aSubprogramData.WorkingTimeGas      = aData[Types.OFFSET_PRG_TIME_GAS];
                 aSubprogramData.WorkingTimeHV       = aData[Types.OFFSET_PRG_TIME_HV];
@@ -270,22 +270,25 @@ namespace HPT1000.Source.Program
             ERROR aErr = new ERROR();
             //przygotuj dane do wgrania do PLC
             int[] aDataControl  = new int[1];
-         
+
             if (plc != null)
             {
                 //Wgraj parametry segmentow do PLC   
-                 aErr = WriteProgramToPLC();
+                aErr = WriteProgramToPLC();
                 //Utworz struktury danych do przechowyania aktualnych parametrow programu wczytanychy do PLC
                 //CreateActualSubprogram();
                 //uruchom program
                 aDataControl[0] = (int)Types.ControlProgram.Start;
                 int aCode = 0;
-                if(!aErr.IsError())
+                if (!aErr.IsError())
                     aCode = plc.WriteWords(Types.ADDR_CONTROL_PROGRAM, 1, aDataControl);
 
                 if (aCode != 0)
                     aErr.SetErrorMXComponents(Types.ERROR_CODE.START_PROGRAM, aCode);
             }
+            else
+                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
+
             return aErr;
         }
         //-------------------------------------------------------------------------------------------------------------------------
@@ -299,9 +302,11 @@ namespace HPT1000.Source.Program
             if (plc != null)
             {
                 aDataControl[0] = (int)Types.ControlProgram.Stop;
-                int aCode = plc.WriteWords(Types.ADDR_CONTROL_PROGRAM, 1, aDataControl);
+                int aCode       = plc.WriteWords(Types.ADDR_CONTROL_PROGRAM, 1, aDataControl);
                 aErr.SetErrorMXComponents(Types.ERROR_CODE.STOP_PROGRAM, aCode);
             }
+            else
+                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
             return aErr;
         }

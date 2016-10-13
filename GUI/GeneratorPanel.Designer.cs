@@ -47,11 +47,13 @@
             this.rBtnModeVoltage = new System.Windows.Forms.RadioButton();
             this.rBtnModePower = new System.Windows.Forms.RadioButton();
             this.label38 = new System.Windows.Forms.Label();
+            this.rBntNone = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.rBntNone);
             this.groupBox1.Controls.Add(this.dEditSetpoint);
             this.groupBox1.Controls.Add(this.dEditActualVoltage);
             this.groupBox1.Controls.Add(this.dEditActualCurent);
@@ -97,7 +99,7 @@
             this.dEditActualVoltage.Location = new System.Drawing.Point(127, 175);
             this.dEditActualVoltage.Margin = new System.Windows.Forms.Padding(5);
             this.dEditActualVoltage.Mask = "0.000";
-            this.dEditActualVoltage.MaximumValue = 1000D;
+            this.dEditActualVoltage.MaximumValue = 10000D;
             this.dEditActualVoltage.MinimumValue = 0D;
             this.dEditActualVoltage.Name = "dEditActualVoltage";
             this.dEditActualVoltage.ReadOnly = false;
@@ -110,7 +112,7 @@
             this.dEditActualCurent.Location = new System.Drawing.Point(127, 206);
             this.dEditActualCurent.Margin = new System.Windows.Forms.Padding(5);
             this.dEditActualCurent.Mask = "0.000";
-            this.dEditActualCurent.MaximumValue = 1000D;
+            this.dEditActualCurent.MaximumValue = 10000D;
             this.dEditActualCurent.MinimumValue = 0D;
             this.dEditActualCurent.Name = "dEditActualCurent";
             this.dEditActualCurent.ReadOnly = false;
@@ -123,7 +125,7 @@
             this.dEditActualPower.Location = new System.Drawing.Point(127, 144);
             this.dEditActualPower.Margin = new System.Windows.Forms.Padding(4);
             this.dEditActualPower.Mask = "0.000";
-            this.dEditActualPower.MaximumValue = 1000D;
+            this.dEditActualPower.MaximumValue = 10000D;
             this.dEditActualPower.MinimumValue = 0D;
             this.dEditActualPower.Name = "dEditActualPower";
             this.dEditActualPower.ReadOnly = false;
@@ -291,6 +293,18 @@
             this.label38.Text = "GENERATOR";
             this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // rBntNone
+            // 
+            this.rBntNone.AutoSize = true;
+            this.rBntNone.Location = new System.Drawing.Point(82, 78);
+            this.rBntNone.Name = "rBntNone";
+            this.rBntNone.Size = new System.Drawing.Size(69, 24);
+            this.rBntNone.TabIndex = 77;
+            this.rBntNone.TabStop = true;
+            this.rBntNone.Text = "None";
+            this.rBntNone.UseVisualStyleBackColor = true;
+            this.rBntNone.Visible = false;
+            // 
             // GeneratorPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -327,5 +341,6 @@
         private Cotrols.DoubleEdit dEditActualVoltage;
         private Cotrols.DoubleEdit dEditActualCurent;
         private Cotrols.DoubleEdit dEditActualPower;
+        private System.Windows.Forms.RadioButton rBntNone;
     }
 }

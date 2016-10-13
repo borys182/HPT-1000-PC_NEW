@@ -29,17 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.RadioButton radioButton2;
-            System.Windows.Forms.RadioButton radioButton1;
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "Pump",
             "Working"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
             "Gas",
             "Wait"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("Plasma");
-            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("Purge");
-            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem("Vent");
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Plasma");
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("Purge");
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("Vent");
             this.label4 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.listViewSubprograms = new System.Windows.Forms.ListView();
@@ -82,10 +80,11 @@
             this.label35 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.timerRefresh = new System.Windows.Forms.Timer(this.components);
             this.labStatus = new System.Windows.Forms.Label();
-            radioButton2 = new System.Windows.Forms.RadioButton();
-            radioButton1 = new System.Windows.Forms.RadioButton();
+            this.timerRefresh = new System.Windows.Forms.Timer(this.components);
+            this.rBtnManual = new System.Windows.Forms.RadioButton();
+            this.rBtnAutomatic = new System.Windows.Forms.RadioButton();
+            this.rBtnHide = new System.Windows.Forms.RadioButton();
             this.panel8.SuspendLayout();
             this.panelGas.SuspendLayout();
             this.panelPump.SuspendLayout();
@@ -94,30 +93,6 @@
             this.panelPurge.SuspendLayout();
             this.panel6.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // radioButton2
-            // 
-            radioButton2.AutoSize = true;
-            radioButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            radioButton2.Location = new System.Drawing.Point(286, 28);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new System.Drawing.Size(92, 21);
-            radioButton2.TabIndex = 50;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "MANUAL";
-            radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // radioButton1
-            // 
-            radioButton1.AutoSize = true;
-            radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            radioButton1.Location = new System.Drawing.Point(32, 28);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new System.Drawing.Size(118, 21);
-            radioButton1.TabIndex = 49;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "AUTOMATIC";
-            radioButton1.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
@@ -151,11 +126,11 @@
             this.listViewSubprograms.FullRowSelect = true;
             this.listViewSubprograms.GridLines = true;
             this.listViewSubprograms.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem6,
-            listViewItem7,
-            listViewItem8,
-            listViewItem9,
-            listViewItem10});
+            listViewItem1,
+            listViewItem2,
+            listViewItem3,
+            listViewItem4,
+            listViewItem5});
             this.listViewSubprograms.Location = new System.Drawing.Point(8, 66);
             this.listViewSubprograms.MultiSelect = false;
             this.listViewSubprograms.Name = "listViewSubprograms";
@@ -556,11 +531,6 @@
             this.panel6.Size = new System.Drawing.Size(538, 602);
             this.panel6.TabIndex = 58;
             // 
-            // timerRefresh
-            // 
-            this.timerRefresh.Enabled = true;
-            this.timerRefresh.Tick += new System.EventHandler(this.timerRefresh_Tick);
-            // 
             // labStatus
             // 
             this.labStatus.AutoSize = true;
@@ -571,14 +541,58 @@
             this.labStatus.TabIndex = 58;
             this.labStatus.Text = "Program Status: ";
             // 
+            // timerRefresh
+            // 
+            this.timerRefresh.Enabled = true;
+            this.timerRefresh.Tick += new System.EventHandler(this.timerRefresh_Tick);
+            // 
+            // rBtnManual
+            // 
+            this.rBtnManual.AutoSize = true;
+            this.rBtnManual.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.rBtnManual.Location = new System.Drawing.Point(300, 29);
+            this.rBtnManual.Name = "rBtnManual";
+            this.rBtnManual.Size = new System.Drawing.Size(106, 24);
+            this.rBtnManual.TabIndex = 59;
+            this.rBtnManual.TabStop = true;
+            this.rBtnManual.Text = "MANUAL";
+            this.rBtnManual.UseVisualStyleBackColor = true;
+            this.rBtnManual.Click += new System.EventHandler(this.rBtnMode_Click);
+            // 
+            // rBtnAutomatic
+            // 
+            this.rBtnAutomatic.AutoSize = true;
+            this.rBtnAutomatic.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.rBtnAutomatic.Location = new System.Drawing.Point(49, 28);
+            this.rBtnAutomatic.Name = "rBtnAutomatic";
+            this.rBtnAutomatic.Size = new System.Drawing.Size(136, 24);
+            this.rBtnAutomatic.TabIndex = 60;
+            this.rBtnAutomatic.TabStop = true;
+            this.rBtnAutomatic.Text = "AUTOMATIC";
+            this.rBtnAutomatic.UseVisualStyleBackColor = true;
+            this.rBtnAutomatic.Click += new System.EventHandler(this.rBtnMode_Click);
+            // 
+            // rBtnHide
+            // 
+            this.rBtnHide.AutoSize = true;
+            this.rBtnHide.Location = new System.Drawing.Point(443, 28);
+            this.rBtnHide.Name = "rBtnHide";
+            this.rBtnHide.Size = new System.Drawing.Size(61, 24);
+            this.rBtnHide.TabIndex = 61;
+            this.rBtnHide.TabStop = true;
+            this.rBtnHide.Text = "hide";
+            this.rBtnHide.UseVisualStyleBackColor = true;
+            this.rBtnHide.Visible = false;
+            // 
             // ProgramPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.Controls.Add(this.rBtnHide);
+            this.Controls.Add(this.rBtnAutomatic);
+            this.Controls.Add(this.rBtnManual);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.label4);
-            this.Controls.Add(radioButton2);
-            this.Controls.Add(radioButton1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Name = "ProgramPanel";
             this.Size = new System.Drawing.Size(535, 656);
@@ -647,5 +661,8 @@
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Timer timerRefresh;
         private System.Windows.Forms.Label labStatus;
+        private System.Windows.Forms.RadioButton rBtnManual;
+        private System.Windows.Forms.RadioButton rBtnAutomatic;
+        private System.Windows.Forms.RadioButton rBtnHide;
     }
 }

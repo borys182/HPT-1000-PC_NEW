@@ -20,6 +20,7 @@ namespace HPT1000.Source.Driver
 
         private Types.DriverStatus      status              = Types.DriverStatus.Unknown;
         private bool                    flagError           = false;
+        private Types.Mode              mode                = Types.Mode.None;
 
         private ThreadStart             funThr;
         private Thread                  threadReadData;
@@ -28,8 +29,8 @@ namespace HPT1000.Source.Driver
 
         private static RefreshProgram   refreshProgram      = null;
 
+        
         public static Types.Language    LanguageApp         = Types.Language.PL; //zm globalna określająca jezyk aplikacji
-
         //-----------------------------------------------------------------------------------------
         public HPT1000()
         {
@@ -55,6 +56,7 @@ namespace HPT1000.Source.Driver
                 //aktualizuj dane urzadzenia HPT1000
                 if(aData.Length > Types.OFFSET_DEVICE_STATUS) status      = (Types.DriverStatus)aData[Types.OFFSET_DEVICE_STATUS];
                 if(aData.Length > Types.OFFSET_OCCURED_ERROR) flagError   = Convert.ToBoolean(aData[Types.OFFSET_OCCURED_ERROR]);
+                if(aData.Length > Types.OFFSET_MODE)          mode        = (Types.Mode)aData[Types.OFFSET_MODE];
 
                 //aktualizuju dane komponentow komory
                 chamber.UpdateData(aData);
@@ -365,7 +367,27 @@ namespace HPT1000.Source.Driver
             return aId;
         }
         //-------------------------------------------------------------------------------------------------------------------------
+        public ERROR SetMode(Types.Mode aMode)
+        {
+            ERROR aErr = new ERROR();
+            int[] aData = new int[1];
 
+            aData[0] = (int)aMode;
+            if (plc != null)
+            {
+                int aCode = plc.WriteWords(Types.ADDR_MODE_CONTROL, 1, aData);
+                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_MODE_CONTROL, aCode);
+            }
+            else
+                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
+            return aErr;
+        }
+        //-------------------------------------------------------------------------------------------------------------------------
+        public Types.Mode GetMode()
+        {
+            return mode;
+        }
+        //-------------------------------------------------------------------------------------------------------------------------
     }
 }

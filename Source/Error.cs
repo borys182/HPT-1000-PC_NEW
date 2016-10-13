@@ -80,7 +80,7 @@ namespace HPT1000.Source
         public void SetErrorPLC(int aExtCode, DateTime aTime)
         {
             category = Types.ERROR_CATEGORY.PLC;
-            code     = 0;
+            code     = Types.ERROR_CODE.PLC_ERROR;
             extCode  = aExtCode;
             time     = aTime;
         }
@@ -100,7 +100,10 @@ namespace HPT1000.Source
         {
             bool aRes = false;
 
-            if (code != 0 || extCode != 0)
+            if ((category == Types.ERROR_CATEGORY.MX_COMPONENTS || category == Types.ERROR_CATEGORY.PLC ) && extCode != 0)
+                aRes = true;
+
+            if (category == Types.ERROR_CATEGORY.APLICATION  && code != 0 )
                 aRes = true;
 
             return aRes;

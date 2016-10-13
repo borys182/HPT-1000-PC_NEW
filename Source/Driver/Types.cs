@@ -31,6 +31,7 @@ namespace HPT1000.Source.Driver
         public enum ControlMode     { Automatic , Manual}
         public enum AddressSpace    { Settings, Program};
         public enum Language        { PL = 0 , EN = 1 };
+        public enum Mode            { Automatic = 1, Manual = 2, None = 3 };
 
         public enum ERROR_CATEGORY
         {
@@ -74,7 +75,9 @@ namespace HPT1000.Source.Driver
             SET_CYCLE_TIME              = 0x1F,
             SET_ON_TIME                 = 0x20,
             SET_STATE_VALVE             = 0x21,
-            SET_MODE_PRESSURE           = 0x22
+            SET_MODE_PRESSURE           = 0x22,
+            NO_SELECT_PROGRAM_TO_RUN    = 0x23,
+            SET_MODE_CONTROL            = 0x24
         }
 
         /// <summary>
@@ -96,6 +99,7 @@ namespace HPT1000.Source.Driver
         public static string ADDR_POWER_SUPPLAY_OPERATE     = "D216";
         public static string ADDR_PRESSURE_SETPOINT         = "D217";
         public static string ADDR_PRESSURE_MODE             = "D219";
+        public static string ADDR_MODE_CONTROL              = "D220";  //Tryb sterowania komora albo manulany albo automatyczny
 
         public static string ADDR_START_STATUS_CHAMBER      = "D1000"; //poczatek bufora z danymi przedstawiajacymi stan systemu 
         public static string ADDR_CONTROL_PROGRAM           = "D1040"; //Adres parametrow aktualnie wykonywanego programu i wykorzystuje go do dostrajania parametrow programu. Jest to adres poczatku buforu danych gdzie sa przechowywane parametry aktualnie wykonywanego programu
@@ -135,6 +139,7 @@ namespace HPT1000.Source.Driver
         public static int OFFSET_ON_TIME        = 23;
         public static int OFFSET_MODE_PRESSURE  = 25;
         public static int OFFSET_OCCURED_ERROR  = 26;
+        public static int OFFSET_MODE           = 27;
 
         //Dane odczytywane na zdarzenie
         public static int OFFSET_HV_LIMIT_POWER     = 0;
@@ -165,7 +170,7 @@ namespace HPT1000.Source.Driver
 
         public static int OFFSET_PRG_CONTROL        = 0;
         public static int OFFSET_PRG_STATUS         = 1;
-        public static int OFFSET_PRG_SUBPR_STATUS   = 2;
+       
         public static int OFFSET_PRG_ACTUAL_PRG_ID  = 3;
         public static int OFFSET_PRG_ACTUAL_SEQ_ID  = 4;
         public static int OFFSET_PRG_TIME_PUMP      = 5;

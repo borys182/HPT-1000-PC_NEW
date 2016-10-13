@@ -132,7 +132,7 @@ namespace HPT1000.Source.Chamber
                     break;
                 case Types.UnitFlow.percent:
                     if(maxFlow_sccm > 0)
-                        aFlow = actualFlow / maxFlow_sccm * 100;
+                        aFlow = (double)actualFlow / (double)maxFlow_sccm * 100.0;
                     break;
             }
             return aFlow;
@@ -178,6 +178,9 @@ namespace HPT1000.Source.Chamber
             else
                 aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
 
+            if (!aErr.IsError())
+                maxFlow_sccm = aValue;
+
             return aErr;
         }
         //------------------------------------------------------------------------------------------- 
@@ -200,6 +203,9 @@ namespace HPT1000.Source.Chamber
             }
             else
                 aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
+
+            if (!aErr.IsError())
+                rangeVoltage = aValue;
 
             return aErr;
         }
@@ -370,6 +376,9 @@ namespace HPT1000.Source.Chamber
             }
             else
                 aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
+
+            if (!aErr.IsError())
+                timeFlowStability = aValue;
 
             return aErr;
         }

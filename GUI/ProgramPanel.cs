@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using HPT1000.Source.Driver;
 using HPT1000.Source.Program;
+using HPT1000.Source;
 
 namespace HPT1000.GUI
 {
@@ -17,8 +18,8 @@ namespace HPT1000.GUI
         private Source.Driver.HPT1000   hpt1000 = null;
 
         private bool                    flagRefreshProgram  = false;
-        Program                         programActualRun    = null;
-
+        private int                     timerWaitMode       = 0;
+        private int						timeWaitRefreshMode = 30; // 3s
         //---------------------------------------------------------------------------------------
         public HPT1000.Source.Driver.HPT1000 HPT1000
         {
@@ -89,40 +90,56 @@ namespace HPT1000.GUI
         //Odsiwiez dane na temat aktualnie wykonywanego programu w PLC. Wyswietl dane takze po zakonczeniu programu
         public void RefreshPanel()
         {
-            Subprogram  aActualSubprogram   = null;
-            bool        aAnyProgramRun      = false;
+            Program     aActualPrgoram    = null;
+            Subprogram  aActualSubprogram = null;
+            bool        aLockPanel        = false; //falga okresla czym blokwoac wybor progrmau i subprogramu
+
             if (hpt1000 != null)
             {
-                //Znajdz aktualnie wykonywany program
+                //ustaw tryb pracy ale ze zwloka aby mozna go zdarzyc odczytac z PLC
+                if (timerWaitMode > timeWaitRefreshMode)
+                {
+                    if (hpt1000.GetMode() == Types.Mode.Automatic)
+                        rBtnAutomatic.Checked = true;
+                    if (hpt1000.GetMode() == Types.Mode.Manual)
+                        rBtnManual.Checked = true;
+                    if (hpt1000.GetMode() != Types.Mode.Automatic && hpt1000.GetMode() != Types.Mode.Manual)
+                        rBtnHide.Checked = true;
+                }
+				if(timerWaitMode <= timeWaitRefreshMode)
+                	timerWaitMode++;
+                //ustaw aktualny program jako ten wybrany z ComboBoxa
+                if (cBoxPrograms.SelectedItem != null)
+                    aActualPrgoram = (Program)cBoxPrograms.SelectedItem;
+
+                //ustaw aktualny subproram jako ten wybrany z listy
+                if (listViewSubprograms.SelectedItems.Count > 0)
+                    aActualSubprogram = (Subprogram)listViewSubprograms.SelectedItems[0].Tag;
+
+                //Sprawdz czy nie wykonuje sie jakis program. Jezeli tak to ustaw go jako aktualny
                 foreach (Program program in hpt1000.GetPrograms())
                 {
                     if (program.IsRun())
                     {
-                        programActualRun = program;
-                        aAnyProgramRun = true;
+                        aActualPrgoram = program;
+                        //Znajdz aktualnie wykonywany subprogram wgrany do PLC z programu
+                        aActualSubprogram = aActualPrgoram.GetActualSubprogram();
+                        //Ustaw combobox na danym prgramie
+                        SetProgramInComboBox(aActualPrgoram);
+
+                        aLockPanel = true;
+                        break;
                     }
-                }             
-                if (programActualRun != null)
-                {
-                    //Znajdz aktualnie wykonywany subprogram wgrany do PLC z programu
-                    aActualSubprogram = programActualRun.GetActualSubprogram();
-                    //Wyswietl dane na temat programy=u i subprogrmau
-                    ShowProgramConfig(programActualRun);
-                    ShowSubprogramConfig(aActualSubprogram);
-                    //Ustaw combobox na danym prgoramie
-                    SetProgramInComboBox(programActualRun);
-                    cBoxPrograms.Enabled        = false;
-                    listViewSubprograms.Enabled = false;
                 }
-                else
-                {
-                    cBoxPrograms.Enabled        = true;
-                    listViewSubprograms.Enabled = true;
-                }
+                //Wyswietl dane na temat programy=u i subprogrmau
+                ShowProgramConfig(aActualPrgoram);
+                ShowSubprogramConfig(aActualSubprogram);
+                //Ustaw dostepnosc wyboru programu i subprogramu do sprawdzenia ihc parametrow
+                cBoxPrograms.Enabled        = !aLockPanel;
+                listViewSubprograms.Enabled = !aLockPanel;
             }
-            if(!aAnyProgramRun)
-                programActualRun = null;
         }
+
         //--------------------------------------------------------------------------------------
         void SetProgramInComboBox(Program program)
         {
@@ -365,16 +382,25 @@ namespace HPT1000.GUI
         //Wgraj program do PLC oraz uruchom go
         private void btnStart_Click(object sender, EventArgs e)
         {
+            ERROR aErr = new ERROR();
             Program program = (Program)cBoxPrograms.SelectedItem;
-            if(program != null)
-                program.StartProgram();
+            if (program != null)
+                aErr = program.StartProgram();
+            else
+                aErr.SetErrorApp(Types.ERROR_CODE.NO_SELECT_PROGRAM_TO_RUN);
+
+            Logger.AddError(aErr);
         }
         //--------------------------------------------------------------------------------------
         private void btnStop_Click(object sender, EventArgs e)
         {
-            Program program = (Program)cBoxPrograms.SelectedItem;
-            if (program != null)
-                program.StopProgram();
+            ERROR aErr;
+
+            Program program = new Program();
+            program.SetPtrPLC(hpt1000.GetPLC());
+            aErr = program.StopProgram();
+
+            Logger.AddError(aErr);
         }
         //--------------------------------------------------------------------------------------
         private void timerRefresh_Tick(object sender, EventArgs e)
@@ -385,6 +411,21 @@ namespace HPT1000.GUI
                 UpdateListPrograms();
                 flagRefreshProgram = false;
             }
+        }
+        //--------------------------------------------------------------------------------------
+        private void rBtnMode_Click(object sender, EventArgs e)
+        {
+            Types.Mode aMode = Types.Mode.None;
+
+            if (rBtnAutomatic.Checked)
+                aMode = Types.Mode.Automatic;
+            if (rBtnManual.Checked)
+                aMode = Types.Mode.Manual;
+
+            if (hpt1000 != null)
+                hpt1000.SetMode(aMode);
+
+            timerWaitMode = 0;
         }
         //--------------------------------------------------------------------------------------
 

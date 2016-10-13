@@ -17,7 +17,11 @@ namespace HPT1000.GUI
     {
         private PowerSupplay generator          = null;
         private const int    setpointResolution = 1000;    //zmienna okresla z jaka dokladnosci mozna podawac setopinta
+    
+        private int          timerRefreshMode = 0;
 
+        private int          timeWaitOnRefresh = 30; //czekaj 3s na odsiwezenie trybu pracy po jego zminie - czas zwloki na odczyanie danych z PLC
+        
         //------------------------------------------------------------------------------------------
         public GeneratorPanel()
         {
@@ -39,20 +43,27 @@ namespace HPT1000.GUI
                 dEditActualVoltage.Value    = generator.Voltage;
                 dEditActualCurent.Value     = generator.Curent;
 
-                switch (generator.Mode)
+               if (timerRefreshMode > timeWaitOnRefresh)
+
                 {
-                    case Types.ModeHV.Power:
-                        rBtnModePower.Checked = true;
-                        labUnitSP.Text = "[W]";
-                        break;
-                    case Types.ModeHV.Curent:
-                        rBtnModeCurent.Checked = true;
-                        labUnitSP.Text = "[A]";
-                        break;
-                    case Types.ModeHV.Voltage:
-                        rBtnModeVoltage.Checked = true;
-                        labUnitSP.Text = "[V]";
-                        break;
+                    switch (generator.Mode)
+                    {
+                        case Types.ModeHV.Power:
+                            rBtnModePower.Checked = true;
+                            labUnitSP.Text = "[W]";
+                            break;
+                        case Types.ModeHV.Curent:
+                            rBtnModeCurent.Checked = true;
+                            labUnitSP.Text = "[A]";
+                            break;
+                        case Types.ModeHV.Voltage:
+                            rBtnModeVoltage.Checked = true;
+                            labUnitSP.Text = "[V]";
+                            break;
+                        default:
+                            rBntNone.Checked = true;
+                            break;
+                    }
                 }
                 if (generator.State == Types.StateHV.ON)
                 {
@@ -71,7 +82,10 @@ namespace HPT1000.GUI
                     cBoxOperate.Checked = false;
                     cBoxOperate.BackColor = Color.Red;
                     cBoxOperate.Text      = "Operate Off";
+
                 }
+                if(timerRefreshMode <= timeWaitOnRefresh)
+                    timerRefreshMode++;
             }
         }
         //------------------------------------------------------------------------------------------
@@ -109,7 +123,9 @@ namespace HPT1000.GUI
 
             if (generator != null)
                 aErr = generator.SetMode(mode);
-            
+
+            timerRefreshMode = 0;
+
             Logger.AddError(aErr);
         }
         //------------------------------------------------------------------------------------------

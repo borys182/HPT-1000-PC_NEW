@@ -72,7 +72,7 @@ namespace HPT1000.GUI
             if (mfc != null)
                 aErr = mfc.SetFlow(channelId,(int)dEditFlow_sccm.Value,Types.UnitFlow.sccm);
 
-            if (!Err.IsError())
+            if (!aErr.IsError())
                 aRes = true;
 
             SetScrollValue((int)dEditFlow_sccm.Value);

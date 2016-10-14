@@ -11,6 +11,8 @@ namespace HPT1000.Source.Chamber
     {
         double              actualPressure      = 0;
         Types.GasProcesMode mode                = Types.GasProcesMode.FlowSP;
+
+        private double      setpoint            = 0;
         
         //-----------------------------------------------------------------------------------------
         //Ustwa aktualny przeplyw dla wszystkich przeplywek
@@ -20,12 +22,14 @@ namespace HPT1000.Source.Chamber
             {
                 //z PLC dostaje DWORD ktorego nalezy przekonwertowac na double
                 actualPressure = Types.ConvertDWORDToDouble(aData, Types.OFFSET_PRESSURE);
+                setpoint       = Types.ConvertDWORDToDouble(aData, Types.OFFSET_SETPOINT_GAS);
 
                 if (Enum.IsDefined(typeof(Types.GasProcesMode), aData[Types.OFFSET_MODE_PRESSURE]))
                     mode = (Types.GasProcesMode)Enum.Parse(typeof(Types.GasProcesMode), (aData[Types.OFFSET_MODE_PRESSURE]).ToString()); // konwertuj int na Enum
                 else
                     mode = Types.GasProcesMode.Unknown;
             }
+            base.UpdateData(aData);
         }
         //-----------------------------------------------------------------------------------------
         //Funkcja umozliwia ustawianie setpointa prozni dla regulatora PID
@@ -39,7 +43,7 @@ namespace HPT1000.Source.Chamber
                 if (controlMode == Types.ControlMode.Manual)
                     aCode = plc.WriteRealData(Types.ADDR_PRESSURE_SETPOINT, (float)aSetpoint);
                 if (controlMode == Types.ControlMode.Automatic)
-                    aCode = plc.WriteRealData(Types.OFFSET_SEQ_GAS_SETPOINT + Types.ADDR_CONTROL_PROGRAM, (float)aSetpoint);
+                    aCode = plc.WriteRealData("D" + (Types.OFFSET_SEQ_GAS_SETPOINT + Types.ADDR_START_CRT_PROGRAM).ToString(), (float)aSetpoint);
                 aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_PRESSURE_SETPOINT, aCode);
             }
             else
@@ -61,7 +65,7 @@ namespace HPT1000.Source.Chamber
                 if (controlMode == Types.ControlMode.Manual)
                     aCode = plc.WriteWords(Types.ADDR_PRESSURE_MODE,1,aData);
                 if (controlMode == Types.ControlMode.Automatic)
-                    aCode = plc.WriteWords(Types.OFFSET_SEQ_GAS_MODE + Types.ADDR_CONTROL_PROGRAM,1,aData);
+                    aCode = plc.WriteWords("D" + (Types.OFFSET_SEQ_GAS_MODE + Types.ADDR_START_CRT_PROGRAM).ToString(), 1,aData);
                 aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_MODE_PRESSURE, aCode);
             }
             else
@@ -80,6 +84,10 @@ namespace HPT1000.Source.Chamber
             return mode;
         }
         //----------------------------------------------------------------------------------------
-
+        public double GetSetpoint()
+        {
+            return setpoint;
+        }
+        //----------------------------------------------------------------------------------------
     }
 }

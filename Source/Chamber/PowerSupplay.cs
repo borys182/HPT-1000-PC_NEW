@@ -14,6 +14,7 @@ namespace HPT1000.Source.Chamber
         private double          power       = 0;
         private double          voltage     = 0;
         private double          curent      = 0;
+        private double          setpoint    = 0;
 
         //parametry zasilacza
         private double          limitVoltage        = 1000;
@@ -24,6 +25,7 @@ namespace HPT1000.Source.Chamber
         private double          maxPower            = 1000; //wartość max mocy dla trybu Power jaką można ustawić na zasilaczu
         private int             timeWaitOnOperate   = 5;    //czas oczekiwania na potwierdzenie wlaczenia zasilacza
         private int             timeWaitOnSetpoint  = 30;   //czas oczekiwania na sptrawdzenie czy aktualny setpoint miesci sie w wyznaczonych widelkach programu
+
         //-------------------------------------------------------------------------------------------
         public double LimitVoltage
         {
@@ -53,6 +55,11 @@ namespace HPT1000.Source.Chamber
         public double Curent
         {
             get { return curent; }
+        }
+        //-------------------------------------------------------------------------------------------
+        public double Setpoint
+        {
+            get { return setpoint; }
         }
         //-------------------------------------------------------------------------------------------
         public Types.StateHV State
@@ -94,9 +101,10 @@ namespace HPT1000.Source.Chamber
         {
             if (aData.Length > Types.OFFSET_POWER && aData.Length > Types.OFFSET_VOLTAGE && aData.Length > Types.OFFSET_CURENT && aData.Length > Types.OFFSET_MODE_HV && aData.Length > Types.OFFSET_STATUS_HV)
             {
-                power   = Types.ConvertDWORDToDouble(aData, Types.OFFSET_POWER);
-                voltage = Types.ConvertDWORDToDouble(aData, Types.OFFSET_VOLTAGE);
-                curent  = Types.ConvertDWORDToDouble(aData, Types.OFFSET_CURENT);
+                power       = Types.ConvertDWORDToDouble(aData, Types.OFFSET_POWER);
+                voltage     = Types.ConvertDWORDToDouble(aData, Types.OFFSET_VOLTAGE);
+                curent      = Types.ConvertDWORDToDouble(aData, Types.OFFSET_CURENT);
+                setpoint    = Types.ConvertDWORDToDouble(aData, Types.OFFSET_SETPOINT_HV);
 
                 if (Enum.IsDefined(typeof(Types.ModeHV), aData[Types.OFFSET_MODE_HV]))
                     mode = (Types.ModeHV)Enum.Parse(typeof(Types.ModeHV), (aData[Types.OFFSET_MODE_HV]).ToString()); // konwertuj int na Enum
@@ -108,6 +116,7 @@ namespace HPT1000.Source.Chamber
                 else
                     state = Types.StateHV.Error;
             }
+            base.UpdateData(aData);
         }
         //-------------------------------------------------------------------------------------------
         override public void UpdateSettingsData(int[] aData)
@@ -135,7 +144,7 @@ namespace HPT1000.Source.Chamber
             if (plc != null)
             {
                 if(controlMode == Types.ControlMode.Automatic)
-                    aCode = plc.WriteRealData(Types.ADDR_CONTROL_PROGRAM + Types.OFFSET_SEQ_HV_SETPOINT, (float)aSetpoint);
+                    aCode = plc.WriteRealData("D" + (Types.ADDR_START_CRT_PROGRAM + Types.OFFSET_SEQ_HV_SETPOINT).ToString(), (float)aSetpoint);
 
                 if(controlMode == Types.ControlMode.Manual)
                     aCode = plc.WriteRealData(Types.ADDR_POWER_SUPPLAY_SETPOINT, (float)aSetpoint);
@@ -144,9 +153,6 @@ namespace HPT1000.Source.Chamber
             }
             else
                 aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
-
-        //    if (!aErr.IsError())
-        //        set = aValue; TO DO - czy jest nam potrzebne znac ten setpoint ???
 
             return aErr;
         }       
@@ -162,13 +168,14 @@ namespace HPT1000.Source.Chamber
             if (plc != null)
             {
                 int aCode = 0;
+
+                if (controlMode == Types.ControlMode.Automatic)
+                    aCode = plc.WriteWords("D" + (Types.ADDR_START_CRT_PROGRAM + Types.OFFSET_SEQ_HV_OPERATE).ToString(), 1, aData);
+
                 if (controlMode == Types.ControlMode.Manual)
-                {
                     aCode = plc.WriteWords(Types.ADDR_POWER_SUPPLAY_MODE, 1, aData);
-                    aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_MODE, aCode);
-                }
-                else
-                    aErr.SetErrorApp(Types.ERROR_CODE.SET_MODE);
+
+                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_MODE, aCode);                
             }
             else
                 aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);

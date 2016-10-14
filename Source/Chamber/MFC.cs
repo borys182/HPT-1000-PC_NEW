@@ -15,6 +15,7 @@ namespace HPT1000.Source.Chamber
         private string  gasName         = "none";
         private double  factor          = 1;                //okresleneie factora dla danego gazu podpietego do danej przeplywki. Przeplywki
                                                             //sa skalibrowane na jeden gaz i podpiecie innego wymusza ustawienie factora dla poprawnych przeliczen przeplywu
+        private int     setpoint        = 0;
         //zmienne konfigurujace przeplywke
         private int     rangeVoltage = 10000;           //okreslenie zakresu napieciowego pracy przeplywki
         private int     maxFlow_sccm = 10000;           //okreslenie max przeplywu przeplywki wyrazonego w jednostkach sccm
@@ -32,17 +33,34 @@ namespace HPT1000.Source.Chamber
         //-----------------------------------------------------------------------------------------
         public override void UpdateData(int[] aData)
         {
-            int aAddr = 0;
+            int aIndex_Flow = 0;
+            int aIndex_Setpoint = 0;
 
             if (aData.Length > Types.OFFSET_ACTUAL_FLOW_1 && aData.Length > Types.OFFSET_ACTUAL_FLOW_2 && aData.Length > Types.OFFSET_ACTUAL_FLOW_3)
             {
-                if (id == 1) aAddr = Types.OFFSET_ACTUAL_FLOW_1;
-                if (id == 2) aAddr = Types.OFFSET_ACTUAL_FLOW_2;
-                if (id == 3) aAddr = Types.OFFSET_ACTUAL_FLOW_3;
+                if (id == 1)
+                {
+                    aIndex_Flow     = Types.OFFSET_ACTUAL_FLOW_1;
+                    aIndex_Setpoint = Types.OFFSET_SETPOINT_MFC1;
+                }
+                if (id == 2)
+                {
+                    aIndex_Flow     = Types.OFFSET_ACTUAL_FLOW_2;
+                    aIndex_Setpoint = Types.OFFSET_SETPOINT_MFC2;
+                }
+                if (id == 3)
+                {
+                    aIndex_Flow     = Types.OFFSET_ACTUAL_FLOW_3;
+                    aIndex_Setpoint = Types.OFFSET_SETPOINT_MFC3;
+                }
 
-                if(aData.Length > aAddr)
-                    actualFlow = aData[aAddr];
+                if (aData.Length > aIndex_Flow && aData.Length > aIndex_Setpoint)
+                {
+                    actualFlow = aData[aIndex_Flow];
+                    setpoint   = aData[aIndex_Setpoint];
+                }
             }
+            base.UpdateData(aData);
         }
         //-----------------------------------------------------------------------------------------
         //Odczytaj ustawienia MFC z PLC
@@ -93,9 +111,9 @@ namespace HPT1000.Source.Chamber
             string aAddr = "";
             if(controlMode == Types.ControlMode.Automatic)
             {
-                if (id == 1) aAddr = Types.ADDR_CONTROL_PROGRAM + Types.OFFSET_SEQ_FLOW_1_FLOW;
-                if (id == 2) aAddr = Types.ADDR_CONTROL_PROGRAM + Types.OFFSET_SEQ_FLOW_2_FLOW;
-                if (id == 3) aAddr = Types.ADDR_CONTROL_PROGRAM + Types.OFFSET_SEQ_FLOW_3_FLOW;
+                if (id == 1) aAddr = "D" + (Types.ADDR_START_CRT_PROGRAM + Types.OFFSET_SEQ_FLOW_1_FLOW).ToString();
+                if (id == 2) aAddr = "D" + (Types.ADDR_START_CRT_PROGRAM + Types.OFFSET_SEQ_FLOW_2_FLOW).ToString();
+                if (id == 3) aAddr = "D" + (Types.ADDR_START_CRT_PROGRAM + Types.OFFSET_SEQ_FLOW_3_FLOW).ToString();
             }
             if (controlMode == Types.ControlMode.Manual)
             {
@@ -156,6 +174,23 @@ namespace HPT1000.Source.Chamber
         public int GeRangeVoltage()
         {
             return rangeVoltage;
+        }
+        //-----------------------------------------------------------------------------------------
+        public double GetSetpoint(Types.UnitFlow aUnit)
+        {           
+            double aSetpoint = 0;
+
+            switch (aUnit)
+            {
+                case Types.UnitFlow.sccm:
+                    aSetpoint = setpoint;
+                    break;
+                case Types.UnitFlow.percent:
+                    if (maxFlow_sccm > 0)
+                        aSetpoint = (double)setpoint / (double)maxFlow_sccm * 100.0;
+                    break;
+            }
+            return aSetpoint;
         }
         //-----------------------------------------------------------------------------------------
         //Ustaw max przeplyw jaki jest mozliwy do ustawienia dla danej przeplywki [sccm]
@@ -282,6 +317,17 @@ namespace HPT1000.Source.Chamber
                 aErr = mfc_Channel.SetFlow(aValue, aUnit);
                
             return aErr;
+        }
+        //-----------------------------------------------------------------------------------------
+        public double GetSetpoint(int aId, Types.UnitFlow aUnit)
+        {
+            double aSetpoint = 0;
+            MFC_Channel mfc_Channel = GetMFC_Channel(aId);
+
+            if (mfc_Channel != null)
+                aSetpoint = mfc_Channel.GetSetpoint(aUnit);
+
+            return aSetpoint;
         }
         //-----------------------------------------------------------------------------------------
         public double GetActualFlow(int aId , Types.UnitFlow aUnit)

@@ -67,6 +67,7 @@ namespace HPT1000.Source
             extCode  = aExtCode;
             time     = DateTime.Now;
 
+            Logger.AddError(this);
         }
         //-----------------------------------------------------------------------------------------
         public void SetErrorApp(Types.ERROR_CODE aCode)
@@ -74,7 +75,9 @@ namespace HPT1000.Source
             category = Types.ERROR_CATEGORY.APLICATION;
             code     = aCode;
             extCode  = 0;
-            time     = DateTime.Now;                
+            time     = DateTime.Now;
+
+            Logger.AddError(this);
         }
         //-----------------------------------------------------------------------------------------
         public void SetErrorPLC(int aExtCode, DateTime aTime)
@@ -83,6 +86,8 @@ namespace HPT1000.Source
             code     = Types.ERROR_CODE.PLC_ERROR;
             extCode  = aExtCode;
             time     = aTime;
+
+            Logger.AddError(this);
         }
         //-----------------------------------------------------------------------------------------
         //Funkcja zwraca kod bledu. Dla kategori MXComponets oraz PLC kod bledu jest przechowywany w polu ExtCode poniewaz one posiadaja wlasna liste bledow

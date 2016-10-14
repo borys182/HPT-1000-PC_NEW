@@ -13,7 +13,13 @@ namespace HPT1000.Source.Chamber
         protected Types.ControlMode controlMode = Types.ControlMode.Manual;
 
         //---------------------------------------------------------------------------------------
-        public abstract void UpdateData(int[] aData);
+        public virtual void UpdateData(int[] aData)
+        {
+            if (Driver.HPT1000.Mode == Types.Mode.Automatic)
+                controlMode = Types.ControlMode.Automatic;
+            else
+                controlMode = Types.ControlMode.Manual;
+        }
         //---------------------------------------------------------------------------------------
         public virtual void UpdateSettingsData(int[] aData)
         {}
@@ -22,12 +28,7 @@ namespace HPT1000.Source.Chamber
         {
             plc = ptrPLC;
         }
-        //---------------------------------------------------------------------------------------
-        public void SetControlMode(Types.ControlMode aControlMode)
-        {
-            controlMode = aControlMode;
-        }
-        //---------------------------------------------------------------------------------------
+       //---------------------------------------------------------------------------------------
         public Types.ControlMode GetControlMode()
         {
             return controlMode;

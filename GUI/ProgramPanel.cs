@@ -101,10 +101,13 @@ namespace HPT1000.GUI
                 {
                     if (hpt1000.GetMode() == Types.Mode.Automatic)
                         rBtnAutomatic.Checked = true;
-                    if (hpt1000.GetMode() == Types.Mode.Manual)
+                    else
+                    {
                         rBtnManual.Checked = true;
-                    if (hpt1000.GetMode() != Types.Mode.Automatic && hpt1000.GetMode() != Types.Mode.Manual)
-                        rBtnHide.Checked = true;
+                        aLockPanel = true;
+                    }
+               //     if (hpt1000.GetMode() != Types.Mode.Automatic && hpt1000.GetMode() != Types.Mode.Manual)
+               //         rBtnHide.Checked = true;
                 }
 				if(timerWaitMode <= timeWaitRefreshMode)
                 	timerWaitMode++;
@@ -137,6 +140,12 @@ namespace HPT1000.GUI
                 //Ustaw dostepnosc wyboru programu i subprogramu do sprawdzenia ihc parametrow
                 cBoxPrograms.Enabled        = !aLockPanel;
                 listViewSubprograms.Enabled = !aLockPanel;
+                btnStart.Enabled            = !aLockPanel;
+                if (hpt1000.GetMode() == Types.Mode.Automatic)
+                    btnStop.Enabled = true;
+                else
+                    btnStop.Enabled = false;
+
             }
         }
 

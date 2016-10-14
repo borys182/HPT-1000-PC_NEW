@@ -62,6 +62,7 @@ namespace HPT1000.Source.Chamber
                         valve.state = Types.StateValve.Error;
                 }
             }
+            base.UpdateData(aData);
         }
         //-----------------------------------------------------------------------------------------
         //Zwroc stan danego zaworu
@@ -96,8 +97,13 @@ namespace HPT1000.Source.Chamber
             {
                 if (plc != null)
                 {
-                    int aCode = plc.WriteWords(Types.ADDR_VALVES_CTRL, 2, ctrlValve);
-                    aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_STATE_VALVE, aCode);
+                    if (controlMode == Types.ControlMode.Manual)
+                    {
+                        int aCode = plc.WriteWords(Types.ADDR_VALVES_CTRL, 2, ctrlValve);
+                        aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_STATE_VALVE, aCode);
+                    }
+                    else
+                        aErr.SetErrorApp(Types.ERROR_CODE.SET_STATE_VALVE);
                 }
                 else
                     aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);

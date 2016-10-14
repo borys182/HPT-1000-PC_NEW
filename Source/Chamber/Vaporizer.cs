@@ -30,6 +30,7 @@ namespace HPT1000.Source.Chamber
                 cycleTime   = Types.ConvertDWORDToDouble(aData, Types.OFFSET_CYCLE_TIME);
                 onTime      = Types.ConvertDWORDToDouble(aData, Types.OFFSET_ON_TIME);
             }
+            base.UpdateData(aData);
         }
         //-------------------------------------------------------------------------------------
         /**
@@ -49,7 +50,7 @@ namespace HPT1000.Source.Chamber
                 if(controlMode == Types.ControlMode.Manual)
                     aCode = plc.WriteRealData(Types.ADDR_CYCLE_TIME, aCycleTime);
                 if (controlMode == Types.ControlMode.Automatic)
-                    aCode = plc.WriteRealData(Types.OFFSET_SEQ_FLOW_4_CYCLE_TIME + Types.ADDR_CONTROL_PROGRAM, aCycleTime);
+                    aCode = plc.WriteRealData("D" + (Types.OFFSET_SEQ_FLOW_4_CYCLE_TIME + Types.ADDR_START_CRT_PROGRAM).ToString(), aCycleTime);
                 aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_CYCLE_TIME, aCode);
             }
                         
@@ -88,7 +89,7 @@ namespace HPT1000.Source.Chamber
                 if (controlMode == Types.ControlMode.Manual)
                     aCode = plc.WriteRealData(Types.ADDR_ON_TIME, (float)aOnTime);
                 if (controlMode == Types.ControlMode.Automatic)
-                    aCode = plc.WriteRealData(Types.OFFSET_SEQ_FLOW_4_ON_TIME + Types.ADDR_CONTROL_PROGRAM, (float)aOnTime);
+                    aCode = plc.WriteRealData("D" + (Types.OFFSET_SEQ_FLOW_4_ON_TIME + Types.ADDR_START_CRT_PROGRAM).ToString(), (float)aOnTime);
                 aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_ON_TIME, aCode);
             }
             Logger.AddError(aErr);

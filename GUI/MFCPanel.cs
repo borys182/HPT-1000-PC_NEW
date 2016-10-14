@@ -18,6 +18,9 @@ namespace HPT1000.GUI
     {
         MFC mfc             = null;
         int channelId       = 0;
+
+        int timerRefresh        = 0;
+        int timeWaitOnRefresh   = 30;//3[s]
         
         //-----------------------------------------------------------------------------------------
         public MFCPanel()
@@ -31,6 +34,15 @@ namespace HPT1000.GUI
             {
                 dEditActualFlow_percent.Value   = mfc.GetActualFlow(channelId,Types.UnitFlow.percent);
                 dEditActualFlow_sccm.Value      = mfc.GetActualFlow(channelId,Types.UnitFlow.sccm);
+
+                if(timerRefresh > timeWaitOnRefresh)
+                {
+                    dEditFlow_sccm.Value    = mfc.GetSetpoint(channelId, Types.UnitFlow.sccm);
+                    dEditFlow_percent.Value = mfc.GetSetpoint(channelId, Types.UnitFlow.percent);
+                }
+
+                if (timerRefresh <= timeWaitOnRefresh)
+                    timerRefresh++;
             }
             SetLimit();
         }
@@ -70,11 +82,13 @@ namespace HPT1000.GUI
             ERROR aErr = new ERROR();
 
             if (mfc != null)
-                aErr = mfc.SetFlow(channelId,(int)dEditFlow_sccm.Value,Types.UnitFlow.sccm);
+                aErr = mfc.SetFlow(channelId, (int)dEditFlow_sccm.Value, Types.UnitFlow.sccm);
 
             if (!aErr.IsError())
+            {
                 aRes = true;
-
+                timerRefresh = 0;
+            }
             SetScrollValue((int)dEditFlow_sccm.Value);
 
             Logger.AddError(aErr);
@@ -91,8 +105,10 @@ namespace HPT1000.GUI
                 aErr = mfc.SetFlow(channelId, (int)dEditFlow_percent.Value, Types.UnitFlow.percent);
 
             if (!aErr.IsError())
+            {
                 aRes = true;
-
+                timerRefresh = 0;
+            }
            Logger.AddError(aErr);
 
             return aRes;

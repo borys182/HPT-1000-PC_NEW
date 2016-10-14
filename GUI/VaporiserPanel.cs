@@ -16,8 +16,10 @@ namespace HPT1000.GUI
     public partial class VaporiserPanel : UserControl
     {
         Vaporizer vaporizer     = null;
-        bool      aUnitPercent  = true;   //flaga okresla czy mam pokazywac jednostki w procentach czy ms
+        bool      unitPercent  = true;   //flaga okresla czy mam pokazywac jednostki w procentach czy ms
 
+        int       timeWaitOnRefresh = 30; //3 s
+        int       timerRefresh      = 0;
         //-----------------------------------------------------------------------------------
         public VaporiserPanel()
         {
@@ -31,37 +33,41 @@ namespace HPT1000.GUI
         //-----------------------------------------------------------------------------------
         public void RefreshData()
         {
-            if (vaporizer != null)
+            if (vaporizer != null && timerRefresh > timeWaitOnRefresh)
             {
-                dEditCycleTImne.Value  = vaporizer.GetCycleTime();
+                dEditCycleTImne.Value  = (double)vaporizer.GetCycleTime() / 1000.0;
 
-                if(aUnitPercent)
+                if(unitPercent)
                     dEditOnTime.Value = vaporizer.GetOnTime(Types.UnitFlow.percent);
                 else
-                    dEditOnTime.Value = vaporizer.GetOnTime(Types.UnitFlow.ms);
+                    dEditOnTime.Value = (double)vaporizer.GetOnTime(Types.UnitFlow.ms) / 1000.0;
             }
+
+            if (timerRefresh <= timeWaitOnRefresh)
+                timerRefresh++;
+
             RefreshUnit();
         }
         //-----------------------------------------------------------------------------------
         private void RefreshUnit()
         {
-            if (aUnitPercent)
+            if (unitPercent)
             {
                 labUnit.Text = "[%]";
-                dEditOnTime.Mask = "{0:F2}";
+      //          dEditOnTime.Mask = "{0:F2}";
                 dEditOnTime.MaximumValue = 100;
             }
             else
             {
-                labUnit.Text = "[ms]";
-                dEditOnTime.Mask = "{0:F3}";
+                labUnit.Text = "[sec]";
+        //        dEditOnTime.Mask = "{0:F3}";
                 dEditOnTime.MaximumValue = 100000;
             }
         }
         //-----------------------------------------------------------------------------------
         private void labUnit_Click(object sender, EventArgs e)
         {
-            aUnitPercent = !aUnitPercent;
+            unitPercent = !unitPercent;
             RefreshUnit();
         }
         //-----------------------------------------------------------------------------------
@@ -69,19 +75,24 @@ namespace HPT1000.GUI
         {
             bool aRes = false;
             ERROR aErr = new ERROR();
-            Types.UnitFlow aUnit = Types.UnitFlow.ms;
 
             if (vaporizer != null)
             {
-                if (aUnitPercent) aUnit = Types.UnitFlow.percent;
+                float           aValue = (float)dEditOnTime.Value;
+                Types.UnitFlow  aUnit  = Types.UnitFlow.ms;
 
-                aErr = vaporizer.SetOnTime((float)dEditOnTime.Value, aUnit);
+                if (unitPercent) aUnit = Types.UnitFlow.percent;
+                else aValue *= 1000; //przlicz s na ms
+
+                aErr = vaporizer.SetOnTime(aValue , aUnit);
             }
             Logger.AddError(aErr);
 
             if (!aErr.IsError())
+            {
                 aRes = true;
-
+                timerRefresh = 0;
+            }
             return aRes;
         }
         //-----------------------------------------------------------------------------------
@@ -91,13 +102,15 @@ namespace HPT1000.GUI
             ERROR aErr = new ERROR();
             if (vaporizer != null)
             {
-                aErr = vaporizer.SetCycleTime((float)dEditCycleTImne.Value);
+                aErr = vaporizer.SetCycleTime((float)dEditCycleTImne.Value * 1000); // poniewa z formatki dane wprowadzam w sec musze je przeliczyc na ms
             }
             Logger.AddError(aErr);
 
             if (!aErr.IsError())
+            {
                 aRes = true;
-
+                timerRefresh = 0;
+            }
             return aRes;
         }
         //-----------------------------------------------------------------------------------

@@ -102,8 +102,10 @@ namespace HPT1000.Source.Driver
         public static string ADDR_MODE_CONTROL              = "D220";  //Tryb sterowania komora albo manulany albo automatyczny
 
         public static string ADDR_START_STATUS_CHAMBER      = "D1000"; //poczatek bufora z danymi przedstawiajacymi stan systemu 
-        public static string ADDR_CONTROL_PROGRAM           = "D1040"; //Adres parametrow aktualnie wykonywanego programu i wykorzystuje go do dostrajania parametrow programu. Jest to adres poczatku buforu danych gdzie sa przechowywane parametry aktualnie wykonywanego programu
+        public static string ADDR_CONTROL_PROGRAM           = "D1040";
+        public static int    ADDR_START_CRT_PROGRAM         = 1050;   //Adres parametrow aktualnie wykonywanego programu i wykorzystuje go do dostrajania parametrow programu. Jest to adres poczatku buforu danych gdzie sa przechowywane parametry aktualnie wykonywanego programu
                                                                        //Pamietaj ze ten adres jest odzwierciedleniem PLC. Kolejne parametry urządzen posiadaja adresy zgodnie z ofsetem danego parametru w programie
+        
         public static string ADDR_START_SETTINGS            = "D1200";
         public static string ADDR_BUFER_ERROR               = "D1230";
         public static string ADDR_PRG_ID                    = "D2000";
@@ -140,6 +142,12 @@ namespace HPT1000.Source.Driver
         public static int OFFSET_MODE_PRESSURE  = 25;
         public static int OFFSET_OCCURED_ERROR  = 26;
         public static int OFFSET_MODE           = 27;
+        public static int OFFSET_SETPOINT_HV    = 28;
+        public static int OFFSET_SETPOINT_GAS   = 30;
+        public static int OFFSET_SETPOINT_MFC1  = 32;
+        public static int OFFSET_SETPOINT_MFC2  = 33;
+        public static int OFFSET_SETPOINT_MFC3  = 34;
+
 
         //Dane odczytywane na zdarzenie
         public static int OFFSET_HV_LIMIT_POWER     = 0;

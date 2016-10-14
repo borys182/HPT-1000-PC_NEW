@@ -35,6 +35,7 @@ namespace HPT1000.Source.Chamber
                 else
                     state = Types.StateFP.Error;
             }
+            base.UpdateData(aData);
         }
         //--------------------------------------------------------------------------------------------------------
         //Akutalizuj parametry odczytane z PLC 
@@ -63,8 +64,13 @@ namespace HPT1000.Source.Chamber
             {
                 if (plc != null)
                 {
-                    int aCode = plc.WriteWords(Types.ADDR_FP_CTRL, 1, aData);
-                    aErr.SetErrorMXComponents(Types.ERROR_CODE.CONTROL_PUMP, aCode);
+                    if (controlMode == Types.ControlMode.Manual)
+                    {
+                        int aCode = plc.WriteWords(Types.ADDR_FP_CTRL, 1, aData);
+                        aErr.SetErrorMXComponents(Types.ERROR_CODE.CONTROL_PUMP, aCode);
+                    }
+                    else
+                        aErr.SetErrorApp(Types.ERROR_CODE.CONTROL_PUMP);
                 }
                 else
                     aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);

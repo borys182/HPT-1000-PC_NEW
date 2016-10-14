@@ -13,9 +13,25 @@ namespace HPT1000.Source
         private static List<ERROR> errorList = new List<ERROR>();
 
         //------------------------------------------------------------------------------------------------------------------------------------------------
+        private static bool IsContains(ERROR aErr)
+        {
+            bool aRes = false;
+
+            foreach (ERROR err in errorList)
+            {
+                if (err.Equals(aErr))
+                {
+                    aRes = true;
+                    break;
+                }
+            }
+
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------------------------
         public static void AddError(ERROR aErr)
         {
-            if(aErr.IsError())
+            if(aErr.IsError() && !IsContains(aErr))
                 errorList.Add(aErr);
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------

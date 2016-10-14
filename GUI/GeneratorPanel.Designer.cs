@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rBntNone = new System.Windows.Forms.RadioButton();
             this.dEditSetpoint = new HPT1000.GUI.Cotrols.DoubleEdit();
             this.dEditActualVoltage = new HPT1000.GUI.Cotrols.DoubleEdit();
             this.dEditActualCurent = new HPT1000.GUI.Cotrols.DoubleEdit();
@@ -47,7 +48,6 @@
             this.rBtnModeVoltage = new System.Windows.Forms.RadioButton();
             this.rBtnModePower = new System.Windows.Forms.RadioButton();
             this.label38 = new System.Windows.Forms.Label();
-            this.rBntNone = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,60 +76,75 @@
             this.groupBox1.Location = new System.Drawing.Point(3, -5);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(257, 277);
+            this.groupBox1.Size = new System.Drawing.Size(279, 277);
             this.groupBox1.TabIndex = 40;
             this.groupBox1.TabStop = false;
             // 
+            // rBntNone
+            // 
+            this.rBntNone.AutoSize = true;
+            this.rBntNone.Location = new System.Drawing.Point(82, 78);
+            this.rBntNone.Name = "rBntNone";
+            this.rBntNone.Size = new System.Drawing.Size(69, 24);
+            this.rBntNone.TabIndex = 77;
+            this.rBntNone.TabStop = true;
+            this.rBntNone.Text = "None";
+            this.rBntNone.UseVisualStyleBackColor = true;
+            this.rBntNone.Visible = false;
+            // 
             // dEditSetpoint
             // 
-            this.dEditSetpoint.Location = new System.Drawing.Point(127, 105);
+            this.dEditSetpoint.Location = new System.Drawing.Point(128, 107);
             this.dEditSetpoint.Margin = new System.Windows.Forms.Padding(5);
             this.dEditSetpoint.Mask = "0.000";
             this.dEditSetpoint.MaximumValue = 0D;
             this.dEditSetpoint.MinimumValue = 0D;
             this.dEditSetpoint.Name = "dEditSetpoint";
             this.dEditSetpoint.ReadOnly = false;
-            this.dEditSetpoint.Size = new System.Drawing.Size(73, 26);
+            this.dEditSetpoint.Size = new System.Drawing.Size(87, 26);
             this.dEditSetpoint.TabIndex = 76;
             this.dEditSetpoint.Value = 0D;
             this.dEditSetpoint.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditSetpoint_EnterOn);
             // 
             // dEditActualVoltage
             // 
-            this.dEditActualVoltage.Location = new System.Drawing.Point(127, 175);
+            this.dEditActualVoltage.Enabled = false;
+            this.dEditActualVoltage.Location = new System.Drawing.Point(128, 177);
             this.dEditActualVoltage.Margin = new System.Windows.Forms.Padding(5);
             this.dEditActualVoltage.Mask = "0.000";
             this.dEditActualVoltage.MaximumValue = 10000D;
             this.dEditActualVoltage.MinimumValue = 0D;
             this.dEditActualVoltage.Name = "dEditActualVoltage";
             this.dEditActualVoltage.ReadOnly = false;
-            this.dEditActualVoltage.Size = new System.Drawing.Size(71, 26);
+            this.dEditActualVoltage.Size = new System.Drawing.Size(85, 26);
             this.dEditActualVoltage.TabIndex = 75;
             this.dEditActualVoltage.Value = 0D;
             // 
             // dEditActualCurent
             // 
-            this.dEditActualCurent.Location = new System.Drawing.Point(127, 206);
+            this.dEditActualCurent.Enabled = false;
+            this.dEditActualCurent.Location = new System.Drawing.Point(128, 210);
             this.dEditActualCurent.Margin = new System.Windows.Forms.Padding(5);
             this.dEditActualCurent.Mask = "0.000";
             this.dEditActualCurent.MaximumValue = 10000D;
             this.dEditActualCurent.MinimumValue = 0D;
             this.dEditActualCurent.Name = "dEditActualCurent";
             this.dEditActualCurent.ReadOnly = false;
-            this.dEditActualCurent.Size = new System.Drawing.Size(71, 26);
+            this.dEditActualCurent.Size = new System.Drawing.Size(85, 26);
             this.dEditActualCurent.TabIndex = 74;
             this.dEditActualCurent.Value = 0D;
             // 
             // dEditActualPower
             // 
-            this.dEditActualPower.Location = new System.Drawing.Point(127, 144);
+            this.dEditActualPower.Enabled = false;
+            this.dEditActualPower.Location = new System.Drawing.Point(128, 145);
             this.dEditActualPower.Margin = new System.Windows.Forms.Padding(4);
             this.dEditActualPower.Mask = "0.000";
             this.dEditActualPower.MaximumValue = 10000D;
             this.dEditActualPower.MinimumValue = 0D;
             this.dEditActualPower.Name = "dEditActualPower";
             this.dEditActualPower.ReadOnly = false;
-            this.dEditActualPower.Size = new System.Drawing.Size(72, 27);
+            this.dEditActualPower.Size = new System.Drawing.Size(86, 27);
             this.dEditActualPower.TabIndex = 73;
             this.dEditActualPower.Value = 0D;
             // 
@@ -137,7 +152,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.Color.Green;
-            this.label3.Location = new System.Drawing.Point(215, 214);
+            this.label3.Location = new System.Drawing.Point(224, 214);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(30, 20);
             this.label3.TabIndex = 72;
@@ -158,7 +173,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.Green;
-            this.label1.Location = new System.Drawing.Point(215, 181);
+            this.label1.Location = new System.Drawing.Point(224, 181);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(30, 20);
             this.label1.TabIndex = 69;
@@ -192,7 +207,7 @@
             // 
             this.scrollSetpoint.Location = new System.Drawing.Point(13, 78);
             this.scrollSetpoint.Name = "scrollSetpoint";
-            this.scrollSetpoint.Size = new System.Drawing.Size(231, 21);
+            this.scrollSetpoint.Size = new System.Drawing.Size(240, 21);
             this.scrollSetpoint.TabIndex = 64;
             this.scrollSetpoint.ValueChanged += new System.EventHandler(this.scrollSetpoint_ValueChanged);
             // 
@@ -200,7 +215,7 @@
             // 
             this.labUnitActualSP.AutoSize = true;
             this.labUnitActualSP.ForeColor = System.Drawing.Color.Green;
-            this.labUnitActualSP.Location = new System.Drawing.Point(215, 148);
+            this.labUnitActualSP.Location = new System.Drawing.Point(224, 148);
             this.labUnitActualSP.Name = "labUnitActualSP";
             this.labUnitActualSP.Size = new System.Drawing.Size(35, 20);
             this.labUnitActualSP.TabIndex = 63;
@@ -210,7 +225,7 @@
             // 
             this.labUnitSP.AutoSize = true;
             this.labUnitSP.ForeColor = System.Drawing.Color.Green;
-            this.labUnitSP.Location = new System.Drawing.Point(215, 112);
+            this.labUnitSP.Location = new System.Drawing.Point(224, 112);
             this.labUnitSP.Name = "labUnitSP";
             this.labUnitSP.Size = new System.Drawing.Size(35, 20);
             this.labUnitSP.TabIndex = 62;
@@ -288,22 +303,10 @@
             this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label38.Location = new System.Drawing.Point(3, 23);
             this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(251, 25);
+            this.label38.Size = new System.Drawing.Size(273, 25);
             this.label38.TabIndex = 53;
             this.label38.Text = "GENERATOR";
             this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // rBntNone
-            // 
-            this.rBntNone.AutoSize = true;
-            this.rBntNone.Location = new System.Drawing.Point(82, 78);
-            this.rBntNone.Name = "rBntNone";
-            this.rBntNone.Size = new System.Drawing.Size(69, 24);
-            this.rBntNone.TabIndex = 77;
-            this.rBntNone.TabStop = true;
-            this.rBntNone.Text = "None";
-            this.rBntNone.UseVisualStyleBackColor = true;
-            this.rBntNone.Visible = false;
             // 
             // GeneratorPanel
             // 

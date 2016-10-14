@@ -20,7 +20,7 @@ namespace HPT1000.Source.Driver
 
         private Types.DriverStatus      status              = Types.DriverStatus.Unknown;
         private bool                    flagError           = false;
-        private Types.Mode              mode                = Types.Mode.None;
+        private static Types.Mode       mode                = Types.Mode.None;
 
         private ThreadStart             funThr;
         private Thread                  threadReadData;
@@ -31,6 +31,12 @@ namespace HPT1000.Source.Driver
 
         
         public static Types.Language    LanguageApp         = Types.Language.PL; //zm globalna określająca jezyk aplikacji
+
+        //-----------------------------------------------------------------------------------------
+        public static Types.Mode Mode
+        {
+            get { return mode; }
+        }
         //-----------------------------------------------------------------------------------------
         public HPT1000()
         {

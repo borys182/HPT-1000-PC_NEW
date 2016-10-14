@@ -42,10 +42,10 @@ namespace HPT1000.GUI
                 dEditActualPower.Value      = generator.Power;
                 dEditActualVoltage.Value    = generator.Voltage;
                 dEditActualCurent.Value     = generator.Curent;
-
+                //Po ustawieniu wartosci daj czas aby mozna bylo odczytac aktualne wartosci z PLC
                if (timerRefreshMode > timeWaitOnRefresh)
-
                 {
+                    dEditSetpoint.Value = generator.Setpoint;
                     switch (generator.Mode)
                     {
                         case Types.ModeHV.Power:
@@ -69,23 +69,34 @@ namespace HPT1000.GUI
                 {
                     cBoxOperate.Checked   = true;
                     cBoxOperate.BackColor = Color.Green;
-                    cBoxOperate.Text      = "Operate On";
+                    cBoxOperate.Text      = "Operate";
                 }
                 if (generator.State == Types.StateHV.OFF)
                 {
                     cBoxOperate.Checked   = false;
                     cBoxOperate.BackColor = Color.Silver;
-                    cBoxOperate.Text      = "Operate Off";
+                    cBoxOperate.Text      = "Operate";
                 }
                 if (generator.State == Types.StateHV.Error)
                 {
-                    cBoxOperate.Checked = false;
+                    cBoxOperate.Checked   = false;
                     cBoxOperate.BackColor = Color.Red;
-                    cBoxOperate.Text      = "Operate Off";
+                    cBoxOperate.Text      = "Operate";
 
                 }
                 if(timerRefreshMode <= timeWaitOnRefresh)
                     timerRefreshMode++;
+            }
+            //gdy nie ma wybranego trybu pracy to nie moge wprowadzac setpointa
+            if(generator.Mode != Types.ModeHV.Curent && generator.Mode != Types.ModeHV.Voltage && generator.Mode != Types.ModeHV.Power)
+            {
+                dEditSetpoint.Enabled   = false;
+                scrollSetpoint.Enabled  = false;
+            }
+            else
+            {
+                dEditSetpoint.Enabled  = true;
+                scrollSetpoint.Enabled = true;
             }
         }
         //------------------------------------------------------------------------------------------
@@ -160,8 +171,10 @@ namespace HPT1000.GUI
             Logger.AddError(aErr);
 
             if (!aErr.IsError())
+            {
                 aRes = true;
-
+                timerRefreshMode = 0;
+            }
             return aRes;
         }
         //------------------------------------------------------------------------------------------

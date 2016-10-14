@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dEditSetpoint = new HPT1000.GUI.Cotrols.DoubleEdit();
+            this.dEditActulaPressure = new HPT1000.GUI.Cotrols.DoubleEdit();
             this.cBoxGases = new System.Windows.Forms.CheckBox();
             this.scrollPressure = new System.Windows.Forms.HScrollBar();
             this.cBoxVaporizer = new System.Windows.Forms.CheckBox();
@@ -38,8 +40,6 @@
             this.label43 = new System.Windows.Forms.Label();
             this.label42 = new System.Windows.Forms.Label();
             this.label41 = new System.Windows.Forms.Label();
-            this.dEditSetpoint = new HPT1000.GUI.Cotrols.DoubleEdit();
-            this.dEditActulaPressure = new HPT1000.GUI.Cotrols.DoubleEdit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,6 +61,34 @@
             this.groupBox1.Size = new System.Drawing.Size(321, 195);
             this.groupBox1.TabIndex = 41;
             this.groupBox1.TabStop = false;
+            // 
+            // dEditSetpoint
+            // 
+            this.dEditSetpoint.Location = new System.Drawing.Point(138, 128);
+            this.dEditSetpoint.Margin = new System.Windows.Forms.Padding(5);
+            this.dEditSetpoint.Mask = "0,000";
+            this.dEditSetpoint.MaximumValue = 1000D;
+            this.dEditSetpoint.MinimumValue = 0D;
+            this.dEditSetpoint.Name = "dEditSetpoint";
+            this.dEditSetpoint.ReadOnly = false;
+            this.dEditSetpoint.Size = new System.Drawing.Size(89, 26);
+            this.dEditSetpoint.TabIndex = 77;
+            this.dEditSetpoint.Value = 0D;
+            this.dEditSetpoint.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditSetpoint_EnterOn);
+            // 
+            // dEditActulaPressure
+            // 
+            this.dEditActulaPressure.Enabled = false;
+            this.dEditActulaPressure.Location = new System.Drawing.Point(138, 160);
+            this.dEditActulaPressure.Margin = new System.Windows.Forms.Padding(4);
+            this.dEditActulaPressure.Mask = "0,000";
+            this.dEditActulaPressure.MaximumValue = 1000D;
+            this.dEditActulaPressure.MinimumValue = 0D;
+            this.dEditActulaPressure.Name = "dEditActulaPressure";
+            this.dEditActulaPressure.ReadOnly = false;
+            this.dEditActulaPressure.Size = new System.Drawing.Size(88, 26);
+            this.dEditActulaPressure.TabIndex = 76;
+            this.dEditActulaPressure.Value = 0D;
             // 
             // cBoxGases
             // 
@@ -159,33 +187,6 @@
             this.label41.TabIndex = 63;
             this.label41.Text = "PRESSURE";
             this.label41.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // dEditSetpoint
-            // 
-            this.dEditSetpoint.Location = new System.Drawing.Point(138, 128);
-            this.dEditSetpoint.Margin = new System.Windows.Forms.Padding(5);
-            this.dEditSetpoint.Mask = "0,000";
-            this.dEditSetpoint.MaximumValue = 1000D;
-            this.dEditSetpoint.MinimumValue = 0D;
-            this.dEditSetpoint.Name = "dEditSetpoint";
-            this.dEditSetpoint.ReadOnly = false;
-            this.dEditSetpoint.Size = new System.Drawing.Size(89, 26);
-            this.dEditSetpoint.TabIndex = 77;
-            this.dEditSetpoint.Value = 0D;
-            this.dEditSetpoint.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditSetpoint_EnterOn);
-            // 
-            // dEditActulaPressure
-            // 
-            this.dEditActulaPressure.Location = new System.Drawing.Point(138, 160);
-            this.dEditActulaPressure.Margin = new System.Windows.Forms.Padding(4);
-            this.dEditActulaPressure.Mask = "0,000";
-            this.dEditActulaPressure.MaximumValue = 1000D;
-            this.dEditActulaPressure.MinimumValue = 0D;
-            this.dEditActulaPressure.Name = "dEditActulaPressure";
-            this.dEditActulaPressure.ReadOnly = true;
-            this.dEditActulaPressure.Size = new System.Drawing.Size(88, 26);
-            this.dEditActulaPressure.TabIndex = 76;
-            this.dEditActulaPressure.Value = 0D;
             // 
             // PressurePanel
             // 

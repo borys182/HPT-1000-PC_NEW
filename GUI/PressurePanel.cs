@@ -18,6 +18,9 @@ namespace HPT1000.GUI
         PressureControl      presureControl     = null;
         private const double pressureResolution = 1000;    //zmienna okresla ile miejsc po przecinku mozna wprowadzac do zmiennych presure
         private const double maxPressure        = 1000;     //max wartosc mozliwa do wpisania
+
+        private       int    waitTimeOnRefresh  = 30; //[s]
+        private       int    timerRefresh       = 0;
         //-----------------------------------------------------------------------------------------
         public PressurePanel()
         {
@@ -36,22 +39,33 @@ namespace HPT1000.GUI
             {
                 dEditActulaPressure.Value = presureControl.GetPressure();
 
-                if (presureControl.GetMode() == Types.GasProcesMode.Pressure_Vap)
+                //poczekaj az przeladuje dane po ich zmianie
+                if (timerRefresh > waitTimeOnRefresh)
                 {
-                    cBoxVaporizer.Checked   = true;
-                    cBoxGases.Checked       = false;
-                 }
-                if (presureControl.GetMode() == Types.GasProcesMode.Presure_MFC)
-                {
-                    cBoxVaporizer.Checked   = false;
-                    cBoxGases.Checked       = true;
-                }
-                if (presureControl.GetMode() == Types.GasProcesMode.Unknown || presureControl.GetMode() == Types.GasProcesMode.FlowSP)
-                {
-                    cBoxVaporizer.Checked   = false;
-                    cBoxGases.Checked       = false;
+                    if (presureControl.GetMode() == Types.GasProcesMode.Pressure_Vap)
+                    {
+                        cBoxVaporizer.Checked   = true;
+                        cBoxGases.Checked       = false;
+                    }
+                    if (presureControl.GetMode() == Types.GasProcesMode.Presure_MFC)
+                    {
+                        cBoxVaporizer.Checked   = false;
+                        cBoxGases.Checked       = true;
+                    }
+                    if (presureControl.GetMode() == Types.GasProcesMode.Unknown || presureControl.GetMode() == Types.GasProcesMode.FlowSP)
+                    {
+                        cBoxVaporizer.Checked   = false;
+                        cBoxGases.Checked       = false;
+                        dEditSetpoint.Enabled   = false;
+                    }
+                    else
+                        dEditSetpoint.Enabled   = true;
+
+                    dEditSetpoint.Value = presureControl.GetSetpoint();
                 }
             }
+            if (timerRefresh <= waitTimeOnRefresh)
+                timerRefresh++;
         }
         //-----------------------------------------------------------------------------------------
         public void SetPresureControlPtr(PressureControl presurePtr)
@@ -88,8 +102,10 @@ namespace HPT1000.GUI
                 aErr = presureControl.SetSetpoint(dEditSetpoint.Value);
 
             if (!aErr.IsError())
+            {
                 aRes = true;
-            
+                timerRefresh = 0;
+            }
             SetScrollValue(dEditSetpoint.Value);
 
             Logger.AddError(aErr);
@@ -100,17 +116,26 @@ namespace HPT1000.GUI
         private void cBoxGases_Click(object sender, EventArgs e)
         {
             ERROR aErr = new ERROR();
+            string aName = ((CheckBox)sender).Text;
             if (presureControl != null)
             {
-                if (cBoxGases.Checked)
+                if (cBoxGases.Checked && aName == "Gases")
+                {
                     aErr = presureControl.SetMode(Types.GasProcesMode.Presure_MFC);
-
-                if (cBoxVaporizer.Checked)
+                    if (!aErr.IsError())
+                        cBoxVaporizer.Checked = false;
+                }
+                if (cBoxVaporizer.Checked && aName == "Vaporizer")
+                {
                     aErr = presureControl.SetMode(Types.GasProcesMode.Pressure_Vap);
-
+                    if (!aErr.IsError())
+                        cBoxGases.Checked = false;
+                }
                 if (!cBoxVaporizer.Checked && !cBoxGases.Checked)
                     aErr = presureControl.SetMode(Types.GasProcesMode.FlowSP);
             }
+
+            timerRefresh = 0;
             Logger.AddError(aErr);
         }
         //-----------------------------------------------------------------------------------------

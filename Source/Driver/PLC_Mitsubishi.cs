@@ -20,7 +20,7 @@ namespace HPT1000.Source.Driver
         //-----------------------------------------------------------------------------------------
         public PLC_Mitsubishi()
         {
-            typePLC = TypePLC.L;
+            typePLC = Types.TypePLC.L;
         }
         //-----------------------------------------------------------------------------------------
         //Metoda ma za zadanie otwarcie połączenia z PLC

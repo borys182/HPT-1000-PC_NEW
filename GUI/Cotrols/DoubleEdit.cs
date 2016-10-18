@@ -66,7 +66,10 @@ namespace HPT1000.GUI.Cotrols
                     if (!tBox.Focused && mask != null)
                         tBox.Text = String.Format(GetMask(), aValue);
                 }
-                catch (Exception ex) { }
+                catch (Exception ex)
+                {
+                    Source.Logger.AddError(ex);
+                }
             }
             get { return GetValue(tBox.Text); }
         }

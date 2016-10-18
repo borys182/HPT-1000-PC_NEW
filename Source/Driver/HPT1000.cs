@@ -30,7 +30,7 @@ namespace HPT1000.Source.Driver
         private static RefreshProgram   refreshProgram      = null;
 
         
-        public static Types.Language    LanguageApp         = Types.Language.PL; //zm globalna określająca jezyk aplikacji
+        public static Types.Language    LanguageApp         = Types.Language.English; //zm globalna określająca jezyk aplikacji
 
         //-----------------------------------------------------------------------------------------
         public static Types.Mode Mode
@@ -77,7 +77,7 @@ namespace HPT1000.Source.Driver
                 if (!connectionPLC && aRes == 0)
                     FirstRun();
 
-                //Sprawdz czy jest komunikacja
+                //Sprawdz czy jest komunikacja. Jezeli nie ma to sprobuj nawiazac
                 CheckConnection(aRes);
 
                 //Odczytaj bledy z PLC
@@ -181,7 +181,10 @@ namespace HPT1000.Source.Driver
 
                 aErr.SetErrorPLC(aCode,dateTime);
             }
-            catch (Exception e) { }
+            catch (Exception ex)
+            {
+                Source.Logger.AddError(ex);
+            }
 
             return aErr;
         }
@@ -214,7 +217,11 @@ namespace HPT1000.Source.Driver
             }
             else
             {
-                connectionPLC = false;
+                if (plc != null && plc.Connect() == 0)
+                    connectionPLC = true;
+                else
+                    connectionPLC = false;
+
                 status = Types.DriverStatus.NoComm;
             }
         }

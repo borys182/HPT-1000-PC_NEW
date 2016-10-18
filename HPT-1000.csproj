@@ -120,6 +120,12 @@
     <Compile Include="GUI\PumpPanel.Designer.cs">
       <DependentUpon>PumpPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\SettingsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\SettingsPanel.Designer.cs">
+      <DependentUpon>SettingsPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\ValvePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -196,6 +202,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\PumpPanel.resx">
       <DependentUpon>PumpPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\SettingsPanel.resx">
+      <DependentUpon>SettingsPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ValvePanel.resx">
       <DependentUpon>ValvePanel.cs</DependentUpon>

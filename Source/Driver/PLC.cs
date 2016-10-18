@@ -6,16 +6,13 @@ using System.Threading.Tasks;
 
 namespace HPT1000.Source.Driver
 {
-    public enum TypeComm   { USB = 0x0D, TCP = 0x05 }
-    public enum TypePLC    { L = 0x51 }
-
-    /**
+     /**
      * Klasa bazowa dla konkretnych typow PLC. Wymusza na nich implementacje funkcji do komunikacji oraz czytania/zapisywania danych
     */
     public abstract class PLC
     {
-        protected TypePLC   typePLC         = TypePLC.L;           ///<Zmienna okrela typ sterownika PLC 
-        protected TypeComm  typeComm        = TypeComm.TCP;        ///<Zmienna okresla typ komunikacji sie ze sterownikiem PLC
+        protected Types.TypePLC   typePLC   = Types.TypePLC.L;           ///<Zmienna okrela typ sterownika PLC 
+        protected Types.TypeComm  typeComm  = Types.TypeComm.USB;        ///<Zmienna okresla typ komunikacji sie ze sterownikiem PLC
         protected string    addressIP       = "127.0.0.1";
 
         //----------------------------------------------------------------------------------------
@@ -38,22 +35,22 @@ namespace HPT1000.Source.Driver
             addressIP = aAddrIP;
         }
         //----------------------------------------------------------------------------------------
-        public void SetTypePLC(TypePLC aType)
+        public void SetTypePLC(Types.TypePLC aType)
         {
             typePLC = aType;
         }
         //----------------------------------------------------------------------------------------
-        public TypePLC GetTypePLC()
+        public Types.TypePLC GetTypePLC()
         {
             return typePLC;
         }
         //----------------------------------------------------------------------------------------
-        public void SetTypeComm(TypeComm aType)
+        public void SetTypeComm(Types.TypeComm aType)
         {
             typeComm = aType;
         }
         //----------------------------------------------------------------------------------------
-        public TypeComm GetTypeComm()
+        public Types.TypeComm GetTypeComm()
         {
             return typeComm;
         }

@@ -30,8 +30,10 @@ namespace HPT1000.Source.Driver
         public enum StatusProgram   { Unknown = 0 , Run = 1 , Stop = 2, Error = 3, Done = 4, Suspended = 5, Wait = 6 , Warning = 7 , NoLoad = 8};
         public enum ControlMode     { Automatic , Manual}
         public enum AddressSpace    { Settings, Program};
-        public enum Language        { PL = 0 , EN = 1 };
+        public enum Language        { English = 1 };
         public enum Mode            { Automatic = 1, Manual = 2, None = 3 };
+        public enum TypeComm        { USB = 0x0D, TCP = 0x05 };
+        public enum TypePLC         { L = 0x51 };
 
         public enum ERROR_CATEGORY
         {
@@ -282,6 +284,26 @@ namespace HPT1000.Source.Driver
                 aWord = (int)(aBytes[1] << 8 | aBytes[0]);
 
             return aWord;
+        }
+        //--------------------------------------------------------------------------------------------
+        public static DateTime ConvertDate(int aSeconds)
+        {
+            DateTime aDateTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
+            
+            int aHour   = aSeconds / (3600);
+            int aMinute = (aSeconds - aHour * 3600) / 60;
+            int aSecond = aSeconds - aHour * 3600 - aMinute * 60;
+
+            try
+            {
+                aDateTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day,aHour,aMinute,aSecond);
+            }
+            catch(Exception ex)
+            {
+                Source.Logger.AddError(ex);
+            }
+
+            return aDateTime;
         }
         //--------------------------------------------------------------------------------------------
         public static string GetAddress(AddressSpace aTypeSpace , int aOffsetAddr)

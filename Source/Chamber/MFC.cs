@@ -382,20 +382,27 @@ namespace HPT1000.Source.Chamber
             return aRangeVoltage;
         }
         //-----------------------------------------------------------------------------------------
-        public void SetMaxFlow(int aId,int aMaxFlow)
+        public ERROR SetMaxFlow(int aId,int aMaxFlow)
         {
+            ERROR aErr = new ERROR();
             MFC_Channel mfc_Channel = GetMFC_Channel(aId);
 
             if (mfc_Channel != null)
-                mfc_Channel.SetMaxFlow(aMaxFlow);
+                aErr = mfc_Channel.SetMaxFlow(aMaxFlow);
+
+            return aErr;
         }
         //-----------------------------------------------------------------------------------------
-        public void SetRangeVoltage(int aId, int aRangeVoltage)
+        public ERROR SetRangeVoltage(int aId, int aRangeVoltage)
         {
+            ERROR aErr = new ERROR();
+
             MFC_Channel mfc_Channel = GetMFC_Channel(aId);
 
             if (mfc_Channel != null)
-                mfc_Channel.SetRangeVoltage(aRangeVoltage);
+                aErr = mfc_Channel.SetRangeVoltage(aRangeVoltage);
+
+            return aErr;
         }
         //-----------------------------------------------------------------------------------------
         public override void SetPonterPLC(PLC ptrPLC)

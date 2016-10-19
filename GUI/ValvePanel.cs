@@ -34,12 +34,12 @@ namespace HPT1000.GUI
         //-----------------------------------------------------------------------------------------
         public void RefreshData()
         {
-            if(valve != null)
+            if (valve != null)
             {
-                switch(valve.GetState(typeValve))
+                switch (valve.GetState(typeValve))
                 {
                     case Source.Driver.Types.StateValve.Close:
-                        if(imageList_Valve.Images.Count > 0)
+                        if (imageList_Valve.Images.Count > 0)
                             picture.Image = imageList_Valve.Images[0];
                         break;
                     case Source.Driver.Types.StateValve.Open:
@@ -52,7 +52,22 @@ namespace HPT1000.GUI
                         break;
                 }
                 picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                LoadBitmap();
             }
+        }
+        //-----------------------------------------------------------------------------------------
+        private void LoadBitmap()
+        {
+            Bitmap valvePicture = new Bitmap("d:\\Projekty\\HPT-1000\\HPT-1000_PC\\Images\\ValveError.png");
+
+            if ( valve.GetState(typeValve) == Types.StateValve.Close)
+                valvePicture = new Bitmap("d:\\Projekty\\HPT-1000\\HPT-1000_PC\\Images\\ValveClose.png");
+
+            if (valve.GetState(typeValve) == Types.StateValve.Open)
+                valvePicture = new Bitmap("d:\\Projekty\\HPT-1000\\HPT-1000_PC\\Images\\ValveOpen.png");
+
+            valvePicture.MakeTransparent(Color.White);
+            picture.Image = valvePicture;
         }
         //-----------------------------------------------------------------------------------------
         private void picture_Click(object sender, EventArgs e)

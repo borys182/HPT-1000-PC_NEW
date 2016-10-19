@@ -52,7 +52,22 @@ namespace HPT1000.GUI
                         break;
                 }
                 picture.SizeMode = PictureBoxSizeMode.StretchImage;
+                LoadBitmap();
             }
+        }
+        //-----------------------------------------------------------------------------------------
+        private void LoadBitmap()
+        {
+            Bitmap valvePicture = new Bitmap("d:\\Projekty\\HPT-1000\\HPT-1000_PC\\Images\\ForePumpErr.png");
+
+            if (pump.GetState() == Types.StateFP.OFF)
+                valvePicture = new Bitmap("d:\\Projekty\\HPT-1000\\HPT-1000_PC\\Images\\ForePumpOff.png");
+
+            if (pump.GetState() == Types.StateFP.ON)
+                valvePicture = new Bitmap("d:\\Projekty\\HPT-1000\\HPT-1000_PC\\Images\\ForePumpOn.png");
+
+            valvePicture.MakeTransparent(Color.White);
+            picture.Image = valvePicture;
         }
         //-----------------------------------------------------------------------------------------
         private void picture_Click(object sender, EventArgs e)

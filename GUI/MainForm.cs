@@ -56,7 +56,41 @@ namespace HPT1000.GUI
             Source.Driver.HPT1000.AddToRefreshList(new RefreshProgram(programPanel.RefreshProgram));
             Source.Driver.HPT1000.AddToRefreshList(new RefreshProgram(programsConfigPanel.RefreshProgram));
 
-         }        
+            //Ustaw odpowidnie obrazki dla SystemWindow
+            LoadBitmap();
+
+        }
+        //------------------------------------------------------------------------------------------
+        private void LoadBitmap()
+        {
+            Bitmap chamber      = new Bitmap("d:\\Projekty\\HPT-1000\\HPT-1000_PC\\Images\\Plasma.jpg");
+            Bitmap arrowUp      = new Bitmap("d:\\Projekty\\HPT-1000\\HPT-1000_PC\\Images\\Arrow_Up.png");
+            Bitmap arrowDown    = new Bitmap("d:\\Projekty\\HPT-1000\\HPT-1000_PC\\Images\\Arrow_Down.png");
+            Bitmap cornerUp     = new Bitmap("d:\\Projekty\\HPT-1000\\HPT-1000_PC\\Images\\Corner_Right_Top.png");
+            Bitmap cornerDown   = new Bitmap("d:\\Projekty\\HPT-1000\\HPT-1000_PC\\Images\\Corner_Right_Bottom.png");
+
+            chamber.MakeTransparent(Color.White);
+            arrowUp.MakeTransparent(Color.White);
+            arrowDown.MakeTransparent(Color.White);
+            cornerUp.MakeTransparent(Color.White);
+            cornerDown.MakeTransparent(Color.White);
+
+            pictureChamber.Image = chamber;
+            pictureChamber.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            pictureArrowUp1.Image = arrowUp;
+            pictureArrowUp2.Image = arrowUp;
+
+            pictureArrowDown.Image = arrowDown;
+
+            pictureCornerUp1.Image = cornerUp;
+            pictureCornerUp2.Image = cornerUp;
+            pictureCornerUp3.Image = cornerUp;
+
+            pictureCornerDown1.Image = cornerDown;
+            pictureCornerDown2.Image = cornerDown;
+            pictureCornerDown3.Image = cornerDown;
+        }
         //------------------------------------------------------------------------------------------
         private void btnGetState_Click(object sender, EventArgs e)
         {

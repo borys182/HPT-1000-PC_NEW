@@ -129,5 +129,10 @@ namespace HPT1000.GUI
                 timerLastErrorShow++;
         }
         //----------------------------------------------------------------------------------
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            hpt1000.Dispose();
+        }
+        //----------------------------------------------------------------------------------
     }
 }

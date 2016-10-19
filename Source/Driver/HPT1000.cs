@@ -11,7 +11,7 @@ namespace HPT1000.Source.Driver
     /// <summary>
     /// Klasa driver opisujaca zachowanie sie komory oraz mozliwe funkcje przez nia wykonywane
     /// </summary>
-    public class HPT1000
+    public class HPT1000 : IDisposable
     {
 
         private PLC                     plc                 = new PLC_Mitsubishi();
@@ -48,6 +48,17 @@ namespace HPT1000.Source.Driver
             threadReadData = new Thread(funThr);
 
             threadReadData.Start();
+        }
+        //-----------------------------------------------------------------------------------------
+        ~HPT1000()
+        {
+            Dispose();
+        }
+        //-----------------------------------------------------------------------------------------
+        public void Dispose()
+        {
+            if(threadReadData.IsAlive)
+                threadReadData.Abort();
         }
         //-----------------------------------------------------------------------------------------
         //Funkcaj watku drivera

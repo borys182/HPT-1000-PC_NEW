@@ -93,6 +93,10 @@ namespace HPT1000.GUI
                     statusLabel.Text        = "No communication";
                     statusLabel.ForeColor   = Color.Red;
                     break;
+                case Types.DriverStatus.DummyMode:
+                    statusLabel.Text = "Dummy mode";
+                    statusLabel.ForeColor = Color.Blue;
+                    break;
             }
             //pokaz wynik ostatniej akcji jaka wystapila w systemie na dolnym pasku statusu
             ShowLastActionStatus();

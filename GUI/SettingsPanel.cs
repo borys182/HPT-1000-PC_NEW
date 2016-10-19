@@ -354,5 +354,12 @@ namespace HPT1000.GUI
             RefreshSettingsPanel();
         }
         //---------------------------------------------------------------------------------------------------------------------------
+        private void cBoxDummyMode_CheckedChanged(object sender, EventArgs e)
+        {
+            if (hpt1000 != null && hpt1000.GetPLC() != null)
+                hpt1000.GetPLC().SetDummyMode(cBoxDummyMode.Checked);
+
+        }
+        //---------------------------------------------------------------------------------------------------------------------------
     }
 }

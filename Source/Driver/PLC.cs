@@ -15,6 +15,9 @@ namespace HPT1000.Source.Driver
         protected Types.TypeComm  typeComm  = Types.TypeComm.USB;        ///<Zmienna okresla typ komunikacji sie ze sterownikiem PLC
         protected string    addressIP       = "127.0.0.1";
 
+        protected bool  dummyMode                   = false;
+        protected int[] dummyModeStatusChamberData  = new int[Types.LENGHT_STATUS_DATA];
+
         //----------------------------------------------------------------------------------------
         abstract public int Connect();                          ///<Funkcja ma za zadanie opierajac sie na parmaetrach komunikacyjnych polaczenie sie z PLC. Aktualne polaczenie zostaje przerwane
         //----------------------------------------------------------------------------------------
@@ -55,6 +58,15 @@ namespace HPT1000.Source.Driver
             return typeComm;
         }
         //----------------------------------------------------------------------------------------
-
+        public void SetDummyMode(bool aDummyMode)
+        {
+            dummyMode = aDummyMode;
+        }
+        //----------------------------------------------------------------------------------------
+        public bool GetDummyMode()
+        {
+            return dummyMode;
+        }
+        //----------------------------------------------------------------------------------------
     }
 }

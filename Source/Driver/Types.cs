@@ -16,7 +16,7 @@ namespace HPT1000.Source.Driver
         /// TYPY WYLICZENIOWE
         /// </summary>
         public enum TypeValve       { SV = 0, VV = 1, Purge = 2, Gas = 3, None }; //Kolejnosc zaworow odpowiada kolejnosci stanow zaworow przesylanych w zbiorczym DWORD z PLC
-        public enum DriverStatus    { Unknown = 0, OK = 1, NoComm = 2, Error = 3, Warning = 4 };
+        public enum DriverStatus    { Unknown = 0, OK = 1, NoComm = 2, Error = 3, Warning = 4, DummyMode };
         public enum StateValve      { Close = 1, Open = 2, Error = 3, HalfOpen = 4 };
         public enum StateFP         { OFF   = 1, ON   = 2, Error = 3 };
         public enum StateHV         { OFF   = 1, ON   = 2, Error = 3 };

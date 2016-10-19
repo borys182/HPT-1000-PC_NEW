@@ -60,7 +60,7 @@ namespace HPT1000.Source.Driver
             {
                 aRes = plc.ReadWords(Types.ADDR_START_STATUS_CHAMBER, Types.LENGHT_STATUS_DATA, aData);
                 //aktualizuj dane urzadzenia HPT1000
-                if(aData.Length > Types.OFFSET_DEVICE_STATUS) status      = (Types.DriverStatus)aData[Types.OFFSET_DEVICE_STATUS];
+       //         if(aData.Length > Types.OFFSET_DEVICE_STATUS) status      = (Types.DriverStatus)aData[Types.OFFSET_DEVICE_STATUS];
                 if(aData.Length > Types.OFFSET_OCCURED_ERROR) flagError   = Convert.ToBoolean(aData[Types.OFFSET_OCCURED_ERROR]);
                 if(aData.Length > Types.OFFSET_MODE)          mode        = (Types.Mode)aData[Types.OFFSET_MODE];
 
@@ -233,6 +233,11 @@ namespace HPT1000.Source.Driver
                     connectionPLC = false;
 
                 status = Types.DriverStatus.NoComm;
+            }
+            if (plc != null && plc.GetDummyMode())
+            {
+                connectionPLC = true;
+                status = Types.DriverStatus.DummyMode;
             }
         }
         //-----------------------------------------------------------------------------------------

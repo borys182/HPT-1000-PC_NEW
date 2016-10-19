@@ -30,6 +30,10 @@
         {
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dEditActualFlow_sccm = new HPT1000.GUI.Cotrols.DoubleEdit();
+            this.dEditFlow_percent = new HPT1000.GUI.Cotrols.DoubleEdit();
+            this.dEditActualFlow_percent = new HPT1000.GUI.Cotrols.DoubleEdit();
+            this.dEditFlow_sccm = new HPT1000.GUI.Cotrols.DoubleEdit();
             this.scrollFlow = new System.Windows.Forms.HScrollBar();
             this.label53 = new System.Windows.Forms.Label();
             this.label52 = new System.Windows.Forms.Label();
@@ -38,10 +42,6 @@
             this.label47 = new System.Windows.Forms.Label();
             this.label48 = new System.Windows.Forms.Label();
             this.labNameMFC = new System.Windows.Forms.Label();
-            this.dEditFlow_sccm = new HPT1000.GUI.Cotrols.DoubleEdit();
-            this.dEditActualFlow_percent = new HPT1000.GUI.Cotrols.DoubleEdit();
-            this.dEditFlow_percent = new HPT1000.GUI.Cotrols.DoubleEdit();
-            this.dEditActualFlow_sccm = new HPT1000.GUI.Cotrols.DoubleEdit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,6 +73,62 @@
             this.groupBox1.Size = new System.Drawing.Size(375, 153);
             this.groupBox1.TabIndex = 69;
             this.groupBox1.TabStop = false;
+            // 
+            // dEditActualFlow_sccm
+            // 
+            this.dEditActualFlow_sccm.Enabled = false;
+            this.dEditActualFlow_sccm.Location = new System.Drawing.Point(68, 118);
+            this.dEditActualFlow_sccm.Margin = new System.Windows.Forms.Padding(5);
+            this.dEditActualFlow_sccm.Mask = "0";
+            this.dEditActualFlow_sccm.MaximumValue = 100000000D;
+            this.dEditActualFlow_sccm.MinimumValue = 0D;
+            this.dEditActualFlow_sccm.Name = "dEditActualFlow_sccm";
+            this.dEditActualFlow_sccm.ReadOnly = true;
+            this.dEditActualFlow_sccm.Size = new System.Drawing.Size(76, 26);
+            this.dEditActualFlow_sccm.TabIndex = 85;
+            this.dEditActualFlow_sccm.Value = 0D;
+            // 
+            // dEditFlow_percent
+            // 
+            this.dEditFlow_percent.Location = new System.Drawing.Point(204, 84);
+            this.dEditFlow_percent.Margin = new System.Windows.Forms.Padding(5);
+            this.dEditFlow_percent.Mask = "0.00";
+            this.dEditFlow_percent.MaximumValue = 100D;
+            this.dEditFlow_percent.MinimumValue = 0D;
+            this.dEditFlow_percent.Name = "dEditFlow_percent";
+            this.dEditFlow_percent.ReadOnly = false;
+            this.dEditFlow_percent.Size = new System.Drawing.Size(78, 26);
+            this.dEditFlow_percent.TabIndex = 84;
+            this.dEditFlow_percent.Value = 0D;
+            this.dEditFlow_percent.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditFlow_percent_EnterOn);
+            // 
+            // dEditActualFlow_percent
+            // 
+            this.dEditActualFlow_percent.Enabled = false;
+            this.dEditActualFlow_percent.Location = new System.Drawing.Point(204, 118);
+            this.dEditActualFlow_percent.Margin = new System.Windows.Forms.Padding(5);
+            this.dEditActualFlow_percent.Mask = "0.00";
+            this.dEditActualFlow_percent.MaximumValue = 1000D;
+            this.dEditActualFlow_percent.MinimumValue = 0D;
+            this.dEditActualFlow_percent.Name = "dEditActualFlow_percent";
+            this.dEditActualFlow_percent.ReadOnly = true;
+            this.dEditActualFlow_percent.Size = new System.Drawing.Size(77, 26);
+            this.dEditActualFlow_percent.TabIndex = 83;
+            this.dEditActualFlow_percent.Value = 0D;
+            // 
+            // dEditFlow_sccm
+            // 
+            this.dEditFlow_sccm.Location = new System.Drawing.Point(68, 83);
+            this.dEditFlow_sccm.Margin = new System.Windows.Forms.Padding(4);
+            this.dEditFlow_sccm.Mask = "0";
+            this.dEditFlow_sccm.MaximumValue = 1000000D;
+            this.dEditFlow_sccm.MinimumValue = 0D;
+            this.dEditFlow_sccm.Name = "dEditFlow_sccm";
+            this.dEditFlow_sccm.ReadOnly = false;
+            this.dEditFlow_sccm.Size = new System.Drawing.Size(78, 26);
+            this.dEditFlow_sccm.TabIndex = 82;
+            this.dEditFlow_sccm.Value = 0D;
+            this.dEditFlow_sccm.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditFlow_sccm_EnterOn);
             // 
             // scrollFlow
             // 
@@ -157,60 +213,6 @@
             this.labNameMFC.TabIndex = 69;
             this.labNameMFC.Text = "MFC 1";
             this.labNameMFC.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // dEditFlow_sccm
-            // 
-            this.dEditFlow_sccm.Location = new System.Drawing.Point(68, 83);
-            this.dEditFlow_sccm.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.dEditFlow_sccm.Mask = "0";
-            this.dEditFlow_sccm.MaximumValue = 1000000D;
-            this.dEditFlow_sccm.MinimumValue = 0D;
-            this.dEditFlow_sccm.Name = "dEditFlow_sccm";
-            this.dEditFlow_sccm.ReadOnly = false;
-            this.dEditFlow_sccm.Size = new System.Drawing.Size(78, 26);
-            this.dEditFlow_sccm.TabIndex = 82;
-            this.dEditFlow_sccm.Value = 0D;
-            this.dEditFlow_sccm.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditFlow_sccm_EnterOn);
-            // 
-            // dEditActualFlow_percent
-            // 
-            this.dEditActualFlow_percent.Location = new System.Drawing.Point(204, 118);
-            this.dEditActualFlow_percent.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.dEditActualFlow_percent.Mask = "0.00";
-            this.dEditActualFlow_percent.MaximumValue = 1000D;
-            this.dEditActualFlow_percent.MinimumValue = 0D;
-            this.dEditActualFlow_percent.Name = "dEditActualFlow_percent";
-            this.dEditActualFlow_percent.ReadOnly = true;
-            this.dEditActualFlow_percent.Size = new System.Drawing.Size(77, 26);
-            this.dEditActualFlow_percent.TabIndex = 83;
-            this.dEditActualFlow_percent.Value = 0D;
-            // 
-            // dEditFlow_percent
-            // 
-            this.dEditFlow_percent.Location = new System.Drawing.Point(204, 84);
-            this.dEditFlow_percent.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.dEditFlow_percent.Mask = "0.00";
-            this.dEditFlow_percent.MaximumValue = 100D;
-            this.dEditFlow_percent.MinimumValue = 0D;
-            this.dEditFlow_percent.Name = "dEditFlow_percent";
-            this.dEditFlow_percent.ReadOnly = false;
-            this.dEditFlow_percent.Size = new System.Drawing.Size(78, 26);
-            this.dEditFlow_percent.TabIndex = 84;
-            this.dEditFlow_percent.Value = 0D;
-            this.dEditFlow_percent.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditFlow_percent_EnterOn);
-            // 
-            // dEditActualFlow_sccm
-            // 
-            this.dEditActualFlow_sccm.Location = new System.Drawing.Point(68, 118);
-            this.dEditActualFlow_sccm.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.dEditActualFlow_sccm.Mask = "0";
-            this.dEditActualFlow_sccm.MaximumValue = 100000000D;
-            this.dEditActualFlow_sccm.MinimumValue = 0D;
-            this.dEditActualFlow_sccm.Name = "dEditActualFlow_sccm";
-            this.dEditActualFlow_sccm.ReadOnly = true;
-            this.dEditActualFlow_sccm.Size = new System.Drawing.Size(76, 26);
-            this.dEditActualFlow_sccm.TabIndex = 85;
-            this.dEditActualFlow_sccm.Value = 0D;
             // 
             // MFCPanel
             // 

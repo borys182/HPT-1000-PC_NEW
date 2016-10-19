@@ -17,10 +17,34 @@ namespace HPT1000.Source.Driver
         private ActProgTypeLib.ActProgTypeClass plc = new ActProgTypeLib.ActProgTypeClass();
 
         private static object sync_Object = new object();
+
         //-----------------------------------------------------------------------------------------
         public PLC_Mitsubishi()
         {
             typePLC = Types.TypePLC.L;
+            InitialDummyModeData();
+        }
+        //-----------------------------------------------------------------------------------------
+        private void InitialDummyModeData()
+        {
+            dummyModeStatusChamberData[0] = 1;
+            dummyModeStatusChamberData[1] = 0;     //pressure
+            dummyModeStatusChamberData[2] = 1;
+            dummyModeStatusChamberData[4] = (int)Types.StateFP.ON;
+            dummyModeStatusChamberData[5] = (int)Types.StateHV.ON;
+            dummyModeStatusChamberData[6] = (int)Types.ModeHV.Power;
+            dummyModeStatusChamberData[7] = 0;     //actula HV value
+            dummyModeStatusChamberData[8] = 1;
+            dummyModeStatusChamberData[9] = 0;
+            dummyModeStatusChamberData[10] = 1;
+            dummyModeStatusChamberData[11] = 0;
+            dummyModeStatusChamberData[12] = 1;
+            dummyModeStatusChamberData[13] = 0xAAAA; // state valves
+            dummyModeStatusChamberData[14] = 0;
+            dummyModeStatusChamberData[15] = 345;  //actual flow
+            dummyModeStatusChamberData[17] = 157;
+            dummyModeStatusChamberData[19] = 289;
+            dummyModeStatusChamberData[27] = (int)Types.Mode.Automatic;
         }
         //-----------------------------------------------------------------------------------------
         //Metoda ma za zadanie otwarcie połączenia z PLC
@@ -98,6 +122,12 @@ namespace HPT1000.Source.Driver
                 {
                     string aMsg = exception.Message;
                 }
+                //przypisz wartosc do tablicy
+                if (dummyMode && aAddr == Types.ADDR_MODE_CONTROL)
+                {
+                    dummyModeStatusChamberData[27] = aData[0];
+                    aResult = 0;
+                }
             }
             return aResult;
         }
@@ -111,19 +141,27 @@ namespace HPT1000.Source.Driver
 
             lock (this)
             {
-
-                try
+                if (dummyMode && aAddr == Types.ADDR_START_STATUS_CHAMBER)
                 {
-                    for (int i = 0; i < aSize; i++)
+                    for(int i = 0; i < aData.Length;i++)
+                        if(i < dummyModeStatusChamberData.Length)
+                            aData[i] = dummyModeStatusChamberData[i];
+                }
+                else
+                {
+                    try
                     {
-                        aAddr = "D" + (aStartAddr + i).ToString();
-                        aResult = plc.ReadDeviceBlock(aAddr, aSize, out aData[i]);
+                        for (int i = 0; i < aSize; i++)
+                        {
+                            aAddr = "D" + (aStartAddr + i).ToString();
+                            aResult = plc.ReadDeviceBlock(aAddr, aSize, out aData[i]);
+                        }
                     }
-                }
-                catch (Exception exception)
-                {
-                    string aMsg = exception.Message;
-                }
+                    catch (Exception exception)
+                    {
+                        string aMsg = exception.Message;
+                    }
+                }       
             }
             return aResult;
         }
@@ -171,6 +209,5 @@ namespace HPT1000.Source.Driver
             return aResult;
         }
         //-----------------------------------------------------------------------------------------
-
     }
 }

@@ -58,12 +58,18 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
+            this.dEditRangeVoltage = new HPT1000.GUI.Cotrols.DoubleEdit();
+            this.dEditRangeCurent = new HPT1000.GUI.Cotrols.DoubleEdit();
+            this.dEditRangePower = new HPT1000.GUI.Cotrols.DoubleEdit();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.dEditVoltageLimit = new HPT1000.GUI.Cotrols.DoubleEdit();
+            this.dEditCurentLimit = new HPT1000.GUI.Cotrols.DoubleEdit();
+            this.dEditPowerLimit = new HPT1000.GUI.Cotrols.DoubleEdit();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label27 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
@@ -82,6 +88,12 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.dEditRangeVoltageMFC2 = new HPT1000.GUI.Cotrols.DoubleEdit();
+            this.dEditRangeVoltageMFC3 = new HPT1000.GUI.Cotrols.DoubleEdit();
+            this.dEditRangeVoltageMFC1 = new HPT1000.GUI.Cotrols.DoubleEdit();
+            this.dEditMaxFlow_MFC2 = new HPT1000.GUI.Cotrols.DoubleEdit();
+            this.dEditMaxFlow_MFC3 = new HPT1000.GUI.Cotrols.DoubleEdit();
+            this.dEditMaxFlow_MFC1 = new HPT1000.GUI.Cotrols.DoubleEdit();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.label35 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
@@ -94,18 +106,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cBoxComm = new System.Windows.Forms.ComboBox();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
-            this.dEditRangeVoltage = new HPT1000.GUI.Cotrols.DoubleEdit();
-            this.dEditRangeCurent = new HPT1000.GUI.Cotrols.DoubleEdit();
-            this.dEditRangePower = new HPT1000.GUI.Cotrols.DoubleEdit();
-            this.dEditVoltageLimit = new HPT1000.GUI.Cotrols.DoubleEdit();
-            this.dEditCurentLimit = new HPT1000.GUI.Cotrols.DoubleEdit();
-            this.dEditPowerLimit = new HPT1000.GUI.Cotrols.DoubleEdit();
-            this.dEditRangeVoltageMFC2 = new HPT1000.GUI.Cotrols.DoubleEdit();
-            this.dEditRangeVoltageMFC3 = new HPT1000.GUI.Cotrols.DoubleEdit();
-            this.dEditRangeVoltageMFC1 = new HPT1000.GUI.Cotrols.DoubleEdit();
-            this.dEditMaxFlow_MFC2 = new HPT1000.GUI.Cotrols.DoubleEdit();
-            this.dEditMaxFlow_MFC3 = new HPT1000.GUI.Cotrols.DoubleEdit();
-            this.dEditMaxFlow_MFC1 = new HPT1000.GUI.Cotrols.DoubleEdit();
+            this.cBoxDummyMode = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -131,6 +133,8 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Transparent;
+            this.tabPage1.Controls.Add(this.cBoxDummyMode);
+            this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.checkBox5);
             this.tabPage1.Controls.Add(this.btnSelectDir);
             this.tabPage1.Controls.Add(this.tBoxPath);
@@ -462,6 +466,48 @@
             this.label20.TabIndex = 85;
             this.label20.Text = "Range power:";
             // 
+            // dEditRangeVoltage
+            // 
+            this.dEditRangeVoltage.Location = new System.Drawing.Point(345, 322);
+            this.dEditRangeVoltage.Margin = new System.Windows.Forms.Padding(8);
+            this.dEditRangeVoltage.Mask = "0.000";
+            this.dEditRangeVoltage.MaximumValue = 5000D;
+            this.dEditRangeVoltage.MinimumValue = 0D;
+            this.dEditRangeVoltage.Name = "dEditRangeVoltage";
+            this.dEditRangeVoltage.ReadOnly = false;
+            this.dEditRangeVoltage.Size = new System.Drawing.Size(100, 28);
+            this.dEditRangeVoltage.TabIndex = 84;
+            this.dEditRangeVoltage.Value = 0D;
+            this.dEditRangeVoltage.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditRangeVoltage_EnterOn);
+            // 
+            // dEditRangeCurent
+            // 
+            this.dEditRangeCurent.Location = new System.Drawing.Point(345, 369);
+            this.dEditRangeCurent.Margin = new System.Windows.Forms.Padding(8);
+            this.dEditRangeCurent.Mask = "0.000";
+            this.dEditRangeCurent.MaximumValue = 5000D;
+            this.dEditRangeCurent.MinimumValue = 0D;
+            this.dEditRangeCurent.Name = "dEditRangeCurent";
+            this.dEditRangeCurent.ReadOnly = false;
+            this.dEditRangeCurent.Size = new System.Drawing.Size(100, 28);
+            this.dEditRangeCurent.TabIndex = 83;
+            this.dEditRangeCurent.Value = 0D;
+            this.dEditRangeCurent.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditRangeCurent_EnterOn);
+            // 
+            // dEditRangePower
+            // 
+            this.dEditRangePower.Location = new System.Drawing.Point(345, 277);
+            this.dEditRangePower.Margin = new System.Windows.Forms.Padding(6);
+            this.dEditRangePower.Mask = "0.000";
+            this.dEditRangePower.MaximumValue = 5000D;
+            this.dEditRangePower.MinimumValue = 0D;
+            this.dEditRangePower.Name = "dEditRangePower";
+            this.dEditRangePower.ReadOnly = false;
+            this.dEditRangePower.Size = new System.Drawing.Size(100, 28);
+            this.dEditRangePower.TabIndex = 82;
+            this.dEditRangePower.Value = 0D;
+            this.dEditRangePower.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditRangePower_EnterOn);
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -522,6 +568,48 @@
             this.label2.Size = new System.Drawing.Size(97, 20);
             this.label2.TabIndex = 76;
             this.label2.Text = "Power limit:";
+            // 
+            // dEditVoltageLimit
+            // 
+            this.dEditVoltageLimit.Location = new System.Drawing.Point(345, 129);
+            this.dEditVoltageLimit.Margin = new System.Windows.Forms.Padding(6);
+            this.dEditVoltageLimit.Mask = "0.000";
+            this.dEditVoltageLimit.MaximumValue = 5000D;
+            this.dEditVoltageLimit.MinimumValue = 0D;
+            this.dEditVoltageLimit.Name = "dEditVoltageLimit";
+            this.dEditVoltageLimit.ReadOnly = false;
+            this.dEditVoltageLimit.Size = new System.Drawing.Size(100, 28);
+            this.dEditVoltageLimit.TabIndex = 75;
+            this.dEditVoltageLimit.Value = 0D;
+            this.dEditVoltageLimit.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditVoltageLimit_EnterOn);
+            // 
+            // dEditCurentLimit
+            // 
+            this.dEditCurentLimit.Location = new System.Drawing.Point(345, 175);
+            this.dEditCurentLimit.Margin = new System.Windows.Forms.Padding(6);
+            this.dEditCurentLimit.Mask = "0.000";
+            this.dEditCurentLimit.MaximumValue = 5000D;
+            this.dEditCurentLimit.MinimumValue = 0D;
+            this.dEditCurentLimit.Name = "dEditCurentLimit";
+            this.dEditCurentLimit.ReadOnly = false;
+            this.dEditCurentLimit.Size = new System.Drawing.Size(100, 28);
+            this.dEditCurentLimit.TabIndex = 74;
+            this.dEditCurentLimit.Value = 0D;
+            this.dEditCurentLimit.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditCurentLimit_EnterOn);
+            // 
+            // dEditPowerLimit
+            // 
+            this.dEditPowerLimit.Location = new System.Drawing.Point(345, 84);
+            this.dEditPowerLimit.Margin = new System.Windows.Forms.Padding(5);
+            this.dEditPowerLimit.Mask = "0.000";
+            this.dEditPowerLimit.MaximumValue = 5000D;
+            this.dEditPowerLimit.MinimumValue = 0D;
+            this.dEditPowerLimit.Name = "dEditPowerLimit";
+            this.dEditPowerLimit.ReadOnly = false;
+            this.dEditPowerLimit.Size = new System.Drawing.Size(100, 28);
+            this.dEditPowerLimit.TabIndex = 73;
+            this.dEditPowerLimit.Value = 0D;
+            this.dEditPowerLimit.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditPowerLimit_EnterOn);
             // 
             // tabPage4
             // 
@@ -728,6 +816,90 @@
             this.label10.TabIndex = 80;
             this.label10.Text = "Max flow MFC 1:";
             // 
+            // dEditRangeVoltageMFC2
+            // 
+            this.dEditRangeVoltageMFC2.Location = new System.Drawing.Point(343, 328);
+            this.dEditRangeVoltageMFC2.Margin = new System.Windows.Forms.Padding(12);
+            this.dEditRangeVoltageMFC2.Mask = "0.00";
+            this.dEditRangeVoltageMFC2.MaximumValue = 10000000D;
+            this.dEditRangeVoltageMFC2.MinimumValue = 0D;
+            this.dEditRangeVoltageMFC2.Name = "dEditRangeVoltageMFC2";
+            this.dEditRangeVoltageMFC2.ReadOnly = false;
+            this.dEditRangeVoltageMFC2.Size = new System.Drawing.Size(100, 27);
+            this.dEditRangeVoltageMFC2.TabIndex = 93;
+            this.dEditRangeVoltageMFC2.Value = 0D;
+            this.dEditRangeVoltageMFC2.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditRangeVoltageMFC2_EnterOn);
+            // 
+            // dEditRangeVoltageMFC3
+            // 
+            this.dEditRangeVoltageMFC3.Location = new System.Drawing.Point(343, 381);
+            this.dEditRangeVoltageMFC3.Margin = new System.Windows.Forms.Padding(12);
+            this.dEditRangeVoltageMFC3.Mask = "0.00";
+            this.dEditRangeVoltageMFC3.MaximumValue = 10000000D;
+            this.dEditRangeVoltageMFC3.MinimumValue = 0D;
+            this.dEditRangeVoltageMFC3.Name = "dEditRangeVoltageMFC3";
+            this.dEditRangeVoltageMFC3.ReadOnly = false;
+            this.dEditRangeVoltageMFC3.Size = new System.Drawing.Size(100, 27);
+            this.dEditRangeVoltageMFC3.TabIndex = 91;
+            this.dEditRangeVoltageMFC3.Value = 0D;
+            this.dEditRangeVoltageMFC3.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditRangeVoltageMFC3_EnterOn);
+            // 
+            // dEditRangeVoltageMFC1
+            // 
+            this.dEditRangeVoltageMFC1.Location = new System.Drawing.Point(343, 281);
+            this.dEditRangeVoltageMFC1.Margin = new System.Windows.Forms.Padding(10);
+            this.dEditRangeVoltageMFC1.Mask = "0.00";
+            this.dEditRangeVoltageMFC1.MaximumValue = 10000000D;
+            this.dEditRangeVoltageMFC1.MinimumValue = 0D;
+            this.dEditRangeVoltageMFC1.Name = "dEditRangeVoltageMFC1";
+            this.dEditRangeVoltageMFC1.ReadOnly = false;
+            this.dEditRangeVoltageMFC1.Size = new System.Drawing.Size(100, 27);
+            this.dEditRangeVoltageMFC1.TabIndex = 88;
+            this.dEditRangeVoltageMFC1.Value = 0D;
+            this.dEditRangeVoltageMFC1.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditRangeVoltageMFC1_EnterOn);
+            // 
+            // dEditMaxFlow_MFC2
+            // 
+            this.dEditMaxFlow_MFC2.Location = new System.Drawing.Point(343, 137);
+            this.dEditMaxFlow_MFC2.Margin = new System.Windows.Forms.Padding(10);
+            this.dEditMaxFlow_MFC2.Mask = "0.000";
+            this.dEditMaxFlow_MFC2.MaximumValue = 10000000D;
+            this.dEditMaxFlow_MFC2.MinimumValue = 0D;
+            this.dEditMaxFlow_MFC2.Name = "dEditMaxFlow_MFC2";
+            this.dEditMaxFlow_MFC2.ReadOnly = false;
+            this.dEditMaxFlow_MFC2.Size = new System.Drawing.Size(100, 27);
+            this.dEditMaxFlow_MFC2.TabIndex = 85;
+            this.dEditMaxFlow_MFC2.Value = 0D;
+            this.dEditMaxFlow_MFC2.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditMaxFlow_MFC2_EnterOn);
+            // 
+            // dEditMaxFlow_MFC3
+            // 
+            this.dEditMaxFlow_MFC3.Location = new System.Drawing.Point(343, 182);
+            this.dEditMaxFlow_MFC3.Margin = new System.Windows.Forms.Padding(10);
+            this.dEditMaxFlow_MFC3.Mask = "0.000";
+            this.dEditMaxFlow_MFC3.MaximumValue = 10000000D;
+            this.dEditMaxFlow_MFC3.MinimumValue = 0D;
+            this.dEditMaxFlow_MFC3.Name = "dEditMaxFlow_MFC3";
+            this.dEditMaxFlow_MFC3.ReadOnly = false;
+            this.dEditMaxFlow_MFC3.Size = new System.Drawing.Size(100, 27);
+            this.dEditMaxFlow_MFC3.TabIndex = 82;
+            this.dEditMaxFlow_MFC3.Value = 0D;
+            this.dEditMaxFlow_MFC3.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditMaxFlow_MFC3_EnterOn);
+            // 
+            // dEditMaxFlow_MFC1
+            // 
+            this.dEditMaxFlow_MFC1.Location = new System.Drawing.Point(343, 92);
+            this.dEditMaxFlow_MFC1.Margin = new System.Windows.Forms.Padding(8);
+            this.dEditMaxFlow_MFC1.Mask = "0.000";
+            this.dEditMaxFlow_MFC1.MaximumValue = 10000000D;
+            this.dEditMaxFlow_MFC1.MinimumValue = 0D;
+            this.dEditMaxFlow_MFC1.Name = "dEditMaxFlow_MFC1";
+            this.dEditMaxFlow_MFC1.ReadOnly = false;
+            this.dEditMaxFlow_MFC1.Size = new System.Drawing.Size(100, 27);
+            this.dEditMaxFlow_MFC1.TabIndex = 79;
+            this.dEditMaxFlow_MFC1.Value = 0D;
+            this.dEditMaxFlow_MFC1.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditMaxFlow_MFC1_EnterOn);
+            // 
             // tabPage5
             // 
             this.tabPage5.BackColor = System.Drawing.Color.Transparent;
@@ -852,173 +1024,26 @@
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
             // 
-            // dEditRangeVoltage
+            // cBoxDummyMode
             // 
-            this.dEditRangeVoltage.Location = new System.Drawing.Point(345, 322);
-            this.dEditRangeVoltage.Margin = new System.Windows.Forms.Padding(8);
-            this.dEditRangeVoltage.Mask = "0.000";
-            this.dEditRangeVoltage.MaximumValue = 5000D;
-            this.dEditRangeVoltage.MinimumValue = 0D;
-            this.dEditRangeVoltage.Name = "dEditRangeVoltage";
-            this.dEditRangeVoltage.ReadOnly = false;
-            this.dEditRangeVoltage.Size = new System.Drawing.Size(100, 28);
-            this.dEditRangeVoltage.TabIndex = 84;
-            this.dEditRangeVoltage.Value = 0D;
-            this.dEditRangeVoltage.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditRangeVoltage_EnterOn);
+            this.cBoxDummyMode.AutoSize = true;
+            this.cBoxDummyMode.Location = new System.Drawing.Point(146, 582);
+            this.cBoxDummyMode.Name = "cBoxDummyMode";
+            this.cBoxDummyMode.Size = new System.Drawing.Size(135, 24);
+            this.cBoxDummyMode.TabIndex = 92;
+            this.cBoxDummyMode.Text = "Dummy mode";
+            this.cBoxDummyMode.UseVisualStyleBackColor = true;
+            this.cBoxDummyMode.CheckedChanged += new System.EventHandler(this.cBoxDummyMode_CheckedChanged);
             // 
-            // dEditRangeCurent
+            // label4
             // 
-            this.dEditRangeCurent.Location = new System.Drawing.Point(345, 369);
-            this.dEditRangeCurent.Margin = new System.Windows.Forms.Padding(8);
-            this.dEditRangeCurent.Mask = "0.000";
-            this.dEditRangeCurent.MaximumValue = 5000D;
-            this.dEditRangeCurent.MinimumValue = 0D;
-            this.dEditRangeCurent.Name = "dEditRangeCurent";
-            this.dEditRangeCurent.ReadOnly = false;
-            this.dEditRangeCurent.Size = new System.Drawing.Size(100, 28);
-            this.dEditRangeCurent.TabIndex = 83;
-            this.dEditRangeCurent.Value = 0D;
-            this.dEditRangeCurent.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditRangeCurent_EnterOn);
-            // 
-            // dEditRangePower
-            // 
-            this.dEditRangePower.Location = new System.Drawing.Point(345, 277);
-            this.dEditRangePower.Margin = new System.Windows.Forms.Padding(6);
-            this.dEditRangePower.Mask = "0.000";
-            this.dEditRangePower.MaximumValue = 5000D;
-            this.dEditRangePower.MinimumValue = 0D;
-            this.dEditRangePower.Name = "dEditRangePower";
-            this.dEditRangePower.ReadOnly = false;
-            this.dEditRangePower.Size = new System.Drawing.Size(100, 28);
-            this.dEditRangePower.TabIndex = 82;
-            this.dEditRangePower.Value = 0D;
-            this.dEditRangePower.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditRangePower_EnterOn);
-            // 
-            // dEditVoltageLimit
-            // 
-            this.dEditVoltageLimit.Location = new System.Drawing.Point(345, 129);
-            this.dEditVoltageLimit.Margin = new System.Windows.Forms.Padding(6);
-            this.dEditVoltageLimit.Mask = "0.000";
-            this.dEditVoltageLimit.MaximumValue = 5000D;
-            this.dEditVoltageLimit.MinimumValue = 0D;
-            this.dEditVoltageLimit.Name = "dEditVoltageLimit";
-            this.dEditVoltageLimit.ReadOnly = false;
-            this.dEditVoltageLimit.Size = new System.Drawing.Size(100, 28);
-            this.dEditVoltageLimit.TabIndex = 75;
-            this.dEditVoltageLimit.Value = 0D;
-            this.dEditVoltageLimit.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditVoltageLimit_EnterOn);
-            // 
-            // dEditCurentLimit
-            // 
-            this.dEditCurentLimit.Location = new System.Drawing.Point(345, 175);
-            this.dEditCurentLimit.Margin = new System.Windows.Forms.Padding(6);
-            this.dEditCurentLimit.Mask = "0.000";
-            this.dEditCurentLimit.MaximumValue = 5000D;
-            this.dEditCurentLimit.MinimumValue = 0D;
-            this.dEditCurentLimit.Name = "dEditCurentLimit";
-            this.dEditCurentLimit.ReadOnly = false;
-            this.dEditCurentLimit.Size = new System.Drawing.Size(100, 28);
-            this.dEditCurentLimit.TabIndex = 74;
-            this.dEditCurentLimit.Value = 0D;
-            this.dEditCurentLimit.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditCurentLimit_EnterOn);
-            // 
-            // dEditPowerLimit
-            // 
-            this.dEditPowerLimit.Location = new System.Drawing.Point(345, 84);
-            this.dEditPowerLimit.Margin = new System.Windows.Forms.Padding(5);
-            this.dEditPowerLimit.Mask = "0.000";
-            this.dEditPowerLimit.MaximumValue = 5000D;
-            this.dEditPowerLimit.MinimumValue = 0D;
-            this.dEditPowerLimit.Name = "dEditPowerLimit";
-            this.dEditPowerLimit.ReadOnly = false;
-            this.dEditPowerLimit.Size = new System.Drawing.Size(100, 28);
-            this.dEditPowerLimit.TabIndex = 73;
-            this.dEditPowerLimit.Value = 0D;
-            this.dEditPowerLimit.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditPowerLimit_EnterOn);
-            // 
-            // dEditRangeVoltageMFC2
-            // 
-            this.dEditRangeVoltageMFC2.Location = new System.Drawing.Point(343, 328);
-            this.dEditRangeVoltageMFC2.Margin = new System.Windows.Forms.Padding(12);
-            this.dEditRangeVoltageMFC2.Mask = "0.00";
-            this.dEditRangeVoltageMFC2.MaximumValue = 10000000D;
-            this.dEditRangeVoltageMFC2.MinimumValue = 0D;
-            this.dEditRangeVoltageMFC2.Name = "dEditRangeVoltageMFC2";
-            this.dEditRangeVoltageMFC2.ReadOnly = false;
-            this.dEditRangeVoltageMFC2.Size = new System.Drawing.Size(100, 27);
-            this.dEditRangeVoltageMFC2.TabIndex = 93;
-            this.dEditRangeVoltageMFC2.Value = 0D;
-            this.dEditRangeVoltageMFC2.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditRangeVoltageMFC2_EnterOn);
-            // 
-            // dEditRangeVoltageMFC3
-            // 
-            this.dEditRangeVoltageMFC3.Location = new System.Drawing.Point(343, 381);
-            this.dEditRangeVoltageMFC3.Margin = new System.Windows.Forms.Padding(12);
-            this.dEditRangeVoltageMFC3.Mask = "0.00";
-            this.dEditRangeVoltageMFC3.MaximumValue = 10000000D;
-            this.dEditRangeVoltageMFC3.MinimumValue = 0D;
-            this.dEditRangeVoltageMFC3.Name = "dEditRangeVoltageMFC3";
-            this.dEditRangeVoltageMFC3.ReadOnly = false;
-            this.dEditRangeVoltageMFC3.Size = new System.Drawing.Size(100, 27);
-            this.dEditRangeVoltageMFC3.TabIndex = 91;
-            this.dEditRangeVoltageMFC3.Value = 0D;
-            this.dEditRangeVoltageMFC3.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditRangeVoltageMFC3_EnterOn);
-            // 
-            // dEditRangeVoltageMFC1
-            // 
-            this.dEditRangeVoltageMFC1.Location = new System.Drawing.Point(343, 281);
-            this.dEditRangeVoltageMFC1.Margin = new System.Windows.Forms.Padding(10);
-            this.dEditRangeVoltageMFC1.Mask = "0.00";
-            this.dEditRangeVoltageMFC1.MaximumValue = 10000000D;
-            this.dEditRangeVoltageMFC1.MinimumValue = 0D;
-            this.dEditRangeVoltageMFC1.Name = "dEditRangeVoltageMFC1";
-            this.dEditRangeVoltageMFC1.ReadOnly = false;
-            this.dEditRangeVoltageMFC1.Size = new System.Drawing.Size(100, 27);
-            this.dEditRangeVoltageMFC1.TabIndex = 88;
-            this.dEditRangeVoltageMFC1.Value = 0D;
-            this.dEditRangeVoltageMFC1.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditRangeVoltageMFC1_EnterOn);
-            // 
-            // dEditMaxFlow_MFC2
-            // 
-            this.dEditMaxFlow_MFC2.Location = new System.Drawing.Point(343, 137);
-            this.dEditMaxFlow_MFC2.Margin = new System.Windows.Forms.Padding(10);
-            this.dEditMaxFlow_MFC2.Mask = "0.000";
-            this.dEditMaxFlow_MFC2.MaximumValue = 10000000D;
-            this.dEditMaxFlow_MFC2.MinimumValue = 0D;
-            this.dEditMaxFlow_MFC2.Name = "dEditMaxFlow_MFC2";
-            this.dEditMaxFlow_MFC2.ReadOnly = false;
-            this.dEditMaxFlow_MFC2.Size = new System.Drawing.Size(100, 27);
-            this.dEditMaxFlow_MFC2.TabIndex = 85;
-            this.dEditMaxFlow_MFC2.Value = 0D;
-            this.dEditMaxFlow_MFC2.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditMaxFlow_MFC2_EnterOn);
-            // 
-            // dEditMaxFlow_MFC3
-            // 
-            this.dEditMaxFlow_MFC3.Location = new System.Drawing.Point(343, 182);
-            this.dEditMaxFlow_MFC3.Margin = new System.Windows.Forms.Padding(10);
-            this.dEditMaxFlow_MFC3.Mask = "0.000";
-            this.dEditMaxFlow_MFC3.MaximumValue = 10000000D;
-            this.dEditMaxFlow_MFC3.MinimumValue = 0D;
-            this.dEditMaxFlow_MFC3.Name = "dEditMaxFlow_MFC3";
-            this.dEditMaxFlow_MFC3.ReadOnly = false;
-            this.dEditMaxFlow_MFC3.Size = new System.Drawing.Size(100, 27);
-            this.dEditMaxFlow_MFC3.TabIndex = 82;
-            this.dEditMaxFlow_MFC3.Value = 0D;
-            this.dEditMaxFlow_MFC3.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditMaxFlow_MFC3_EnterOn);
-            // 
-            // dEditMaxFlow_MFC1
-            // 
-            this.dEditMaxFlow_MFC1.Location = new System.Drawing.Point(343, 92);
-            this.dEditMaxFlow_MFC1.Margin = new System.Windows.Forms.Padding(8);
-            this.dEditMaxFlow_MFC1.Mask = "0.000";
-            this.dEditMaxFlow_MFC1.MaximumValue = 10000000D;
-            this.dEditMaxFlow_MFC1.MinimumValue = 0D;
-            this.dEditMaxFlow_MFC1.Name = "dEditMaxFlow_MFC1";
-            this.dEditMaxFlow_MFC1.ReadOnly = false;
-            this.dEditMaxFlow_MFC1.Size = new System.Drawing.Size(100, 27);
-            this.dEditMaxFlow_MFC1.TabIndex = 79;
-            this.dEditMaxFlow_MFC1.Value = 0D;
-            this.dEditMaxFlow_MFC1.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditMaxFlow_MFC1_EnterOn);
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label4.Location = new System.Drawing.Point(54, 538);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(118, 20);
+            this.label4.TabIndex = 91;
+            this.label4.Text = "Dummy mode:";
             // 
             // SettingsPanel
             // 
@@ -1126,5 +1151,7 @@
         private System.Windows.Forms.ComboBox cBoxLanguge;
         private System.Windows.Forms.Label label45;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
+        private System.Windows.Forms.CheckBox cBoxDummyMode;
+        private System.Windows.Forms.Label label4;
     }
 }

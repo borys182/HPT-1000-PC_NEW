@@ -24,19 +24,6 @@ namespace HPT1000.GUI
         public AlertsPanel()
         {
             InitializeComponent();
-
-            ListViewItem aItem = new ListViewItem();
-            aItem.Text = "test";
-           /* aItem.SubItems.Add(aErr.Time.ToString());
-            aItem.SubItems.Add(aErr.GetText());
-            aItem.SubItems.Add("Event");
-            aItem.SubItems.Add(aNameProgram);
-            aItem.SubItems.Add(aNameSubprogram);
-            aItem.SubItems.Add("Administrator");
-*/
-            //      aItem.BackColor = Color.Red;
-  
-            listViewErrors.Items.Add(aItem);
         }
         //----------------------------------------------------------------------------------
         public void  RefreshPanel()

@@ -29,21 +29,21 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Node1");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Node4");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Subprograms", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Program 1", new System.Windows.Forms.TreeNode[] {
-            treeNode3});
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Node11");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Subprograms", new System.Windows.Forms.TreeNode[] {
-            treeNode5});
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Program 2", new System.Windows.Forms.TreeNode[] {
-            treeNode6});
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Programs list", new System.Windows.Forms.TreeNode[] {
-            treeNode4,
-            treeNode7});
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Node1");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Node4");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Subprograms", new System.Windows.Forms.TreeNode[] {
+            treeNode9,
+            treeNode10});
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Program 1", new System.Windows.Forms.TreeNode[] {
+            treeNode11});
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Node11");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Subprograms", new System.Windows.Forms.TreeNode[] {
+            treeNode13});
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Program 2", new System.Windows.Forms.TreeNode[] {
+            treeNode14});
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Programs list", new System.Windows.Forms.TreeNode[] {
+            treeNode12,
+            treeNode15});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProgramsConfigPanel));
             this.grBoxGasPressure = new System.Windows.Forms.GroupBox();
             this.rBtnPressureViaVapo = new System.Windows.Forms.RadioButton();
@@ -226,13 +226,18 @@
             this.cBoxVent = new System.Windows.Forms.CheckBox();
             this.cBoxPurge = new System.Windows.Forms.CheckBox();
             this.treeViewProgram = new System.Windows.Forms.TreeView();
+            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menuItem_AddProgram = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItem_AddSubprogram = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.menuItem_RemoveProgram = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItem_RemoveSubprogram = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.btnRemoveProgram = new System.Windows.Forms.Button();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.btnAddNewSubprogram = new System.Windows.Forms.Button();
             this.label69 = new System.Windows.Forms.Label();
             this.timerRefresh = new System.Windows.Forms.Timer(this.components);
-            this.btnReadFromPLC = new System.Windows.Forms.Button();
             this.grBoxGasPressure.SuspendLayout();
             this.grBoxGasesMFC3.SuspendLayout();
             this.grBoxGasesMFC2.SuspendLayout();
@@ -266,6 +271,7 @@
             this.grBoxMFC2.SuspendLayout();
             this.grBoxVaporiser.SuspendLayout();
             this.grBoxSubprogram.SuspendLayout();
+            this.contextMenu.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -1335,7 +1341,7 @@
             // 
             // btnAddNewProgram
             // 
-            this.btnAddNewProgram.Location = new System.Drawing.Point(6, 553);
+            this.btnAddNewProgram.Location = new System.Drawing.Point(6, 594);
             this.btnAddNewProgram.Name = "btnAddNewProgram";
             this.btnAddNewProgram.Size = new System.Drawing.Size(139, 33);
             this.btnAddNewProgram.TabIndex = 34;
@@ -1433,7 +1439,7 @@
             // 
             // btnRemoveSubprogram
             // 
-            this.btnRemoveSubprogram.Location = new System.Drawing.Point(6, 630);
+            this.btnRemoveSubprogram.Location = new System.Drawing.Point(6, 671);
             this.btnRemoveSubprogram.Name = "btnRemoveSubprogram";
             this.btnRemoveSubprogram.Size = new System.Drawing.Size(296, 33);
             this.btnRemoveSubprogram.TabIndex = 43;
@@ -1479,7 +1485,6 @@
             this.grBoxGas.Controls.Add(this.groupBox2);
             this.grBoxGas.Controls.Add(this.grBoxGasFlow);
             this.grBoxGas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grBoxGas.Enabled = false;
             this.grBoxGas.Location = new System.Drawing.Point(3, 23);
             this.grBoxGas.Name = "grBoxGas";
             this.grBoxGas.Size = new System.Drawing.Size(1056, 671);
@@ -2227,7 +2232,7 @@
             this.cBoxGas.AutoSize = true;
             this.cBoxGas.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cBoxGas.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.cBoxGas.Location = new System.Drawing.Point(49, 309);
+            this.cBoxGas.Location = new System.Drawing.Point(49, 338);
             this.cBoxGas.Name = "cBoxGas";
             this.cBoxGas.Size = new System.Drawing.Size(124, 24);
             this.cBoxGas.TabIndex = 37;
@@ -2241,7 +2246,7 @@
             this.cBoxPower.AutoSize = true;
             this.cBoxPower.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cBoxPower.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.cBoxPower.Location = new System.Drawing.Point(49, 336);
+            this.cBoxPower.Location = new System.Drawing.Point(49, 308);
             this.cBoxPower.Name = "cBoxPower";
             this.cBoxPower.Size = new System.Drawing.Size(140, 24);
             this.cBoxPower.TabIndex = 38;
@@ -2280,36 +2285,82 @@
             // 
             // treeViewProgram
             // 
+            this.treeViewProgram.ContextMenuStrip = this.contextMenu;
             this.treeViewProgram.ImageIndex = 0;
             this.treeViewProgram.ImageList = this.imageList1;
             this.treeViewProgram.Location = new System.Drawing.Point(6, 22);
             this.treeViewProgram.Name = "treeViewProgram";
-            treeNode1.ImageIndex = 3;
-            treeNode1.Name = "Node1";
-            treeNode1.Text = "Node1";
-            treeNode2.ImageIndex = 4;
-            treeNode2.Name = "Node4";
-            treeNode2.Text = "Node4";
-            treeNode3.ImageIndex = 1;
-            treeNode3.Name = "Node3";
-            treeNode3.Text = "Subprograms";
-            treeNode4.Name = "Node0";
-            treeNode4.Text = "Program 1";
-            treeNode5.Name = "Node11";
-            treeNode5.Text = "Node11";
-            treeNode6.ImageIndex = 1;
-            treeNode6.Name = "Node10";
-            treeNode6.Text = "Subprograms";
-            treeNode7.Name = "Node9";
-            treeNode7.Text = "Program 2";
-            treeNode8.Name = "Node2";
-            treeNode8.Text = "Programs list";
+            treeNode9.ImageIndex = 3;
+            treeNode9.Name = "Node1";
+            treeNode9.Text = "Node1";
+            treeNode10.ImageIndex = 4;
+            treeNode10.Name = "Node4";
+            treeNode10.Text = "Node4";
+            treeNode11.ImageIndex = 1;
+            treeNode11.Name = "Node3";
+            treeNode11.Text = "Subprograms";
+            treeNode12.Name = "Node0";
+            treeNode12.Text = "Program 1";
+            treeNode13.Name = "Node11";
+            treeNode13.Text = "Node11";
+            treeNode14.ImageIndex = 1;
+            treeNode14.Name = "Node10";
+            treeNode14.Text = "Subprograms";
+            treeNode15.Name = "Node9";
+            treeNode15.Text = "Program 2";
+            treeNode16.Name = "Node2";
+            treeNode16.Text = "Programs list";
             this.treeViewProgram.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode8});
+            treeNode16});
             this.treeViewProgram.SelectedImageIndex = 0;
-            this.treeViewProgram.Size = new System.Drawing.Size(296, 526);
+            this.treeViewProgram.Size = new System.Drawing.Size(296, 566);
             this.treeViewProgram.TabIndex = 45;
             this.treeViewProgram.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewProgram_AfterSelect);
+            // 
+            // contextMenu
+            // 
+            this.contextMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItem_AddProgram,
+            this.menuItem_AddSubprogram,
+            this.toolStripSeparator,
+            this.menuItem_RemoveProgram,
+            this.menuItem_RemoveSubprogram});
+            this.contextMenu.Name = "contextMenu";
+            this.contextMenu.Size = new System.Drawing.Size(224, 114);
+            // 
+            // menuItem_AddProgram
+            // 
+            this.menuItem_AddProgram.Name = "menuItem_AddProgram";
+            this.menuItem_AddProgram.Size = new System.Drawing.Size(223, 26);
+            this.menuItem_AddProgram.Text = "Add program";
+            this.menuItem_AddProgram.Click += new System.EventHandler(this.menuItem_AddProgram_Click);
+            // 
+            // menuItem_AddSubprogram
+            // 
+            this.menuItem_AddSubprogram.Name = "menuItem_AddSubprogram";
+            this.menuItem_AddSubprogram.Size = new System.Drawing.Size(223, 26);
+            this.menuItem_AddSubprogram.Text = "Add subprogram";
+            this.menuItem_AddSubprogram.Click += new System.EventHandler(this.menuItem_AddSubprogram_Click);
+            // 
+            // toolStripSeparator
+            // 
+            this.toolStripSeparator.Name = "toolStripSeparator";
+            this.toolStripSeparator.Size = new System.Drawing.Size(220, 6);
+            // 
+            // menuItem_RemoveProgram
+            // 
+            this.menuItem_RemoveProgram.Name = "menuItem_RemoveProgram";
+            this.menuItem_RemoveProgram.Size = new System.Drawing.Size(223, 26);
+            this.menuItem_RemoveProgram.Text = "Remove program";
+            this.menuItem_RemoveProgram.Click += new System.EventHandler(this.menuItem_RemoveProgram_Click);
+            // 
+            // menuItem_RemoveSubprogram
+            // 
+            this.menuItem_RemoveSubprogram.Name = "menuItem_RemoveSubprogram";
+            this.menuItem_RemoveSubprogram.Size = new System.Drawing.Size(223, 26);
+            this.menuItem_RemoveSubprogram.Text = "Remove subprogram";
+            this.menuItem_RemoveSubprogram.Click += new System.EventHandler(this.menuItem_RemoveSubprogram_Click);
             // 
             // imageList1
             // 
@@ -2322,7 +2373,7 @@
             // 
             // btnRemoveProgram
             // 
-            this.btnRemoveProgram.Location = new System.Drawing.Point(148, 553);
+            this.btnRemoveProgram.Location = new System.Drawing.Point(148, 594);
             this.btnRemoveProgram.Name = "btnRemoveProgram";
             this.btnRemoveProgram.Size = new System.Drawing.Size(156, 33);
             this.btnRemoveProgram.TabIndex = 41;
@@ -2332,7 +2383,6 @@
             // 
             // groupBox10
             // 
-            this.groupBox10.Controls.Add(this.btnReadFromPLC);
             this.groupBox10.Controls.Add(this.treeViewProgram);
             this.groupBox10.Controls.Add(this.grBoxSubprogram);
             this.groupBox10.Controls.Add(this.btnRemoveSubprogram);
@@ -2349,7 +2399,7 @@
             // 
             // btnAddNewSubprogram
             // 
-            this.btnAddNewSubprogram.Location = new System.Drawing.Point(6, 591);
+            this.btnAddNewSubprogram.Location = new System.Drawing.Point(6, 632);
             this.btnAddNewSubprogram.Name = "btnAddNewSubprogram";
             this.btnAddNewSubprogram.Size = new System.Drawing.Size(296, 33);
             this.btnAddNewSubprogram.TabIndex = 42;
@@ -2373,16 +2423,6 @@
             // 
             this.timerRefresh.Enabled = true;
             this.timerRefresh.Tick += new System.EventHandler(this.timerRefresh_Tick);
-            // 
-            // btnReadFromPLC
-            // 
-            this.btnReadFromPLC.Location = new System.Drawing.Point(6, 669);
-            this.btnReadFromPLC.Name = "btnReadFromPLC";
-            this.btnReadFromPLC.Size = new System.Drawing.Size(296, 33);
-            this.btnReadFromPLC.TabIndex = 43;
-            this.btnReadFromPLC.Text = "Read from PLC";
-            this.btnReadFromPLC.UseVisualStyleBackColor = true;
-            this.btnReadFromPLC.Click += new System.EventHandler(this.btnReadFromPLC_Click);
             // 
             // ProgramsConfigPanel
             // 
@@ -2450,6 +2490,7 @@
             this.grBoxVaporiser.PerformLayout();
             this.grBoxSubprogram.ResumeLayout(false);
             this.grBoxSubprogram.PerformLayout();
+            this.contextMenu.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -2643,6 +2684,11 @@
         private System.Windows.Forms.RadioButton rBtnPressureViaVapo;
         private System.Windows.Forms.RadioButton rBtnPressureViaGases;
         private System.Windows.Forms.Timer timerRefresh;
-        private System.Windows.Forms.Button btnReadFromPLC;
+        private System.Windows.Forms.ContextMenuStrip contextMenu;
+        private System.Windows.Forms.ToolStripMenuItem menuItem_AddProgram;
+        private System.Windows.Forms.ToolStripMenuItem menuItem_AddSubprogram;
+        private System.Windows.Forms.ToolStripMenuItem menuItem_RemoveProgram;
+        private System.Windows.Forms.ToolStripMenuItem menuItem_RemoveSubprogram;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
     }
 }

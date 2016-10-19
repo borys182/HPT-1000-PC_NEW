@@ -50,6 +50,7 @@ namespace HPT1000.GUI
             scrollGasPressureDevaUp.Maximum     = (int)pressureResolution * 1100;
             scrollGasPressureDevaUp.Minimum     = 1;
 
+            ShowCorrespondingTabPage();
         }
         //--------------------------------------------------------------------------------------------------------------------------------------
         public HPT1000.Source.Driver.HPT1000 HPT1000
@@ -181,6 +182,44 @@ namespace HPT1000.GUI
             RefreshTreeViewPrograms();
         }
         //--------------------------------------------------------------------------------------------------------------------------------------
+        private void RemoveProgram()
+        {
+            Program program = null;
+            TreeNode node = treeViewProgram.SelectedNode;
+
+            program = GetProgram();
+
+            if (program == null)
+                MessageBox.Show(Translate.GetText("Nie wybrano wezla programu"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            if (hpt1000.RemoveProgram(program))
+                MessageBox.Show(Translate.GetText("Program zostal poprawnie usuniety"), "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+                MessageBox.Show(Translate.GetText("Nie udalo usunac sie programu"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            RefreshTreeViewPrograms();
+        }
+        //--------------------------------------------------------------------------------------------------------------------------------------
+        private void RemoveSubprogram()
+        {
+            Program program = null;
+            Subprogram subProgram = null;
+            TreeNode node = treeViewProgram.SelectedNode;
+
+            program = GetProgram();
+            subProgram = GetSubprogram();
+
+            if (subProgram == null || program == null)
+                MessageBox.Show(Translate.GetText("Nie wybrano wezla sub-programu"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            if (program != null && program.RemoveSubprogram(subProgram))
+                MessageBox.Show(Translate.GetText("Sub-program zostal poprawnie usuniety"), "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+                MessageBox.Show(Translate.GetText("Nie udalo usunac sie sub-programu"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            RefreshTreeViewPrograms();
+        }
+        //--------------------------------------------------------------------------------------------------------------------------------------
         bool IsObjectExist(object aObj)
         {
             bool aRes = false;
@@ -252,6 +291,8 @@ namespace HPT1000.GUI
 
             ClearProgramInfo();
             HideButton();
+
+            tabControlProcess.Visible = false;
             //zaznaczono program
             if (node.Parent != null && node.Parent.Parent == null)
             {
@@ -264,6 +305,8 @@ namespace HPT1000.GUI
                 program = (Program)node.Parent.Tag;
                 subProgram = (Subprogram)node.Tag;
                 btnRemoveSubprogram.Enabled = true;
+
+                tabControlProcess.Visible = true;
             }
             //Wyswietl info na temat programu
             if (program != null)
@@ -289,6 +332,34 @@ namespace HPT1000.GUI
 
                 tabControlProcess.Enabled = true;
             }
+
+            //Pokaz odpowienio dopasoway menu dla wybranego wezla
+            ShowPopupMenu();
+        }
+        //--------------------------------------------------------------------------------------------------------------------------------------
+        private void ShowCorrespondingTabPage()
+        {
+            tabControlProcess.TabPages.Remove(tabPagePump);
+            tabControlProcess.TabPages.Remove(tabPageGas);
+            tabControlProcess.TabPages.Remove(tabPagePlasma);
+            tabControlProcess.TabPages.Remove(tabPagePurge);
+            tabControlProcess.TabPages.Remove(tabPageVent);
+
+            int aIndex = 0;
+            if(cBoxPump.Checked)
+                tabControlProcess.TabPages.Insert(aIndex++,tabPagePump);
+
+            if (cBoxPower.Checked)
+                tabControlProcess.TabPages.Insert(aIndex++, tabPagePlasma);
+
+            if (cBoxGas.Checked)
+                tabControlProcess.TabPages.Insert(aIndex++, tabPageGas);
+
+            if (cBoxPurge.Checked)
+                tabControlProcess.TabPages.Insert(aIndex++, tabPagePurge);
+
+            if (cBoxVent.Checked)
+                tabControlProcess.TabPages.Insert(aIndex++, tabPageVent);
         }
         //--------------------------------------------------------------------------------------------------------------------------------------
         void ShowInfoStageProcess(Subprogram subProgram)
@@ -516,13 +587,13 @@ namespace HPT1000.GUI
         }
         //--------------------------------------------------------------------------------------------------------------------------------------
         void HideProgramComponent()
-        {
+        {/*
             grBoxGas.Enabled = false;
             grBoxPlasma.Enabled = false;
             grBoxPump.Enabled = false;
             grBoxPurge.Enabled = false;
             grBoxVent.Enabled = false;
-        }
+        */}
 
         //--------------------------------------------------------------------------------------------------------------------------------------
         private void btnAddNewProgram_Click(object sender, EventArgs e)
@@ -635,12 +706,14 @@ namespace HPT1000.GUI
         //Ustaw odpowiedie dostepne checkboxy oraz ustaw dane w subprogramie
         private void cBoxProcess_CheckedChanged(object sender, EventArgs e)
         {
-            grBoxGas.Enabled = cBoxGas.Checked;
-            grBoxPlasma.Enabled = cBoxPower.Checked;
-            grBoxPump.Enabled = cBoxPump.Checked;
-            grBoxPurge.Enabled = cBoxPurge.Checked;
-            grBoxVent.Enabled = cBoxVent.Checked;
+            /*      grBoxGas.Enabled = cBoxGas.Checked;
+                  grBoxPlasma.Enabled = cBoxPower.Checked;
+                  grBoxPump.Enabled = cBoxPump.Checked;
+                  grBoxPurge.Enabled = cBoxPurge.Checked;
+                  grBoxVent.Enabled = cBoxVent.Checked;
 
+             */
+            ShowCorrespondingTabPage();
         }
         //--------------------------------------------------------------------------------------------------------------------------------------
         private void tBoxNameProgram_KeyUp(object sender, KeyEventArgs e)
@@ -677,40 +750,12 @@ namespace HPT1000.GUI
         //--------------------------------------------------------------------------------------------------------------------------------------
         private void btnRemoveProgram_Click(object sender, EventArgs e)
         {
-            Program program = null;
-            TreeNode node = treeViewProgram.SelectedNode;
-
-            program = GetProgram();
-
-            if (program == null)
-                MessageBox.Show(Translate.GetText("Nie wybrano wezla programu"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            if (hpt1000.RemoveProgram(program))
-                MessageBox.Show(Translate.GetText("Program zostal poprawnie usuniety"), "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            else
-                MessageBox.Show(Translate.GetText("Nie udalo usunac sie programu"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            RefreshTreeViewPrograms();
+            RemoveProgram();
         }
         //--------------------------------------------------------------------------------------------------------------------------------------
         private void btnRemoveSubprogram_Click(object sender, EventArgs e)
         {
-            Program program = null;
-            Subprogram subProgram = null;
-            TreeNode node = treeViewProgram.SelectedNode;
-
-            program = GetProgram();
-            subProgram = GetSubprogram();
-
-            if (subProgram == null || program == null)
-                MessageBox.Show(Translate.GetText("Nie wybrano wezla sub-programu"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            if (program != null && program.RemoveSubprogram(subProgram))
-                MessageBox.Show(Translate.GetText("Sub-program zostal poprawnie usuniety"), "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            else
-                MessageBox.Show(Translate.GetText("Nie udalo usunac sie sub-programu"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            RefreshTreeViewPrograms();
+            RemoveSubprogram();
         }
         //-------------------------------------------------------------------------------------------------------------------------------------
         private void cBoxProcess_Click(object sender, EventArgs e)
@@ -1408,12 +1453,65 @@ namespace HPT1000.GUI
             }
         }
         //-------------------------------------------------------------------------------------------------------------------------------------
+        private void ShowPopupMenu()
+        {
+            TreeNode node = treeViewProgram.SelectedNode;
+
+            menuItem_AddProgram.Visible       = false;
+            menuItem_AddSubprogram.Visible    = false;
+            menuItem_RemoveProgram.Visible    = false;
+            menuItem_RemoveSubprogram.Visible = false;
+
+            toolStripSeparator.Visible        = true;
+
+            if (node != null)
+            {
+                //zaznaczono glowny wezel
+                if (node.Parent == null)
+                {
+                    menuItem_AddProgram.Visible = true;
+                    toolStripSeparator.Visible  = false;
+                }
+                //zaznaczono program
+                if (node.Parent != null && node.Parent.Parent == null)
+                {
+                    menuItem_AddSubprogram.Visible = true;
+                    menuItem_RemoveProgram.Visible = true; 
+                }
+                //zaznaczono subprogram
+                if (node.Parent != null && node.Parent.Parent != null && node.Parent.Parent.Parent == null)
+                {
+                    menuItem_AddSubprogram.Visible    = true;
+                    menuItem_RemoveSubprogram.Visible = true;
+                }
+            }
+        }
+        //-------------------------------------------------------------------------------------------------------------------------------------
         private void btnReadFromPLC_Click(object sender, EventArgs e)
         {
             if (hpt1000 != null)
                 hpt1000.ReadProgramFromPLC();
         }
         //-------------------------------------------------------------------------------------------------------------------------------------
+        private void menuItem_AddProgram_Click(object sender, EventArgs e)
+        {
+            AddNewProgram();
+        }
 
+        private void menuItem_AddSubprogram_Click(object sender, EventArgs e)
+        {
+            AddNewSubProgram();
+        }
+        //-------------------------------------------------------------------------------------------------------------------------------------
+        private void menuItem_RemoveProgram_Click(object sender, EventArgs e)
+        {
+            RemoveProgram();
+        }
+        //-------------------------------------------------------------------------------------------------------------------------------------
+        private void menuItem_RemoveSubprogram_Click(object sender, EventArgs e)
+        {
+            RemoveSubprogram();
+        }
+        //-------------------------------------------------------------------------------------------------------------------------------------
     }
 }

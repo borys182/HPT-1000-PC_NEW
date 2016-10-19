@@ -72,6 +72,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GUI\AlertsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\AlertsPanel.Designer.cs">
+      <DependentUpon>AlertsPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Cotrols\DoubleEdit.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -176,6 +182,9 @@
     <Compile Include="Source\Program\Subprogram.cs" />
     <Compile Include="Source\Program\VentProces.cs" />
     <Compile Include="Source\Translate.cs" />
+    <EmbeddedResource Include="GUI\AlertsPanel.resx">
+      <DependentUpon>AlertsPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\Cotrols\DoubleEdit.resx">
       <DependentUpon>DoubleEdit.cs</DependentUpon>
     </EmbeddedResource>

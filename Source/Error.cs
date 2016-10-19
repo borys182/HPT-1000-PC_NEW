@@ -8,14 +8,16 @@ using HPT1000.Source.Driver;
 namespace HPT1000.Source
 {
     /*
-     * Klasa reprezentuje bledy w apliakcji
+     * Klasa reprezentuje akcje w aplikacji
      */
     public class ERROR
     {
-        private Types.ERROR_CATEGORY    category = Types.ERROR_CATEGORY.APLICATION;   // okreslenie kategori bledu
-        private Types.ERROR_CODE        code     = 0;                                 // kod bledu
-        private int                     extCode  = 0;                                 // dodatkowe informacje na temat bledu (MX Components oraz PLC podaja co sie dokladnie stalo i posiadaja wlasne lsity bledow)
-        private DateTime                time = DateTime.Now;
+        private Types.ERROR_CATEGORY    category     = Types.ERROR_CATEGORY.APLICATION;   // okreslenie kategori bledu
+        private Types.ERROR_CODE        code         = 0;                                 // kod bledu
+        private int                     extCode      = 0;                                 // dodatkowe informacje na temat bledu (MX Components oraz PLC podaja co sie dokladnie stalo i posiadaja wlasne lsity bledow)
+        private DateTime                time         = DateTime.Now;
+        private int                     programID    = 0;
+        private int                     subprogramID = 0;
 
         private DB                      dataBase = new DB();
 
@@ -60,6 +62,15 @@ namespace HPT1000.Source
             get { return time; }
         }
         //-----------------------------------------------------------------------------------------
+        public int ProgramID
+        {
+            get { return programID; }
+        }
+        //-----------------------------------------------------------------------------------------
+        public int SubprogramID
+        {
+            get { return subprogramID; }
+        }//-----------------------------------------------------------------------------------------
         public void SetErrorMXComponents(Types.ERROR_CODE aCode,int aExtCode)
         {
             category = Types.ERROR_CATEGORY.MX_COMPONENTS;
@@ -80,12 +91,14 @@ namespace HPT1000.Source
             Logger.AddError(this);
         }
         //-----------------------------------------------------------------------------------------
-        public void SetErrorPLC(int aExtCode, DateTime aTime)
+        public void SetErrorPLC(int aExtCode, DateTime aTime,int aProgramID,int aSubprogramID)
         {
-            category = Types.ERROR_CATEGORY.PLC;
-            code     = Types.ERROR_CODE.PLC_ERROR;
-            extCode  = aExtCode;
-            time     = aTime;
+            category     = Types.ERROR_CATEGORY.PLC;
+            code         = Types.ERROR_CODE.PLC_ERROR;
+            extCode      = aExtCode;
+            time         = aTime;
+            programID    = aProgramID;
+            subprogramID = aSubprogramID;
 
             Logger.AddError(this);
         }
@@ -114,6 +127,16 @@ namespace HPT1000.Source
             return aRes;
         }
         //-----------------------------------------------------------------------------------------
+        public bool IsAction()
+        {
+            bool aRes = false;
+
+            if (category == Types.ERROR_CATEGORY.MX_COMPONENTS && extCode == 0)
+                aRes = true;
+
+            return aRes;
+        }
+        //-----------------------------------------------------------------------------------------
         //Funkcja podaje tekt jaki jest przypisany do danego kodu bledu
         public string GetText()
         {
@@ -131,7 +154,7 @@ namespace HPT1000.Source
             ERROR aOther = (ERROR)other;
 
             //Porownuje tylko po referencji bo w kilku miejscach sie odnosze do tej samej referencji i cos zmieniam.
-            if (this.GetType() == other.GetType() && code == aOther.Code && category == aOther.Category && extCode == aOther.ExtCode && time == aOther.Time)
+            if (other != null && this.GetType() == other.GetType() && code == aOther.Code && category == aOther.Category && extCode == aOther.ExtCode && time == aOther.Time)
                 aRes = true;
      
             return aRes;

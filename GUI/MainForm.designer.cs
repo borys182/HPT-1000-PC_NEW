@@ -35,7 +35,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.labLastError = new System.Windows.Forms.ToolStripStatusLabel();
+            this.labStatusAction = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -87,17 +87,12 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.programsConfigPanel = new HPT1000.GUI.ProgramsConfigPanel();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.btnReadAllErrors = new System.Windows.Forms.Button();
-            this.btnClear = new System.Windows.Forms.Button();
-            this.listViewErrors = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.alertsPanel = new HPT1000.GUI.AlertsPanel();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.settingsPanel = new HPT1000.GUI.SettingsPanel();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.settingsPanel = new HPT1000.GUI.SettingsPanel();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -172,7 +167,7 @@
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusLabel,
-            this.labLastError});
+            this.labStatusAction});
             this.statusStrip1.Location = new System.Drawing.Point(0, 790);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1706, 25);
@@ -186,11 +181,13 @@
             this.statusLabel.Size = new System.Drawing.Size(114, 20);
             this.statusLabel.Text = "Connection fail";
             // 
-            // labLastError
+            // labStatusAction
             // 
-            this.labLastError.Name = "labLastError";
-            this.labLastError.Size = new System.Drawing.Size(106, 20);
-            this.labLastError.Text = "Last error 0x00";
+            this.labStatusAction.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.labStatusAction.ForeColor = System.Drawing.Color.Green;
+            this.labStatusAction.Name = "labStatusAction";
+            this.labStatusAction.Size = new System.Drawing.Size(169, 20);
+            this.labStatusAction.Text = "Correct set parameters";
             // 
             // tabControl1
             // 
@@ -723,9 +720,7 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.btnReadAllErrors);
-            this.tabPage3.Controls.Add(this.btnClear);
-            this.tabPage3.Controls.Add(this.listViewErrors);
+            this.tabPage3.Controls.Add(this.alertsPanel);
             this.tabPage3.Location = new System.Drawing.Point(4, 29);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -734,51 +729,15 @@
             this.tabPage3.Text = "Alerts";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // btnReadAllErrors
+            // alertsPanel
             // 
-            this.btnReadAllErrors.Location = new System.Drawing.Point(1522, 717);
-            this.btnReadAllErrors.Name = "btnReadAllErrors";
-            this.btnReadAllErrors.Size = new System.Drawing.Size(153, 34);
-            this.btnReadAllErrors.TabIndex = 2;
-            this.btnReadAllErrors.Text = "Read all errors";
-            this.btnReadAllErrors.UseVisualStyleBackColor = true;
-            // 
-            // btnClear
-            // 
-            this.btnClear.Location = new System.Drawing.Point(1376, 717);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(118, 34);
-            this.btnClear.TabIndex = 1;
-            this.btnClear.Text = "Clear";
-            this.btnClear.UseVisualStyleBackColor = true;
-            // 
-            // listViewErrors
-            // 
-            this.listViewErrors.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3});
-            this.listViewErrors.Location = new System.Drawing.Point(8, 6);
-            this.listViewErrors.Name = "listViewErrors";
-            this.listViewErrors.Size = new System.Drawing.Size(1682, 705);
-            this.listViewErrors.TabIndex = 0;
-            this.listViewErrors.UseCompatibleStateImageBehavior = false;
-            this.listViewErrors.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Error Code";
-            this.columnHeader1.Width = 152;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Description";
-            this.columnHeader2.Width = 911;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Date";
-            this.columnHeader3.Width = 160;
+            this.alertsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.alertsPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.alertsPanel.HPT1000 = null;
+            this.alertsPanel.Location = new System.Drawing.Point(3, 3);
+            this.alertsPanel.Name = "alertsPanel";
+            this.alertsPanel.Size = new System.Drawing.Size(1692, 751);
+            this.alertsPanel.TabIndex = 0;
             // 
             // tabPage4
             // 
@@ -799,6 +758,15 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Settings";
             // 
+            // settingsPanel
+            // 
+            this.settingsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.settingsPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.settingsPanel.Location = new System.Drawing.Point(0, 0);
+            this.settingsPanel.Name = "settingsPanel";
+            this.settingsPanel.Size = new System.Drawing.Size(1698, 757);
+            this.settingsPanel.TabIndex = 0;
+            // 
             // tabPage6
             // 
             this.tabPage6.Location = new System.Drawing.Point(4, 29);
@@ -812,15 +780,6 @@
             // 
             this.timer.Enabled = true;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
-            // 
-            // settingsPanel
-            // 
-            this.settingsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.settingsPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.settingsPanel.Location = new System.Drawing.Point(0, 0);
-            this.settingsPanel.Name = "settingsPanel";
-            this.settingsPanel.Size = new System.Drawing.Size(1698, 757);
-            this.settingsPanel.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -936,14 +895,9 @@
         private ValvePanel valve_Vent;
         private ValvePanel valve_SV;
         private PumpComponent pumpComponent;
-        private System.Windows.Forms.ListView listViewErrors;
-        private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.Button btnReadAllErrors;
-        private System.Windows.Forms.ToolStripStatusLabel labLastError;
+        private System.Windows.Forms.ToolStripStatusLabel labStatusAction;
         private SettingsPanel settingsPanel;
+        private AlertsPanel alertsPanel;
     }
 }
 

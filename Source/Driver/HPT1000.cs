@@ -97,12 +97,12 @@ namespace HPT1000.Source.Driver
         }
         //-----------------------------------------------------------------------------------------
         //W PLC bledy sa przechowywane w buforze cyklicznym, ktory posiada dwa wskazniki START i END. Bledy sa zapisywane pomiedzy tymi indeksami. Oprocz kodow bledow jest takze zapisana data wystapienia
-        //Jedne blad jest przechowywany na 4 WORDACH (1 word kod bledu + 3 wordy daty. Data jest przechowayna w kodzie BCD. 
+        //Jedne blad jest przechowywany na 6 WORDACH (1 word kod bledu + 3 wordy daty + 1 word ID programu + 1 word ID subprogramu. Data jest przechowayna w kodzie BCD. 
         //Data jest przechowywan w kodzie BCD to znaczy kazdy word jet podzielony na bajty ktore przechowuja info: rok i miesiac, dzien i godzina, minuta i sekunda
         private void ReadErrorsFromPLC()
         {
             int[] aData = new int[Types.SIZE_ERROR_BUFFER_PLC];
-            int[] aDataErr = new int[4];
+            int[] aDataErr = new int[6];
             int   aRes  = 0;
             int   aCountOverflow = 0;
             ERROR aErr;
@@ -114,7 +114,7 @@ namespace HPT1000.Source.Driver
                 //Ustaw flage ze bledy zostaly odczytane
                 plc.SetDevice(Types.ADDR_FLAG_WAS_READ, 1);
 
-                //Wyodrebnij z danych odczytanych z PLC konkrente kody bledow oraz daty ich wystapienia
+                //Wyodrebnij z danych odczytanych z PLC konkrente kody bledow oraz daty ich wystapienia jak i ID programu i subprogramu
 
                 int   aStartIndex  = aData[Types.OFFSET_ERR_START_INDEX];
                 int   aCountsError = aData[Types.OFFSET_ERR_COUNTS_INDEX];
@@ -122,26 +122,30 @@ namespace HPT1000.Source.Driver
                 //Odczytaj z PLC nowe bledy ktore sie mieszcza pomiedzy indeksem START i END
                 for(int i = 0; i < Types.COUNT_ERROR_PLC;i++)
                 {
-                    if (aData.Length > (Types.OFFSET_ERR_BUFFER_INDEX + i * 4 + 3))
+                    if (aData.Length > (Types.OFFSET_ERR_BUFFER_INDEX + i * 6 + 3))
                     {
                         //Sprawdz czy bledy nie sa zapisame na poczatku bufora przed indeksen startu. Wynika z mozliwosci przekrecenia sie bufora
                         aCountOverflow = aStartIndex + aCountsError -Types.COUNT_ERROR_PLC;
                         if (aCountOverflow > 0 && aCountOverflow < i)
                         {
-                            aDataErr[0] = aData[Types.OFFSET_ERR_BUFFER_INDEX + i * 4];     //Index mnozemy razy 4 poniewaz jeden wpis bledu zajmuje 4 WORDY
-                            aDataErr[1] = aData[Types.OFFSET_ERR_BUFFER_INDEX + i * 4 + 1];
-                            aDataErr[2] = aData[Types.OFFSET_ERR_BUFFER_INDEX + i * 4 + 2];
-                            aDataErr[3] = aData[Types.OFFSET_ERR_BUFFER_INDEX + i * 4 + 3];
+                            aDataErr[0] = aData[Types.OFFSET_ERR_BUFFER_INDEX + i * 6];     //Index mnozemy razy 4 poniewaz jeden wpis bledu zajmuje 6 WORDY
+                            aDataErr[1] = aData[Types.OFFSET_ERR_BUFFER_INDEX + i * 6 + 1];
+                            aDataErr[2] = aData[Types.OFFSET_ERR_BUFFER_INDEX + i * 6 + 2];
+                            aDataErr[3] = aData[Types.OFFSET_ERR_BUFFER_INDEX + i * 6 + 3];
+                            aDataErr[4] = aData[Types.OFFSET_ERR_BUFFER_INDEX + i * 6 + 4];
+                            aDataErr[5] = aData[Types.OFFSET_ERR_BUFFER_INDEX + i * 6 + 5];
 
                             aErr = GetError(aDataErr);
                             Logger.AddError(aErr);
                         }
                         if (i >= aStartIndex && i < aStartIndex + aCountsError)
                         {
-                            aDataErr[0] = aData[Types.OFFSET_ERR_BUFFER_INDEX + i * 4];     //Index mnozemy razy 4 poniewaz jeden wpis bledu zajmuje 4 WORDY
-                            aDataErr[1] = aData[Types.OFFSET_ERR_BUFFER_INDEX + i * 4 + 1];
-                            aDataErr[2] = aData[Types.OFFSET_ERR_BUFFER_INDEX + i * 4 + 2];
-                            aDataErr[3] = aData[Types.OFFSET_ERR_BUFFER_INDEX + i * 4 + 3];
+                            aDataErr[0] = aData[Types.OFFSET_ERR_BUFFER_INDEX + i * 6];     //Index mnozemy razy 4 poniewaz jeden wpis bledu zajmuje 6 WORDY
+                            aDataErr[1] = aData[Types.OFFSET_ERR_BUFFER_INDEX + i * 6 + 1];
+                            aDataErr[2] = aData[Types.OFFSET_ERR_BUFFER_INDEX + i * 6 + 2];
+                            aDataErr[3] = aData[Types.OFFSET_ERR_BUFFER_INDEX + i * 6 + 3];
+                            aDataErr[4] = aData[Types.OFFSET_ERR_BUFFER_INDEX + i * 6 + 4];
+                            aDataErr[5] = aData[Types.OFFSET_ERR_BUFFER_INDEX + i * 6 + 5];
 
                             aErr = GetError(aDataErr);
                             Logger.AddError(aErr);
@@ -157,7 +161,10 @@ namespace HPT1000.Source.Driver
             ERROR       aErr        = new ERROR();
             DateTime    dateTime    = new DateTime();
             int         aCode       = 0;
-            
+
+            int         aProgramID    = 0;
+            int         aSubprogramID = 0;
+
             int aYear   = 0;
             int aMonth  = 0;
             int aDay    = 0;
@@ -167,19 +174,22 @@ namespace HPT1000.Source.Driver
            //Wydrebnij kod bledu oraz date jego wystapienia z danych odczytanych z PLC (dostajesz jeden wpis)
             if (aData.Length > 3)
             {                
-                aCode   = aData[0];
-                aYear   = ConvertBcdToInt(((aData[1] >> 8)  & 0xFF)) + 2000;
-                aMonth  = ConvertBcdToInt(  aData[1]        & 0xFF);
-                aDay    = ConvertBcdToInt(( aData[2] >> 8)  & 0xFF);
-                aHour   = ConvertBcdToInt(  aData[2]        & 0xFF);
-                aMinute = ConvertBcdToInt(( aData[3] >> 8)  & 0xFF);
-                aSecond = ConvertBcdToInt(  aData[3]        & 0xFF);
+                aCode           = aData[0];
+                aProgramID      = aData[4];
+                aSubprogramID   = aData[5];
+
+                aYear       = ConvertBcdToInt(((aData[1] >> 8)  & 0xFF)) + 2000;
+                aMonth      = ConvertBcdToInt(  aData[1]        & 0xFF);
+                aDay        = ConvertBcdToInt(( aData[2] >> 8)  & 0xFF);
+                aHour       = ConvertBcdToInt(  aData[2]        & 0xFF);
+                aMinute     = ConvertBcdToInt(( aData[3] >> 8)  & 0xFF);
+                aSecond     = ConvertBcdToInt(  aData[3]        & 0xFF);
             }
             try
             {
                 dateTime = new DateTime(aYear, aMonth, aDay, aHour, aMinute, aSecond);
 
-                aErr.SetErrorPLC(aCode,dateTime);
+                aErr.SetErrorPLC(aCode,dateTime,aProgramID,aSubprogramID);
             }
             catch (Exception ex)
             {

@@ -32,6 +32,7 @@ namespace HPT1000.GUI
 
             programsConfigPanel.HPT1000 = hpt1000;
             programPanel.HPT1000        = hpt1000;
+            alertsPanel.HPT1000         = hpt1000;
             settingsPanel.SetPtrHPT(hpt1000);
             
             generatorPanel.SetGeneratorPtr(hpt1000.GetPowerSupply());
@@ -55,24 +56,8 @@ namespace HPT1000.GUI
             Source.Driver.HPT1000.AddToRefreshList(new RefreshProgram(programPanel.RefreshProgram));
             Source.Driver.HPT1000.AddToRefreshList(new RefreshProgram(programsConfigPanel.RefreshProgram));
 
-         }
-        
+         }        
         //------------------------------------------------------------------------------------------
-        private void btnTest_Click(object sender, EventArgs e)
-        {
-            /*
-            int iRes = 0;
-            if (rBtnOpen.Checked)
-                iRes = hpt.SetStateValve(Types.StateValve.Open, Types.TypeValve.VV);
-            else
-                iRes = hpt.SetStateValve(Types.StateValve.Close, Types.TypeValve.VV);
-
-            if (iRes == 0)
-                txtBoxMsg.Text = "Set OK";
-            else
-                txtBoxMsg.Text = "Set faild " + String.Format("0x{0:x8}", iRes);
-             */
-        }
         private void btnGetState_Click(object sender, EventArgs e)
         {
 
@@ -96,9 +81,7 @@ namespace HPT1000.GUI
             valve_SV.RefreshData();
             valve_Vent.RefreshData();
             pumpComponent.RefreshData();
-
-            //Odswiez liste bledow
-            ShowErrorList();
+            alertsPanel.RefreshPanel();
 
             switch (hpt1000.GetStatus())
             {
@@ -111,49 +94,35 @@ namespace HPT1000.GUI
                     statusLabel.ForeColor   = Color.Red;
                     break;
             }
-            //pokaz ostani blad jaki wystapil na dolnym pasku statusu
-            ERROR aErr = Logger.GetLastError();
-            if (aErr.IsError() && !aErr.Equals(lastError))
+            //pokaz wynik ostatniej akcji jaka wystapila w systemie na dolnym pasku statusu
+            ShowLastActionStatus();
+        }
+        //----------------------------------------------------------------------------------
+        private void ShowLastActionStatus()
+        {
+            ERROR aErr = Logger.GetLastAction();
+
+            if (!aErr.Equals(lastError) && ( aErr.IsError() || aErr.IsAction()))
             {
-                labLastError.Text  = "Error : " + aErr.GetErrorCode().ToString("X8") + " " + aErr.GetText();
+                if (aErr.IsError())
+                {
+                    labStatusAction.Text = "Error : " + aErr.GetText();
+                    labStatusAction.ForeColor = Color.Red;
+                }
+                if (aErr.IsAction())
+                {
+                    labStatusAction.Text = aErr.GetText();
+                    labStatusAction.ForeColor = Color.Green;
+                }
                 lastError = aErr;
                 timerLastErrorShow = 0;
             }
+
             if (timerLastErrorShow > 50)
-                labLastError.Text = "";
-            timerLastErrorShow++;
-    //        if(timerLastErrorShow > int.MaxI)
-        }
-        //----------------------------------------------------------------------------------
-        private void ShowErrorList()
-        {
-            for (int i = 0; i < Logger.GetErrorList().Count; i++)
-            {
-                ERROR aErr = Logger.GetErrorList()[i];
+                labStatusAction.Text = "";
 
-                if (!IsErrorExist(aErr))
-                {
-                    ListViewItem aItem = new ListViewItem();
-                    aItem.Text = "0x" + aErr.GetErrorCode().ToString("X8");
-                    aItem.SubItems.Add(aErr.GetText());
-                    aItem.SubItems.Add(aErr.Time.ToString());
-                    aItem.Tag = aErr;
-
-                    listViewErrors.Items.Add(aItem);
-                }
-            }
-        }
-        //----------------------------------------------------------------------------------
-        private bool IsErrorExist(ERROR aErr)
-        {
-            bool aRes = false;
-
-            foreach (ListViewItem aItem in listViewErrors.Items)
-            {
-                if (aErr.Equals(aItem.Tag))
-                    aRes = true;
-            }
-            return aRes;
+            if (timerLastErrorShow <= 50)
+                timerLastErrorShow++;
         }
         //----------------------------------------------------------------------------------
     }

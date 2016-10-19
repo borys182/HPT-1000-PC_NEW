@@ -31,7 +31,7 @@ namespace HPT1000.Source
         //------------------------------------------------------------------------------------------------------------------------------------------------
         public static void AddError(ERROR aErr)
         {
-            if(aErr.IsError() && !IsContains(aErr))
+            if((aErr.IsError() || aErr.IsAction()) && !IsContains(aErr))
                 errorList.Add(aErr);
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------
@@ -49,7 +49,7 @@ namespace HPT1000.Source
             errorList.Clear();      
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------
-        public static ERROR GetLastError()
+        public static ERROR GetLastAction()
         {
             ERROR aErr = new ERROR();
 

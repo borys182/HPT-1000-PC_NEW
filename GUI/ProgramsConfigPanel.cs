@@ -177,7 +177,7 @@ namespace HPT1000.GUI
             if (program != null)
                 program.NewSubprogram();
             else
-                MessageBox.Show(Translate.GetText("Nie wybrano wezla programu"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Logger.AddMsg(Translate.GetText("Nie wybrano wezla programu"), Types.MessageType.Error);
 
             RefreshTreeViewPrograms();
         }
@@ -190,12 +190,12 @@ namespace HPT1000.GUI
             program = GetProgram();
 
             if (program == null)
-                MessageBox.Show(Translate.GetText("Nie wybrano wezla programu"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Logger.AddMsg(Translate.GetText("Nie wybrano wezla programu"), Types.MessageType.Error);
 
             if (hpt1000.RemoveProgram(program))
-                MessageBox.Show(Translate.GetText("Program zostal poprawnie usuniety"), "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Logger.AddMsg(Translate.GetText("Program zostal poprawnie usuniety"), Types.MessageType.Information);
             else
-                MessageBox.Show(Translate.GetText("Nie udalo usunac sie programu"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Logger.AddMsg(Translate.GetText("Nie udalo usunac sie programu"), Types.MessageType.Error);
 
             RefreshTreeViewPrograms();
         }
@@ -210,12 +210,12 @@ namespace HPT1000.GUI
             subProgram = GetSubprogram();
 
             if (subProgram == null || program == null)
-                MessageBox.Show(Translate.GetText("Nie wybrano wezla sub-programu"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Logger.AddMsg(Translate.GetText("Nie wybrano wezla sub-programu"), Types.MessageType.Error);
 
             if (program != null && program.RemoveSubprogram(subProgram))
-                MessageBox.Show(Translate.GetText("Sub-program zostal poprawnie usuniety"), "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Logger.AddMsg(Translate.GetText("Sub-program zostal poprawnie usuniety"), Types.MessageType.Information);
             else
-                MessageBox.Show(Translate.GetText("Nie udalo usunac sie sub-programu"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Logger.AddMsg(Translate.GetText("Nie udalo usunac sie sub-programu"), Types.MessageType.Error);
 
             RefreshTreeViewPrograms();
         }

@@ -154,7 +154,7 @@ namespace HPT1000.Source.Driver
                         for (int i = 0; i < aSize; i++)
                         {
                             aAddr = "D" + (aStartAddr + i).ToString();
-                            aResult = plc.ReadDeviceBlock(aAddr, aSize, out aData[i]);
+                            aResult = plc.ReadDeviceBlock(aAddr, 1/*aSize*/, out aData[i]);
                         }
                     }
                     catch (Exception exception)

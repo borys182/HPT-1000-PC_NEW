@@ -25,6 +25,18 @@ namespace HPT1000.GUI
 
         int timerLastErrorShow = 0;
 
+        Point pointCornerMFC1   = new Point(545, 200);
+        Point pointCornerMFC2   = new Point(545, 308);
+        Point pointCornerMFC3   = new Point(545, 430);
+        Point pointLineMFC1     = new Point(545, 218);
+        Point pointLineMFC2     = new Point(545, 315);
+        Point pointLineMFC3     = new Point(545, 440);
+        Point pointLineVaporator = new Point(545, 465);
+        Size sizeLineMFC_1      = new Size(3, 304);
+        Size sizeLineMFC_2      = new Size(3, 215);
+        Size sizeLineMFC_3      = new Size(3, 82);
+        Size sizeLineVaporator  = new Size(3, 62);
+
         //------------------------------------------------------------------------------------------
         public MainForm()
         {
@@ -39,9 +51,10 @@ namespace HPT1000.GUI
             pressurePanel.SetPresureControlPtr(hpt1000.GetPressureControl());
             pumpPanel.SetPumpPtr(hpt1000.GetForePump());
             vaporiserPanel.SetVaporizerPtr(hpt1000.GetVaporizer());
-            mfcPanel1.SetMFC(hpt1000.GetMFC(),1);
-            mfcPanel2.SetMFC(hpt1000.GetMFC(),2);
-            mfcPanel3.SetMFC(hpt1000.GetMFC(),3);
+            mfcPanel1.SetMFC(hpt1000.GetMFC(),hpt1000.GetGasTypes(),1);
+            mfcPanel2.SetMFC(hpt1000.GetMFC(),hpt1000.GetGasTypes(),2);
+            mfcPanel3.SetMFC(hpt1000.GetMFC(),hpt1000.GetGasTypes(),3);
+
 
             valve_Gas.SetValvePtr(hpt1000.GetValve(), Types.TypeValve.Gas);
             valve_Purge.SetValvePtr(hpt1000.GetValve(), Types.TypeValve.Purge);
@@ -55,6 +68,9 @@ namespace HPT1000.GUI
             Program.AddToRefreshList(new RefreshProgram(programsConfigPanel.RefreshProgram));
             Source.Driver.HPT1000.AddToRefreshList(new RefreshProgram(programPanel.RefreshProgram));
             Source.Driver.HPT1000.AddToRefreshList(new RefreshProgram(programsConfigPanel.RefreshProgram));
+            GasTypes.AddToRefreshList(new RefreshGasType(mfcPanel1.RefreshGasType));
+            GasTypes.AddToRefreshList(new RefreshGasType(mfcPanel2.RefreshGasType));
+            GasTypes.AddToRefreshList(new RefreshGasType(mfcPanel3.RefreshGasType));
 
             //Ustaw odpowidnie obrazki dla SystemWindow
             LoadBitmap();
@@ -63,11 +79,11 @@ namespace HPT1000.GUI
         //------------------------------------------------------------------------------------------
         private void LoadBitmap()
         {
-            Bitmap chamber      = new Bitmap("d:\\Projekty\\HPT-1000\\HPT-1000_PC\\Images\\Plasma.jpg");
-            Bitmap arrowUp      = new Bitmap("d:\\Projekty\\HPT-1000\\HPT-1000_PC\\Images\\Arrow_Up.png");
-            Bitmap arrowDown    = new Bitmap("d:\\Projekty\\HPT-1000\\HPT-1000_PC\\Images\\Arrow_Down.png");
-            Bitmap cornerUp     = new Bitmap("d:\\Projekty\\HPT-1000\\HPT-1000_PC\\Images\\Corner_Right_Top.png");
-            Bitmap cornerDown   = new Bitmap("d:\\Projekty\\HPT-1000\\HPT-1000_PC\\Images\\Corner_Right_Bottom.png");
+            Bitmap chamber      = new Bitmap(Properties.Resources.Plasma);
+            Bitmap arrowUp      = new Bitmap(Properties.Resources.Arrow_Up);
+            Bitmap arrowDown    = new Bitmap(Properties.Resources.Arrow_Down);
+            Bitmap cornerUp     = new Bitmap(Properties.Resources.Corner_Right_Top);
+            Bitmap cornerDown   = new Bitmap(Properties.Resources.Corner_Right_Bottom);
 
             chamber.MakeTransparent(Color.White);
             arrowUp.MakeTransparent(Color.White);
@@ -75,27 +91,32 @@ namespace HPT1000.GUI
             cornerUp.MakeTransparent(Color.White);
             cornerDown.MakeTransparent(Color.White);
 
-            pictureChamber.Image = chamber;
-            pictureChamber.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureChamber.SizeMode     = PictureBoxSizeMode.StretchImage;
+            pictureArrowUp1.SizeMode    = PictureBoxSizeMode.StretchImage;
+            pictureArrowUp2.SizeMode    = PictureBoxSizeMode.StretchImage;
+            pictureCornerUp3.SizeMode   = PictureBoxSizeMode.StretchImage;
+            pictureArrowDown.SizeMode   = PictureBoxSizeMode.StretchImage;
+            pictureCornerUp1.SizeMode   = PictureBoxSizeMode.StretchImage;
+            pictureCornerUp2.SizeMode   = PictureBoxSizeMode.StretchImage;
+            pictureCornerUp3.SizeMode   = PictureBoxSizeMode.StretchImage;
+            pictureCornerDown1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureCornerDown2.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureCornerDown3.SizeMode = PictureBoxSizeMode.StretchImage;
 
-            pictureArrowUp1.Image = arrowUp;
-            pictureArrowUp2.Image = arrowUp;
+            pictureChamber.Image    = chamber;
+         
+            pictureArrowUp1.Image   = arrowUp;
+            pictureArrowUp2.Image   = arrowUp;
 
-            pictureArrowDown.Image = arrowDown;
+            pictureArrowDown.Image  = arrowDown;
 
-            pictureCornerUp1.Image = cornerUp;
-            pictureCornerUp2.Image = cornerUp;
-            pictureCornerUp3.Image = cornerUp;
+            pictureCornerUp1.Image  = cornerUp;
+            pictureCornerUp2.Image  = cornerUp;
+            pictureCornerUp3.Image  = cornerUp;
 
             pictureCornerDown1.Image = cornerDown;
             pictureCornerDown2.Image = cornerDown;
             pictureCornerDown3.Image = cornerDown;
-        }
-        //------------------------------------------------------------------------------------------
-        private void btnGetState_Click(object sender, EventArgs e)
-        {
-
-            Types.StateValve state = hpt1000.GetValve().GetState(Types.TypeValve.SV);
         }
         //----------------------------------------------------------------------------------
         private void timer_Tick(object sender, EventArgs e)
@@ -134,13 +155,69 @@ namespace HPT1000.GUI
             }
             //pokaz wynik ostatniej akcji jaka wystapila w systemie na dolnym pasku statusu
             ShowLastActionStatus();
+            //pokaz ustawienia dla aktywnych MFC
+            ShowOnlyEnableMFC();
+        }
+        //----------------------------------------------------------------------------------
+        public void ShowOnlyEnableMFC()
+        {
+            if (hpt1000 != null)
+            {
+                bool mfc1Enable = hpt1000.GetMFC().GetActive(1);
+                bool mfc2Enable = hpt1000.GetMFC().GetActive(2);
+                bool mfc3Enable = hpt1000.GetMFC().GetActive(3);
+
+                bool  aVisibleCorner = false;
+                Point pointCorner    = pictureCornerUp3.Location;
+                Point pointLine      = pointLineVaporator;
+                Size sizeLineMFC     = sizeLineVaporator;
+
+                mfcPanel1.Visible       = mfc1Enable;
+                pictureLineMFC1.Visible = mfc1Enable;
+
+                mfcPanel2.Visible       = mfc2Enable;
+                pictureLineMFC2.Visible = mfc2Enable;
+
+                mfcPanel3.Visible       = mfc3Enable;
+                pictureLineMFC3.Visible = mfc3Enable;
+
+                if (mfc3Enable)
+                {
+                    aVisibleCorner = true;
+                    pointCorner = pointCornerMFC3;
+                    sizeLineMFC = sizeLineMFC_3;
+                    pointLine = pointLineMFC3;
+
+                }
+
+                if (mfc2Enable)
+                {
+                    aVisibleCorner = true;
+                    pointCorner = pointCornerMFC2;
+                    sizeLineMFC = sizeLineMFC_2;
+                    pointLine = pointLineMFC2;
+                }
+
+                if (mfc1Enable)
+                {
+                    aVisibleCorner = true;
+                    pointCorner = pointCornerMFC1;
+                    sizeLineMFC = sizeLineMFC_1;
+                    pointLine = pointLineMFC1;
+                }
+
+                pictureCornerUp3.Visible    = aVisibleCorner;
+                pictureCornerUp3.Location   = pointCorner;
+                picturelineMFC.Size         = sizeLineMFC;
+                picturelineMFC.Location     = pointLine;
+            }
         }
         //----------------------------------------------------------------------------------
         private void ShowLastActionStatus()
         {
             ERROR aErr = Logger.GetLastAction();
 
-            if (!aErr.Equals(lastError) && ( aErr.IsError() || aErr.IsAction()))
+            if (aErr != null && !aErr.Equals(lastError) && ( aErr.IsError() || aErr.IsAction()))
             {
                 if (aErr.IsError())
                 {

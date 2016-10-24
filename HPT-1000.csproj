@@ -156,6 +156,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Source\Chamber\GasTypes.cs" />
     <Compile Include="Source\Chamber\PressureControl.cs" />
     <Compile Include="Source\Chamber\Vaporizer.cs" />
     <Compile Include="Source\DB.cs" />
@@ -299,6 +300,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\test.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\ForePumpErr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\ValveClose.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\ValveError.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\ValveOpen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Arrow_Down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Arrow_Up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Corner_Right_Bottom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Corner_Right_Top.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Plasma.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\ForePumpOn.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

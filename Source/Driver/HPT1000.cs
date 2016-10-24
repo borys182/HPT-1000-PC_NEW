@@ -17,6 +17,7 @@ namespace HPT1000.Source.Driver
         private PLC                     plc                 = new PLC_Mitsubishi();
         private Chamber.Chamber         chamber             = new Chamber.Chamber();
         private List<Program.Program>   programs            = new List<Program.Program>(); //Lista wszystkich programow zapisanych w aplikacji
+        private GasTypes                gasTypes            = new GasTypes();
 
         private Types.DriverStatus      status              = Types.DriverStatus.Unknown;
         private bool                    flagError           = false;
@@ -28,8 +29,7 @@ namespace HPT1000.Source.Driver
         bool                            connectionPLC       = false;
 
         private static RefreshProgram   refreshProgram      = null;
-
-        
+ 
         public static Types.Language    LanguageApp         = Types.Language.English; //zm globalna określająca jezyk aplikacji
 
         //-----------------------------------------------------------------------------------------
@@ -428,5 +428,11 @@ namespace HPT1000.Source.Driver
             return mode;
         }
         //-------------------------------------------------------------------------------------------------------------------------
+        public GasTypes GetGasTypes()
+        {
+            return gasTypes;
+        }
+        //-------------------------------------------------------------------------------------------------------------------------
+
     }
 }

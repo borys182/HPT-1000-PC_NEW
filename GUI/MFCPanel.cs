@@ -16,8 +16,9 @@ namespace HPT1000.GUI
 {
     public partial class MFCPanel : UserControl
     {
-        MFC mfc             = null;
-        int channelId       = 0;
+        MFC      mfc        = null;
+        GasTypes gasTypes   = null;
+        int      channelId  = 0;
 
         int timerRefresh        = 0;
         int timeWaitOnRefresh   = 30;//3[s]
@@ -43,13 +44,44 @@ namespace HPT1000.GUI
 
                 if (timerRefresh <= timeWaitOnRefresh)
                     timerRefresh++;
+
+                ShowGasType();
             }
             SetLimit();
         }
         //-----------------------------------------------------------------------------------------
-        public void SetMFC(MFC aMFCPtr,int aChannelID)
+        public void RefreshGasType()
+        {
+            if (gasTypes != null && !cBoxGasType.Focused)
+            {
+                cBoxGasType.Items.Clear();
+                foreach (GasType gasType in gasTypes.Items)
+                {
+                    cBoxGasType.Items.Add(gasType);
+                }
+                ShowGasType();
+            }
+        }
+        //-----------------------------------------------------------------------------------------
+        private void ShowGasType()
+        {
+            //Nie odsiwezaj gdy kist jest rozwinieta. Robie to sprawdzajac czy focusa nie posiadaja dzieci zas gdy focus jest na Parencie to mozna odswiezac
+            if(mfc != null && (!cBoxGasType.ContainsFocus))
+            {
+                for (int i = 0; i < cBoxGasType.Items.Count; i++)
+                {
+                    GasType gasType = (GasType)cBoxGasType.Items[i];
+                    if (gasType != null && gasType.Equals(mfc.GetGasType(channelId)))
+                        cBoxGasType.SelectedIndex = i;
+                }
+            }
+        }
+        //-----------------------------------------------------------------------------------------
+        public void SetMFC(MFC aMFCPtr, GasTypes aGasTypes ,int aChannelID)
         {
             mfc         = aMFCPtr;
+            gasTypes    = aGasTypes;
+
             channelId   = aChannelID;
             labNameMFC.Text = "MFC " + aChannelID.ToString();          
         }
@@ -112,6 +144,15 @@ namespace HPT1000.GUI
            Logger.AddError(aErr);
 
             return aRes;
+        }
+        //-----------------------------------------------------------------------------------------
+        private void cBoxGasType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (mfc != null)
+            {
+                GasType gasType = (GasType)cBoxGasType.SelectedItem;
+                mfc.SetGasType(channelId, gasType);
+            }
         }
         //-----------------------------------------------------------------------------------------
 

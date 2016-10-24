@@ -18,7 +18,7 @@ namespace HPT1000.Source
         private DateTime                time         = DateTime.Now;
         private int                     programID    = 0;
         private int                     subprogramID = 0;
-
+        private string                  text         = "";
         private DB                      dataBase = new DB();
 
         //-----------------------------------------------------------------------------------------
@@ -103,6 +103,19 @@ namespace HPT1000.Source
             Logger.AddError(this);
         }
         //-----------------------------------------------------------------------------------------
+        public void SetMessage(string aTxt,Types.MessageType aType)
+        {
+            text = aTxt;
+
+            if (aType == Types.MessageType.Information)
+                extCode = 0;
+
+            if (aType == Types.MessageType.Error)
+                extCode = 1;
+
+            category = Types.ERROR_CATEGORY.MESSAGE;
+        }
+        //-----------------------------------------------------------------------------------------
         //Funkcja zwraca kod bledu. Dla kategori MXComponets oraz PLC kod bledu jest przechowywany w polu ExtCode poniewaz one posiadaja wlasna liste bledow
         public int GetErrorCode()
         {
@@ -118,7 +131,7 @@ namespace HPT1000.Source
         {
             bool aRes = false;
 
-            if ((category == Types.ERROR_CATEGORY.MX_COMPONENTS || category == Types.ERROR_CATEGORY.PLC ) && extCode != 0)
+            if ((category == Types.ERROR_CATEGORY.MX_COMPONENTS || category == Types.ERROR_CATEGORY.PLC || category == Types.ERROR_CATEGORY.MESSAGE ) && extCode != 0)
                 aRes = true;
 
             if (category == Types.ERROR_CATEGORY.APLICATION  && code != 0 )
@@ -131,7 +144,7 @@ namespace HPT1000.Source
         {
             bool aRes = false;
 
-            if (category == Types.ERROR_CATEGORY.MX_COMPONENTS && extCode == 0)
+            if ((category == Types.ERROR_CATEGORY.MX_COMPONENTS || category == Types.ERROR_CATEGORY.MESSAGE) && extCode == 0)
                 aRes = true;
 
             return aRes;
@@ -142,8 +155,10 @@ namespace HPT1000.Source
         {
             string aTxt = "";
 
-            
-            aTxt = dataBase.GetErrorText(this);
+            if (category == Types.ERROR_CATEGORY.MESSAGE)
+                aTxt = text;
+            else
+                aTxt = dataBase.GetErrorText(this);
 
             return aTxt;
         }

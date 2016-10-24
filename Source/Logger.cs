@@ -51,7 +51,7 @@ namespace HPT1000.Source
         //------------------------------------------------------------------------------------------------------------------------------------------------
         public static ERROR GetLastAction()
         {
-            ERROR aErr = new ERROR();
+            ERROR aErr = null;
 
             if (errorList.Count > 0)
                 aErr = errorList[errorList.Count - 1];
@@ -59,6 +59,15 @@ namespace HPT1000.Source
             return aErr;
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------
+        public static void AddMsg(string aText,Types.MessageType aTypeMsg)
+        {
+            ERROR aErr = new ERROR();
 
+            aErr.SetMessage(aText, aTypeMsg);
+
+            if (!IsContains(aErr))
+                errorList.Add(aErr);
+        }
+        //------------------------------------------------------------------------------------------------------------------------------------------------
     }
 }

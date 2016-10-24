@@ -14,7 +14,8 @@ namespace HPT1000.GUI
 {
     public partial class SettingsPanel : UserControl
     {
-        private Source.Driver.HPT1000 hpt1000 = null;
+        private Source.Driver.HPT1000   hpt1000  = null;
+        private GasTypes                gasTypes = null;
         //----------------------------------------------------------------------------------------------------------------------------
         public SettingsPanel()
         {
@@ -22,6 +23,7 @@ namespace HPT1000.GUI
 
             FillComboBoxLanguge();
             FillComboBoxCommunication();
+            FillComboBoxGases();
         }
         //----------------------------------------------------------------------------------------------------------------------------
         private void FillComboBoxLanguge()
@@ -40,10 +42,27 @@ namespace HPT1000.GUI
             {
                 cBoxComm.Items.Add(aName);
             }
-        }//----------------------------------------------------------------------------------------------------------------------------
+        }
+        //----------------------------------------------------------------------------------------------------------------------------
+        private void FillComboBoxGases()
+        {
+            cBoxGasType.Items.Clear();
+
+            if (gasTypes != null)
+            {
+                foreach (GasType gasType in gasTypes.Items )
+                {
+                    cBoxGasType.Items.Add(gasType);
+                }
+            }
+        }
+        //----------------------------------------------------------------------------------------------------------------------------
         public void SetPtrHPT(Source.Driver.HPT1000 hptPtr)
         {
             hpt1000 = hptPtr;
+
+            if(hpt1000 != null)
+                gasTypes = hpt1000.GetGasTypes();
         }
         //------------------------------------------------------------------------------------------
         public void RefreshSettingsPanel()
@@ -75,6 +94,10 @@ namespace HPT1000.GUI
                     dEditRangeVoltageMFC2.Value = aMFC.GetRangeVoltage(2);
                     dEditRangeVoltageMFC3.Value = aMFC.GetRangeVoltage(3);
                     timeFlowStabilization.Value = Types.ConvertDate((int)aMFC.TimeFlowStability);
+
+                    cBoxMFC1.Checked = aMFC.GetActive(1);
+                    cBoxMFC2.Checked = aMFC.GetActive(2);
+                    cBoxMFC3.Checked = aMFC.GetActive(3);
                 }
 
                 if (aForePump != null)
@@ -361,5 +384,137 @@ namespace HPT1000.GUI
 
         }
         //---------------------------------------------------------------------------------------------------------------------------
+        private void cBoxGasType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GasType gasType = (GasType)cBoxGasType.SelectedItem;
+
+            if (gasType != null)
+            {
+                tBoxGasDescription.Text = gasType.Description;
+                dEditFactorGas.Value    = gasType.Factor;
+                tBoxNameGas.Text        = gasType.Name;
+            }
+        }
+        //---------------------------------------------------------------------------------------------------------------------------
+        private void btnSaveSettings_Click(object sender, EventArgs e)
+        {
+            bool aError = true;
+
+            GasType gasType = (GasType)cBoxGasType.SelectedItem;
+
+            if (gasType != null)
+            {
+                if (tBoxNameGas.Text != "")
+                {
+                    gasType.Factor      = dEditFactorGas.Value;
+                    gasType.Description = tBoxGasDescription.Text;
+                    gasType.Name        = tBoxNameGas.Text;
+
+                    int aSelectedInde = cBoxGasType.SelectedIndex;
+                    FillComboBoxGases();
+                    if (cBoxGasType.Items.Count > aSelectedInde)
+                        cBoxGasType.SelectedIndex = aSelectedInde;
+
+                    aError = false;
+                    Source.Logger.AddMsg(Source.Translate.GetText("Ustawienia dla typu gazu " + gasType.Name + " zostal poprawnie zapisane"), Types.MessageType.Information);
+                }
+                else
+                    Source.Logger.AddMsg(Source.Translate.GetText("Nie udalo sie zapisać zmian typu gazu. Pole Nazawa nie moze byc puste"), Types.MessageType.Error);
+           }
+            else
+                Source.Logger.AddMsg(Source.Translate.GetText("Nie udalo sie zapisać zmian typu gazu. Nie wybrano gazu do edycji"), Types.MessageType.Error);
+
+            if(aError)
+            {
+                tBoxGasDescription.Text = gasType.Description;
+                dEditFactorGas.Value    = gasType.Factor;
+                tBoxNameGas.Text        = gasType.Name;
+            }
+        }
+        //---------------------------------------------------------------------------------------------------------------------------
+        private void btnNewGas_Click(object sender, EventArgs e)
+        {
+            if (gasTypes != null)
+            {
+                GasType gasType = new GasType();
+
+                gasType.Factor      = 1;
+                gasType.Name        = "gas " + gasTypes.Items.Count.ToString();
+                gasType.Description = "description ...";
+
+                if (!gasTypes.Contains(gasType))
+                {
+                    gasTypes.Add(gasType);
+                    cBoxGasType.Items.Add(gasType);
+
+                    Source.Logger.AddMsg(Source.Translate.GetText("Typ gazu " + gasType.Name + " zostal poprawnie dodany"), Types.MessageType.Information);
+
+                    cBoxGasType.Refresh();
+                    cBoxGasType.SelectedIndex = cBoxGasType.Items.Count - 1;
+
+                }
+            }
+        }
+        //---------------------------------------------------------------------------------------------------------------------------
+        private void cBoxMFC_Click(object sender, EventArgs e)
+        {
+            if (hpt1000 != null)
+            {
+                hpt1000.GetMFC().SetActive(1, cBoxMFC1.Checked);
+                hpt1000.GetMFC().SetActive(2, cBoxMFC2.Checked);
+                hpt1000.GetMFC().SetActive(3, cBoxMFC3.Checked);
+            }
+
+            dEditMaxFlow_MFC1.Enabled = cBoxMFC1.Checked;
+            dEditRangeVoltageMFC1.Enabled = cBoxMFC1.Checked;
+
+            dEditMaxFlow_MFC2.Enabled = cBoxMFC2.Checked;
+            dEditRangeVoltageMFC2.Enabled = cBoxMFC2.Checked;
+
+            dEditMaxFlow_MFC3.Enabled = cBoxMFC3.Checked;
+            dEditRangeVoltageMFC3.Enabled = cBoxMFC3.Checked;
+        }
+        //---------------------------------------------------------------------------------------------------------------------------
+        private void btnRemoveGas_Click(object sender, EventArgs e)
+        {
+            GasType gasType = (GasType)cBoxGasType.SelectedItem;
+
+            if (gasType != null && gasTypes != null)
+            {
+                gasTypes.Remove(gasType);
+
+                int aSelectedIndex = cBoxGasType.SelectedIndex;
+                FillComboBoxGases();
+
+                cBoxGasType.SelectedIndex = aSelectedIndex - 1;
+
+                if(cBoxGasType.SelectedIndex < 0)
+                {
+                    tBoxNameGas.Text        = "";
+                    tBoxGasDescription.Text = "";
+                    dEditFactorGas.Value    = 0;
+                }
+
+                Source.Logger.AddMsg(Source.Translate.GetText("Typu gazu " + gasType.Name + " zostal poprawnie usuniety"), Types.MessageType.Information);
+            }
+            else
+                Source.Logger.AddMsg(Source.Translate.GetText("Nie udalo sie usunac typu gazu. Typ gazu nie zostal wybrany"), Types.MessageType.Error);
+        }
+        //---------------------------------------------------------------------------------------------------------------------------
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            if (cBoxGasType.SelectedIndex == -1)
+            {
+                btnSaveSettings.Enabled = false;
+                btnRemoveGas.Enabled    = false;
+            }
+            else
+            {
+                btnSaveSettings.Enabled = true;
+                btnRemoveGas.Enabled    = true;
+            }
+        }
+            //---------------------------------------------------------------------------------------------------------------------------
     }
+
 }

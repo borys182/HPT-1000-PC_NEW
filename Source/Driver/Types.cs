@@ -34,12 +34,14 @@ namespace HPT1000.Source.Driver
         public enum Mode            { Automatic = 1, Manual = 2, None = 3 };
         public enum TypeComm        { USB = 0x0D, TCP = 0x05 };
         public enum TypePLC         { L = 0x51 };
+        public enum MessageType     { Error = 1 , Information = 2};
 
         public enum ERROR_CATEGORY
         {
             APLICATION      = 0x01,
             MX_COMPONENTS   = 0x02,
-            PLC             = 0x03
+            PLC             = 0x03,
+            MESSAGE         = 0x04
         }
         public enum ERROR_CODE
         {
@@ -176,7 +178,7 @@ namespace HPT1000.Source.Driver
         public static int OFFSET_STATUS_DATA        = 60;
 
         public const int  COUNT_ERROR_PLC           = 25;
-        public const  int SIZE_ERROR_BUFFER_PLC     = COUNT_ERROR_PLC * 4 + 2;  //Rozmiar bufora jest mnozony razy 4 poniewaz jeden wpis bledu zajmuje 4 WORDY a 2 wziela sie z odczytu za jednym razem info p StartIndex i CountError
+        public const  int SIZE_ERROR_BUFFER_PLC     = COUNT_ERROR_PLC * 6 + 2;  //Rozmiar bufora jest mnozony razy 6 poniewaz jeden wpis bledu zajmuje 4 WORDY a 2 wziela sie z odczytu za jednym razem info p StartIndex i CountError
 
         public static int OFFSET_PRG_CONTROL        = 0;
         public static int OFFSET_PRG_STATUS         = 1;

@@ -28,8 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.cBoxDummyMode = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.btnSelectDir = new System.Windows.Forms.Button();
             this.tBoxPath = new System.Windows.Forms.TextBox();
@@ -71,6 +74,13 @@
             this.dEditCurentLimit = new HPT1000.GUI.Cotrols.DoubleEdit();
             this.dEditPowerLimit = new HPT1000.GUI.Cotrols.DoubleEdit();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label46 = new System.Windows.Forms.Label();
+            this.cBoxMFC3 = new System.Windows.Forms.CheckBox();
+            this.cBoxMFC2 = new System.Windows.Forms.CheckBox();
+            this.cBoxMFC1 = new System.Windows.Forms.CheckBox();
+            this.label43 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label41 = new System.Windows.Forms.Label();
@@ -78,16 +88,10 @@
             this.label31 = new System.Windows.Forms.Label();
             this.timeFlowStabilization = new System.Windows.Forms.DateTimePicker();
             this.label32 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
             this.dEditRangeVoltageMFC2 = new HPT1000.GUI.Cotrols.DoubleEdit();
             this.dEditRangeVoltageMFC3 = new HPT1000.GUI.Cotrols.DoubleEdit();
             this.dEditRangeVoltageMFC1 = new HPT1000.GUI.Cotrols.DoubleEdit();
@@ -102,12 +106,23 @@
             this.label38 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.btnRemoveGas = new System.Windows.Forms.Button();
+            this.tBoxNameGas = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.btnNewGas = new System.Windows.Forms.Button();
+            this.btnSaveSettings = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.tBoxGasDescription = new System.Windows.Forms.TextBox();
+            this.cBoxGasType = new System.Windows.Forms.ComboBox();
+            this.dEditFactorGas = new HPT1000.GUI.Cotrols.DoubleEdit();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.labConnectionExplain = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cBoxComm = new System.Windows.Forms.ComboBox();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
-            this.cBoxDummyMode = new System.Windows.Forms.CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -151,6 +166,27 @@
             this.tabPage1.Size = new System.Drawing.Size(1662, 712);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
+            // 
+            // cBoxDummyMode
+            // 
+            this.cBoxDummyMode.AutoSize = true;
+            this.cBoxDummyMode.Location = new System.Drawing.Point(146, 582);
+            this.cBoxDummyMode.Name = "cBoxDummyMode";
+            this.cBoxDummyMode.Size = new System.Drawing.Size(135, 24);
+            this.cBoxDummyMode.TabIndex = 92;
+            this.cBoxDummyMode.Text = "Dummy mode";
+            this.cBoxDummyMode.UseVisualStyleBackColor = true;
+            this.cBoxDummyMode.CheckedChanged += new System.EventHandler(this.cBoxDummyMode_CheckedChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label4.Location = new System.Drawing.Point(54, 538);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(118, 20);
+            this.label4.TabIndex = 91;
+            this.label4.Text = "Dummy mode:";
             // 
             // checkBox5
             // 
@@ -259,7 +295,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(1662, 712);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Devices";
+            this.tabPage2.Text = "Service";
             // 
             // btnReadSettings
             // 
@@ -614,6 +650,13 @@
             // tabPage4
             // 
             this.tabPage4.BackColor = System.Drawing.Color.Transparent;
+            this.tabPage4.Controls.Add(this.label46);
+            this.tabPage4.Controls.Add(this.cBoxMFC3);
+            this.tabPage4.Controls.Add(this.cBoxMFC2);
+            this.tabPage4.Controls.Add(this.cBoxMFC1);
+            this.tabPage4.Controls.Add(this.label43);
+            this.tabPage4.Controls.Add(this.label37);
+            this.tabPage4.Controls.Add(this.label36);
             this.tabPage4.Controls.Add(this.label27);
             this.tabPage4.Controls.Add(this.label25);
             this.tabPage4.Controls.Add(this.label41);
@@ -621,16 +664,10 @@
             this.tabPage4.Controls.Add(this.label31);
             this.tabPage4.Controls.Add(this.timeFlowStabilization);
             this.tabPage4.Controls.Add(this.label32);
-            this.tabPage4.Controls.Add(this.label26);
-            this.tabPage4.Controls.Add(this.label28);
             this.tabPage4.Controls.Add(this.label29);
-            this.tabPage4.Controls.Add(this.label30);
             this.tabPage4.Controls.Add(this.label13);
-            this.tabPage4.Controls.Add(this.label14);
             this.tabPage4.Controls.Add(this.label11);
-            this.tabPage4.Controls.Add(this.label12);
             this.tabPage4.Controls.Add(this.label9);
-            this.tabPage4.Controls.Add(this.label10);
             this.tabPage4.Controls.Add(this.dEditRangeVoltageMFC2);
             this.tabPage4.Controls.Add(this.dEditRangeVoltageMFC3);
             this.tabPage4.Controls.Add(this.dEditRangeVoltageMFC1);
@@ -644,11 +681,84 @@
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Mas flow controler";
             // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label46.Location = new System.Drawing.Point(103, 163);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(98, 20);
+            this.label46.TabIndex = 108;
+            this.label46.Text = "Connection:";
+            // 
+            // cBoxMFC3
+            // 
+            this.cBoxMFC3.AutoSize = true;
+            this.cBoxMFC3.Location = new System.Drawing.Point(121, 295);
+            this.cBoxMFC3.Name = "cBoxMFC3";
+            this.cBoxMFC3.Size = new System.Drawing.Size(45, 24);
+            this.cBoxMFC3.TabIndex = 107;
+            this.cBoxMFC3.Text = " 3";
+            this.cBoxMFC3.UseVisualStyleBackColor = true;
+            this.cBoxMFC3.Click += new System.EventHandler(this.cBoxMFC_Click);
+            // 
+            // cBoxMFC2
+            // 
+            this.cBoxMFC2.AutoSize = true;
+            this.cBoxMFC2.Location = new System.Drawing.Point(121, 253);
+            this.cBoxMFC2.Name = "cBoxMFC2";
+            this.cBoxMFC2.Size = new System.Drawing.Size(45, 24);
+            this.cBoxMFC2.TabIndex = 106;
+            this.cBoxMFC2.Text = " 2";
+            this.cBoxMFC2.UseVisualStyleBackColor = true;
+            this.cBoxMFC2.Click += new System.EventHandler(this.cBoxMFC_Click);
+            // 
+            // cBoxMFC1
+            // 
+            this.cBoxMFC1.AutoSize = true;
+            this.cBoxMFC1.Location = new System.Drawing.Point(121, 210);
+            this.cBoxMFC1.Name = "cBoxMFC1";
+            this.cBoxMFC1.Size = new System.Drawing.Size(45, 24);
+            this.cBoxMFC1.TabIndex = 105;
+            this.cBoxMFC1.Text = " 1";
+            this.cBoxMFC1.UseVisualStyleBackColor = true;
+            this.cBoxMFC1.Click += new System.EventHandler(this.cBoxMFC_Click);
+            // 
+            // label43
+            // 
+            this.label43.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.label43.Location = new System.Drawing.Point(53, 70);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(236, 43);
+            this.label43.TabIndex = 104;
+            this.label43.Text = "Determine which controler are available";
+            this.label43.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label37.Location = new System.Drawing.Point(779, 154);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(70, 20);
+            this.label37.TabIndex = 103;
+            this.label37.Text = "Voltage:";
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label36.Location = new System.Drawing.Point(399, 163);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(153, 20);
+            this.label36.TabIndex = 102;
+            this.label36.Text = "Maximum gas flow:";
+            // 
             // label27
             // 
             this.label27.AutoSize = true;
             this.label27.ForeColor = System.Drawing.Color.Green;
-            this.label27.Location = new System.Drawing.Point(514, 385);
+            this.label27.Location = new System.Drawing.Point(920, 300);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(30, 20);
             this.label27.TabIndex = 101;
@@ -658,7 +768,7 @@
             // 
             this.label25.AutoSize = true;
             this.label25.ForeColor = System.Drawing.Color.Green;
-            this.label25.Location = new System.Drawing.Point(514, 333);
+            this.label25.Location = new System.Drawing.Point(920, 248);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(30, 20);
             this.label25.TabIndex = 100;
@@ -667,9 +777,9 @@
             // label41
             // 
             this.label41.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.label41.Location = new System.Drawing.Point(54, 227);
+            this.label41.Location = new System.Drawing.Point(713, 70);
             this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(835, 30);
+            this.label41.Size = new System.Drawing.Size(318, 41);
             this.label41.TabIndex = 99;
             this.label41.Text = "Determine range of voltage which is used to control mass flow controller";
             this.label41.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -677,9 +787,9 @@
             // label42
             // 
             this.label42.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.label42.Location = new System.Drawing.Point(54, 29);
+            this.label42.Location = new System.Drawing.Point(339, 70);
             this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(1335, 37);
+            this.label42.Size = new System.Drawing.Size(321, 60);
             this.label42.TabIndex = 98;
             this.label42.Text = "Determine maximum flow how we can set on correspondinf controler. This value is i" +
     "dentifies by type of controller";
@@ -688,7 +798,7 @@
             // label31
             // 
             this.label31.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.label31.Location = new System.Drawing.Point(54, 447);
+            this.label31.Location = new System.Drawing.Point(54, 395);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(1232, 37);
             this.label31.TabIndex = 97;
@@ -699,7 +809,7 @@
             // timeFlowStabilization
             // 
             this.timeFlowStabilization.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.timeFlowStabilization.Location = new System.Drawing.Point(343, 500);
+            this.timeFlowStabilization.Location = new System.Drawing.Point(343, 448);
             this.timeFlowStabilization.Name = "timeFlowStabilization";
             this.timeFlowStabilization.ShowUpDown = true;
             this.timeFlowStabilization.Size = new System.Drawing.Size(100, 27);
@@ -710,115 +820,55 @@
             // 
             this.label32.AutoSize = true;
             this.label32.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label32.Location = new System.Drawing.Point(103, 505);
+            this.label32.Location = new System.Drawing.Point(103, 453);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(180, 20);
             this.label32.TabIndex = 95;
             this.label32.Text = "Time flow stabilization:";
             // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label26.Location = new System.Drawing.Point(103, 333);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(175, 20);
-            this.label26.TabIndex = 94;
-            this.label26.Text = "Range voltage MFC 2:";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label28.Location = new System.Drawing.Point(103, 385);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(175, 20);
-            this.label28.TabIndex = 92;
-            this.label28.Text = "Range voltage MFC 3:";
-            // 
             // label29
             // 
             this.label29.AutoSize = true;
             this.label29.ForeColor = System.Drawing.Color.Green;
-            this.label29.Location = new System.Drawing.Point(514, 285);
+            this.label29.Location = new System.Drawing.Point(920, 200);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(30, 20);
             this.label29.TabIndex = 90;
             this.label29.Text = "[V]";
             // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label30.Location = new System.Drawing.Point(103, 285);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(175, 20);
-            this.label30.TabIndex = 89;
-            this.label30.Text = "Range voltage MFC 1:";
-            // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.ForeColor = System.Drawing.Color.Green;
-            this.label13.Location = new System.Drawing.Point(503, 140);
+            this.label13.Location = new System.Drawing.Point(517, 254);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(60, 20);
             this.label13.TabIndex = 87;
             this.label13.Text = "[sccm]";
             // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label14.Location = new System.Drawing.Point(103, 140);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(135, 20);
-            this.label14.TabIndex = 86;
-            this.label14.Text = "Max flow MFC 2:";
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.ForeColor = System.Drawing.Color.Green;
-            this.label11.Location = new System.Drawing.Point(503, 182);
+            this.label11.Location = new System.Drawing.Point(517, 296);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(60, 20);
             this.label11.TabIndex = 84;
             this.label11.Text = "[sccm]";
             // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label12.Location = new System.Drawing.Point(103, 189);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(135, 20);
-            this.label12.TabIndex = 83;
-            this.label12.Text = "Max flow MFC 3:";
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.ForeColor = System.Drawing.Color.Green;
-            this.label9.Location = new System.Drawing.Point(503, 97);
+            this.label9.Location = new System.Drawing.Point(517, 211);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(60, 20);
             this.label9.TabIndex = 81;
             this.label9.Text = "[sccm]";
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label10.Location = new System.Drawing.Point(103, 97);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(135, 20);
-            this.label10.TabIndex = 80;
-            this.label10.Text = "Max flow MFC 1:";
-            // 
             // dEditRangeVoltageMFC2
             // 
-            this.dEditRangeVoltageMFC2.Location = new System.Drawing.Point(343, 328);
+            this.dEditRangeVoltageMFC2.Location = new System.Drawing.Point(749, 243);
             this.dEditRangeVoltageMFC2.Margin = new System.Windows.Forms.Padding(12);
             this.dEditRangeVoltageMFC2.Mask = "0.00";
             this.dEditRangeVoltageMFC2.MaximumValue = 10000000D;
@@ -832,7 +882,7 @@
             // 
             // dEditRangeVoltageMFC3
             // 
-            this.dEditRangeVoltageMFC3.Location = new System.Drawing.Point(343, 381);
+            this.dEditRangeVoltageMFC3.Location = new System.Drawing.Point(749, 296);
             this.dEditRangeVoltageMFC3.Margin = new System.Windows.Forms.Padding(12);
             this.dEditRangeVoltageMFC3.Mask = "0.00";
             this.dEditRangeVoltageMFC3.MaximumValue = 10000000D;
@@ -846,7 +896,7 @@
             // 
             // dEditRangeVoltageMFC1
             // 
-            this.dEditRangeVoltageMFC1.Location = new System.Drawing.Point(343, 281);
+            this.dEditRangeVoltageMFC1.Location = new System.Drawing.Point(749, 196);
             this.dEditRangeVoltageMFC1.Margin = new System.Windows.Forms.Padding(10);
             this.dEditRangeVoltageMFC1.Mask = "0.00";
             this.dEditRangeVoltageMFC1.MaximumValue = 10000000D;
@@ -860,7 +910,7 @@
             // 
             // dEditMaxFlow_MFC2
             // 
-            this.dEditMaxFlow_MFC2.Location = new System.Drawing.Point(343, 137);
+            this.dEditMaxFlow_MFC2.Location = new System.Drawing.Point(357, 251);
             this.dEditMaxFlow_MFC2.Margin = new System.Windows.Forms.Padding(10);
             this.dEditMaxFlow_MFC2.Mask = "0.000";
             this.dEditMaxFlow_MFC2.MaximumValue = 10000000D;
@@ -874,7 +924,7 @@
             // 
             // dEditMaxFlow_MFC3
             // 
-            this.dEditMaxFlow_MFC3.Location = new System.Drawing.Point(343, 182);
+            this.dEditMaxFlow_MFC3.Location = new System.Drawing.Point(357, 296);
             this.dEditMaxFlow_MFC3.Margin = new System.Windows.Forms.Padding(10);
             this.dEditMaxFlow_MFC3.Mask = "0.000";
             this.dEditMaxFlow_MFC3.MaximumValue = 10000000D;
@@ -888,7 +938,7 @@
             // 
             // dEditMaxFlow_MFC1
             // 
-            this.dEditMaxFlow_MFC1.Location = new System.Drawing.Point(343, 92);
+            this.dEditMaxFlow_MFC1.Location = new System.Drawing.Point(357, 206);
             this.dEditMaxFlow_MFC1.Margin = new System.Windows.Forms.Padding(8);
             this.dEditMaxFlow_MFC1.Mask = "0.000";
             this.dEditMaxFlow_MFC1.MaximumValue = 10000000D;
@@ -978,6 +1028,18 @@
             // tabPage6
             // 
             this.tabPage6.BackColor = System.Drawing.Color.Transparent;
+            this.tabPage6.Controls.Add(this.btnRemoveGas);
+            this.tabPage6.Controls.Add(this.tBoxNameGas);
+            this.tabPage6.Controls.Add(this.label14);
+            this.tabPage6.Controls.Add(this.btnNewGas);
+            this.tabPage6.Controls.Add(this.btnSaveSettings);
+            this.tabPage6.Controls.Add(this.label12);
+            this.tabPage6.Controls.Add(this.tBoxGasDescription);
+            this.tabPage6.Controls.Add(this.cBoxGasType);
+            this.tabPage6.Controls.Add(this.dEditFactorGas);
+            this.tabPage6.Controls.Add(this.label28);
+            this.tabPage6.Controls.Add(this.label26);
+            this.tabPage6.Controls.Add(this.label10);
             this.tabPage6.Controls.Add(this.labConnectionExplain);
             this.tabPage6.Controls.Add(this.label1);
             this.tabPage6.Controls.Add(this.cBoxComm);
@@ -985,7 +1047,125 @@
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Size = new System.Drawing.Size(1648, 628);
             this.tabPage6.TabIndex = 3;
-            this.tabPage6.Text = "PLC";
+            this.tabPage6.Text = "Other";
+            // 
+            // btnRemoveGas
+            // 
+            this.btnRemoveGas.Location = new System.Drawing.Point(467, 538);
+            this.btnRemoveGas.Name = "btnRemoveGas";
+            this.btnRemoveGas.Size = new System.Drawing.Size(160, 35);
+            this.btnRemoveGas.TabIndex = 87;
+            this.btnRemoveGas.Text = "Delete";
+            this.btnRemoveGas.UseVisualStyleBackColor = true;
+            this.btnRemoveGas.Click += new System.EventHandler(this.btnRemoveGas_Click);
+            // 
+            // tBoxNameGas
+            // 
+            this.tBoxNameGas.Location = new System.Drawing.Point(295, 262);
+            this.tBoxNameGas.Name = "tBoxNameGas";
+            this.tBoxNameGas.Size = new System.Drawing.Size(122, 27);
+            this.tBoxNameGas.TabIndex = 86;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label14.Location = new System.Drawing.Point(103, 265);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(91, 20);
+            this.label14.TabIndex = 85;
+            this.label14.Text = "Gas name:";
+            // 
+            // btnNewGas
+            // 
+            this.btnNewGas.Location = new System.Drawing.Point(295, 494);
+            this.btnNewGas.Name = "btnNewGas";
+            this.btnNewGas.Size = new System.Drawing.Size(160, 35);
+            this.btnNewGas.TabIndex = 84;
+            this.btnNewGas.Text = "Add";
+            this.btnNewGas.UseVisualStyleBackColor = true;
+            this.btnNewGas.Click += new System.EventHandler(this.btnNewGas_Click);
+            // 
+            // btnSaveSettings
+            // 
+            this.btnSaveSettings.Location = new System.Drawing.Point(467, 494);
+            this.btnSaveSettings.Name = "btnSaveSettings";
+            this.btnSaveSettings.Size = new System.Drawing.Size(160, 35);
+            this.btnSaveSettings.TabIndex = 81;
+            this.btnSaveSettings.Text = "Save";
+            this.btnSaveSettings.UseVisualStyleBackColor = true;
+            this.btnSaveSettings.Click += new System.EventHandler(this.btnSaveSettings_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label12.Location = new System.Drawing.Point(103, 314);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(100, 20);
+            this.label12.TabIndex = 80;
+            this.label12.Text = "Description:";
+            // 
+            // tBoxGasDescription
+            // 
+            this.tBoxGasDescription.Location = new System.Drawing.Point(295, 308);
+            this.tBoxGasDescription.Multiline = true;
+            this.tBoxGasDescription.Name = "tBoxGasDescription";
+            this.tBoxGasDescription.Size = new System.Drawing.Size(332, 114);
+            this.tBoxGasDescription.TabIndex = 77;
+            // 
+            // cBoxGasType
+            // 
+            this.cBoxGasType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cBoxGasType.FormattingEnabled = true;
+            this.cBoxGasType.Location = new System.Drawing.Point(295, 212);
+            this.cBoxGasType.Name = "cBoxGasType";
+            this.cBoxGasType.Size = new System.Drawing.Size(124, 28);
+            this.cBoxGasType.TabIndex = 76;
+            this.cBoxGasType.SelectedIndexChanged += new System.EventHandler(this.cBoxGasType_SelectedIndexChanged);
+            // 
+            // dEditFactorGas
+            // 
+            this.dEditFactorGas.Location = new System.Drawing.Point(295, 442);
+            this.dEditFactorGas.Margin = new System.Windows.Forms.Padding(4);
+            this.dEditFactorGas.Mask = "0.000";
+            this.dEditFactorGas.MaximumValue = 1000D;
+            this.dEditFactorGas.MinimumValue = 0D;
+            this.dEditFactorGas.Name = "dEditFactorGas";
+            this.dEditFactorGas.ReadOnly = false;
+            this.dEditFactorGas.Size = new System.Drawing.Size(120, 29);
+            this.dEditFactorGas.TabIndex = 74;
+            this.dEditFactorGas.Value = 0D;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label28.Location = new System.Drawing.Point(103, 445);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(140, 20);
+            this.label28.TabIndex = 73;
+            this.label28.Text = "Correction factor:";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label26.Location = new System.Drawing.Point(103, 212);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(81, 20);
+            this.label26.TabIndex = 72;
+            this.label26.Text = "Gas type:";
+            // 
+            // label10
+            // 
+            this.label10.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.label10.Location = new System.Drawing.Point(54, 162);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(430, 21);
+            this.label10.TabIndex = 70;
+            this.label10.Text = "Description of available gases which might connection to device";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labConnectionExplain
             // 
@@ -1001,7 +1181,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label1.Location = new System.Drawing.Point(103, 97);
+            this.label1.Location = new System.Drawing.Point(103, 94);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(134, 20);
             this.label1.TabIndex = 66;
@@ -1013,7 +1193,7 @@
             this.cBoxComm.Items.AddRange(new object[] {
             "USB",
             "TCP"});
-            this.cBoxComm.Location = new System.Drawing.Point(295, 94);
+            this.cBoxComm.Location = new System.Drawing.Point(295, 91);
             this.cBoxComm.Name = "cBoxComm";
             this.cBoxComm.Size = new System.Drawing.Size(132, 28);
             this.cBoxComm.TabIndex = 67;
@@ -1024,26 +1204,11 @@
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
             // 
-            // cBoxDummyMode
+            // timer
             // 
-            this.cBoxDummyMode.AutoSize = true;
-            this.cBoxDummyMode.Location = new System.Drawing.Point(146, 582);
-            this.cBoxDummyMode.Name = "cBoxDummyMode";
-            this.cBoxDummyMode.Size = new System.Drawing.Size(135, 24);
-            this.cBoxDummyMode.TabIndex = 92;
-            this.cBoxDummyMode.Text = "Dummy mode";
-            this.cBoxDummyMode.UseVisualStyleBackColor = true;
-            this.cBoxDummyMode.CheckedChanged += new System.EventHandler(this.cBoxDummyMode_CheckedChanged);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label4.Location = new System.Drawing.Point(54, 538);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(118, 20);
-            this.label4.TabIndex = 91;
-            this.label4.Text = "Dummy mode:";
+            this.timer.Enabled = true;
+            this.timer.Interval = 1000;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // SettingsPanel
             // 
@@ -1114,21 +1279,15 @@
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.DateTimePicker timeFlowStabilization;
         private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.Label label26;
         private Cotrols.DoubleEdit dEditRangeVoltageMFC2;
-        private System.Windows.Forms.Label label28;
         private Cotrols.DoubleEdit dEditRangeVoltageMFC3;
         private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.Label label30;
         private Cotrols.DoubleEdit dEditRangeVoltageMFC1;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label14;
         private Cotrols.DoubleEdit dEditMaxFlow_MFC2;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
         private Cotrols.DoubleEdit dEditMaxFlow_MFC3;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
         private Cotrols.DoubleEdit dEditMaxFlow_MFC1;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label33;
@@ -1153,5 +1312,25 @@
         private System.IO.FileSystemWatcher fileSystemWatcher1;
         private System.Windows.Forms.CheckBox cBoxDummyMode;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label46;
+        private System.Windows.Forms.CheckBox cBoxMFC3;
+        private System.Windows.Forms.CheckBox cBoxMFC2;
+        private System.Windows.Forms.CheckBox cBoxMFC1;
+        private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.TextBox tBoxGasDescription;
+        private System.Windows.Forms.ComboBox cBoxGasType;
+        private Cotrols.DoubleEdit dEditFactorGas;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button btnSaveSettings;
+        private System.Windows.Forms.Button btnNewGas;
+        private System.Windows.Forms.TextBox tBoxNameGas;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button btnRemoveGas;
+        private System.Windows.Forms.Timer timer;
     }
 }

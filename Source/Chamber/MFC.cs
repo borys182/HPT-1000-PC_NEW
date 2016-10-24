@@ -9,16 +9,15 @@ namespace HPT1000.Source.Chamber
 {
     public class MFC_Channel : ChamberObject
     {
-        private int     id              = 0;                //powiazanie obiketu po stronie PC z obiektem po stronie PLC
-        private bool    enabled         = false;            //flaga okresla czy przplywka wchodzi w sklad danej konfiguracji komory 
-        private int     actualFlow      = 0;                //wartosc przeplywu wyrazona w sccm
-        private string  gasName         = "none";
-        private double  factor          = 1;                //okresleneie factora dla danego gazu podpietego do danej przeplywki. Przeplywki
-                                                            //sa skalibrowane na jeden gaz i podpiecie innego wymusza ustawienie factora dla poprawnych przeliczen przeplywu
-        private int     setpoint        = 0;
+        private int      id              = 0;                //powiazanie obiketu po stronie PC z obiektem po stronie PLC
+        private bool     enabled         = true;            //flaga okresla czy przplywka wchodzi w sklad danej konfiguracji komory 
+        private int      actualFlow      = 0;                //wartosc przeplywu wyrazona w sccm
+        private GasType  gasType         = null;
+
+        private int      setpoint        = 0;
         //zmienne konfigurujace przeplywke
-        private int     rangeVoltage = 10000;           //okreslenie zakresu napieciowego pracy przeplywki
-        private int     maxFlow_sccm = 10000;           //okreslenie max przeplywu przeplywki wyrazonego w jednostkach sccm
+        private int      rangeVoltage = 10000;           //okreslenie zakresu napieciowego pracy przeplywki
+        private int      maxFlow_sccm = 10000;           //okreslenie max przeplywu przeplywki wyrazonego w jednostkach sccm
 
         //-----------------------------------------------------------------------------------------
         public MFC_Channel(int aID)
@@ -29,6 +28,12 @@ namespace HPT1000.Source.Chamber
         public int GetID()
         {
             return id;
+        }
+        //-----------------------------------------------------------------------------------------
+        public GasType GasType
+        {
+            set { gasType = value; }
+            get { return gasType; }
         }
         //-----------------------------------------------------------------------------------------
         public override void UpdateData(int[] aData)
@@ -434,6 +439,26 @@ namespace HPT1000.Source.Chamber
                 timeFlowStability = aValue;
 
             return aErr;
+        }
+        //------------------------------------------------------------------------------------------- 
+        public void SetGasType(int aId, GasType gasType)
+        {
+            MFC_Channel mfc_Channel = GetMFC_Channel(aId);
+
+            if (mfc_Channel != null)
+                mfc_Channel.GasType = gasType;
+        }
+        //------------------------------------------------------------------------------------------- 
+        public GasType GetGasType(int aId)
+        {
+            GasType gasType = null;
+
+            MFC_Channel mfc_Channel = GetMFC_Channel(aId);
+
+            if (mfc_Channel != null)
+                gasType = mfc_Channel.GasType;
+
+            return gasType;
         }
         //------------------------------------------------------------------------------------------- 
     }

@@ -28,20 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PumpComponent));
-            this.imageListPump = new System.Windows.Forms.ImageList(this.components);
             this.picture = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.SuspendLayout();
-            // 
-            // imageListPump
-            // 
-            this.imageListPump.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListPump.ImageStream")));
-            this.imageListPump.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageListPump.Images.SetKeyName(0, "ForePumpOff.png");
-            this.imageListPump.Images.SetKeyName(1, "ForePumpOn.png");
-            this.imageListPump.Images.SetKeyName(2, "ForePumpErr.png");
             // 
             // picture
             // 
@@ -73,6 +63,5 @@
         #endregion
 
         private System.Windows.Forms.PictureBox picture;
-        private System.Windows.Forms.ImageList imageListPump;
     }
 }

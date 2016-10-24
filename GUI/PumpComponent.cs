@@ -21,9 +21,8 @@ namespace HPT1000.GUI
         public PumpComponent()
         {
             InitializeComponent();
-            if (imageListPump.Images.Count > 0)
-                picture.Image = imageListPump.Images[0];
             picture.SizeMode = PictureBoxSizeMode.StretchImage;
+            LoadBitmap();
         }
 
         //-----------------------------------------------------------------------------------------
@@ -34,38 +33,21 @@ namespace HPT1000.GUI
         //-----------------------------------------------------------------------------------------
         public void RefreshData()
         {
-            if (pump != null)
-            {
-                switch (pump.GetState())
-                {
-                    case Types.StateFP.OFF:
-                        if (imageListPump.Images.Count > 0)
-                            picture.Image = imageListPump.Images[0];
-                        break;
-                    case Types.StateFP.ON:
-                        if (imageListPump.Images.Count > 1)
-                            picture.Image = imageListPump.Images[1];
-                        break;
-                    case Types.StateFP.Error:
-                        if (imageListPump.Images.Count > 2)
-                            picture.Image = imageListPump.Images[2];
-                        break;
-                }
-                picture.SizeMode = PictureBoxSizeMode.StretchImage;
-                LoadBitmap();
-            }
+            LoadBitmap();
         }
         //-----------------------------------------------------------------------------------------
         private void LoadBitmap()
         {
-            Bitmap valvePicture = new Bitmap("d:\\Projekty\\HPT-1000\\HPT-1000_PC\\Images\\ForePumpErr.png");
+            Bitmap valvePicture = new Bitmap(Properties.Resources.ForePumpErr);
 
-            if (pump.GetState() == Types.StateFP.OFF)
-                valvePicture = new Bitmap("d:\\Projekty\\HPT-1000\\HPT-1000_PC\\Images\\ForePumpOff.png");
+            if (pump != null)
+            {
+                if (pump.GetState() == Types.StateFP.OFF)
+                    valvePicture = new Bitmap(Properties.Resources.ForePumpOff);
 
-            if (pump.GetState() == Types.StateFP.ON)
-                valvePicture = new Bitmap("d:\\Projekty\\HPT-1000\\HPT-1000_PC\\Images\\ForePumpOn.png");
-
+                if (pump.GetState() == Types.StateFP.ON)
+                    valvePicture = new Bitmap(Properties.Resources.ForePumpOn);
+            }
             valvePicture.MakeTransparent(Color.White);
             picture.Image = valvePicture;
         }

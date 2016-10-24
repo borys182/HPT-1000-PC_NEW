@@ -28,20 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ValvePanel));
-            this.imageList_Valve = new System.Windows.Forms.ImageList(this.components);
             this.picture = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.SuspendLayout();
-            // 
-            // imageList_Valve
-            // 
-            this.imageList_Valve.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList_Valve.ImageStream")));
-            this.imageList_Valve.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList_Valve.Images.SetKeyName(0, "ValveClose.png");
-            this.imageList_Valve.Images.SetKeyName(1, "ValveOpen.png");
-            this.imageList_Valve.Images.SetKeyName(2, "ValveError.png");
             // 
             // picture
             // 
@@ -70,7 +60,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.ImageList imageList_Valve;
         private System.Windows.Forms.PictureBox picture;
     }
 }

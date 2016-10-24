@@ -19,8 +19,7 @@ namespace HPT1000.Source
         private int                     programID    = 0;
         private int                     subprogramID = 0;
         private string                  text         = "";
-        private DB                      dataBase = new DB();
-
+      
         //-----------------------------------------------------------------------------------------
         public ERROR()
         {
@@ -158,7 +157,7 @@ namespace HPT1000.Source
             if (category == Types.ERROR_CATEGORY.MESSAGE)
                 aTxt = text;
             else
-                aTxt = dataBase.GetErrorText(this);
+                aTxt = DB.GetErrorText(this);
 
             return aTxt;
         }

@@ -84,6 +84,12 @@
     <Compile Include="GUI\Cotrols\DoubleEdit.Designer.cs">
       <DependentUpon>DoubleEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\GeneratorPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -183,6 +189,7 @@
     <Compile Include="Source\Program\Subprogram.cs" />
     <Compile Include="Source\Program\VentProces.cs" />
     <Compile Include="Source\Translate.cs" />
+    <Compile Include="Source\User.cs" />
     <EmbeddedResource Include="GUI\AlertsPanel.resx">
       <DependentUpon>AlertsPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -191,6 +198,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\GeneratorPanel.resx">
       <DependentUpon>GeneratorPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

@@ -28,13 +28,36 @@ namespace HPT1000.Source
      * Klasa jest odpowiedzilana za komunikacje z baza danych oraz udostpenianie danych z niej pobranych. W bazie danych sa przechowywane informacje na temat:
      * : translacji tekstow , użytkowników i uprawnień, pomiarów, programów 
      */ 
-    class DB
+    public class DB
     {
-        List<ErrorText> actionTextList = new List<ErrorText>();
-      
+        private User                    userApp         = new User(Types.UserPrivilige.None,"");
+       
+        private static List<ErrorText>  actionTextList  = new List<ErrorText>();
+        private        List<User>       users           = new List<User>();
+
+        //-------------------------------------------------------------------------------------
+        public List<User>Users
+        {
+            get { return users; }
+        }
+        //-------------------------------------------------------------------------------------
+        public User UserApp
+        {
+            get { return userApp; }
+        }
         //-------------------------------------------------------------------------------------
         public DB()
         {
+            //For teest
+            User user = new User(Types.UserPrivilige.Administrator,"admin123");
+            users.Add(user);
+            user = new User(Types.UserPrivilige.Operator,"operator123");
+            users.Add(user);
+            user = new User(Types.UserPrivilige.Service,"service123");
+            users.Add(user);
+
+
+
             ErrorText aErrorText;
 
             //Tymczasowe dodanie tekstow dla bledow aplilacko
@@ -214,7 +237,7 @@ namespace HPT1000.Source
 
         }
         //-------------------------------------------------------------------------------------
-        public string GetErrorText(ERROR aError)
+        public static string GetErrorText(ERROR aError)
         {
             string aTxt = "No text in data base for action code:" + aError.GetErrorCode().ToString("X8");
 
@@ -237,6 +260,24 @@ namespace HPT1000.Source
                 }
             }
             return aTxt;
+        }
+        //-------------------------------------------------------------------------------------
+        public bool ChangeUserApp(User user,string psw)
+        {
+            bool aRes = false;
+
+            if(user.Password == psw)
+            {
+                userApp = user;
+                aRes = true;
+            }
+
+            return aRes;
+        }
+        //-------------------------------------------------------------------------------------
+        public void LogoutUser()
+        {
+            userApp = new User(Types.UserPrivilige.None, ""); 
         }
         //-------------------------------------------------------------------------------------
     }

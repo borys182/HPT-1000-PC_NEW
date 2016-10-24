@@ -19,7 +19,10 @@ namespace HPT1000.GUI
     ///</summary>
     public partial class MainForm : Form
     {
-        private Source.Driver.HPT1000 hpt1000 = new HPT1000.Source.Driver.HPT1000();
+        private Source.Driver.HPT1000   hpt1000   = new HPT1000.Source.Driver.HPT1000();
+        private Source.DB               dataBase  = new DB();
+
+        private Login                   loginForm = null;
 
         ERROR lastError = new ERROR();
 
@@ -77,7 +80,6 @@ namespace HPT1000.GUI
 
             //Ustaw odpowidnie obrazki dla SystemWindow
             LoadBitmap();
-
         }
         //------------------------------------------------------------------------------------------
         private void LoadBitmap()
@@ -160,6 +162,89 @@ namespace HPT1000.GUI
             ShowLastActionStatus();
             //pokaz ustawienia dla aktywnych MFC
             ShowOnlyEnableMFC();
+            //pokaz usera oraz poustawiaj uprawnienia do aplikacji
+            ShowUser();
+        }
+        //----------------------------------------------------------------------------------
+        public void ShowUser()
+        {
+            if(dataBase != null)
+            {
+                labStatusUser.Text = "Logged user: " + dataBase.UserApp.ToString();
+                switch(dataBase.UserApp.Privilige)
+                {
+                    case Types.UserPrivilige.Administrator:
+                        SetUserPriviligeToAppAsAdmin();
+                        break;
+                    case Types.UserPrivilige.Operator:
+                        SetUserPriviligeToAppAsOperator();
+                        break;
+                    case Types.UserPrivilige.Service:
+                        SetUserPriviligeToAppAsService();
+                        break;
+                    case Types.UserPrivilige.None:
+                        SetUserPriviligeToAppAsNone();
+                        break;
+                }
+            }
+        }
+        //----------------------------------------------------------------------------------
+        public void SetUserPriviligeToAppAsAdmin()
+        {
+            programPanel.Visible        = true;
+            programPanel.Enabled        = true;
+            grBoxSystem.Enabled         = true;
+            programsConfigPanel.Enabled = true;
+            alertsPanel.Enabled         = true;
+            settingsPanel.Enabled       = true;
+        }
+        //----------------------------------------------------------------------------------
+        public void SetUserPriviligeToAppAsOperator()
+        {
+            tabControlMain.Visible      = true;
+            programPanel.Enabled        = true;
+            grBoxSystem.Enabled         = true;
+            programsConfigPanel.Enabled = false;
+            alertsPanel.Enabled         = true;
+            settingsPanel.Enabled       = false;
+        }
+        //----------------------------------------------------------------------------------
+        public void SetUserPriviligeToAppAsService()
+        {
+            tabControlMain.Visible      = true;
+            programPanel.Enabled        = true;
+            grBoxSystem.Enabled         = true;
+            programsConfigPanel.Enabled = true;
+            alertsPanel.Enabled         = true;
+            settingsPanel.Enabled       = true;
+        }
+        //----------------------------------------------------------------------------------
+        public void SetUserPriviligeToAppAsNone()
+        {
+            programPanel.Enabled        = false;
+            grBoxSystem.Enabled         = false;
+            programsConfigPanel.Enabled = false;
+            alertsPanel.Enabled         = false;
+            settingsPanel.Enabled       = false;
+
+            ShowLoginForm();
+        }
+        //----------------------------------------------------------------------------------
+        private void ShowLoginForm()
+        {
+            if (loginForm == null || loginForm.IsDisposed)
+            {
+                loginForm = new Login();
+                loginForm.FormClosed += new FormClosedEventHandler(loginForm_closed);
+                loginForm.SetDB(dataBase);
+            }
+            loginForm.Show();
+        }
+        //----------------------------------------------------------------------------------
+        private void loginForm_closed(object sender, FormClosedEventArgs e)
+        {
+            loginForm.Dispose();
+            loginForm = null;
         }
         //----------------------------------------------------------------------------------
         public void ShowOnlyEnableMFC()
@@ -246,6 +331,17 @@ namespace HPT1000.GUI
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             hpt1000.Dispose();
+        }
+        //----------------------------------------------------------------------------------
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            ShowLoginForm();
+        }
+        //----------------------------------------------------------------------------------
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            if (dataBase != null)
+                dataBase.LogoutUser();
         }
         //----------------------------------------------------------------------------------
     }

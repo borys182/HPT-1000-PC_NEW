@@ -35,6 +35,7 @@ namespace HPT1000.Source.Driver
         public enum TypeComm        { USB = 0x0D, TCP = 0x05 };
         public enum TypePLC         { L = 0x51 };
         public enum MessageType     { Error = 1 , Information = 2};
+        public enum UserPrivilige   { None = 0, Administrator = 1, Operator = 2, Service = 3};
 
         public enum ERROR_CATEGORY
         {

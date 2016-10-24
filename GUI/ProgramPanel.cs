@@ -81,9 +81,15 @@ namespace HPT1000.GUI
         {
             if (hpt1000 != null)
             {
+                int selectedIndex = cBoxPrograms.SelectedIndex;
+
                 cBoxPrograms.Items.Clear();
                 foreach (Program pr in hpt1000.GetPrograms())
-                    cBoxPrograms.Items.Add(pr);         
+                    cBoxPrograms.Items.Add(pr);
+
+                cBoxPrograms.Refresh();
+                if (cBoxPrograms.Items.Count > selectedIndex)
+                    cBoxPrograms.SelectedIndex = selectedIndex;
             }
         }
         //---------------------------------------------------------------------------------------

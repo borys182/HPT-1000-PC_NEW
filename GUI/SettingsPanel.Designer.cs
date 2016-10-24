@@ -1051,7 +1051,7 @@
             // 
             // btnRemoveGas
             // 
-            this.btnRemoveGas.Location = new System.Drawing.Point(467, 538);
+            this.btnRemoveGas.Location = new System.Drawing.Point(467, 549);
             this.btnRemoveGas.Name = "btnRemoveGas";
             this.btnRemoveGas.Size = new System.Drawing.Size(160, 35);
             this.btnRemoveGas.TabIndex = 87;
@@ -1078,7 +1078,7 @@
             // 
             // btnNewGas
             // 
-            this.btnNewGas.Location = new System.Drawing.Point(295, 494);
+            this.btnNewGas.Location = new System.Drawing.Point(295, 505);
             this.btnNewGas.Name = "btnNewGas";
             this.btnNewGas.Size = new System.Drawing.Size(160, 35);
             this.btnNewGas.TabIndex = 84;
@@ -1088,7 +1088,7 @@
             // 
             // btnSaveSettings
             // 
-            this.btnSaveSettings.Location = new System.Drawing.Point(467, 494);
+            this.btnSaveSettings.Location = new System.Drawing.Point(467, 505);
             this.btnSaveSettings.Name = "btnSaveSettings";
             this.btnSaveSettings.Size = new System.Drawing.Size(160, 35);
             this.btnSaveSettings.TabIndex = 81;
@@ -1100,7 +1100,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label12.Location = new System.Drawing.Point(103, 314);
+            this.label12.Location = new System.Drawing.Point(103, 318);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(100, 20);
             this.label12.TabIndex = 80;
@@ -1108,7 +1108,7 @@
             // 
             // tBoxGasDescription
             // 
-            this.tBoxGasDescription.Location = new System.Drawing.Point(295, 308);
+            this.tBoxGasDescription.Location = new System.Drawing.Point(295, 312);
             this.tBoxGasDescription.Multiline = true;
             this.tBoxGasDescription.Name = "tBoxGasDescription";
             this.tBoxGasDescription.Size = new System.Drawing.Size(332, 114);
@@ -1126,7 +1126,7 @@
             // 
             // dEditFactorGas
             // 
-            this.dEditFactorGas.Location = new System.Drawing.Point(295, 442);
+            this.dEditFactorGas.Location = new System.Drawing.Point(295, 453);
             this.dEditFactorGas.Margin = new System.Windows.Forms.Padding(4);
             this.dEditFactorGas.Mask = "0.000";
             this.dEditFactorGas.MaximumValue = 1000D;
@@ -1141,7 +1141,7 @@
             // 
             this.label28.AutoSize = true;
             this.label28.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label28.Location = new System.Drawing.Point(103, 445);
+            this.label28.Location = new System.Drawing.Point(103, 456);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(140, 20);
             this.label28.TabIndex = 73;

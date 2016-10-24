@@ -64,10 +64,13 @@ namespace HPT1000.GUI
             pumpComponent.SetPumpPtr(hpt1000.GetForePump());
 
             //Dodaj obserwatorow
+
+            //Odswiezaj nazwy programow/subprogramow w glownym oknie aplikacji gdy zostanie zmieniona one zmoienone w oknie ConfigsProgram
             Program.AddToRefreshList(new RefreshProgram(programPanel.RefreshProgram));
             Program.AddToRefreshList(new RefreshProgram(programsConfigPanel.RefreshProgram));
             Source.Driver.HPT1000.AddToRefreshList(new RefreshProgram(programPanel.RefreshProgram));
             Source.Driver.HPT1000.AddToRefreshList(new RefreshProgram(programsConfigPanel.RefreshProgram));
+            //Odswiezaj nazwy gazow na panelu przeplywki gdy zostana one zmienione w oknie Settings
             GasTypes.AddToRefreshList(new RefreshGasType(mfcPanel1.RefreshGasType));
             GasTypes.AddToRefreshList(new RefreshGasType(mfcPanel2.RefreshGasType));
             GasTypes.AddToRefreshList(new RefreshGasType(mfcPanel3.RefreshGasType));

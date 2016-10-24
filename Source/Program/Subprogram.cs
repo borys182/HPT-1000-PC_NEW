@@ -12,7 +12,9 @@ namespace HPT1000.Source.Program
         private string                  name        = "Sub-program name";
         private Types.StatusProgram     status      = Types.StatusProgram.Stop;
         private string                  description = "";
-        private uint                    id          = 0;     
+        private uint                    id          = 0;
+
+        private static RefreshProgram   refreshProgram = null;
 
         public ProcesObject[] stepObjects = new ProcesObject[5]; //Każdy segment może się składać max z 5 procesow (tyle mamy obiektow procesow)
 
@@ -102,6 +104,9 @@ namespace HPT1000.Source.Program
         public void SetName(string aName)
         {
             name = aName;
+
+            if (refreshProgram != null)
+                refreshProgram();
         }
         //-------------------------------------------------------------------------------------------------------------------------
         public string GetName()
@@ -127,6 +132,11 @@ namespace HPT1000.Source.Program
         public Types.StatusProgram GetStatus()
         {
             return status;
+        }
+        //-------------------------------------------------------------------------------------------------------------------------
+        public static void AddToRefreshList(RefreshProgram aRefresh)
+        {
+            refreshProgram = aRefresh;
         }
         //-------------------------------------------------------------------------------------------------------------------------
     }

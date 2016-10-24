@@ -435,10 +435,9 @@ namespace HPT1000.Source.Program
             AddSubprogram(aSubprogram);
         }
         //-------------------------------------------------------------------------------------------------------------------------
-        private void AddSubprogram(Subprogram aSubprogram)
+        private void AddSubprogram(Subprogram subProgram)
         {
-            subPrograms.Add(aSubprogram);
-
+            subPrograms.Add(subProgram);        
             //Poinformuj moich obserwatorow aby odswiezyly sobie informacje na temat programow
             if (refreshProgram != null)
                 refreshProgram();
@@ -506,6 +505,9 @@ namespace HPT1000.Source.Program
         public void SetName(string aName)
         {
             name = aName;
+
+            if (refreshProgram != null)
+                refreshProgram();
         }
         //-------------------------------------------------------------------------------------------------------------------------
         public string GetName()
@@ -536,6 +538,7 @@ namespace HPT1000.Source.Program
         public static void AddToRefreshList(RefreshProgram aRefresh)
         {
             refreshProgram += aRefresh;
+            Subprogram.AddToRefreshList(refreshProgram);
         }
         //-------------------------------------------------------------------------------------------------------------------------
     }

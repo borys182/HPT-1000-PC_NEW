@@ -345,6 +345,11 @@ namespace HPT1000.Source.Driver
             return (PressureControl)chamber.GetObject(Types.TypeObject.PC);
         }
         //-----------------------------------------------------------------------------------------
+        public Interlock GetInterlock()
+        {
+            return (Interlock)chamber.GetObject(Types.TypeObject.INT);
+        }
+        //-----------------------------------------------------------------------------------------
         public PLC GetPLC()
         {
             return plc;

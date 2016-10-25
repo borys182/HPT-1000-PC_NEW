@@ -24,6 +24,8 @@ namespace HPT1000.GUI
 
         private Login                   loginForm = null;
 
+        private bool                    liveModeData_Graphical = false;
+
         ERROR lastError = new ERROR();
 
         int timerLastErrorShow = 0;
@@ -49,7 +51,8 @@ namespace HPT1000.GUI
             programPanel.HPT1000        = hpt1000;
             alertsPanel.HPT1000         = hpt1000;
             settingsPanel.SetPtrHPT(hpt1000);
-            
+            servicePanel.SetPtrHPT(hpt1000);
+
             generatorPanel.SetGeneratorPtr(hpt1000.GetPowerSupply());
             pressurePanel.SetPresureControlPtr(hpt1000.GetPressureControl());
             pumpPanel.SetPumpPtr(hpt1000.GetForePump());
@@ -63,6 +66,12 @@ namespace HPT1000.GUI
             valve_Purge.SetValvePtr(hpt1000.GetValve(), Types.TypeValve.Purge);
             valve_SV.SetValvePtr(hpt1000.GetValve(), Types.TypeValve.SV);
             valve_Vent.SetValvePtr(hpt1000.GetValve(), Types.TypeValve.VV);
+
+            interlockPanel_Door.SetInterlockPtr(hpt1000.GetInterlock(), Types.TypeInterlock.Door);
+            interlockPanel_Emergency.SetInterlockPtr(hpt1000.GetInterlock(), Types.TypeInterlock.EmgStop);
+            interlockPanel_Pressure.SetInterlockPtr(hpt1000.GetInterlock(), Types.TypeInterlock.PressureGauge);
+            interlockPanel_Thermal.SetInterlockPtr(hpt1000.GetInterlock(), Types.TypeInterlock.ThermalSwitch);
+            interlockPanel_Vacuum.SetInterlockPtr(hpt1000.GetInterlock(), Types.TypeInterlock.VacuumSwitch);
 
             pumpComponent.SetPumpPtr(hpt1000.GetForePump());
 
@@ -142,6 +151,11 @@ namespace HPT1000.GUI
             valve_Vent.RefreshData();
             pumpComponent.RefreshData();
             alertsPanel.RefreshPanel();
+            interlockPanel_Door.RefreshPanel();
+            interlockPanel_Emergency.RefreshPanel();
+            interlockPanel_Pressure.RefreshPanel();
+            interlockPanel_Thermal.RefreshPanel();
+            interlockPanel_Vacuum.RefreshPanel();
 
             switch (hpt1000.GetStatus())
             {
@@ -168,9 +182,10 @@ namespace HPT1000.GUI
         //----------------------------------------------------------------------------------
         public void ShowUser()
         {
+            bool userLoged = true;
             if(dataBase != null)
             {
-                labStatusUser.Text = "Logged user: " + dataBase.UserApp.ToString();
+                labStatusUser.Text = "USER:  " + dataBase.UserApp.ToString() + "    ";
                 switch(dataBase.UserApp.Privilige)
                 {
                     case Types.UserPrivilige.Administrator:
@@ -184,9 +199,17 @@ namespace HPT1000.GUI
                         break;
                     case Types.UserPrivilige.None:
                         SetUserPriviligeToAppAsNone();
+                        userLoged = false;
                         break;
                 }
             }
+            else
+            {
+                userLoged = false;
+            }
+
+            btnLogin.Enabled    = !userLoged;
+            btnLogout.Enabled   = userLoged;
         }
         //----------------------------------------------------------------------------------
         public void SetUserPriviligeToAppAsAdmin()
@@ -197,6 +220,10 @@ namespace HPT1000.GUI
             programsConfigPanel.Enabled = true;
             alertsPanel.Enabled         = true;
             settingsPanel.Enabled       = true;
+            if(!tabControlMain.TabPages.Contains(tabPageService))
+                tabControlMain.TabPages.Insert(tabControlMain.TabPages.Count, tabPageService);
+            if (!tabControlMain.TabPages.Contains(tabPageAdmin))
+                tabControlMain.TabPages.Insert(tabControlMain.TabPages.Count, tabPageAdmin);
         }
         //----------------------------------------------------------------------------------
         public void SetUserPriviligeToAppAsOperator()
@@ -207,6 +234,9 @@ namespace HPT1000.GUI
             programsConfigPanel.Enabled = false;
             alertsPanel.Enabled         = true;
             settingsPanel.Enabled       = false;
+            tabControlMain.TabPages.Remove(tabPageService);
+            tabControlMain.TabPages.Remove(tabPageAdmin);
+
         }
         //----------------------------------------------------------------------------------
         public void SetUserPriviligeToAppAsService()
@@ -217,6 +247,10 @@ namespace HPT1000.GUI
             programsConfigPanel.Enabled = true;
             alertsPanel.Enabled         = true;
             settingsPanel.Enabled       = true;
+            if (!tabControlMain.TabPages.Contains(tabPageService))
+                tabControlMain.TabPages.Insert(tabControlMain.TabPages.Count, tabPageService);
+            if (!tabControlMain.TabPages.Contains(tabPageAdmin))
+                tabControlMain.TabPages.Insert(tabControlMain.TabPages.Count, tabPageAdmin);
         }
         //----------------------------------------------------------------------------------
         public void SetUserPriviligeToAppAsNone()
@@ -226,6 +260,9 @@ namespace HPT1000.GUI
             programsConfigPanel.Enabled = false;
             alertsPanel.Enabled         = false;
             settingsPanel.Enabled       = false;
+            tabControlMain.TabPages.Remove(tabPageService);
+            tabControlMain.TabPages.Remove(tabPageAdmin);
+
 
             ShowLoginForm();
         }
@@ -342,6 +379,11 @@ namespace HPT1000.GUI
         {
             if (dataBase != null)
                 dataBase.LogoutUser();
+        }
+        //----------------------------------------------------------------------------------
+        private void btnLiveModeData_Click(object sender, EventArgs e)
+        {
+         //   liveModeData_Graphical != liveModeData_Graphical;
         }
         //----------------------------------------------------------------------------------
     }

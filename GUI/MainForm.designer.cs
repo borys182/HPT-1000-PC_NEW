@@ -39,6 +39,16 @@
             this.labStatusAction = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnLiveModeData = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.grBoxSystem = new System.Windows.Forms.GroupBox();
             this.pictureCornerUp3 = new System.Windows.Forms.PictureBox();
             this.picturelineMFC = new System.Windows.Forms.PictureBox();
@@ -74,7 +84,14 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.tabPageService = new System.Windows.Forms.TabPage();
+            this.tabPageAdmin = new System.Windows.Forms.TabPage();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.interlockPanel_Vacuum = new HPT1000.GUI.InterlockPanel();
+            this.interlockPanel_Emergency = new HPT1000.GUI.InterlockPanel();
+            this.interlockPanel_Pressure = new HPT1000.GUI.InterlockPanel();
+            this.interlockPanel_Thermal = new HPT1000.GUI.InterlockPanel();
+            this.interlockPanel_Door = new HPT1000.GUI.InterlockPanel();
             this.pumpComponent = new HPT1000.GUI.PumpComponent();
             this.valve_Vent = new HPT1000.GUI.ValvePanel();
             this.valve_SV = new HPT1000.GUI.ValvePanel();
@@ -91,9 +108,12 @@
             this.programsConfigPanel = new HPT1000.GUI.ProgramsConfigPanel();
             this.alertsPanel = new HPT1000.GUI.AlertsPanel();
             this.settingsPanel = new HPT1000.GUI.SettingsPanel();
+            this.servicePanel = new HPT1000.GUI.ServicePanel();
+            this.adminPanel = new HPT1000.GUI.AdminPanel();
             this.statusStrip1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.grBoxSystem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureCornerUp3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picturelineMFC)).BeginInit();
@@ -124,13 +144,15 @@
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.tabPageService.SuspendLayout();
+            this.tabPageAdmin.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(9, 693);
+            this.btnLogin.Location = new System.Drawing.Point(9, 6);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(114, 38);
+            this.btnLogin.Size = new System.Drawing.Size(270, 35);
             this.btnLogin.TabIndex = 20;
             this.btnLogin.Text = "Login";
             this.btnLogin.UseVisualStyleBackColor = true;
@@ -152,9 +174,9 @@
             // 
             // btnLogout
             // 
-            this.btnLogout.Location = new System.Drawing.Point(129, 693);
+            this.btnLogout.Location = new System.Drawing.Point(287, 6);
             this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(114, 38);
+            this.btnLogout.Size = new System.Drawing.Size(270, 35);
             this.btnLogout.TabIndex = 23;
             this.btnLogout.Text = "Logout";
             this.btnLogout.UseVisualStyleBackColor = true;
@@ -167,7 +189,7 @@
             this.labStatusUser,
             this.statusLabel,
             this.labStatusAction});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 790);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 833);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1706, 25);
             this.statusStrip1.TabIndex = 25;
@@ -203,17 +225,26 @@
             this.tabControlMain.Controls.Add(this.tabPage4);
             this.tabControlMain.Controls.Add(this.tabPage5);
             this.tabControlMain.Controls.Add(this.tabPage6);
+            this.tabControlMain.Controls.Add(this.tabPageService);
+            this.tabControlMain.Controls.Add(this.tabPageAdmin);
             this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlMain.Location = new System.Drawing.Point(0, 0);
             this.tabControlMain.Multiline = true;
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(1706, 790);
+            this.tabControlMain.ShowToolTips = true;
+            this.tabControlMain.Size = new System.Drawing.Size(1706, 833);
             this.tabControlMain.TabIndex = 26;
             // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Transparent;
+            this.tabPage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPage1.Controls.Add(this.btnLiveModeData);
+            this.tabPage1.Controls.Add(this.textBox1);
+            this.tabPage1.Controls.Add(this.label7);
+            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Controls.Add(this.groupBox2);
             this.tabPage1.Controls.Add(this.grBoxSystem);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.btnLogout);
@@ -221,9 +252,124 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1698, 757);
+            this.tabPage1.Size = new System.Drawing.Size(1698, 800);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Main screen";
+            this.tabPage1.Text = "     MAIN SCREAN     ";
+            // 
+            // btnLiveModeData
+            // 
+            this.btnLiveModeData.Location = new System.Drawing.Point(563, 751);
+            this.btnLiveModeData.Name = "btnLiveModeData";
+            this.btnLiveModeData.Size = new System.Drawing.Size(1122, 35);
+            this.btnLiveModeData.TabIndex = 30;
+            this.btnLiveModeData.Text = "SWITCH TO GRAPHICAL VIEW";
+            this.btnLiveModeData.UseVisualStyleBackColor = true;
+            this.btnLiveModeData.Click += new System.EventHandler(this.btnLiveModeData_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(89, 755);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(362, 27);
+            this.textBox1.TabIndex = 29;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label7.Location = new System.Drawing.Point(8, 759);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(74, 20);
+            this.label7.TabIndex = 28;
+            this.label7.Text = "ERROR:";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(454, 752);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(104, 35);
+            this.button1.TabIndex = 27;
+            this.button1.Text = "CONFIRM";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.interlockPanel_Vacuum);
+            this.groupBox2.Controls.Add(this.interlockPanel_Emergency);
+            this.groupBox2.Controls.Add(this.interlockPanel_Pressure);
+            this.groupBox2.Controls.Add(this.interlockPanel_Thermal);
+            this.groupBox2.Controls.Add(this.interlockPanel_Door);
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Location = new System.Drawing.Point(9, 655);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(547, 96);
+            this.groupBox2.TabIndex = 26;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Interlocks";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label6.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label6.Location = new System.Drawing.Point(218, 51);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(77, 40);
+            this.label6.TabIndex = 106;
+            this.label6.Text = "Thermal\r\n swith";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label5.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label5.Location = new System.Drawing.Point(330, 48);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(91, 40);
+            this.label5.TabIndex = 105;
+            this.label5.Text = "Pressure \r\ngauge";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label3.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label3.Location = new System.Drawing.Point(432, 48);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(102, 40);
+            this.label3.TabIndex = 104;
+            this.label3.Text = "Emergency\r\n stop";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label2.Location = new System.Drawing.Point(111, 48);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(76, 40);
+            this.label2.TabIndex = 103;
+            this.label2.Text = "Vacuum\r\nswith";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label1.Location = new System.Drawing.Point(23, 48);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(56, 40);
+            this.label1.TabIndex = 102;
+            this.label1.Text = "Door \r\nswith";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // grBoxSystem
             // 
@@ -269,7 +415,7 @@
             this.grBoxSystem.Controls.Add(this.mfcPanel2);
             this.grBoxSystem.Location = new System.Drawing.Point(561, 3);
             this.grBoxSystem.Name = "grBoxSystem";
-            this.grBoxSystem.Size = new System.Drawing.Size(1124, 746);
+            this.grBoxSystem.Size = new System.Drawing.Size(1124, 748);
             this.grBoxSystem.TabIndex = 25;
             this.grBoxSystem.TabStop = false;
             this.grBoxSystem.Text = "System";
@@ -546,9 +692,9 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.programPanel);
-            this.groupBox1.Location = new System.Drawing.Point(9, 3);
+            this.groupBox1.Location = new System.Drawing.Point(9, 43);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(546, 673);
+            this.groupBox1.Size = new System.Drawing.Size(546, 610);
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Program";
@@ -558,9 +704,9 @@
             this.tabPage2.Controls.Add(this.programsConfigPanel);
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(1698, 757);
+            this.tabPage2.Size = new System.Drawing.Size(1698, 800);
             this.tabPage2.TabIndex = 6;
-            this.tabPage2.Text = "Programs";
+            this.tabPage2.Text = "     PROGRAMS     ";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // tabPage3
@@ -569,18 +715,18 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 29);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1698, 757);
+            this.tabPage3.Size = new System.Drawing.Size(1698, 800);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Alerts";
+            this.tabPage3.Text = "     ALERTS     ";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // tabPage4
             // 
             this.tabPage4.Location = new System.Drawing.Point(4, 29);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1698, 757);
+            this.tabPage4.Size = new System.Drawing.Size(1698, 800);
             this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Archive";
+            this.tabPage4.Text = "     ARCHIVE     ";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // tabPage5
@@ -589,23 +735,84 @@
             this.tabPage5.Controls.Add(this.settingsPanel);
             this.tabPage5.Location = new System.Drawing.Point(4, 29);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(1698, 757);
+            this.tabPage5.Size = new System.Drawing.Size(1698, 800);
             this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Settings";
+            this.tabPage5.Text = "     SETTINGS     ";
             // 
             // tabPage6
             // 
             this.tabPage6.Location = new System.Drawing.Point(4, 29);
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(1698, 757);
+            this.tabPage6.Size = new System.Drawing.Size(1698, 800);
             this.tabPage6.TabIndex = 5;
-            this.tabPage6.Text = "Mainteances";
+            this.tabPage6.Text = "     MAINTENANCE     ";
             this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // tabPageService
+            // 
+            this.tabPageService.Controls.Add(this.servicePanel);
+            this.tabPageService.Location = new System.Drawing.Point(4, 29);
+            this.tabPageService.Name = "tabPageService";
+            this.tabPageService.Size = new System.Drawing.Size(1698, 800);
+            this.tabPageService.TabIndex = 7;
+            this.tabPageService.Text = "     SERVICE     ";
+            this.tabPageService.UseVisualStyleBackColor = true;
+            // 
+            // tabPageAdmin
+            // 
+            this.tabPageAdmin.Controls.Add(this.adminPanel);
+            this.tabPageAdmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.tabPageAdmin.Location = new System.Drawing.Point(4, 29);
+            this.tabPageAdmin.Name = "tabPageAdmin";
+            this.tabPageAdmin.Size = new System.Drawing.Size(1698, 800);
+            this.tabPageAdmin.TabIndex = 8;
+            this.tabPageAdmin.Text = "     ADMIN     ";
+            this.tabPageAdmin.UseVisualStyleBackColor = true;
             // 
             // timer
             // 
             this.timer.Enabled = true;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // interlockPanel_Vacuum
+            // 
+            this.interlockPanel_Vacuum.Location = new System.Drawing.Point(137, 19);
+            this.interlockPanel_Vacuum.Margin = new System.Windows.Forms.Padding(5);
+            this.interlockPanel_Vacuum.Name = "interlockPanel_Vacuum";
+            this.interlockPanel_Vacuum.Size = new System.Drawing.Size(30, 30);
+            this.interlockPanel_Vacuum.TabIndex = 111;
+            // 
+            // interlockPanel_Emergency
+            // 
+            this.interlockPanel_Emergency.Location = new System.Drawing.Point(468, 19);
+            this.interlockPanel_Emergency.Margin = new System.Windows.Forms.Padding(5);
+            this.interlockPanel_Emergency.Name = "interlockPanel_Emergency";
+            this.interlockPanel_Emergency.Size = new System.Drawing.Size(30, 30);
+            this.interlockPanel_Emergency.TabIndex = 110;
+            // 
+            // interlockPanel_Pressure
+            // 
+            this.interlockPanel_Pressure.Location = new System.Drawing.Point(357, 19);
+            this.interlockPanel_Pressure.Margin = new System.Windows.Forms.Padding(5);
+            this.interlockPanel_Pressure.Name = "interlockPanel_Pressure";
+            this.interlockPanel_Pressure.Size = new System.Drawing.Size(30, 30);
+            this.interlockPanel_Pressure.TabIndex = 109;
+            // 
+            // interlockPanel_Thermal
+            // 
+            this.interlockPanel_Thermal.Location = new System.Drawing.Point(242, 19);
+            this.interlockPanel_Thermal.Margin = new System.Windows.Forms.Padding(5);
+            this.interlockPanel_Thermal.Name = "interlockPanel_Thermal";
+            this.interlockPanel_Thermal.Size = new System.Drawing.Size(30, 30);
+            this.interlockPanel_Thermal.TabIndex = 108;
+            // 
+            // interlockPanel_Door
+            // 
+            this.interlockPanel_Door.Location = new System.Drawing.Point(33, 19);
+            this.interlockPanel_Door.Margin = new System.Windows.Forms.Padding(4);
+            this.interlockPanel_Door.Name = "interlockPanel_Door";
+            this.interlockPanel_Door.Size = new System.Drawing.Size(30, 30);
+            this.interlockPanel_Door.TabIndex = 107;
             // 
             // pumpComponent
             // 
@@ -725,7 +932,7 @@
             this.programPanel.Location = new System.Drawing.Point(3, 23);
             this.programPanel.Margin = new System.Windows.Forms.Padding(4);
             this.programPanel.Name = "programPanel";
-            this.programPanel.Size = new System.Drawing.Size(540, 647);
+            this.programPanel.Size = new System.Drawing.Size(540, 584);
             this.programPanel.TabIndex = 0;
             // 
             // programsConfigPanel
@@ -735,7 +942,7 @@
             this.programsConfigPanel.HPT1000 = null;
             this.programsConfigPanel.Location = new System.Drawing.Point(0, 0);
             this.programsConfigPanel.Name = "programsConfigPanel";
-            this.programsConfigPanel.Size = new System.Drawing.Size(1698, 761);
+            this.programsConfigPanel.Size = new System.Drawing.Size(1698, 800);
             this.programsConfigPanel.TabIndex = 1;
             // 
             // alertsPanel
@@ -745,7 +952,7 @@
             this.alertsPanel.HPT1000 = null;
             this.alertsPanel.Location = new System.Drawing.Point(3, 3);
             this.alertsPanel.Name = "alertsPanel";
-            this.alertsPanel.Size = new System.Drawing.Size(1692, 755);
+            this.alertsPanel.Size = new System.Drawing.Size(1692, 794);
             this.alertsPanel.TabIndex = 0;
             // 
             // settingsPanel
@@ -754,14 +961,32 @@
             this.settingsPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.settingsPanel.Location = new System.Drawing.Point(0, 0);
             this.settingsPanel.Name = "settingsPanel";
-            this.settingsPanel.Size = new System.Drawing.Size(1698, 761);
+            this.settingsPanel.Size = new System.Drawing.Size(1698, 800);
             this.settingsPanel.TabIndex = 0;
+            // 
+            // servicePanel
+            // 
+            this.servicePanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.servicePanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.servicePanel.Location = new System.Drawing.Point(0, 0);
+            this.servicePanel.Name = "servicePanel";
+            this.servicePanel.Size = new System.Drawing.Size(1698, 800);
+            this.servicePanel.TabIndex = 0;
+            // 
+            // adminPanel
+            // 
+            this.adminPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.adminPanel.Location = new System.Drawing.Point(0, 0);
+            this.adminPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.adminPanel.Name = "adminPanel";
+            this.adminPanel.Size = new System.Drawing.Size(1698, 804);
+            this.adminPanel.TabIndex = 0;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1706, 815);
+            this.ClientSize = new System.Drawing.Size(1706, 858);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.statusStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -772,6 +997,9 @@
             this.statusStrip1.PerformLayout();
             this.tabControlMain.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.grBoxSystem.ResumeLayout(false);
             this.grBoxSystem.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureCornerUp3)).EndInit();
@@ -803,6 +1031,8 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
+            this.tabPageService.ResumeLayout(false);
+            this.tabPageAdmin.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -870,6 +1100,25 @@
         private System.Windows.Forms.PictureBox picturelineMFC;
         private System.Windows.Forms.PictureBox pictureCornerUp3;
         private System.Windows.Forms.ToolStripStatusLabel labStatusUser;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private InterlockPanel interlockPanel_Vacuum;
+        private InterlockPanel interlockPanel_Emergency;
+        private InterlockPanel interlockPanel_Pressure;
+        private InterlockPanel interlockPanel_Thermal;
+        private InterlockPanel interlockPanel_Door;
+        private System.Windows.Forms.Button btnLiveModeData;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TabPage tabPageService;
+        private System.Windows.Forms.TabPage tabPageAdmin;
+        private ServicePanel servicePanel;
+        private AdminPanel adminPanel;
     }
 }
 

@@ -21,6 +21,7 @@ namespace HPT1000.Source.Chamber
             objects.Add(new PowerSupplay());
             objects.Add(new Vaporizer());
             objects.Add(new PressureControl());
+            objects.Add(new Interlock());
         }
         //------------------------------------------------------------------------------------------------
         public void UpdateData(int []aData)
@@ -61,6 +62,8 @@ namespace HPT1000.Source.Chamber
                 if (typeObj == Types.TypeObject.VP && obj is Vaporizer)
                     aObject = obj;
                 if (typeObj == Types.TypeObject.PC && obj is PressureControl)
+                    aObject = obj;
+                if (typeObj == Types.TypeObject.INT && obj is Interlock)
                     aObject = obj;
             }
             return aObject;

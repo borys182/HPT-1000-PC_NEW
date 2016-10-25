@@ -192,7 +192,7 @@
             this.panel8.Controls.Add(this.label35);
             this.panel8.Location = new System.Drawing.Point(3, 243);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(558, 353);
+            this.panel8.Size = new System.Drawing.Size(530, 290);
             this.panel8.TabIndex = 57;
             // 
             // panelGas
@@ -205,15 +205,15 @@
             this.panelGas.Controls.Add(this.labGasTimeTarget);
             this.panelGas.Controls.Add(this.labGasTime);
             this.panelGas.Controls.Add(this.label26);
-            this.panelGas.Location = new System.Drawing.Point(3, 249);
+            this.panelGas.Location = new System.Drawing.Point(3, 194);
             this.panelGas.Name = "panelGas";
-            this.panelGas.Size = new System.Drawing.Size(524, 101);
+            this.panelGas.Size = new System.Drawing.Size(524, 89);
             this.panelGas.TabIndex = 35;
             // 
             // labGasVaporiser
             // 
             this.labGasVaporiser.AutoSize = true;
-            this.labGasVaporiser.Location = new System.Drawing.Point(28, 74);
+            this.labGasVaporiser.Location = new System.Drawing.Point(28, 64);
             this.labGasVaporiser.Name = "labGasVaporiser";
             this.labGasVaporiser.Size = new System.Drawing.Size(337, 20);
             this.labGasVaporiser.TabIndex = 9;
@@ -223,7 +223,7 @@
             // 
             this.labGasMFC3.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.labGasMFC3.AutoSize = true;
-            this.labGasMFC3.Location = new System.Drawing.Point(371, 42);
+            this.labGasMFC3.Location = new System.Drawing.Point(371, 35);
             this.labGasMFC3.Name = "labGasMFC3";
             this.labGasMFC3.Size = new System.Drawing.Size(166, 20);
             this.labGasMFC3.TabIndex = 8;
@@ -233,7 +233,7 @@
             // 
             this.labGasMFC2.AutoSize = true;
             this.labGasMFC2.Cursor = System.Windows.Forms.Cursors.No;
-            this.labGasMFC2.Location = new System.Drawing.Point(196, 42);
+            this.labGasMFC2.Location = new System.Drawing.Point(196, 35);
             this.labGasMFC2.Name = "labGasMFC2";
             this.labGasMFC2.Size = new System.Drawing.Size(166, 20);
             this.labGasMFC2.TabIndex = 7;
@@ -242,7 +242,7 @@
             // labGasMFC1
             // 
             this.labGasMFC1.AutoSize = true;
-            this.labGasMFC1.Location = new System.Drawing.Point(28, 42);
+            this.labGasMFC1.Location = new System.Drawing.Point(28, 35);
             this.labGasMFC1.Name = "labGasMFC1";
             this.labGasMFC1.Size = new System.Drawing.Size(166, 20);
             this.labGasMFC1.TabIndex = 6;
@@ -251,7 +251,7 @@
             // labGasSetpointPressure
             // 
             this.labGasSetpointPressure.AutoSize = true;
-            this.labGasSetpointPressure.Location = new System.Drawing.Point(349, 13);
+            this.labGasSetpointPressure.Location = new System.Drawing.Point(349, 7);
             this.labGasSetpointPressure.Name = "labGasSetpointPressure";
             this.labGasSetpointPressure.Size = new System.Drawing.Size(167, 20);
             this.labGasSetpointPressure.TabIndex = 5;
@@ -260,7 +260,7 @@
             // labGasTimeTarget
             // 
             this.labGasTimeTarget.AutoSize = true;
-            this.labGasTimeTarget.Location = new System.Drawing.Point(250, 13);
+            this.labGasTimeTarget.Location = new System.Drawing.Point(250, 7);
             this.labGasTimeTarget.Name = "labGasTimeTarget";
             this.labGasTimeTarget.Size = new System.Drawing.Size(73, 20);
             this.labGasTimeTarget.TabIndex = 3;
@@ -269,7 +269,7 @@
             // labGasTime
             // 
             this.labGasTime.AutoSize = true;
-            this.labGasTime.Location = new System.Drawing.Point(150, 13);
+            this.labGasTime.Location = new System.Drawing.Point(150, 7);
             this.labGasTime.Name = "labGasTime";
             this.labGasTime.Size = new System.Drawing.Size(73, 20);
             this.labGasTime.TabIndex = 2;
@@ -280,7 +280,7 @@
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label26.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label26.Location = new System.Drawing.Point(2, 13);
+            this.label26.Location = new System.Drawing.Point(2, 7);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(119, 20);
             this.label26.TabIndex = 0;
@@ -295,13 +295,13 @@
             this.panelPump.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.panelPump.Location = new System.Drawing.Point(3, 49);
             this.panelPump.Name = "panelPump";
-            this.panelPump.Size = new System.Drawing.Size(527, 41);
+            this.panelPump.Size = new System.Drawing.Size(527, 35);
             this.panelPump.TabIndex = 29;
             // 
             // labPumpTimeTarget
             // 
             this.labPumpTimeTarget.AutoSize = true;
-            this.labPumpTimeTarget.Location = new System.Drawing.Point(250, 13);
+            this.labPumpTimeTarget.Location = new System.Drawing.Point(250, 9);
             this.labPumpTimeTarget.Name = "labPumpTimeTarget";
             this.labPumpTimeTarget.Size = new System.Drawing.Size(81, 20);
             this.labPumpTimeTarget.TabIndex = 3;
@@ -310,7 +310,7 @@
             // labPumpTime
             // 
             this.labPumpTime.AutoSize = true;
-            this.labPumpTime.Location = new System.Drawing.Point(150, 13);
+            this.labPumpTime.Location = new System.Drawing.Point(150, 9);
             this.labPumpTime.Name = "labPumpTime";
             this.labPumpTime.Size = new System.Drawing.Size(81, 20);
             this.labPumpTime.TabIndex = 2;
@@ -319,7 +319,7 @@
             // labPumpSetpoint
             // 
             this.labPumpSetpoint.AutoSize = true;
-            this.labPumpSetpoint.Location = new System.Drawing.Point(350, 13);
+            this.labPumpSetpoint.Location = new System.Drawing.Point(350, 9);
             this.labPumpSetpoint.Name = "labPumpSetpoint";
             this.labPumpSetpoint.Size = new System.Drawing.Size(178, 20);
             this.labPumpSetpoint.TabIndex = 1;
@@ -330,7 +330,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label6.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label6.Location = new System.Drawing.Point(2, 13);
+            this.label6.Location = new System.Drawing.Point(2, 9);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(111, 20);
             this.label6.TabIndex = 0;
@@ -342,15 +342,15 @@
             this.panelPlasma.Controls.Add(this.labPlasmaTimeTarget);
             this.panelPlasma.Controls.Add(this.labPlasmaTime);
             this.panelPlasma.Controls.Add(this.label21);
-            this.panelPlasma.Location = new System.Drawing.Point(3, 200);
+            this.panelPlasma.Location = new System.Drawing.Point(3, 157);
             this.panelPlasma.Name = "panelPlasma";
-            this.panelPlasma.Size = new System.Drawing.Size(527, 41);
+            this.panelPlasma.Size = new System.Drawing.Size(527, 35);
             this.panelPlasma.TabIndex = 34;
             // 
             // labPlasmaSetpoint
             // 
             this.labPlasmaSetpoint.AutoSize = true;
-            this.labPlasmaSetpoint.Location = new System.Drawing.Point(349, 13);
+            this.labPlasmaSetpoint.Location = new System.Drawing.Point(349, 9);
             this.labPlasmaSetpoint.Name = "labPlasmaSetpoint";
             this.labPlasmaSetpoint.Size = new System.Drawing.Size(128, 20);
             this.labPlasmaSetpoint.TabIndex = 4;
@@ -359,7 +359,7 @@
             // labPlasmaTimeTarget
             // 
             this.labPlasmaTimeTarget.AutoSize = true;
-            this.labPlasmaTimeTarget.Location = new System.Drawing.Point(250, 13);
+            this.labPlasmaTimeTarget.Location = new System.Drawing.Point(250, 9);
             this.labPlasmaTimeTarget.Name = "labPlasmaTimeTarget";
             this.labPlasmaTimeTarget.Size = new System.Drawing.Size(73, 20);
             this.labPlasmaTimeTarget.TabIndex = 3;
@@ -368,7 +368,7 @@
             // labPlasmaTime
             // 
             this.labPlasmaTime.AutoSize = true;
-            this.labPlasmaTime.Location = new System.Drawing.Point(150, 13);
+            this.labPlasmaTime.Location = new System.Drawing.Point(150, 9);
             this.labPlasmaTime.Name = "labPlasmaTime";
             this.labPlasmaTime.Size = new System.Drawing.Size(73, 20);
             this.labPlasmaTime.TabIndex = 2;
@@ -379,7 +379,7 @@
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label21.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label21.Location = new System.Drawing.Point(2, 13);
+            this.label21.Location = new System.Drawing.Point(2, 9);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(140, 20);
             this.label21.TabIndex = 0;
@@ -390,15 +390,15 @@
             this.panelVent.Controls.Add(this.labVentTimeTarget);
             this.panelVent.Controls.Add(this.labVentTime);
             this.panelVent.Controls.Add(this.label16);
-            this.panelVent.Location = new System.Drawing.Point(3, 100);
+            this.panelVent.Location = new System.Drawing.Point(3, 85);
             this.panelVent.Name = "panelVent";
-            this.panelVent.Size = new System.Drawing.Size(527, 41);
+            this.panelVent.Size = new System.Drawing.Size(527, 35);
             this.panelVent.TabIndex = 30;
             // 
             // labVentTimeTarget
             // 
             this.labVentTimeTarget.AutoSize = true;
-            this.labVentTimeTarget.Location = new System.Drawing.Point(250, 13);
+            this.labVentTimeTarget.Location = new System.Drawing.Point(250, 9);
             this.labVentTimeTarget.Name = "labVentTimeTarget";
             this.labVentTimeTarget.Size = new System.Drawing.Size(73, 20);
             this.labVentTimeTarget.TabIndex = 3;
@@ -407,7 +407,7 @@
             // labVentTime
             // 
             this.labVentTime.AutoSize = true;
-            this.labVentTime.Location = new System.Drawing.Point(150, 13);
+            this.labVentTime.Location = new System.Drawing.Point(150, 9);
             this.labVentTime.Name = "labVentTime";
             this.labVentTime.Size = new System.Drawing.Size(73, 20);
             this.labVentTime.TabIndex = 2;
@@ -418,7 +418,7 @@
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label16.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label16.Location = new System.Drawing.Point(2, 13);
+            this.label16.Location = new System.Drawing.Point(2, 9);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(53, 20);
             this.label16.TabIndex = 0;
@@ -439,15 +439,15 @@
             this.panelPurge.Controls.Add(this.labPurgeTimeTarget);
             this.panelPurge.Controls.Add(this.labPurgeTime);
             this.panelPurge.Controls.Add(this.label18);
-            this.panelPurge.Location = new System.Drawing.Point(3, 153);
+            this.panelPurge.Location = new System.Drawing.Point(3, 121);
             this.panelPurge.Name = "panelPurge";
-            this.panelPurge.Size = new System.Drawing.Size(527, 41);
+            this.panelPurge.Size = new System.Drawing.Size(527, 35);
             this.panelPurge.TabIndex = 31;
             // 
             // labPurgeTimeTarget
             // 
             this.labPurgeTimeTarget.AutoSize = true;
-            this.labPurgeTimeTarget.Location = new System.Drawing.Point(250, 13);
+            this.labPurgeTimeTarget.Location = new System.Drawing.Point(250, 9);
             this.labPurgeTimeTarget.Name = "labPurgeTimeTarget";
             this.labPurgeTimeTarget.Size = new System.Drawing.Size(73, 20);
             this.labPurgeTimeTarget.TabIndex = 3;
@@ -456,7 +456,7 @@
             // labPurgeTime
             // 
             this.labPurgeTime.AutoSize = true;
-            this.labPurgeTime.Location = new System.Drawing.Point(150, 13);
+            this.labPurgeTime.Location = new System.Drawing.Point(150, 9);
             this.labPurgeTime.Name = "labPurgeTime";
             this.labPurgeTime.Size = new System.Drawing.Size(73, 20);
             this.labPurgeTime.TabIndex = 2;
@@ -467,7 +467,7 @@
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label18.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label18.Location = new System.Drawing.Point(3, 13);
+            this.label18.Location = new System.Drawing.Point(3, 9);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(64, 20);
             this.label18.TabIndex = 0;
@@ -528,7 +528,7 @@
             this.panel6.Controls.Add(this.cBoxPrograms);
             this.panel6.Location = new System.Drawing.Point(0, 55);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(538, 602);
+            this.panel6.Size = new System.Drawing.Size(536, 532);
             this.panel6.TabIndex = 58;
             // 
             // labStatus
@@ -595,7 +595,7 @@
             this.Controls.Add(this.label4);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Name = "ProgramPanel";
-            this.Size = new System.Drawing.Size(535, 656);
+            this.Size = new System.Drawing.Size(535, 582);
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
             this.panelGas.ResumeLayout(false);

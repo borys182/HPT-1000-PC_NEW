@@ -17,12 +17,12 @@ namespace HPT1000.Source.Driver
         /// </summary>
         public enum TypeValve       { SV = 0, VV = 1, Purge = 2, Gas = 3, None }; //Kolejnosc zaworow odpowiada kolejnosci stanow zaworow przesylanych w zbiorczym DWORD z PLC
         public enum DriverStatus    { Unknown = 0, OK = 1, NoComm = 2, Error = 3, Warning = 4, DummyMode };
-        public enum StateValve      { Close = 1, Open = 2, Error = 3, HalfOpen = 4 };
+        public enum StateValve      { Unknown = 0, Close = 1, Open = 2, Error = 3, HalfOpen = 4 };
         public enum StateFP         { OFF   = 1, ON   = 2, Error = 3 };
         public enum StateHV         { OFF   = 1, ON   = 2, Error = 3 };
         public enum UnitFlow        { sccm, percent, ms };
         public enum ModeHV          { Power = 1 , Voltage = 2 , Curent = 3, Unknown = 4};
-        public enum TypeObject      { None, VL, FP, HV, FM, VP, PC }; //VL - vavle , FP - fore pump , HV - power suplay , FN - flow meter, VP - Vaporizer, PC-pressure control
+        public enum TypeObject      { None, VL, FP, HV, FM, VP, PC, INT }; //VL - vavle , FP - fore pump , HV - power suplay , FN - flow meter, VP - Vaporizer, PC-pressure control
         public enum ControlProgram  { Start = 1,Stop = 2,Resume = 3 };
         public enum WorkModeHV      { Power = 1, Voltage = 2, Curent = 3};
         public enum Word            { LOW , HIGH};
@@ -35,7 +35,8 @@ namespace HPT1000.Source.Driver
         public enum TypeComm        { USB = 0x0D, TCP = 0x05 };
         public enum TypePLC         { L = 0x51 };
         public enum MessageType     { Error = 1 , Information = 2};
-        public enum UserPrivilige   { None = 0, Administrator = 1, Operator = 2, Service = 3};
+        public enum UserPrivilige   { None = 0, Administrator = 1, Operator = 2, Service = 3, Technican = 4};
+        public enum TypeInterlock   { None = 0 , Door = 1 , VacuumSwitch = 2 , ThermalSwitch = 3 , PressureGauge = 4 , EmgStop = 5  }
 
         public enum ERROR_CATEGORY
         {
@@ -152,6 +153,8 @@ namespace HPT1000.Source.Driver
         public static int OFFSET_SETPOINT_MFC1  = 32;
         public static int OFFSET_SETPOINT_MFC2  = 33;
         public static int OFFSET_SETPOINT_MFC3  = 34;
+        public static int OFFSET_INTERLOCKS     = 35;
+
 
 
         //Dane odczytywane na zdarzenie

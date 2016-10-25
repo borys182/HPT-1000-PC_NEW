@@ -49,11 +49,13 @@ namespace HPT1000.Source
         public DB()
         {
             //For teest
-            User user = new User(Types.UserPrivilige.Administrator,"admin123");
+            User user = new User(Types.UserPrivilige.Administrator,"admin");
             users.Add(user);
-            user = new User(Types.UserPrivilige.Operator,"operator123");
+            user = new User(Types.UserPrivilige.Operator,"operator");
             users.Add(user);
-            user = new User(Types.UserPrivilige.Service,"service123");
+            user = new User(Types.UserPrivilige.Service,"service");
+            users.Add(user);
+            user = new User(Types.UserPrivilige.Technican, "technican");
             users.Add(user);
 
 

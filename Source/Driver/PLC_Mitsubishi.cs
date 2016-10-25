@@ -45,6 +45,7 @@ namespace HPT1000.Source.Driver
             dummyModeStatusChamberData[17] = 157;
             dummyModeStatusChamberData[19] = 289;
             dummyModeStatusChamberData[27] = (int)Types.Mode.Automatic;
+            dummyModeStatusChamberData[35] = 0xD6A; //InterlockState {}
         }
         //-----------------------------------------------------------------------------------------
         //Metoda ma za zadanie otwarcie połączenia z PLC

@@ -26,6 +26,22 @@ namespace HPT1000.GUI
             db = dbPtr;
         }
         //-------------------------------------------------------------------------------------------------------------
+        private void TryLogin()
+        {
+            if (db != null)
+            {
+                User user = (User)cBoxUsers.SelectedItem;
+                bool aRes = db.ChangeUserApp(user, tBoxPassword.Text);
+
+                if (aRes)
+                {
+                    Hide();
+                }
+                else
+                    MessageBox.Show("User can't be login. Wrong password", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        //-------------------------------------------------------------------------------------------------------------
         private void ShowUsers()
         {
             int index = -1;
@@ -46,18 +62,7 @@ namespace HPT1000.GUI
         //-------------------------------------------------------------------------------------------------------------
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            if(db != null)
-            {
-                User user = (User)cBoxUsers.SelectedItem;
-                bool aRes = db.ChangeUserApp(user, tBoxPassword.Text);
-
-                if (aRes)
-                {
-                    Hide();
-                }
-                else
-                    MessageBox.Show("User can't be login. Wrong password", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            TryLogin();
         }
         //-------------------------------------------------------------------------------------------------------------
         private void btnCancel_Click(object sender, EventArgs e)
@@ -74,6 +79,12 @@ namespace HPT1000.GUI
         {
             cBoxUsers.SelectedIndex = -1;
             tBoxPassword.Text = "";
+        }
+        //-------------------------------------------------------------------------------------------------------------
+        private void tBoxPassword_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                TryLogin();
         }
         //-------------------------------------------------------------------------------------------------------------
 

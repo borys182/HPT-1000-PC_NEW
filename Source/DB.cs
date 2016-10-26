@@ -268,7 +268,7 @@ namespace HPT1000.Source
         {
             bool aRes = false;
 
-            if(user.Password == psw)
+            if(user != null && user.Password == psw)
             {
                 userApp = user;
                 aRes = true;

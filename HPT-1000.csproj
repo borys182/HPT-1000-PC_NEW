@@ -12,6 +12,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,7 +25,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -50,6 +50,9 @@
   <PropertyGroup>
     <StartupObject>
     </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>SoftIcone.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ActSupportMsgLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9a04c259fe1fad37, processorArchitecture=MSIL">
@@ -377,6 +380,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\Interlock_ON.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\ChamberPlasma.png" />
+    <Content Include="SoftIcone.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -108,12 +108,13 @@
             this.Controls.Add(this.cBoxUsers);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.btnCancel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Login";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
             this.TopMost = true;
             this.Activated += new System.EventHandler(this.Login_Activated);

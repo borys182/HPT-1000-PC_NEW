@@ -26,6 +26,8 @@ namespace HPT1000.GUI
 
         private bool                    liveModeData_Graphical = false;
 
+        User                            lastUser  = null;
+
         ERROR lastError = new ERROR();
 
         int timerLastErrorShow = 0;
@@ -185,36 +187,39 @@ namespace HPT1000.GUI
             bool userLoged = true;
             if(dataBase != null)
             {
-                labStatusUser.Text = "USER:  " + dataBase.UserApp.ToString() + "    ";
-                switch(dataBase.UserApp.Privilige)
+                if (lastUser == null ||lastUser != dataBase.UserApp)
                 {
-                    case Types.UserPrivilige.Administrator:
-                        SetUserPriviligeToAppAsAdmin();
-                        break;
-                    case Types.UserPrivilige.Operator:
-                        SetUserPriviligeToAppAsOperator();
-                        break;
-                    case Types.UserPrivilige.Service:
-                        SetUserPriviligeToAppAsService();
-                        break;
-                    case Types.UserPrivilige.None:
-                        SetUserPriviligeToAppAsNone();
-                        userLoged = false;
-                        break;
+                    labStatusUser.Text = "USER:  " + dataBase.UserApp.ToString() + "    ";
+                    switch (dataBase.UserApp.Privilige)
+                    {
+                        case Types.UserPrivilige.Administrator:
+                            SetUserPriviligeToAppAsAdmin();
+                            break;
+                        case Types.UserPrivilige.Operator:
+                            SetUserPriviligeToAppAsOperator();
+                            break;
+                        case Types.UserPrivilige.Service:
+                            SetUserPriviligeToAppAsService();
+                            break;
+                        case Types.UserPrivilige.None:
+                            SetUserPriviligeToAppAsNone();
+                            userLoged = false;
+                            break;
+                    }
                 }
+                lastUser = dataBase.UserApp.Copy();
             }
             else
             {
                 userLoged = false;
             }
-
+          
             btnLogin.Enabled    = !userLoged;
             btnLogout.Enabled   = userLoged;
         }
         //----------------------------------------------------------------------------------
         public void SetUserPriviligeToAppAsAdmin()
         {
-            programPanel.Visible        = true;
             programPanel.Enabled        = true;
             grBoxSystem.Enabled         = true;
             programsConfigPanel.Enabled = true;
@@ -249,8 +254,6 @@ namespace HPT1000.GUI
             settingsPanel.Enabled       = true;
             if (!tabControlMain.TabPages.Contains(tabPageService))
                 tabControlMain.TabPages.Insert(tabControlMain.TabPages.Count, tabPageService);
-            if (!tabControlMain.TabPages.Contains(tabPageAdmin))
-                tabControlMain.TabPages.Insert(tabControlMain.TabPages.Count, tabPageAdmin);
         }
         //----------------------------------------------------------------------------------
         public void SetUserPriviligeToAppAsNone()
@@ -275,7 +278,8 @@ namespace HPT1000.GUI
                 loginForm.FormClosed += new FormClosedEventHandler(loginForm_closed);
                 loginForm.SetDB(dataBase);
             }
-            loginForm.Show();
+            if(loginForm.Visible == false)
+                loginForm.ShowDialog();
         }
         //----------------------------------------------------------------------------------
         private void loginForm_closed(object sender, FormClosedEventArgs e)

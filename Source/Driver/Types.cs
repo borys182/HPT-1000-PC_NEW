@@ -83,7 +83,8 @@ namespace HPT1000.Source.Driver
             SET_STATE_VALVE             = 0x21,
             SET_MODE_PRESSURE           = 0x22,
             NO_SELECT_PROGRAM_TO_RUN    = 0x23,
-            SET_MODE_CONTROL            = 0x24
+            SET_MODE_CONTROL            = 0x24,
+            MX_COMPONENTS_NO_INSTALL    = 0x25
         }
 
         /// <summary>

@@ -38,7 +38,7 @@
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.labStatusAction = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControlMain = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPageMain = new System.Windows.Forms.TabPage();
             this.btnLiveModeData = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -97,14 +97,14 @@
             this.mfcPanel2 = new HPT1000.GUI.MFCPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.programPanel = new HPT1000.GUI.ProgramPanel();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPagePrograms = new System.Windows.Forms.TabPage();
             this.programsConfigPanel = new HPT1000.GUI.ProgramsConfigPanel();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPageAlerts = new System.Windows.Forms.TabPage();
             this.alertsPanel = new HPT1000.GUI.AlertsPanel();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tabPageArchive = new System.Windows.Forms.TabPage();
+            this.tabPageSettings = new System.Windows.Forms.TabPage();
             this.settingsPanel = new HPT1000.GUI.SettingsPanel();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.tabPageMaintenance = new System.Windows.Forms.TabPage();
             this.tabPageService = new System.Windows.Forms.TabPage();
             this.servicePanel = new HPT1000.GUI.ServicePanel();
             this.tabPageAdmin = new System.Windows.Forms.TabPage();
@@ -112,7 +112,7 @@
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabPageMain.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.grBoxSystem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureCornerUp3)).BeginInit();
@@ -141,9 +141,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureChamber)).BeginInit();
             this.groupBox1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.tabPage5.SuspendLayout();
+            this.tabPagePrograms.SuspendLayout();
+            this.tabPageAlerts.SuspendLayout();
+            this.tabPageSettings.SuspendLayout();
             this.tabPageService.SuspendLayout();
             this.tabPageAdmin.SuspendLayout();
             this.SuspendLayout();
@@ -219,12 +219,12 @@
             // 
             // tabControlMain
             // 
-            this.tabControlMain.Controls.Add(this.tabPage1);
-            this.tabControlMain.Controls.Add(this.tabPage2);
-            this.tabControlMain.Controls.Add(this.tabPage3);
-            this.tabControlMain.Controls.Add(this.tabPage4);
-            this.tabControlMain.Controls.Add(this.tabPage5);
-            this.tabControlMain.Controls.Add(this.tabPage6);
+            this.tabControlMain.Controls.Add(this.tabPageMain);
+            this.tabControlMain.Controls.Add(this.tabPagePrograms);
+            this.tabControlMain.Controls.Add(this.tabPageAlerts);
+            this.tabControlMain.Controls.Add(this.tabPageArchive);
+            this.tabControlMain.Controls.Add(this.tabPageSettings);
+            this.tabControlMain.Controls.Add(this.tabPageMaintenance);
             this.tabControlMain.Controls.Add(this.tabPageService);
             this.tabControlMain.Controls.Add(this.tabPageAdmin);
             this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -236,25 +236,25 @@
             this.tabControlMain.Size = new System.Drawing.Size(1706, 833);
             this.tabControlMain.TabIndex = 26;
             // 
-            // tabPage1
+            // tabPageMain
             // 
-            this.tabPage1.BackColor = System.Drawing.Color.Transparent;
-            this.tabPage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tabPage1.Controls.Add(this.btnLiveModeData);
-            this.tabPage1.Controls.Add(this.textBox1);
-            this.tabPage1.Controls.Add(this.label7);
-            this.tabPage1.Controls.Add(this.button1);
-            this.tabPage1.Controls.Add(this.groupBox2);
-            this.tabPage1.Controls.Add(this.grBoxSystem);
-            this.tabPage1.Controls.Add(this.groupBox1);
-            this.tabPage1.Controls.Add(this.btnLogout);
-            this.tabPage1.Controls.Add(this.btnLogin);
-            this.tabPage1.Location = new System.Drawing.Point(4, 29);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1698, 800);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "     MAIN SCREAN     ";
+            this.tabPageMain.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPageMain.Controls.Add(this.btnLiveModeData);
+            this.tabPageMain.Controls.Add(this.textBox1);
+            this.tabPageMain.Controls.Add(this.label7);
+            this.tabPageMain.Controls.Add(this.button1);
+            this.tabPageMain.Controls.Add(this.groupBox2);
+            this.tabPageMain.Controls.Add(this.grBoxSystem);
+            this.tabPageMain.Controls.Add(this.groupBox1);
+            this.tabPageMain.Controls.Add(this.btnLogout);
+            this.tabPageMain.Controls.Add(this.btnLogin);
+            this.tabPageMain.Location = new System.Drawing.Point(4, 29);
+            this.tabPageMain.Name = "tabPageMain";
+            this.tabPageMain.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageMain.Size = new System.Drawing.Size(1698, 800);
+            this.tabPageMain.TabIndex = 0;
+            this.tabPageMain.Text = "     MAIN SCREAN     ";
             // 
             // btnLiveModeData
             // 
@@ -860,15 +860,15 @@
             this.programPanel.Size = new System.Drawing.Size(540, 584);
             this.programPanel.TabIndex = 0;
             // 
-            // tabPage2
+            // tabPagePrograms
             // 
-            this.tabPage2.Controls.Add(this.programsConfigPanel);
-            this.tabPage2.Location = new System.Drawing.Point(4, 29);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(1698, 800);
-            this.tabPage2.TabIndex = 6;
-            this.tabPage2.Text = "     PROGRAMS     ";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPagePrograms.Controls.Add(this.programsConfigPanel);
+            this.tabPagePrograms.Location = new System.Drawing.Point(4, 29);
+            this.tabPagePrograms.Name = "tabPagePrograms";
+            this.tabPagePrograms.Size = new System.Drawing.Size(1698, 800);
+            this.tabPagePrograms.TabIndex = 6;
+            this.tabPagePrograms.Text = "     PROGRAMS     ";
+            this.tabPagePrograms.UseVisualStyleBackColor = true;
             // 
             // programsConfigPanel
             // 
@@ -880,16 +880,16 @@
             this.programsConfigPanel.Size = new System.Drawing.Size(1698, 800);
             this.programsConfigPanel.TabIndex = 1;
             // 
-            // tabPage3
+            // tabPageAlerts
             // 
-            this.tabPage3.Controls.Add(this.alertsPanel);
-            this.tabPage3.Location = new System.Drawing.Point(4, 29);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1698, 800);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "     ALERTS     ";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabPageAlerts.Controls.Add(this.alertsPanel);
+            this.tabPageAlerts.Location = new System.Drawing.Point(4, 29);
+            this.tabPageAlerts.Name = "tabPageAlerts";
+            this.tabPageAlerts.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAlerts.Size = new System.Drawing.Size(1698, 800);
+            this.tabPageAlerts.TabIndex = 2;
+            this.tabPageAlerts.Text = "     ALERTS     ";
+            this.tabPageAlerts.UseVisualStyleBackColor = true;
             // 
             // alertsPanel
             // 
@@ -901,24 +901,24 @@
             this.alertsPanel.Size = new System.Drawing.Size(1692, 794);
             this.alertsPanel.TabIndex = 0;
             // 
-            // tabPage4
+            // tabPageArchive
             // 
-            this.tabPage4.Location = new System.Drawing.Point(4, 29);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1698, 800);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "     ARCHIVE     ";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.tabPageArchive.Location = new System.Drawing.Point(4, 29);
+            this.tabPageArchive.Name = "tabPageArchive";
+            this.tabPageArchive.Size = new System.Drawing.Size(1698, 800);
+            this.tabPageArchive.TabIndex = 3;
+            this.tabPageArchive.Text = "     ARCHIVE     ";
+            this.tabPageArchive.UseVisualStyleBackColor = true;
             // 
-            // tabPage5
+            // tabPageSettings
             // 
-            this.tabPage5.BackColor = System.Drawing.Color.Transparent;
-            this.tabPage5.Controls.Add(this.settingsPanel);
-            this.tabPage5.Location = new System.Drawing.Point(4, 29);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(1698, 800);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "     SETTINGS     ";
+            this.tabPageSettings.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageSettings.Controls.Add(this.settingsPanel);
+            this.tabPageSettings.Location = new System.Drawing.Point(4, 29);
+            this.tabPageSettings.Name = "tabPageSettings";
+            this.tabPageSettings.Size = new System.Drawing.Size(1698, 800);
+            this.tabPageSettings.TabIndex = 4;
+            this.tabPageSettings.Text = "     SETTINGS     ";
             // 
             // settingsPanel
             // 
@@ -929,14 +929,14 @@
             this.settingsPanel.Size = new System.Drawing.Size(1698, 800);
             this.settingsPanel.TabIndex = 0;
             // 
-            // tabPage6
+            // tabPageMaintenance
             // 
-            this.tabPage6.Location = new System.Drawing.Point(4, 29);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(1698, 800);
-            this.tabPage6.TabIndex = 5;
-            this.tabPage6.Text = "     MAINTENANCE     ";
-            this.tabPage6.UseVisualStyleBackColor = true;
+            this.tabPageMaintenance.Location = new System.Drawing.Point(4, 29);
+            this.tabPageMaintenance.Name = "tabPageMaintenance";
+            this.tabPageMaintenance.Size = new System.Drawing.Size(1698, 800);
+            this.tabPageMaintenance.TabIndex = 5;
+            this.tabPageMaintenance.Text = "     MAINTENANCE     ";
+            this.tabPageMaintenance.UseVisualStyleBackColor = true;
             // 
             // tabPageService
             // 
@@ -997,8 +997,8 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.tabControlMain.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.tabPageMain.ResumeLayout(false);
+            this.tabPageMain.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.grBoxSystem.ResumeLayout(false);
@@ -1029,9 +1029,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureChamber)).EndInit();
             this.groupBox1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage5.ResumeLayout(false);
+            this.tabPagePrograms.ResumeLayout(false);
+            this.tabPageAlerts.ResumeLayout(false);
+            this.tabPageSettings.ResumeLayout(false);
             this.tabPageService.ResumeLayout(false);
             this.tabPageAdmin.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -1045,13 +1045,13 @@
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.TabControl tabControlMain;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPageMain;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.TabPage tabPage6;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPageAlerts;
+        private System.Windows.Forms.TabPage tabPageArchive;
+        private System.Windows.Forms.TabPage tabPageSettings;
+        private System.Windows.Forms.TabPage tabPageMaintenance;
+        private System.Windows.Forms.TabPage tabPagePrograms;
         private ProgramsConfigPanel programsConfigPanel;
         private ProgramPanel programPanel;
         private System.Windows.Forms.GroupBox grBoxSystem;

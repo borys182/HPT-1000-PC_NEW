@@ -26,7 +26,8 @@ namespace HPT1000.GUI
 
         private bool                    liveModeData_Graphical = false;
 
-        User                            lastUser  = null;
+        User                            lastUser      = null;
+        bool                            showLoginForm = true;
 
         ERROR lastError = new ERROR();
 
@@ -180,16 +181,22 @@ namespace HPT1000.GUI
             ShowOnlyEnableMFC();
             //pokaz usera oraz poustawiaj uprawnienia do aplikacji
             ShowUser();
+
+            if(showLoginForm)
+            {
+                ShowLoginForm();
+                showLoginForm = false;
+            }
         }
         //----------------------------------------------------------------------------------
         public void ShowUser()
         {
-            bool userLoged = true;
             if(dataBase != null)
             {
-                if (lastUser == null ||lastUser != dataBase.UserApp)
+                if(lastUser == null || !lastUser.Equals(dataBase.UserApp))
                 {
                     labStatusUser.Text = "USER:  " + dataBase.UserApp.ToString() + "    ";
+                    CreateTabControl();
                     switch (dataBase.UserApp.Privilige)
                     {
                         case Types.UserPrivilige.Administrator:
@@ -203,19 +210,45 @@ namespace HPT1000.GUI
                             break;
                         case Types.UserPrivilige.None:
                             SetUserPriviligeToAppAsNone();
-                            userLoged = false;
                             break;
                     }
                 }
                 lastUser = dataBase.UserApp.Copy();
             }
+            bool aUserLoged = false;
+            if (dataBase.UserApp.Privilige != Types.UserPrivilige.None)
+                aUserLoged = true;
+
+            btnLogin.Enabled    = !aUserLoged;
+            btnLogout.Enabled   =  aUserLoged;
+        }
+        //----------------------------------------------------------------------------------
+        private void CreateTabControl()
+        {
+            if (dataBase != null && dataBase.UserApp.Privilige != Types.UserPrivilige.None)
+            {
+                if (!tabControlMain.TabPages.Contains(tabPagePrograms))
+                    tabControlMain.TabPages.Insert(tabControlMain.TabPages.Count, tabPagePrograms);
+                if (!tabControlMain.TabPages.Contains(tabPageAlerts))
+                    tabControlMain.TabPages.Insert(tabControlMain.TabPages.Count, tabPageAlerts);
+                if (!tabControlMain.TabPages.Contains(tabPageArchive))
+                    tabControlMain.TabPages.Insert(tabControlMain.TabPages.Count, tabPageArchive);
+                if (!tabControlMain.TabPages.Contains(tabPageSettings))
+                    tabControlMain.TabPages.Insert(tabControlMain.TabPages.Count, tabPageSettings);
+                if (!tabControlMain.TabPages.Contains(tabPageMaintenance))
+                    tabControlMain.TabPages.Insert(tabControlMain.TabPages.Count, tabPageMaintenance);
+            }
             else
             {
-                userLoged = false;
+                tabControlMain.TabPages.Remove(tabPagePrograms);
+                tabControlMain.TabPages.Remove(tabPageAlerts);
+                tabControlMain.TabPages.Remove(tabPageArchive);
+                tabControlMain.TabPages.Remove(tabPageSettings);
+                tabControlMain.TabPages.Remove(tabPageMaintenance);
+                tabControlMain.TabPages.Remove(tabPageService);
+                tabControlMain.TabPages.Remove(tabPageAdmin);
+
             }
-          
-            btnLogin.Enabled    = !userLoged;
-            btnLogout.Enabled   = userLoged;
         }
         //----------------------------------------------------------------------------------
         public void SetUserPriviligeToAppAsAdmin()
@@ -225,10 +258,11 @@ namespace HPT1000.GUI
             programsConfigPanel.Enabled = true;
             alertsPanel.Enabled         = true;
             settingsPanel.Enabled       = true;
-            if(!tabControlMain.TabPages.Contains(tabPageService))
-                tabControlMain.TabPages.Insert(tabControlMain.TabPages.Count, tabPageService);
+
             if (!tabControlMain.TabPages.Contains(tabPageAdmin))
                 tabControlMain.TabPages.Insert(tabControlMain.TabPages.Count, tabPageAdmin);
+            if (!tabControlMain.TabPages.Contains(tabPageService))
+                tabControlMain.TabPages.Insert(tabControlMain.TabPages.Count, tabPageService);
         }
         //----------------------------------------------------------------------------------
         public void SetUserPriviligeToAppAsOperator()
@@ -241,7 +275,6 @@ namespace HPT1000.GUI
             settingsPanel.Enabled       = false;
             tabControlMain.TabPages.Remove(tabPageService);
             tabControlMain.TabPages.Remove(tabPageAdmin);
-
         }
         //----------------------------------------------------------------------------------
         public void SetUserPriviligeToAppAsService()
@@ -263,11 +296,9 @@ namespace HPT1000.GUI
             programsConfigPanel.Enabled = false;
             alertsPanel.Enabled         = false;
             settingsPanel.Enabled       = false;
-            tabControlMain.TabPages.Remove(tabPageService);
-            tabControlMain.TabPages.Remove(tabPageAdmin);
 
-
-            ShowLoginForm();
+            if (hpt1000 != null && hpt1000.GetPLC() != null)
+                hpt1000.GetPLC().SetDummyMode(false);
         }
         //----------------------------------------------------------------------------------
         private void ShowLoginForm()

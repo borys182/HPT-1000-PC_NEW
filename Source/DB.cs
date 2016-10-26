@@ -75,6 +75,8 @@ namespace HPT1000.Source
             actionTextList.Add(aErrorText);
             aErrorText = new ErrorText((int)Types.ERROR_CATEGORY.APLICATION, (int)Types.ERROR_CODE.PLC_PTR_NULL, 0, "PLC_PTR_NULL", Types.Language.English);
             actionTextList.Add(aErrorText);
+            aErrorText = new ErrorText((int)Types.ERROR_CATEGORY.APLICATION, (int)Types.ERROR_CODE.MX_COMPONENTS_NO_INSTALL, 0, "MX Components not installed. Communication with PLC is impossible", Types.Language.English);
+            actionTextList.Add(aErrorText);
 
             //Tymczasowe dodanie tekstow dla bledow MX Components
             aErrorText = new ErrorText((int)Types.ERROR_CATEGORY.MX_COMPONENTS, (int)Types.ERROR_CODE.SET_FLOW, 1, "Nie moge ustawic przeplywu. MX Components zglasza blad: ", Types.Language.English);

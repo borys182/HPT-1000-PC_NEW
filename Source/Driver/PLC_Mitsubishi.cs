@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Forms;
 
 namespace HPT1000.Source.Driver
 {
@@ -14,7 +14,7 @@ namespace HPT1000.Source.Driver
     class PLC_Mitsubishi : PLC
     {
         //obiekt umozliwiajacy komunikacje z PLC bez uzycia narzedzia SetupUtility
-        private ActProgTypeLib.ActProgTypeClass plc = new ActProgTypeLib.ActProgTypeClass();
+        private ActProgTypeLib.ActProgTypeClass plc = null;
 
         private static object sync_Object = new object();
 
@@ -23,6 +23,17 @@ namespace HPT1000.Source.Driver
         {
             typePLC = Types.TypePLC.L;
             InitialDummyModeData();
+
+            try
+            {
+                plc = new ActProgTypeLib.ActProgTypeClass();
+            }
+            catch(Exception e)
+            {
+                ERROR aErr = new ERROR();
+                aErr.SetErrorApp(Types.ERROR_CODE.MX_COMPONENTS_NO_INSTALL);
+                Logger.AddError(aErr);
+            }
         }
         //-----------------------------------------------------------------------------------------
         private void InitialDummyModeData()

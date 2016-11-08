@@ -29,21 +29,21 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Node1");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Node4");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Subprograms", new System.Windows.Forms.TreeNode[] {
-            treeNode9,
-            treeNode10});
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Program 1", new System.Windows.Forms.TreeNode[] {
-            treeNode11});
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Node11");
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Subprograms", new System.Windows.Forms.TreeNode[] {
-            treeNode13});
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Program 2", new System.Windows.Forms.TreeNode[] {
-            treeNode14});
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Programs list", new System.Windows.Forms.TreeNode[] {
-            treeNode12,
-            treeNode15});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Node1");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Node4");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Subprograms", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2});
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Program 1", new System.Windows.Forms.TreeNode[] {
+            treeNode3});
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Node11");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Subprograms", new System.Windows.Forms.TreeNode[] {
+            treeNode5});
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Program 2", new System.Windows.Forms.TreeNode[] {
+            treeNode6});
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Programs list", new System.Windows.Forms.TreeNode[] {
+            treeNode4,
+            treeNode7});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProgramsConfigPanel));
             this.grBoxGasPressure = new System.Windows.Forms.GroupBox();
             this.rBtnPressureViaVapo = new System.Windows.Forms.RadioButton();
@@ -1474,7 +1474,7 @@
             this.tabPageGas.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageGas.Size = new System.Drawing.Size(1062, 697);
             this.tabPageGas.TabIndex = 1;
-            this.tabPageGas.Text = "Gas supplay";
+            this.tabPageGas.Text = "Gas supply";
             this.tabPageGas.UseVisualStyleBackColor = true;
             // 
             // grBoxGas
@@ -2218,7 +2218,7 @@
             this.cBoxPump.AutoSize = true;
             this.cBoxPump.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cBoxPump.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.cBoxPump.Location = new System.Drawing.Point(49, 280);
+            this.cBoxPump.Location = new System.Drawing.Point(49, 276);
             this.cBoxPump.Name = "cBoxPump";
             this.cBoxPump.Size = new System.Drawing.Size(140, 24);
             this.cBoxPump.TabIndex = 36;
@@ -2232,11 +2232,11 @@
             this.cBoxGas.AutoSize = true;
             this.cBoxGas.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cBoxGas.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.cBoxGas.Location = new System.Drawing.Point(49, 338);
+            this.cBoxGas.Location = new System.Drawing.Point(49, 306);
             this.cBoxGas.Name = "cBoxGas";
-            this.cBoxGas.Size = new System.Drawing.Size(124, 24);
+            this.cBoxGas.Size = new System.Drawing.Size(115, 24);
             this.cBoxGas.TabIndex = 37;
-            this.cBoxGas.Text = "Gas supplay";
+            this.cBoxGas.Text = "Gas supply";
             this.cBoxGas.UseVisualStyleBackColor = true;
             this.cBoxGas.CheckedChanged += new System.EventHandler(this.cBoxProcess_CheckedChanged);
             this.cBoxGas.Click += new System.EventHandler(this.cBoxProcess_Click);
@@ -2246,11 +2246,11 @@
             this.cBoxPower.AutoSize = true;
             this.cBoxPower.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cBoxPower.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.cBoxPower.Location = new System.Drawing.Point(49, 308);
+            this.cBoxPower.Location = new System.Drawing.Point(49, 336);
             this.cBoxPower.Name = "cBoxPower";
-            this.cBoxPower.Size = new System.Drawing.Size(140, 24);
+            this.cBoxPower.Size = new System.Drawing.Size(131, 24);
             this.cBoxPower.TabIndex = 38;
-            this.cBoxPower.Text = "Power supplay";
+            this.cBoxPower.Text = "Power supply";
             this.cBoxPower.UseVisualStyleBackColor = true;
             this.cBoxPower.CheckedChanged += new System.EventHandler(this.cBoxProcess_CheckedChanged);
             this.cBoxPower.Click += new System.EventHandler(this.cBoxProcess_Click);
@@ -2260,7 +2260,7 @@
             this.cBoxVent.AutoSize = true;
             this.cBoxVent.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cBoxVent.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.cBoxVent.Location = new System.Drawing.Point(49, 391);
+            this.cBoxVent.Location = new System.Drawing.Point(49, 394);
             this.cBoxVent.Name = "cBoxVent";
             this.cBoxVent.Size = new System.Drawing.Size(87, 24);
             this.cBoxVent.TabIndex = 40;
@@ -2274,7 +2274,7 @@
             this.cBoxPurge.AutoSize = true;
             this.cBoxPurge.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cBoxPurge.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.cBoxPurge.Location = new System.Drawing.Point(49, 363);
+            this.cBoxPurge.Location = new System.Drawing.Point(49, 366);
             this.cBoxPurge.Name = "cBoxPurge";
             this.cBoxPurge.Size = new System.Drawing.Size(75, 24);
             this.cBoxPurge.TabIndex = 39;
@@ -2290,28 +2290,28 @@
             this.treeViewProgram.ImageList = this.imageList1;
             this.treeViewProgram.Location = new System.Drawing.Point(6, 22);
             this.treeViewProgram.Name = "treeViewProgram";
-            treeNode9.ImageIndex = 3;
-            treeNode9.Name = "Node1";
-            treeNode9.Text = "Node1";
-            treeNode10.ImageIndex = 4;
-            treeNode10.Name = "Node4";
-            treeNode10.Text = "Node4";
-            treeNode11.ImageIndex = 1;
-            treeNode11.Name = "Node3";
-            treeNode11.Text = "Subprograms";
-            treeNode12.Name = "Node0";
-            treeNode12.Text = "Program 1";
-            treeNode13.Name = "Node11";
-            treeNode13.Text = "Node11";
-            treeNode14.ImageIndex = 1;
-            treeNode14.Name = "Node10";
-            treeNode14.Text = "Subprograms";
-            treeNode15.Name = "Node9";
-            treeNode15.Text = "Program 2";
-            treeNode16.Name = "Node2";
-            treeNode16.Text = "Programs list";
+            treeNode1.ImageIndex = 3;
+            treeNode1.Name = "Node1";
+            treeNode1.Text = "Node1";
+            treeNode2.ImageIndex = 4;
+            treeNode2.Name = "Node4";
+            treeNode2.Text = "Node4";
+            treeNode3.ImageIndex = 1;
+            treeNode3.Name = "Node3";
+            treeNode3.Text = "Subprograms";
+            treeNode4.Name = "Node0";
+            treeNode4.Text = "Program 1";
+            treeNode5.Name = "Node11";
+            treeNode5.Text = "Node11";
+            treeNode6.ImageIndex = 1;
+            treeNode6.Name = "Node10";
+            treeNode6.Text = "Subprograms";
+            treeNode7.Name = "Node9";
+            treeNode7.Text = "Program 2";
+            treeNode8.Name = "Node2";
+            treeNode8.Text = "Programs list";
             this.treeViewProgram.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode16});
+            treeNode8});
             this.treeViewProgram.SelectedImageIndex = 0;
             this.treeViewProgram.Size = new System.Drawing.Size(296, 566);
             this.treeViewProgram.TabIndex = 45;

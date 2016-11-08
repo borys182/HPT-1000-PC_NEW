@@ -27,6 +27,7 @@ namespace HPT1000.GUI
 
         private bool        flagRefreshProgram = false;
 
+        
         //--------------------------------------------------------------------------------------------------------------------------------------
         public ProgramsConfigPanel()
         {
@@ -51,6 +52,7 @@ namespace HPT1000.GUI
             scrollGasPressureDevaUp.Minimum     = 1;
 
             ShowCorrespondingTabPage();
+
         }
         //--------------------------------------------------------------------------------------------------------------------------------------
         public HPT1000.Source.Driver.HPT1000 HPT1000
@@ -349,12 +351,12 @@ namespace HPT1000.GUI
             if(cBoxPump.Checked)
                 tabControlProcess.TabPages.Insert(aIndex++,tabPagePump);
 
-            if (cBoxPower.Checked)
-                tabControlProcess.TabPages.Insert(aIndex++, tabPagePlasma);
-
             if (cBoxGas.Checked)
                 tabControlProcess.TabPages.Insert(aIndex++, tabPageGas);
 
+            if (cBoxPower.Checked)
+                tabControlProcess.TabPages.Insert(aIndex++, tabPagePlasma);
+   
             if (cBoxPurge.Checked)
                 tabControlProcess.TabPages.Insert(aIndex++, tabPagePurge);
 
@@ -1450,6 +1452,49 @@ namespace HPT1000.GUI
             {
                 RefreshTreeViewPrograms();
                 flagRefreshProgram = false;
+            }
+            //Podswietl aktualnie zaznaczony program/subprogram
+            ShowSelectedNode(treeViewProgram.Nodes);
+            //Ustaw odpowiednie Share dla wybranej stosownej liczby kanałów
+            ShowShareValue();
+         }
+        //-------------------------------------------------------------------------------------------------------------------------------------
+        private void ShowShareValue()
+        {
+            GasProces gasProces = GetCurrentGasProcess();
+            if (gasProces != null)
+            {
+                if (!tBoxGasShareMFC1.Focused)
+                    tBoxGasShareMFC1.Text = gasProces.GetShareGas(1).ToString();
+                if (!tBoxGasShareMFC2.Focused)
+                    tBoxGasShareMFC2.Text = gasProces.GetShareGas(2).ToString();
+                if (!tBoxGasShareMFC3.Focused)
+                    tBoxGasShareMFC3.Text = gasProces.GetShareGas(3).ToString();
+            }
+        }
+        //-------------------------------------------------------------------------------------------------------------------------------------
+        //Podswietl aktualnie zaznaczony program/subprogram
+        private void ShowSelectedNode(TreeNodeCollection nodes)
+        {
+            if (nodes != null)
+            {
+                foreach (TreeNode node in nodes)
+                {
+                    //jezeli mam dzieci to wywolaj funkcje rekurencyjnie jeszcze raz
+                    if (node.Nodes.Count > 0)
+                        ShowSelectedNode(node.Nodes);
+
+                    if (node.IsSelected)
+                    {
+                        node.BackColor = SystemColors.Highlight;
+                        node.ForeColor = Color.White;
+                    }
+                    else
+                    {
+                        node.BackColor = Color.Transparent;
+                        node.ForeColor = Color.Black;
+                    }
+                }
             }
         }
         //-------------------------------------------------------------------------------------------------------------------------------------

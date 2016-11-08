@@ -125,6 +125,8 @@ namespace HPT1000.Source.Program
         private double minDeviationSP   = 0;
         private double maxDeviationSP   = 0;
 
+        int[]           tabOrderEditGasShareChannel    = new int[3];
+        int             curentIndex = 0;   //indeks aktulnie wykonywanej akcji edycji ShareGas (indeks tablicy)
         //---------------------------------------------------------------------------------------------------------------
         public GasProces()
         {
@@ -136,6 +138,10 @@ namespace HPT1000.Source.Program
             tabFlow[0] = new FlowMeter(0);
             tabFlow[1] = new FlowMeter(1);
             tabFlow[2] = new FlowMeter(2);
+
+            tabOrderEditGasShareChannel[0] = -1;
+            tabOrderEditGasShareChannel[1] = -1;
+            tabOrderEditGasShareChannel[2] = -1;
         }
         //---------------------------------------------------------------------------------------------------------------
         public override void UpdateData(SubprogramData aSubprogramData)
@@ -199,6 +205,26 @@ namespace HPT1000.Source.Program
             if (AFlowNo == 2) tabFlow[1].Active = aActive;
             if (AFlowNo == 3) tabFlow[2].Active = aActive;
             if (AFlowNo == 4) activeVaporaitor  = aActive;
+
+            //ustaw z automatu SahreGas dla danej liczby aktywnych kanalow. Jezeli jest 1 to 100 jezeli sa dwa to suma daje 100
+            int aCountActiveFlow = 0;
+            for(int i = 0; i < tabFlow.Length; i++)
+            {
+                if (tabFlow[i].Active)
+                    aCountActiveFlow++;
+            }
+            //Ustaw ShareGas aby suma aktywnych kanalow byla 100
+            int aValue = 0;
+            if (aCountActiveFlow > 0)
+                aValue = 100 / aCountActiveFlow;
+
+            for (int i = 0; i < tabFlow.Length; i++)
+            {
+                if (tabFlow[i].Active)
+                    tabFlow[i].ShareGas = aValue;
+                else
+                    tabFlow[i].ShareGas = 0;
+            }
         }
         //---------------------------------------------------------------------------------------------------------------
         public bool GetActiveFlow(int AFlowNo)
@@ -316,11 +342,109 @@ namespace HPT1000.Source.Program
             return aMaxFlow;
         }
         //---------------------------------------------------------------------------------------------------------------
+        //Ustaw dzielenie gazow ale pameitaj ze suma aktywnych kanalow mus byc 100 dlatego z autoamtu uzupelniam pozostale aktywne kanly.
         public void SetShareGas(int aShareGas, int aFlowNo)
         {
+            //Ustaw/nadpisz wartosc wynikajacam ze suma aktywnych kanalow musi byc 100
+            //Oblicz ile jest aktynych kanalow
+            int aCountActiveChannels = 0;
+            for (int i = 0; i < tabFlow.Length; i++)
+            {
+                if (tabFlow[i].Active)
+                    aCountActiveChannels++;
+            }
+            //aktywny tylko jeden kanal to ustaw z automatu 100
+            if (aCountActiveChannels == 1)
+                aShareGas = 100;
+
+            //aktywne sa dwa kanaly to dostosuj ten drugi do aktulnej wartosci aby suma byla 100
+            if (aCountActiveChannels == 2)
+            {
+                for (int i = 0; i < tabFlow.Length; i++)
+                {
+                    if (tabFlow[i].Active && i != aFlowNo - 1)
+                        tabFlow[i].ShareGas = 100 - aShareGas;
+                }
+            }
+            
+            //Ustaw wartosc wynikajacam z funkcji - musi to byc za 1 i 2 a przed 3
             if (aFlowNo == 1) tabFlow[0].ShareGas = aShareGas;
             if (aFlowNo == 2) tabFlow[1].ShareGas = aShareGas;
             if (aFlowNo == 3) tabFlow[2].ShareGas = aShareGas;
+
+            aFlowNo--;//dostosowabie zmiennej do indeksu tablicy
+
+            //
+            
+            //aktywne sa trzy kanaly to dopelnij do 100 przedostatnio edytowany kanal biorac pod uwage sume dwoch wczesniej edytowanych kanalow
+            int aTmp = 0;
+            int aLastShareGasEditChannel = GetLastEditGasShareChannel();
+            if (aCountActiveChannels == 3)
+            {
+                for (int i = 0; i < tabFlow.Length; i++)
+                {
+                    if ( i != aLastShareGasEditChannel)
+                        aTmp += tabFlow[i].ShareGas;
+                }
+                if (aLastShareGasEditChannel >= 0 && aLastShareGasEditChannel < tabFlow.Length)
+                {
+                    int aValue = 100 - aTmp;
+                    if (aValue >= 0)
+                        tabFlow[aLastShareGasEditChannel].ShareGas = aValue;
+                    else
+                    {
+                        //Suma kanalow jest wieksza od 100 dlatego jednemu ustawiam na 0 a drugi dopelniam do 100
+                        for (int i = 0; i < tabFlow.Length; i++)
+                            if (i != aFlowNo && i != aLastShareGasEditChannel)
+                                tabFlow[i].ShareGas += aValue; //defacto odejmuje poniewaz wartosc aValue jest ujemna
+                        tabFlow[aLastShareGasEditChannel].ShareGas = 0;
+                    }
+                }
+            }
+            //Zapamietaj kolwjnosc edycji ktora byla wykonana aby pozniej wiedziec dla ktorego kanalu mam manewrowac wartoscia dopelninia do 100 - ostatni ktroy byl edytowany
+            if (curentIndex >= 0 && curentIndex < tabOrderEditGasShareChannel.Length)
+            {
+                if (IfNewAction(aFlowNo))
+                {
+                    tabOrderEditGasShareChannel[curentIndex] = aFlowNo;
+                    curentIndex++;
+                }
+            }
+            //Przekrecenie sie licznka ustaw od 0
+            if (curentIndex >= tabOrderEditGasShareChannel.Length)
+                curentIndex = 0;
+        }
+        //---------------------------------------------------------------------------------------------------------------
+        private bool IfNewAction(int aFlowNo)
+        {
+            bool aRes = false;
+            int aIndex = curentIndex - 1;
+
+            if (aIndex < 0)
+                aIndex = tabOrderEditGasShareChannel.Length - 1;
+
+            if (aIndex >= 0 && aIndex < tabOrderEditGasShareChannel.Length && tabOrderEditGasShareChannel[aIndex] != aFlowNo)
+                aRes = true;
+
+            return aRes;
+        }
+        //---------------------------------------------------------------------------------------------------------------
+        private int GetLastEditGasShareChannel()
+        {
+            int aLastChannel = 0;
+
+            if (curentIndex == 0) aLastChannel = tabOrderEditGasShareChannel[1];
+            if (curentIndex == 1) aLastChannel = tabOrderEditGasShareChannel[2];
+            if (curentIndex == 2) aLastChannel = tabOrderEditGasShareChannel[0];
+
+            if (aLastChannel == -1)
+            {
+                aLastChannel = curentIndex + 1;
+                if (aLastChannel >= tabOrderEditGasShareChannel.Length)
+                    aLastChannel = 0;
+            }
+
+            return aLastChannel;
         }
         //---------------------------------------------------------------------------------------------------------------
         public double GetShareGas(int aFlowNo)

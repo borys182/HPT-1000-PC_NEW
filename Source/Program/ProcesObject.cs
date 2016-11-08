@@ -9,7 +9,7 @@ namespace HPT1000.Source.Program
 {
     abstract public class ProcesObject
     {
-        protected bool      active; //flaga okresla czy w danym segmenie dany obiekt procesu bierze udzial
+        protected bool      active = true; //flaga okresla czy w danym segmenie dany obiekt procesu bierze udzial. Domyslnie ustawiam na true
         protected DateTime  timeWorking;
 
         //-------------------------------------------------------------------------------------

@@ -18,6 +18,8 @@ namespace HPT1000.Source.Driver
 
         private static object sync_Object = new object();
 
+        private Random random = new Random();
+
         //-----------------------------------------------------------------------------------------
         public PLC_Mitsubishi()
         {
@@ -57,6 +59,35 @@ namespace HPT1000.Source.Driver
             dummyModeStatusChamberData[19] = 289;
             dummyModeStatusChamberData[27] = (int)Types.Mode.Automatic;
             dummyModeStatusChamberData[35] = 0xD6A; //InterlockState {}
+        }
+        //-----------------------------------------------------------------------------------------
+        private void GenerateRandomValueForDummyMode()
+        {
+            double pressure = random.Next(0, 1000);
+            double power    = random.Next(0, 500);
+            double voltage  = random.Next(0, 1000);
+            double curent   = random.Next(0, 100);
+            int flow1       = random.Next(0, 500);
+            int flow2       = random.Next(0, 500);
+            int flow3       = random.Next(0, 500);
+
+            dummyModeStatusChamberData[1] = Types.ConvertDOUBLEToWORD(pressure, Types.Word.LOW);      //pressure
+            dummyModeStatusChamberData[2] = Types.ConvertDOUBLEToWORD(pressure, Types.Word.HIGH);     //pressure
+
+            dummyModeStatusChamberData[7] = Types.ConvertDOUBLEToWORD(voltage, Types.Word.LOW);      //voltage
+            dummyModeStatusChamberData[8] = Types.ConvertDOUBLEToWORD(voltage, Types.Word.HIGH);     //voltage
+
+            dummyModeStatusChamberData[9] = Types.ConvertDOUBLEToWORD(curent, Types.Word.LOW);      //curent
+            dummyModeStatusChamberData[10] = Types.ConvertDOUBLEToWORD(curent, Types.Word.HIGH);     //curent
+
+            dummyModeStatusChamberData[11] = Types.ConvertDOUBLEToWORD(power, Types.Word.LOW);      //power
+            dummyModeStatusChamberData[12] = Types.ConvertDOUBLEToWORD(power, Types.Word.HIGH);     //power
+
+
+            dummyModeStatusChamberData[15] = flow1;   //actual flow 1
+            dummyModeStatusChamberData[17] = flow2;   //actual flow 2
+            dummyModeStatusChamberData[19] = flow3;   //actual flow 3
+
         }
         //-----------------------------------------------------------------------------------------
         //Metoda ma za zadanie otwarcie połączenia z PLC
@@ -155,7 +186,8 @@ namespace HPT1000.Source.Driver
             {
                 if (dummyMode && aAddr == Types.ADDR_START_STATUS_CHAMBER)
                 {
-                    for(int i = 0; i < aData.Length;i++)
+                    GenerateRandomValueForDummyMode();
+                    for (int i = 0; i < aData.Length;i++)
                         if(i < dummyModeStatusChamberData.Length)
                             aData[i] = dummyModeStatusChamberData[i];
                 }

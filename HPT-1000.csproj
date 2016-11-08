@@ -64,6 +64,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -92,6 +93,12 @@
     </Compile>
     <Compile Include="GUI\Cotrols\DoubleEdit.Designer.cs">
       <DependentUpon>DoubleEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\GraphicalLive.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\GraphicalLive.Designer.cs">
+      <DependentUpon>GraphicalLive.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\InterlockPanel.cs">
       <SubType>UserControl</SubType>
@@ -224,6 +231,9 @@
     <EmbeddedResource Include="GUI\GeneratorPanel.resx">
       <DependentUpon>GeneratorPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\GraphicalLive.resx">
+      <DependentUpon>GraphicalLive.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\InterlockPanel.resx">
       <DependentUpon>InterlockPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -340,9 +350,6 @@
     <None Include="Images\Subprogram.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Images\test.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Images\ForePumpErr.png" />
   </ItemGroup>
   <ItemGroup>
@@ -383,6 +390,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\ChamberPlasma.png" />
+    <None Include="Images\Clear.png" />
     <Content Include="SoftIcone.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

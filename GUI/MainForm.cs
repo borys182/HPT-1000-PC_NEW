@@ -56,28 +56,37 @@ namespace HPT1000.GUI
             settingsPanel.SetPtrHPT(hpt1000);
             servicePanel.SetPtrHPT(hpt1000);
 
-            generatorPanel.SetGeneratorPtr(hpt1000.GetPowerSupply());
-            pressurePanel.SetPresureControlPtr(hpt1000.GetPressureControl());
-            pumpPanel.SetPumpPtr(hpt1000.GetForePump());
-            vaporiserPanel.SetVaporizerPtr(hpt1000.GetVaporizer());
-            mfcPanel1.SetMFC(hpt1000.GetMFC(),hpt1000.GetGasTypes(),1);
-            mfcPanel2.SetMFC(hpt1000.GetMFC(),hpt1000.GetGasTypes(),2);
-            mfcPanel3.SetMFC(hpt1000.GetMFC(),hpt1000.GetGasTypes(),3);
+            if (hpt1000 != null)
+            {
+                generatorPanel.SetGeneratorPtr(hpt1000.GetPowerSupply());
+                pressurePanel.SetPresureControlPtr(hpt1000.GetPressureControl());
+                pumpPanel.SetPumpPtr(hpt1000.GetForePump());
+                vaporiserPanel.SetVaporizerPtr(hpt1000.GetVaporizer());
+                mfcPanel1.SetMFC(hpt1000.GetMFC(), hpt1000.GetGasTypes(), 1);
+                mfcPanel2.SetMFC(hpt1000.GetMFC(), hpt1000.GetGasTypes(), 2);
+                mfcPanel3.SetMFC(hpt1000.GetMFC(), hpt1000.GetGasTypes(), 3);
 
 
-            valve_Gas.SetValvePtr(hpt1000.GetValve(), Types.TypeValve.Gas);
-            valve_Purge.SetValvePtr(hpt1000.GetValve(), Types.TypeValve.Purge);
-            valve_SV.SetValvePtr(hpt1000.GetValve(), Types.TypeValve.SV);
-            valve_Vent.SetValvePtr(hpt1000.GetValve(), Types.TypeValve.VV);
+                valve_Gas.SetValvePtr(hpt1000.GetValve(), Types.TypeValve.Gas);
+                valve_Purge.SetValvePtr(hpt1000.GetValve(), Types.TypeValve.Purge);
+                valve_SV.SetValvePtr(hpt1000.GetValve(), Types.TypeValve.SV);
+                valve_Vent.SetValvePtr(hpt1000.GetValve(), Types.TypeValve.VV);
 
-            interlockPanel_Door.SetInterlockPtr(hpt1000.GetInterlock(), Types.TypeInterlock.Door);
-            interlockPanel_Emergency.SetInterlockPtr(hpt1000.GetInterlock(), Types.TypeInterlock.EmgStop);
-            interlockPanel_Pressure.SetInterlockPtr(hpt1000.GetInterlock(), Types.TypeInterlock.PressureGauge);
-            interlockPanel_Thermal.SetInterlockPtr(hpt1000.GetInterlock(), Types.TypeInterlock.ThermalSwitch);
-            interlockPanel_Vacuum.SetInterlockPtr(hpt1000.GetInterlock(), Types.TypeInterlock.VacuumSwitch);
+                interlockPanel_Door.SetInterlockPtr(hpt1000.GetInterlock(), Types.TypeInterlock.Door);
+                interlockPanel_Emergency.SetInterlockPtr(hpt1000.GetInterlock(), Types.TypeInterlock.EmgStop);
+                interlockPanel_Pressure.SetInterlockPtr(hpt1000.GetInterlock(), Types.TypeInterlock.PressureGauge);
+                interlockPanel_Thermal.SetInterlockPtr(hpt1000.GetInterlock(), Types.TypeInterlock.ThermalSwitch);
+                interlockPanel_Vacuum.SetInterlockPtr(hpt1000.GetInterlock(), Types.TypeInterlock.VacuumSwitch);
 
-            pumpComponent.SetPumpPtr(hpt1000.GetForePump());
+                liveGraphicalPanel.SetPresureObjPtr(hpt1000.GetPressureControl());
+                liveGraphicalPanel.SetPowerSupplayObjPtr(hpt1000.GetPowerSupply());
+                liveGraphicalPanel.SetMFCObjPtr(hpt1000.GetMFC());
+                liveGraphicalPanel.SetVaporizerObjPtr(hpt1000.GetVaporizer());
+                liveGraphicalPanel.SetForePumpObjPtr(hpt1000.GetForePump());
+                liveGraphicalPanel.MainForm = this;
 
+                pumpComponent.SetPumpPtr(hpt1000.GetForePump());
+            }
             //Dodaj obserwatorow
 
             //Odswiezaj nazwy programow/subprogramow w glownym oknie aplikacji gdy zostanie zmieniona one zmoienone w oknie ConfigsProgram
@@ -92,6 +101,9 @@ namespace HPT1000.GUI
 
             //Ustaw odpowidnie obrazki dla SystemWindow
             LoadBitmap();
+
+            liveGraphicalPanel.Location = grBoxSystem.Location;
+            liveGraphicalPanel.Size = grBoxSystem.Size;
         }
         //------------------------------------------------------------------------------------------
         private void LoadBitmap()
@@ -159,6 +171,7 @@ namespace HPT1000.GUI
             interlockPanel_Pressure.RefreshPanel();
             interlockPanel_Thermal.RefreshPanel();
             interlockPanel_Vacuum.RefreshPanel();
+            liveGraphicalPanel.UpdateData();
 
             switch (hpt1000.GetStatus())
             {
@@ -181,12 +194,23 @@ namespace HPT1000.GUI
             ShowOnlyEnableMFC();
             //pokaz usera oraz poustawiaj uprawnienia do aplikacji
             ShowUser();
+            //W zaleznosci od wybranego sposonu prezentowania danych pokaz dane systemowe albo na wykresie albo na panelu
+            ShowLivePanelData();
 
-            if(showLoginForm)
+            if (showLoginForm)
             {
                 ShowLoginForm();
                 showLoginForm = false;
             }
+        }
+        //----------------------------------------------------------------------------------
+        private void ShowLivePanelData()
+        {
+            if(grBoxSystem.Visible == liveModeData_Graphical)
+                grBoxSystem.Visible = !liveModeData_Graphical;
+
+            if (liveGraphicalPanel.Visible != liveModeData_Graphical)
+                liveGraphicalPanel.Visible = liveModeData_Graphical;            
         }
         //----------------------------------------------------------------------------------
         public void ShowUser()
@@ -296,6 +320,7 @@ namespace HPT1000.GUI
             programsConfigPanel.Enabled = false;
             alertsPanel.Enabled         = false;
             settingsPanel.Enabled       = false;
+
 
             if (hpt1000 != null && hpt1000.GetPLC() != null)
                 hpt1000.GetPLC().SetDummyMode(false);
@@ -418,7 +443,16 @@ namespace HPT1000.GUI
         //----------------------------------------------------------------------------------
         private void btnLiveModeData_Click(object sender, EventArgs e)
         {
-         //   liveModeData_Graphical != liveModeData_Graphical;
+            liveModeData_Graphical = !liveModeData_Graphical;
+            if (liveModeData_Graphical)
+                btnLiveModeData.Text = "SWITCH TO MIMC   VIEW";
+            else
+                btnLiveModeData.Text = "SWITCH TO GRAPHICAL VIEW";
+        }
+
+        private void graphicalLive1_Load(object sender, EventArgs e)
+        {
+
         }
         //----------------------------------------------------------------------------------
     }

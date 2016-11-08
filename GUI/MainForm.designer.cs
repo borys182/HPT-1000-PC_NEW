@@ -44,26 +44,51 @@
             this.label7 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.interlockPanel_Vacuum = new HPT1000.GUI.InterlockPanel();
-            this.interlockPanel_Emergency = new HPT1000.GUI.InterlockPanel();
-            this.interlockPanel_Pressure = new HPT1000.GUI.InterlockPanel();
-            this.interlockPanel_Thermal = new HPT1000.GUI.InterlockPanel();
-            this.interlockPanel_Door = new HPT1000.GUI.InterlockPanel();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.grBoxSystem = new System.Windows.Forms.GroupBox();
-            this.pictureCornerUp3 = new System.Windows.Forms.PictureBox();
-            this.picturelineMFC = new System.Windows.Forms.PictureBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tabPagePrograms = new System.Windows.Forms.TabPage();
+            this.tabPageAlerts = new System.Windows.Forms.TabPage();
+            this.tabPageArchive = new System.Windows.Forms.TabPage();
+            this.tabPageSettings = new System.Windows.Forms.TabPage();
+            this.tabPageMaintenance = new System.Windows.Forms.TabPage();
+            this.tabPageService = new System.Windows.Forms.TabPage();
+            this.tabPageAdmin = new System.Windows.Forms.TabPage();
+            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.liveGraphicalPanel = new HPT1000.GUI.GraphicalLive();
+            this.interlockPanel_Vacuum = new HPT1000.GUI.InterlockPanel();
+            this.interlockPanel_Emergency = new HPT1000.GUI.InterlockPanel();
+            this.interlockPanel_Pressure = new HPT1000.GUI.InterlockPanel();
+            this.interlockPanel_Thermal = new HPT1000.GUI.InterlockPanel();
+            this.interlockPanel_Door = new HPT1000.GUI.InterlockPanel();
             this.pumpComponent = new HPT1000.GUI.PumpComponent();
             this.valve_Vent = new HPT1000.GUI.ValvePanel();
             this.valve_SV = new HPT1000.GUI.ValvePanel();
             this.valve_Gas = new HPT1000.GUI.ValvePanel();
             this.valve_Purge = new HPT1000.GUI.ValvePanel();
+            this.vaporiserPanel = new HPT1000.GUI.VaporiserPanel();
+            this.generatorPanel = new HPT1000.GUI.GeneratorPanel();
+            this.pumpPanel = new HPT1000.GUI.PumpPanel();
+            this.pressurePanel = new HPT1000.GUI.PressurePanel();
+            this.mfcPanel3 = new HPT1000.GUI.MFCPanel();
+            this.mfcPanel1 = new HPT1000.GUI.MFCPanel();
+            this.mfcPanel2 = new HPT1000.GUI.MFCPanel();
+            this.programPanel = new HPT1000.GUI.ProgramPanel();
+            this.programsConfigPanel = new HPT1000.GUI.ProgramsConfigPanel();
+            this.alertsPanel = new HPT1000.GUI.AlertsPanel();
+            this.settingsPanel = new HPT1000.GUI.SettingsPanel();
+            this.servicePanel = new HPT1000.GUI.ServicePanel();
+            this.adminPanel = new HPT1000.GUI.AdminPanel();
+            this.pictureCornerUp3 = new System.Windows.Forms.PictureBox();
+            this.picturelineMFC = new System.Windows.Forms.PictureBox();
             this.pictureBox34 = new System.Windows.Forms.PictureBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.pictureArrowUp1 = new System.Windows.Forms.PictureBox();
             this.pictureArrowUp2 = new System.Windows.Forms.PictureBox();
             this.pictureArrowDown = new System.Windows.Forms.PictureBox();
@@ -72,9 +97,6 @@
             this.pictureBox25 = new System.Windows.Forms.PictureBox();
             this.pictureLineMFC3 = new System.Windows.Forms.PictureBox();
             this.pictureCornerDown2 = new System.Windows.Forms.PictureBox();
-            this.vaporiserPanel = new HPT1000.GUI.VaporiserPanel();
-            this.label37 = new System.Windows.Forms.Label();
-            this.label36 = new System.Windows.Forms.Label();
             this.pictureBox28 = new System.Windows.Forms.PictureBox();
             this.pictureBox27 = new System.Windows.Forms.PictureBox();
             this.pictureBox26 = new System.Windows.Forms.PictureBox();
@@ -89,32 +111,17 @@
             this.pictureBox10 = new System.Windows.Forms.PictureBox();
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.pictureChamber = new System.Windows.Forms.PictureBox();
-            this.generatorPanel = new HPT1000.GUI.GeneratorPanel();
-            this.pumpPanel = new HPT1000.GUI.PumpPanel();
-            this.pressurePanel = new HPT1000.GUI.PressurePanel();
-            this.mfcPanel3 = new HPT1000.GUI.MFCPanel();
-            this.mfcPanel1 = new HPT1000.GUI.MFCPanel();
-            this.mfcPanel2 = new HPT1000.GUI.MFCPanel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.programPanel = new HPT1000.GUI.ProgramPanel();
-            this.tabPagePrograms = new System.Windows.Forms.TabPage();
-            this.programsConfigPanel = new HPT1000.GUI.ProgramsConfigPanel();
-            this.tabPageAlerts = new System.Windows.Forms.TabPage();
-            this.alertsPanel = new HPT1000.GUI.AlertsPanel();
-            this.tabPageArchive = new System.Windows.Forms.TabPage();
-            this.tabPageSettings = new System.Windows.Forms.TabPage();
-            this.settingsPanel = new HPT1000.GUI.SettingsPanel();
-            this.tabPageMaintenance = new System.Windows.Forms.TabPage();
-            this.tabPageService = new System.Windows.Forms.TabPage();
-            this.servicePanel = new HPT1000.GUI.ServicePanel();
-            this.tabPageAdmin = new System.Windows.Forms.TabPage();
-            this.adminPanel = new HPT1000.GUI.AdminPanel();
-            this.timer = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabPageMain.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.grBoxSystem.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.tabPagePrograms.SuspendLayout();
+            this.tabPageAlerts.SuspendLayout();
+            this.tabPageSettings.SuspendLayout();
+            this.tabPageService.SuspendLayout();
+            this.tabPageAdmin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureCornerUp3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picturelineMFC)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox34)).BeginInit();
@@ -140,12 +147,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureChamber)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            this.tabPagePrograms.SuspendLayout();
-            this.tabPageAlerts.SuspendLayout();
-            this.tabPageSettings.SuspendLayout();
-            this.tabPageService.SuspendLayout();
-            this.tabPageAdmin.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnLogin
@@ -240,6 +241,7 @@
             // 
             this.tabPageMain.BackColor = System.Drawing.Color.Transparent;
             this.tabPageMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPageMain.Controls.Add(this.liveGraphicalPanel);
             this.tabPageMain.Controls.Add(this.btnLiveModeData);
             this.tabPageMain.Controls.Add(this.textBox1);
             this.tabPageMain.Controls.Add(this.label7);
@@ -310,46 +312,6 @@
             this.groupBox2.TabIndex = 26;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Interlocks";
-            // 
-            // interlockPanel_Vacuum
-            // 
-            this.interlockPanel_Vacuum.Location = new System.Drawing.Point(137, 19);
-            this.interlockPanel_Vacuum.Margin = new System.Windows.Forms.Padding(5);
-            this.interlockPanel_Vacuum.Name = "interlockPanel_Vacuum";
-            this.interlockPanel_Vacuum.Size = new System.Drawing.Size(30, 30);
-            this.interlockPanel_Vacuum.TabIndex = 111;
-            // 
-            // interlockPanel_Emergency
-            // 
-            this.interlockPanel_Emergency.Location = new System.Drawing.Point(468, 19);
-            this.interlockPanel_Emergency.Margin = new System.Windows.Forms.Padding(5);
-            this.interlockPanel_Emergency.Name = "interlockPanel_Emergency";
-            this.interlockPanel_Emergency.Size = new System.Drawing.Size(30, 30);
-            this.interlockPanel_Emergency.TabIndex = 110;
-            // 
-            // interlockPanel_Pressure
-            // 
-            this.interlockPanel_Pressure.Location = new System.Drawing.Point(357, 19);
-            this.interlockPanel_Pressure.Margin = new System.Windows.Forms.Padding(5);
-            this.interlockPanel_Pressure.Name = "interlockPanel_Pressure";
-            this.interlockPanel_Pressure.Size = new System.Drawing.Size(30, 30);
-            this.interlockPanel_Pressure.TabIndex = 109;
-            // 
-            // interlockPanel_Thermal
-            // 
-            this.interlockPanel_Thermal.Location = new System.Drawing.Point(242, 19);
-            this.interlockPanel_Thermal.Margin = new System.Windows.Forms.Padding(5);
-            this.interlockPanel_Thermal.Name = "interlockPanel_Thermal";
-            this.interlockPanel_Thermal.Size = new System.Drawing.Size(30, 30);
-            this.interlockPanel_Thermal.TabIndex = 108;
-            // 
-            // interlockPanel_Door
-            // 
-            this.interlockPanel_Door.Location = new System.Drawing.Point(33, 19);
-            this.interlockPanel_Door.Margin = new System.Windows.Forms.Padding(4);
-            this.interlockPanel_Door.Name = "interlockPanel_Door";
-            this.interlockPanel_Door.Size = new System.Drawing.Size(30, 30);
-            this.interlockPanel_Door.TabIndex = 107;
             // 
             // label6
             // 
@@ -453,31 +415,180 @@
             this.grBoxSystem.Controls.Add(this.mfcPanel3);
             this.grBoxSystem.Controls.Add(this.mfcPanel1);
             this.grBoxSystem.Controls.Add(this.mfcPanel2);
-            this.grBoxSystem.Location = new System.Drawing.Point(561, 3);
+            this.grBoxSystem.Location = new System.Drawing.Point(562, -2);
             this.grBoxSystem.Name = "grBoxSystem";
             this.grBoxSystem.Size = new System.Drawing.Size(1124, 748);
             this.grBoxSystem.TabIndex = 25;
             this.grBoxSystem.TabStop = false;
             this.grBoxSystem.Text = "System";
             // 
-            // pictureCornerUp3
+            // label4
             // 
-            this.pictureCornerUp3.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureCornerUp3.ErrorImage")));
-            this.pictureCornerUp3.Image = ((System.Drawing.Image)(resources.GetObject("pictureCornerUp3.Image")));
-            this.pictureCornerUp3.Location = new System.Drawing.Point(681, 250);
-            this.pictureCornerUp3.Name = "pictureCornerUp3";
-            this.pictureCornerUp3.Size = new System.Drawing.Size(31, 31);
-            this.pictureCornerUp3.TabIndex = 109;
-            this.pictureCornerUp3.TabStop = false;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label4.Location = new System.Drawing.Point(300, 720);
+            this.label4.Name = "label4";
+            this.label4.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label4.Size = new System.Drawing.Size(109, 20);
+            this.label4.TabIndex = 101;
+            this.label4.Text = "Atmosphare";
             // 
-            // picturelineMFC
+            // label37
             // 
-            this.picturelineMFC.Image = ((System.Drawing.Image)(resources.GetObject("picturelineMFC.Image")));
-            this.picturelineMFC.Location = new System.Drawing.Point(681, 273);
-            this.picturelineMFC.Name = "picturelineMFC";
-            this.picturelineMFC.Size = new System.Drawing.Size(4, 380);
-            this.picturelineMFC.TabIndex = 108;
-            this.picturelineMFC.TabStop = false;
+            this.label37.AutoSize = true;
+            this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label37.Location = new System.Drawing.Point(93, 720);
+            this.label37.Name = "label37";
+            this.label37.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label37.Size = new System.Drawing.Size(109, 20);
+            this.label37.TabIndex = 90;
+            this.label37.Text = "Atmosphare";
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label36.Location = new System.Drawing.Point(18, 719);
+            this.label36.Name = "label36";
+            this.label36.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label36.Size = new System.Drawing.Size(73, 20);
+            this.label36.TabIndex = 89;
+            this.label36.Text = "Purging";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.programPanel);
+            this.groupBox1.Location = new System.Drawing.Point(9, 43);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(546, 610);
+            this.groupBox1.TabIndex = 19;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Program";
+            // 
+            // tabPagePrograms
+            // 
+            this.tabPagePrograms.Controls.Add(this.programsConfigPanel);
+            this.tabPagePrograms.Location = new System.Drawing.Point(4, 29);
+            this.tabPagePrograms.Name = "tabPagePrograms";
+            this.tabPagePrograms.Size = new System.Drawing.Size(1698, 800);
+            this.tabPagePrograms.TabIndex = 6;
+            this.tabPagePrograms.Text = "     PROGRAMS     ";
+            this.tabPagePrograms.UseVisualStyleBackColor = true;
+            // 
+            // tabPageAlerts
+            // 
+            this.tabPageAlerts.Controls.Add(this.alertsPanel);
+            this.tabPageAlerts.Location = new System.Drawing.Point(4, 29);
+            this.tabPageAlerts.Name = "tabPageAlerts";
+            this.tabPageAlerts.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAlerts.Size = new System.Drawing.Size(1698, 800);
+            this.tabPageAlerts.TabIndex = 2;
+            this.tabPageAlerts.Text = "     ALERTS     ";
+            this.tabPageAlerts.UseVisualStyleBackColor = true;
+            // 
+            // tabPageArchive
+            // 
+            this.tabPageArchive.Location = new System.Drawing.Point(4, 29);
+            this.tabPageArchive.Name = "tabPageArchive";
+            this.tabPageArchive.Size = new System.Drawing.Size(1698, 800);
+            this.tabPageArchive.TabIndex = 3;
+            this.tabPageArchive.Text = "     ARCHIVE     ";
+            this.tabPageArchive.UseVisualStyleBackColor = true;
+            // 
+            // tabPageSettings
+            // 
+            this.tabPageSettings.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageSettings.Controls.Add(this.settingsPanel);
+            this.tabPageSettings.Location = new System.Drawing.Point(4, 29);
+            this.tabPageSettings.Name = "tabPageSettings";
+            this.tabPageSettings.Size = new System.Drawing.Size(1698, 800);
+            this.tabPageSettings.TabIndex = 4;
+            this.tabPageSettings.Text = "     SETTINGS     ";
+            // 
+            // tabPageMaintenance
+            // 
+            this.tabPageMaintenance.Location = new System.Drawing.Point(4, 29);
+            this.tabPageMaintenance.Name = "tabPageMaintenance";
+            this.tabPageMaintenance.Size = new System.Drawing.Size(1698, 800);
+            this.tabPageMaintenance.TabIndex = 5;
+            this.tabPageMaintenance.Text = "     MAINTENANCE     ";
+            this.tabPageMaintenance.UseVisualStyleBackColor = true;
+            // 
+            // tabPageService
+            // 
+            this.tabPageService.Controls.Add(this.servicePanel);
+            this.tabPageService.Location = new System.Drawing.Point(4, 29);
+            this.tabPageService.Name = "tabPageService";
+            this.tabPageService.Size = new System.Drawing.Size(1698, 800);
+            this.tabPageService.TabIndex = 7;
+            this.tabPageService.Text = "     SERVICE     ";
+            this.tabPageService.UseVisualStyleBackColor = true;
+            // 
+            // tabPageAdmin
+            // 
+            this.tabPageAdmin.Controls.Add(this.adminPanel);
+            this.tabPageAdmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.tabPageAdmin.Location = new System.Drawing.Point(4, 29);
+            this.tabPageAdmin.Name = "tabPageAdmin";
+            this.tabPageAdmin.Size = new System.Drawing.Size(1698, 800);
+            this.tabPageAdmin.TabIndex = 8;
+            this.tabPageAdmin.Text = "     ADMIN     ";
+            this.tabPageAdmin.UseVisualStyleBackColor = true;
+            // 
+            // timer
+            // 
+            this.timer.Enabled = true;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // liveGraphicalPanel
+            // 
+            this.liveGraphicalPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.liveGraphicalPanel.Location = new System.Drawing.Point(1329, 748);
+            this.liveGraphicalPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.liveGraphicalPanel.Name = "liveGraphicalPanel";
+            this.liveGraphicalPanel.Size = new System.Drawing.Size(120, 39);
+            this.liveGraphicalPanel.TabIndex = 110;
+            this.liveGraphicalPanel.Load += new System.EventHandler(this.graphicalLive1_Load);
+            // 
+            // interlockPanel_Vacuum
+            // 
+            this.interlockPanel_Vacuum.Location = new System.Drawing.Point(137, 19);
+            this.interlockPanel_Vacuum.Margin = new System.Windows.Forms.Padding(5);
+            this.interlockPanel_Vacuum.Name = "interlockPanel_Vacuum";
+            this.interlockPanel_Vacuum.Size = new System.Drawing.Size(30, 30);
+            this.interlockPanel_Vacuum.TabIndex = 111;
+            // 
+            // interlockPanel_Emergency
+            // 
+            this.interlockPanel_Emergency.Location = new System.Drawing.Point(468, 19);
+            this.interlockPanel_Emergency.Margin = new System.Windows.Forms.Padding(5);
+            this.interlockPanel_Emergency.Name = "interlockPanel_Emergency";
+            this.interlockPanel_Emergency.Size = new System.Drawing.Size(30, 30);
+            this.interlockPanel_Emergency.TabIndex = 110;
+            // 
+            // interlockPanel_Pressure
+            // 
+            this.interlockPanel_Pressure.Location = new System.Drawing.Point(357, 19);
+            this.interlockPanel_Pressure.Margin = new System.Windows.Forms.Padding(5);
+            this.interlockPanel_Pressure.Name = "interlockPanel_Pressure";
+            this.interlockPanel_Pressure.Size = new System.Drawing.Size(30, 30);
+            this.interlockPanel_Pressure.TabIndex = 109;
+            // 
+            // interlockPanel_Thermal
+            // 
+            this.interlockPanel_Thermal.Location = new System.Drawing.Point(242, 19);
+            this.interlockPanel_Thermal.Margin = new System.Windows.Forms.Padding(5);
+            this.interlockPanel_Thermal.Name = "interlockPanel_Thermal";
+            this.interlockPanel_Thermal.Size = new System.Drawing.Size(30, 30);
+            this.interlockPanel_Thermal.TabIndex = 108;
+            // 
+            // interlockPanel_Door
+            // 
+            this.interlockPanel_Door.Location = new System.Drawing.Point(33, 19);
+            this.interlockPanel_Door.Margin = new System.Windows.Forms.Padding(4);
+            this.interlockPanel_Door.Name = "interlockPanel_Door";
+            this.interlockPanel_Door.Size = new System.Drawing.Size(30, 30);
+            this.interlockPanel_Door.TabIndex = 107;
             // 
             // pumpComponent
             // 
@@ -519,6 +630,153 @@
             this.valve_Purge.Size = new System.Drawing.Size(35, 50);
             this.valve_Purge.TabIndex = 103;
             // 
+            // vaporiserPanel
+            // 
+            this.vaporiserPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.vaporiserPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.vaporiserPanel.Location = new System.Drawing.Point(721, 595);
+            this.vaporiserPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.vaporiserPanel.Name = "vaporiserPanel";
+            this.vaporiserPanel.Size = new System.Drawing.Size(372, 132);
+            this.vaporiserPanel.TabIndex = 92;
+            // 
+            // generatorPanel
+            // 
+            this.generatorPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.generatorPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.generatorPanel.Location = new System.Drawing.Point(10, 20);
+            this.generatorPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.generatorPanel.Name = "generatorPanel";
+            this.generatorPanel.Size = new System.Drawing.Size(263, 276);
+            this.generatorPanel.TabIndex = 50;
+            // 
+            // pumpPanel
+            // 
+            this.pumpPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pumpPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.pumpPanel.Location = new System.Drawing.Point(725, 20);
+            this.pumpPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.pumpPanel.Name = "pumpPanel";
+            this.pumpPanel.Size = new System.Drawing.Size(371, 118);
+            this.pumpPanel.TabIndex = 49;
+            // 
+            // pressurePanel
+            // 
+            this.pressurePanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pressurePanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.pressurePanel.Location = new System.Drawing.Point(310, 20);
+            this.pressurePanel.Margin = new System.Windows.Forms.Padding(4);
+            this.pressurePanel.Name = "pressurePanel";
+            this.pressurePanel.Size = new System.Drawing.Size(325, 189);
+            this.pressurePanel.TabIndex = 48;
+            // 
+            // mfcPanel3
+            // 
+            this.mfcPanel3.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.mfcPanel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.mfcPanel3.Location = new System.Drawing.Point(725, 449);
+            this.mfcPanel3.Margin = new System.Windows.Forms.Padding(5);
+            this.mfcPanel3.Name = "mfcPanel3";
+            this.mfcPanel3.Size = new System.Drawing.Size(378, 139);
+            this.mfcPanel3.TabIndex = 47;
+            // 
+            // mfcPanel1
+            // 
+            this.mfcPanel1.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.mfcPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.mfcPanel1.Location = new System.Drawing.Point(725, 155);
+            this.mfcPanel1.Margin = new System.Windows.Forms.Padding(5);
+            this.mfcPanel1.Name = "mfcPanel1";
+            this.mfcPanel1.Size = new System.Drawing.Size(378, 140);
+            this.mfcPanel1.TabIndex = 46;
+            // 
+            // mfcPanel2
+            // 
+            this.mfcPanel2.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.mfcPanel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.mfcPanel2.Location = new System.Drawing.Point(725, 302);
+            this.mfcPanel2.Margin = new System.Windows.Forms.Padding(4);
+            this.mfcPanel2.Name = "mfcPanel2";
+            this.mfcPanel2.Size = new System.Drawing.Size(378, 140);
+            this.mfcPanel2.TabIndex = 45;
+            // 
+            // programPanel
+            // 
+            this.programPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.programPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.programPanel.HPT1000 = null;
+            this.programPanel.Location = new System.Drawing.Point(3, 23);
+            this.programPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.programPanel.Name = "programPanel";
+            this.programPanel.Size = new System.Drawing.Size(540, 584);
+            this.programPanel.TabIndex = 0;
+            // 
+            // programsConfigPanel
+            // 
+            this.programsConfigPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.programsConfigPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.programsConfigPanel.HPT1000 = null;
+            this.programsConfigPanel.Location = new System.Drawing.Point(0, 0);
+            this.programsConfigPanel.Name = "programsConfigPanel";
+            this.programsConfigPanel.Size = new System.Drawing.Size(1698, 804);
+            this.programsConfigPanel.TabIndex = 1;
+            // 
+            // alertsPanel
+            // 
+            this.alertsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.alertsPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.alertsPanel.HPT1000 = null;
+            this.alertsPanel.Location = new System.Drawing.Point(3, 3);
+            this.alertsPanel.Name = "alertsPanel";
+            this.alertsPanel.Size = new System.Drawing.Size(1692, 798);
+            this.alertsPanel.TabIndex = 0;
+            // 
+            // settingsPanel
+            // 
+            this.settingsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.settingsPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.settingsPanel.Location = new System.Drawing.Point(0, 0);
+            this.settingsPanel.Name = "settingsPanel";
+            this.settingsPanel.Size = new System.Drawing.Size(1698, 804);
+            this.settingsPanel.TabIndex = 0;
+            // 
+            // servicePanel
+            // 
+            this.servicePanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.servicePanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.servicePanel.Location = new System.Drawing.Point(0, 0);
+            this.servicePanel.Name = "servicePanel";
+            this.servicePanel.Size = new System.Drawing.Size(1698, 804);
+            this.servicePanel.TabIndex = 0;
+            // 
+            // adminPanel
+            // 
+            this.adminPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.adminPanel.Location = new System.Drawing.Point(0, 0);
+            this.adminPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.adminPanel.Name = "adminPanel";
+            this.adminPanel.Size = new System.Drawing.Size(1698, 804);
+            this.adminPanel.TabIndex = 0;
+            // 
+            // pictureCornerUp3
+            // 
+            this.pictureCornerUp3.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureCornerUp3.ErrorImage")));
+            this.pictureCornerUp3.Image = ((System.Drawing.Image)(resources.GetObject("pictureCornerUp3.Image")));
+            this.pictureCornerUp3.Location = new System.Drawing.Point(681, 250);
+            this.pictureCornerUp3.Name = "pictureCornerUp3";
+            this.pictureCornerUp3.Size = new System.Drawing.Size(31, 31);
+            this.pictureCornerUp3.TabIndex = 109;
+            this.pictureCornerUp3.TabStop = false;
+            // 
+            // picturelineMFC
+            // 
+            this.picturelineMFC.Image = ((System.Drawing.Image)(resources.GetObject("picturelineMFC.Image")));
+            this.picturelineMFC.Location = new System.Drawing.Point(681, 273);
+            this.picturelineMFC.Name = "picturelineMFC";
+            this.picturelineMFC.Size = new System.Drawing.Size(4, 380);
+            this.picturelineMFC.TabIndex = 108;
+            this.picturelineMFC.TabStop = false;
+            // 
             // pictureBox34
             // 
             this.pictureBox34.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox34.Image")));
@@ -528,21 +786,10 @@
             this.pictureBox34.TabIndex = 102;
             this.pictureBox34.TabStop = false;
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(300, 720);
-            this.label4.Name = "label4";
-            this.label4.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label4.Size = new System.Drawing.Size(109, 20);
-            this.label4.TabIndex = 101;
-            this.label4.Text = "Atmosphare";
-            // 
             // pictureArrowUp1
             // 
             this.pictureArrowUp1.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureArrowUp1.ErrorImage")));
-            this.pictureArrowUp1.Image = ((System.Drawing.Image)(resources.GetObject("pictureArrowUp1.Image")));
+            this.pictureArrowUp1.Image = global::HPT1000.Properties.Resources.Arrow_Up;
             this.pictureArrowUp1.Location = new System.Drawing.Point(36, 638);
             this.pictureArrowUp1.Name = "pictureArrowUp1";
             this.pictureArrowUp1.Size = new System.Drawing.Size(35, 65);
@@ -615,38 +862,6 @@
             this.pictureCornerDown2.Size = new System.Drawing.Size(31, 31);
             this.pictureCornerDown2.TabIndex = 93;
             this.pictureCornerDown2.TabStop = false;
-            // 
-            // vaporiserPanel
-            // 
-            this.vaporiserPanel.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.vaporiserPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.vaporiserPanel.Location = new System.Drawing.Point(721, 595);
-            this.vaporiserPanel.Margin = new System.Windows.Forms.Padding(4);
-            this.vaporiserPanel.Name = "vaporiserPanel";
-            this.vaporiserPanel.Size = new System.Drawing.Size(372, 132);
-            this.vaporiserPanel.TabIndex = 92;
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label37.Location = new System.Drawing.Point(93, 720);
-            this.label37.Name = "label37";
-            this.label37.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label37.Size = new System.Drawing.Size(109, 20);
-            this.label37.TabIndex = 90;
-            this.label37.Text = "Atmosphare";
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label36.Location = new System.Drawing.Point(18, 719);
-            this.label36.Name = "label36";
-            this.label36.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label36.Size = new System.Drawing.Size(73, 20);
-            this.label36.TabIndex = 89;
-            this.label36.Text = "Purging";
             // 
             // pictureBox28
             // 
@@ -779,209 +994,6 @@
             this.pictureChamber.TabIndex = 67;
             this.pictureChamber.TabStop = false;
             // 
-            // generatorPanel
-            // 
-            this.generatorPanel.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.generatorPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.generatorPanel.Location = new System.Drawing.Point(10, 20);
-            this.generatorPanel.Margin = new System.Windows.Forms.Padding(4);
-            this.generatorPanel.Name = "generatorPanel";
-            this.generatorPanel.Size = new System.Drawing.Size(263, 276);
-            this.generatorPanel.TabIndex = 50;
-            // 
-            // pumpPanel
-            // 
-            this.pumpPanel.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.pumpPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.pumpPanel.Location = new System.Drawing.Point(725, 20);
-            this.pumpPanel.Margin = new System.Windows.Forms.Padding(4);
-            this.pumpPanel.Name = "pumpPanel";
-            this.pumpPanel.Size = new System.Drawing.Size(371, 118);
-            this.pumpPanel.TabIndex = 49;
-            // 
-            // pressurePanel
-            // 
-            this.pressurePanel.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.pressurePanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.pressurePanel.Location = new System.Drawing.Point(310, 20);
-            this.pressurePanel.Margin = new System.Windows.Forms.Padding(4);
-            this.pressurePanel.Name = "pressurePanel";
-            this.pressurePanel.Size = new System.Drawing.Size(325, 189);
-            this.pressurePanel.TabIndex = 48;
-            // 
-            // mfcPanel3
-            // 
-            this.mfcPanel3.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.mfcPanel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.mfcPanel3.Location = new System.Drawing.Point(725, 449);
-            this.mfcPanel3.Margin = new System.Windows.Forms.Padding(5);
-            this.mfcPanel3.Name = "mfcPanel3";
-            this.mfcPanel3.Size = new System.Drawing.Size(378, 139);
-            this.mfcPanel3.TabIndex = 47;
-            // 
-            // mfcPanel1
-            // 
-            this.mfcPanel1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.mfcPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.mfcPanel1.Location = new System.Drawing.Point(725, 155);
-            this.mfcPanel1.Margin = new System.Windows.Forms.Padding(5);
-            this.mfcPanel1.Name = "mfcPanel1";
-            this.mfcPanel1.Size = new System.Drawing.Size(378, 140);
-            this.mfcPanel1.TabIndex = 46;
-            // 
-            // mfcPanel2
-            // 
-            this.mfcPanel2.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.mfcPanel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.mfcPanel2.Location = new System.Drawing.Point(725, 302);
-            this.mfcPanel2.Margin = new System.Windows.Forms.Padding(4);
-            this.mfcPanel2.Name = "mfcPanel2";
-            this.mfcPanel2.Size = new System.Drawing.Size(378, 140);
-            this.mfcPanel2.TabIndex = 45;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.programPanel);
-            this.groupBox1.Location = new System.Drawing.Point(9, 43);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(546, 610);
-            this.groupBox1.TabIndex = 19;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Program";
-            // 
-            // programPanel
-            // 
-            this.programPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.programPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.programPanel.HPT1000 = null;
-            this.programPanel.Location = new System.Drawing.Point(3, 23);
-            this.programPanel.Margin = new System.Windows.Forms.Padding(4);
-            this.programPanel.Name = "programPanel";
-            this.programPanel.Size = new System.Drawing.Size(540, 584);
-            this.programPanel.TabIndex = 0;
-            // 
-            // tabPagePrograms
-            // 
-            this.tabPagePrograms.Controls.Add(this.programsConfigPanel);
-            this.tabPagePrograms.Location = new System.Drawing.Point(4, 29);
-            this.tabPagePrograms.Name = "tabPagePrograms";
-            this.tabPagePrograms.Size = new System.Drawing.Size(1698, 800);
-            this.tabPagePrograms.TabIndex = 6;
-            this.tabPagePrograms.Text = "     PROGRAMS     ";
-            this.tabPagePrograms.UseVisualStyleBackColor = true;
-            // 
-            // programsConfigPanel
-            // 
-            this.programsConfigPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.programsConfigPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.programsConfigPanel.HPT1000 = null;
-            this.programsConfigPanel.Location = new System.Drawing.Point(0, 0);
-            this.programsConfigPanel.Name = "programsConfigPanel";
-            this.programsConfigPanel.Size = new System.Drawing.Size(1698, 800);
-            this.programsConfigPanel.TabIndex = 1;
-            // 
-            // tabPageAlerts
-            // 
-            this.tabPageAlerts.Controls.Add(this.alertsPanel);
-            this.tabPageAlerts.Location = new System.Drawing.Point(4, 29);
-            this.tabPageAlerts.Name = "tabPageAlerts";
-            this.tabPageAlerts.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAlerts.Size = new System.Drawing.Size(1698, 800);
-            this.tabPageAlerts.TabIndex = 2;
-            this.tabPageAlerts.Text = "     ALERTS     ";
-            this.tabPageAlerts.UseVisualStyleBackColor = true;
-            // 
-            // alertsPanel
-            // 
-            this.alertsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.alertsPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.alertsPanel.HPT1000 = null;
-            this.alertsPanel.Location = new System.Drawing.Point(3, 3);
-            this.alertsPanel.Name = "alertsPanel";
-            this.alertsPanel.Size = new System.Drawing.Size(1692, 794);
-            this.alertsPanel.TabIndex = 0;
-            // 
-            // tabPageArchive
-            // 
-            this.tabPageArchive.Location = new System.Drawing.Point(4, 29);
-            this.tabPageArchive.Name = "tabPageArchive";
-            this.tabPageArchive.Size = new System.Drawing.Size(1698, 800);
-            this.tabPageArchive.TabIndex = 3;
-            this.tabPageArchive.Text = "     ARCHIVE     ";
-            this.tabPageArchive.UseVisualStyleBackColor = true;
-            // 
-            // tabPageSettings
-            // 
-            this.tabPageSettings.BackColor = System.Drawing.Color.Transparent;
-            this.tabPageSettings.Controls.Add(this.settingsPanel);
-            this.tabPageSettings.Location = new System.Drawing.Point(4, 29);
-            this.tabPageSettings.Name = "tabPageSettings";
-            this.tabPageSettings.Size = new System.Drawing.Size(1698, 800);
-            this.tabPageSettings.TabIndex = 4;
-            this.tabPageSettings.Text = "     SETTINGS     ";
-            // 
-            // settingsPanel
-            // 
-            this.settingsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.settingsPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.settingsPanel.Location = new System.Drawing.Point(0, 0);
-            this.settingsPanel.Name = "settingsPanel";
-            this.settingsPanel.Size = new System.Drawing.Size(1698, 800);
-            this.settingsPanel.TabIndex = 0;
-            // 
-            // tabPageMaintenance
-            // 
-            this.tabPageMaintenance.Location = new System.Drawing.Point(4, 29);
-            this.tabPageMaintenance.Name = "tabPageMaintenance";
-            this.tabPageMaintenance.Size = new System.Drawing.Size(1698, 800);
-            this.tabPageMaintenance.TabIndex = 5;
-            this.tabPageMaintenance.Text = "     MAINTENANCE     ";
-            this.tabPageMaintenance.UseVisualStyleBackColor = true;
-            // 
-            // tabPageService
-            // 
-            this.tabPageService.Controls.Add(this.servicePanel);
-            this.tabPageService.Location = new System.Drawing.Point(4, 29);
-            this.tabPageService.Name = "tabPageService";
-            this.tabPageService.Size = new System.Drawing.Size(1698, 800);
-            this.tabPageService.TabIndex = 7;
-            this.tabPageService.Text = "     SERVICE     ";
-            this.tabPageService.UseVisualStyleBackColor = true;
-            // 
-            // servicePanel
-            // 
-            this.servicePanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.servicePanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.servicePanel.Location = new System.Drawing.Point(0, 0);
-            this.servicePanel.Name = "servicePanel";
-            this.servicePanel.Size = new System.Drawing.Size(1698, 800);
-            this.servicePanel.TabIndex = 0;
-            // 
-            // tabPageAdmin
-            // 
-            this.tabPageAdmin.Controls.Add(this.adminPanel);
-            this.tabPageAdmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.tabPageAdmin.Location = new System.Drawing.Point(4, 29);
-            this.tabPageAdmin.Name = "tabPageAdmin";
-            this.tabPageAdmin.Size = new System.Drawing.Size(1698, 800);
-            this.tabPageAdmin.TabIndex = 8;
-            this.tabPageAdmin.Text = "     ADMIN     ";
-            this.tabPageAdmin.UseVisualStyleBackColor = true;
-            // 
-            // adminPanel
-            // 
-            this.adminPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.adminPanel.Location = new System.Drawing.Point(0, 0);
-            this.adminPanel.Margin = new System.Windows.Forms.Padding(4);
-            this.adminPanel.Name = "adminPanel";
-            this.adminPanel.Size = new System.Drawing.Size(1698, 800);
-            this.adminPanel.TabIndex = 0;
-            // 
-            // timer
-            // 
-            this.timer.Enabled = true;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -1003,6 +1015,12 @@
             this.groupBox2.PerformLayout();
             this.grBoxSystem.ResumeLayout(false);
             this.grBoxSystem.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.tabPagePrograms.ResumeLayout(false);
+            this.tabPageAlerts.ResumeLayout(false);
+            this.tabPageSettings.ResumeLayout(false);
+            this.tabPageService.ResumeLayout(false);
+            this.tabPageAdmin.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureCornerUp3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picturelineMFC)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox34)).EndInit();
@@ -1028,12 +1046,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureChamber)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.tabPagePrograms.ResumeLayout(false);
-            this.tabPageAlerts.ResumeLayout(false);
-            this.tabPageSettings.ResumeLayout(false);
-            this.tabPageService.ResumeLayout(false);
-            this.tabPageAdmin.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1120,6 +1132,7 @@
         private System.Windows.Forms.TabPage tabPageAdmin;
         private ServicePanel servicePanel;
         private AdminPanel adminPanel;
+        private GraphicalLive liveGraphicalPanel;
     }
 }
 

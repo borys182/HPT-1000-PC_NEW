@@ -33,9 +33,9 @@ namespace HPT1000.Source.Chamber
         }
         //-----------------------------------------------------------------------------------------
         //Funkcja umozliwia ustawianie setpointa prozni dla regulatora PID
-        public ERROR SetSetpoint(double aSetpoint)
+        public ItemLogger SetSetpoint(double aSetpoint)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
 
             if (plc != null)
             {
@@ -53,9 +53,9 @@ namespace HPT1000.Source.Chamber
         }
         //-----------------------------------------------------------------------------------------
         //Funkcja umozliwia ustawianie setpointa prozni dla regulatora PID
-        public ERROR SetMode(Types.GasProcesMode aMode)
+        public ItemLogger SetMode(Types.GasProcesMode aMode)
         {
-            ERROR aErr  = new ERROR();
+            ItemLogger aErr  = new ItemLogger();
             int[] aData = new int[1];
 
             aData[0] = (int)aMode;

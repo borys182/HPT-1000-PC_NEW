@@ -126,7 +126,7 @@ namespace HPT1000.GUI
         private void radioButtonMode_Click(object sender, EventArgs e)
         {
             Types.ModeHV mode = Types.ModeHV.Unknown;
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
 
             if (rBtnModeCurent.Checked)  mode = Types.ModeHV.Curent;
             if (rBtnModeVoltage.Checked) mode = Types.ModeHV.Voltage;
@@ -142,7 +142,7 @@ namespace HPT1000.GUI
         //------------------------------------------------------------------------------------------
         private void cBoxOperate_Click(object sender, EventArgs e)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
 
             if (generator != null)
                 aErr = generator.SetOperate(cBoxOperate.Checked);
@@ -161,7 +161,7 @@ namespace HPT1000.GUI
         private bool dEditSetpoint_EnterOn()
         {
             bool aRes = false;
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
 
             if (generator != null)
                 aErr = generator.SetSetpoint(dEditSetpoint.Value);

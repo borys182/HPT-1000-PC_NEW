@@ -195,7 +195,7 @@ namespace HPT1000.GUI
                 Logger.AddMsg(Translate.GetText("Nie wybrano wezla programu"), Types.MessageType.Error);
 
             if (hpt1000.RemoveProgram(program))
-                Logger.AddMsg(Translate.GetText("Program zostal poprawnie usuniety"), Types.MessageType.Information);
+                Logger.AddMsg(Translate.GetText("Program zostal poprawnie usuniety"), Types.MessageType.Message);
             else
                 Logger.AddMsg(Translate.GetText("Nie udalo usunac sie programu"), Types.MessageType.Error);
 
@@ -215,7 +215,7 @@ namespace HPT1000.GUI
                 Logger.AddMsg(Translate.GetText("Nie wybrano wezla sub-programu"), Types.MessageType.Error);
 
             if (program != null && program.RemoveSubprogram(subProgram))
-                Logger.AddMsg(Translate.GetText("Sub-program zostal poprawnie usuniety"), Types.MessageType.Information);
+                Logger.AddMsg(Translate.GetText("Sub-program zostal poprawnie usuniety"), Types.MessageType.Message);
             else
                 Logger.AddMsg(Translate.GetText("Nie udalo usunac sie sub-programu"), Types.MessageType.Error);
 

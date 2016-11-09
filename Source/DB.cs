@@ -242,7 +242,7 @@ namespace HPT1000.Source
         }
         //-------------------------------------------------------------------------------------
         //Podaj tekst dla danego bledu pobrany z bazy danych
-        public static string GetErrorText(ERROR aError)
+        public static string GetErrorText(ItemLogger aError)
         {
             string aTxt = "No text in data base for action code:" + aError.GetErrorCode().ToString("X8");
 

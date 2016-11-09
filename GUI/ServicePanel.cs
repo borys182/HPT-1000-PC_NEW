@@ -354,7 +354,7 @@ namespace HPT1000.GUI
                         cBoxGasType.SelectedIndex = aSelectedInde;
 
                     aError = false;
-                    Source.Logger.AddMsg(Source.Translate.GetText("Ustawienia dla typu gazu " + gasType.Name + " zostal poprawnie zapisane"), Types.MessageType.Information);
+                    Source.Logger.AddMsg(Source.Translate.GetText("Ustawienia dla typu gazu " + gasType.Name + " zostal poprawnie zapisane"), Types.MessageType.Message);
                 }
                 else
                     Source.Logger.AddMsg(Source.Translate.GetText("Nie udalo sie zapisać zmian typu gazu. Pole Nazawa nie moze byc puste"), Types.MessageType.Error);
@@ -385,7 +385,7 @@ namespace HPT1000.GUI
                     gasTypes.Add(gasType);
                     cBoxGasType.Items.Add(gasType);
 
-                    Source.Logger.AddMsg(Source.Translate.GetText("Typ gazu " + gasType.Name + " zostal poprawnie dodany"), Types.MessageType.Information);
+                    Source.Logger.AddMsg(Source.Translate.GetText("Typ gazu " + gasType.Name + " zostal poprawnie dodany"), Types.MessageType.Message);
 
                     cBoxGasType.Refresh();
                     cBoxGasType.SelectedIndex = cBoxGasType.Items.Count - 1;
@@ -433,7 +433,7 @@ namespace HPT1000.GUI
                     dEditFactorGas.Value = 0;
                 }
 
-                Source.Logger.AddMsg(Source.Translate.GetText("Typu gazu " + gasType.Name + " zostal poprawnie usuniety"), Types.MessageType.Information);
+                Source.Logger.AddMsg(Source.Translate.GetText("Typu gazu " + gasType.Name + " zostal poprawnie usuniety"), Types.MessageType.Message);
             }
             else
                 Source.Logger.AddMsg(Source.Translate.GetText("Nie udalo sie usunac typu gazu. Typ gazu nie zostal wybrany"), Types.MessageType.Error);

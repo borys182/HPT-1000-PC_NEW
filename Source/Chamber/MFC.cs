@@ -98,9 +98,9 @@ namespace HPT1000.Source.Chamber
         }
         //-----------------------------------------------------------------------------------------
         //Funkcja umozliwia ustawianie dango przeplwyu na przeplywce
-        public ERROR SetFlow( double aValue, Types.UnitFlow aUnit)
+        public ItemLogger SetFlow( double aValue, Types.UnitFlow aUnit)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
 
             int aValueSCCM = 0;
             //przlicz wartosc podana w danych jednostach na napiecie
@@ -199,9 +199,9 @@ namespace HPT1000.Source.Chamber
         }
         //-----------------------------------------------------------------------------------------
         //Ustaw max przeplyw jaki jest mozliwy do ustawienia dla danej przeplywki [sccm]
-        public ERROR SetMaxFlow(int aValue)
+        public ItemLogger SetMaxFlow(int aValue)
         {
-            ERROR   aErr = new ERROR();
+            ItemLogger   aErr = new ItemLogger();
             int[]   aData = new int[1];
             int     aAddr = 0;
 
@@ -225,9 +225,9 @@ namespace HPT1000.Source.Chamber
         }
         //------------------------------------------------------------------------------------------- 
         //Ustaw wartosc max napieica sterujacego dana przeplywka [mV]
-        public ERROR SetRangeVoltage(int aValue)
+        public ItemLogger SetRangeVoltage(int aValue)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
             int[] aData = new int[1];
             int aAddr = 0;
 
@@ -312,9 +312,9 @@ namespace HPT1000.Source.Chamber
         }
         //-----------------------------------------------------------------------------------------
         //Funkcja umozliwia ustawianie dango przeplwyu na przeplywce
-        public ERROR SetFlow(int aId , float aValue , Types.UnitFlow aUnit)
+        public ItemLogger SetFlow(int aId , float aValue , Types.UnitFlow aUnit)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
 
             MFC_Channel mfc_Channel = GetMFC_Channel(aId);
 
@@ -387,9 +387,9 @@ namespace HPT1000.Source.Chamber
             return aRangeVoltage;
         }
         //-----------------------------------------------------------------------------------------
-        public ERROR SetMaxFlow(int aId,int aMaxFlow)
+        public ItemLogger SetMaxFlow(int aId,int aMaxFlow)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
             MFC_Channel mfc_Channel = GetMFC_Channel(aId);
 
             if (mfc_Channel != null)
@@ -398,9 +398,9 @@ namespace HPT1000.Source.Chamber
             return aErr;
         }
         //-----------------------------------------------------------------------------------------
-        public ERROR SetRangeVoltage(int aId, int aRangeVoltage)
+        public ItemLogger SetRangeVoltage(int aId, int aRangeVoltage)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
 
             MFC_Channel mfc_Channel = GetMFC_Channel(aId);
 
@@ -421,9 +421,9 @@ namespace HPT1000.Source.Chamber
         }
         //-----------------------------------------------------------------------------------------
         //Ustaw czas oczekiwania na stabilizacje sie wartosc przeplywu poiedzy zadanymi widelkami programu
-        public ERROR SetTimeFlowStability(int aValue)
+        public ItemLogger SetTimeFlowStability(int aValue)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
             int[] aData = new int[1];
 
             aData[0] = aValue;

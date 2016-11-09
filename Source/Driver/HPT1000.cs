@@ -116,7 +116,7 @@ namespace HPT1000.Source.Driver
             int[] aDataErr = new int[6];
             int   aRes  = 0;
             int   aCountOverflow = 0;
-            ERROR aErr;
+            ItemLogger aErr;
 
             if (plc != null)
             {
@@ -167,9 +167,9 @@ namespace HPT1000.Source.Driver
         }
         //-----------------------------------------------------------------------------------------
         //Funkcja ma za zadanie wyodrebnienie z jednego wpisu bledu ktory jest przechowywany na 4 wordach kod bledu oraz data jego wystapienia
-        private ERROR GetError(int[] aData)
+        private ItemLogger GetError(int[] aData)
         {
-            ERROR       aErr        = new ERROR();
+            ItemLogger       aErr        = new ItemLogger();
             DateTime    dateTime    = new DateTime();
             int         aCode       = 0;
 
@@ -289,7 +289,7 @@ namespace HPT1000.Source.Driver
             }
             else
             {
-                ERROR aErr = new ERROR();
+                ItemLogger aErr = new ItemLogger();
                 aErr.SetErrorApp(Types.EventType.NO_PRG_IN_PLC);
                 Logger.AddError(aErr);
             }
@@ -297,7 +297,7 @@ namespace HPT1000.Source.Driver
         //-----------------------------------------------------------------------------------------
         public void UpdateSettings()
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
             int[] aData = new int[Types.LENGHT_SETTINGS_DATA];
 
             int aCode = plc.ReadWords(Types.ADDR_START_SETTINGS, Types.LENGHT_SETTINGS_DATA, aData);
@@ -411,9 +411,9 @@ namespace HPT1000.Source.Driver
             return aId;
         }
         //-------------------------------------------------------------------------------------------------------------------------
-        public ERROR SetMode(Types.Mode aMode)
+        public ItemLogger SetMode(Types.Mode aMode)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
             int[] aData = new int[1];
 
             aData[0] = (int)aMode;

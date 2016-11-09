@@ -54,7 +54,7 @@ namespace HPT1000.GUI
         //-----------------------------------------------------------------------------------------
         private void picture_Click(object sender, EventArgs e)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
 
             if (valve != null)
             {

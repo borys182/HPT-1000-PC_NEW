@@ -54,9 +54,9 @@ namespace HPT1000.Source.Chamber
         }
         //-----------------------------------------------------------------------------------------
         //Funkcja umozliwia alaczenie/wylaczenie pompy
-        public ERROR ControlPump(Types.StateFP state)
+        public ItemLogger ControlPump(Types.StateFP state)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
 
             int[] aData = { (int)state };
 
@@ -81,9 +81,9 @@ namespace HPT1000.Source.Chamber
             return aErr;
         }
         //-----------------------------------------------------------------------------------------
-        public ERROR SetTimeWaitPF(int aValue)
+        public ItemLogger SetTimeWaitPF(int aValue)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
             int[] aData = new int[1];
 
             aData[0] = aValue;
@@ -101,9 +101,9 @@ namespace HPT1000.Source.Chamber
             return aErr;
         }
         //-----------------------------------------------------------------------------------------
-        public ERROR SetTimePumpToSV(int aValue)
+        public ItemLogger SetTimePumpToSV(int aValue)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
             int[] aData = new int[1];
 
             aData[0] = aValue;

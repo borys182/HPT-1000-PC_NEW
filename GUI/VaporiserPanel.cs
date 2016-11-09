@@ -74,7 +74,7 @@ namespace HPT1000.GUI
         private bool dEditOnTime_EnterOn()
         {
             bool aRes = false;
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
 
             if (vaporizer != null)
             {
@@ -99,7 +99,7 @@ namespace HPT1000.GUI
         private bool dEditCycleTImne_EnterOn()
         {
             bool aRes = false;
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
             if (vaporizer != null)
             {
                 aErr = vaporizer.SetCycleTime((float)dEditCycleTImne.Value * 1000); // poniewa z formatki dane wprowadzam w sec musze je przeliczyc na ms

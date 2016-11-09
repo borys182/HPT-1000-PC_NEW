@@ -13,7 +13,7 @@ namespace HPT1000.Source
      * - wystąpinie warrningu
      * - koniecznoć wyświetlenia informacji
      */
-    public class ERROR//ItemLogger
+    public class ItemLogger
     {
         /*  Jako ItemLogger moze byc przechowywana informacja na temat akcji wykonajne przez usera , wiadomosci generowanej do niego jak i blad.
          *  BLad moze pochodzic z 3 roznych zrodel: App , PLC , MX Components
@@ -59,11 +59,11 @@ namespace HPT1000.Source
         }
         //-----------------------------------------------------------------------------------------
 
-        public ERROR()
+        public ItemLogger()
         {
         }
         //-----------------------------------------------------------------------------------------
-        public ERROR(Types.EventType aEventType, Types.EventCategory aEventCategory, int aErrCode)
+        public ItemLogger(Types.EventType aEventType, Types.EventCategory aEventCategory, int aErrCode)
         {
             eventCategory   = aEventCategory;
             eventType       = aEventType;
@@ -74,7 +74,7 @@ namespace HPT1000.Source
                 msgType         = Types.MessageType.Error;
         }
         //-----------------------------------------------------------------------------------------
-        public ERROR(Types.EventType aEventType, Types.EventCategory aEventCategory, int aErrCode, DateTime aTime)
+        public ItemLogger(Types.EventType aEventType, Types.EventCategory aEventCategory, int aErrCode, DateTime aTime)
         {
             eventCategory   = aEventCategory;
             eventType       = aEventType;
@@ -122,7 +122,7 @@ namespace HPT1000.Source
         public void SetErrorPLC(int aErrCode, DateTime aTime, int aProgramID, int aSubprogramID)
         {
             eventCategory = Types.EventCategory.PLC;
-            eventType     = Types.EventType.PLC_ERROR;
+            eventType     = Types.EventType.PLC_ItemLogger;
             errCode       = aErrCode;
             time          = aTime;
             programID     = aProgramID;
@@ -205,7 +205,7 @@ namespace HPT1000.Source
         public override bool Equals(object other)
         {
             bool aRes = false;
-            ERROR aOther = (ERROR)other;
+            ItemLogger aOther = (ItemLogger)other;
 
             //Porownuje tylko po referencji bo w kilku miejscach sie odnosze do tej samej referencji i cos zmieniam.
             if (other != null && this.GetType() == other.GetType() && eventType == aOther.eventType && eventCategory == aOther.eventCategory && errCode == aOther.errCode && time == aOther.Time)

@@ -397,7 +397,7 @@ namespace HPT1000.GUI
         //Wgraj program do PLC oraz uruchom go
         private void btnStart_Click(object sender, EventArgs e)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
             Program program = (Program)cBoxPrograms.SelectedItem;
             if (program != null)
                 aErr = program.StartProgram();
@@ -409,7 +409,7 @@ namespace HPT1000.GUI
         //--------------------------------------------------------------------------------------
         private void btnStop_Click(object sender, EventArgs e)
         {
-            ERROR aErr;
+            ItemLogger aErr;
 
             Program program = new Program();
             program.SetPtrPLC(hpt1000.GetPLC());

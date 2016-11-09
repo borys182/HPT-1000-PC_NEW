@@ -38,7 +38,7 @@ namespace HPT1000.GUI
 
             for (int i = 0; i < Logger.GetErrorList().Count; i++)
             {
-                ERROR aErr = Logger.GetErrorList()[i];
+                ItemLogger aErr = Logger.GetErrorList()[i];
 
                 if (aErr.IsError() && !IsErrorAlreadyExistInList(aErr))
                 {
@@ -102,7 +102,7 @@ namespace HPT1000.GUI
             return aName;
         }
         //----------------------------------------------------------------------------------
-        private bool IsErrorAlreadyExistInList(ERROR aErr)
+        private bool IsErrorAlreadyExistInList(ItemLogger aErr)
         {
             bool aRes = false;
 

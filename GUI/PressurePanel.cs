@@ -96,7 +96,7 @@ namespace HPT1000.GUI
         private bool dEditSetpoint_EnterOn()
         {
             bool  aRes = false;
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
 
             if (presureControl != null)
                 aErr = presureControl.SetSetpoint(dEditSetpoint.Value);
@@ -115,7 +115,7 @@ namespace HPT1000.GUI
         //-----------------------------------------------------------------------------------------
         private void cBoxGases_Click(object sender, EventArgs e)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
             string aName = ((CheckBox)sender).Text;
             if (presureControl != null)
             {

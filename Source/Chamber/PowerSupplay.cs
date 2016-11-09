@@ -136,9 +136,9 @@ namespace HPT1000.Source.Chamber
             }
         }
         //-----------------------------------------------------------------------------------------
-        public ERROR SetSetpoint(double aSetpoint)
+        public ItemLogger SetSetpoint(double aSetpoint)
         {
-            ERROR aErr  = new ERROR();
+            ItemLogger aErr  = new ItemLogger();
             int   aCode = 0;
 
             if (plc != null)
@@ -158,9 +158,9 @@ namespace HPT1000.Source.Chamber
         }       
         //-----------------------------------------------------------------------------------------
         //Mozliwosc ustawienia tylko w trybie recznym
-        public ERROR SetMode(Types.ModeHV aMode)
+        public ItemLogger SetMode(Types.ModeHV aMode)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
             int []aData = new int[1] ;
 
             aData[0] =  (int)aMode;
@@ -184,9 +184,9 @@ namespace HPT1000.Source.Chamber
         }
         //-----------------------------------------------------------------------------------------
         //Mozliwosc ustawienia tylko w trybie recznym
-        public ERROR SetOperate(bool aOperate)
+        public ItemLogger SetOperate(bool aOperate)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
 
             int[] aData = new int[1];
 
@@ -208,9 +208,9 @@ namespace HPT1000.Source.Chamber
             return aErr;
         }
         //-------------------------------------------------------------------------------------------  
-        public ERROR SetLimitPower(double aValue)
+        public ItemLogger SetLimitPower(double aValue)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
 
             if (plc != null)
             {
@@ -226,9 +226,9 @@ namespace HPT1000.Source.Chamber
             return aErr;
         }
         //-------------------------------------------------------------------------------------------  
-        public ERROR SetLimitCurent(double aValue)
+        public ItemLogger SetLimitCurent(double aValue)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
 
             if (plc != null)
             {
@@ -244,9 +244,9 @@ namespace HPT1000.Source.Chamber
             return aErr;
         }
         //-------------------------------------------------------------------------------------------  
-        public ERROR SetLimitVoltage(double aValue)
+        public ItemLogger SetLimitVoltage(double aValue)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
 
             if (plc != null)
             {
@@ -263,9 +263,9 @@ namespace HPT1000.Source.Chamber
         }
         //-------------------------------------------------------------------------------------------  
         //Ustaw max wartosc napiecia jaka jest jest mozliwa do ustawiania z zasilacza
-        public ERROR SetMaxVoltage(double aValue)
+        public ItemLogger SetMaxVoltage(double aValue)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
 
             if (plc != null)
             {
@@ -282,9 +282,9 @@ namespace HPT1000.Source.Chamber
         }
         //-------------------------------------------------------------------------------------------  
         //Ustaw max wartosc mocy jaka jest jest mozliwa do ustawiania z zasilacza
-        public ERROR SetMaxPower(double aValue)
+        public ItemLogger SetMaxPower(double aValue)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
 
             if (plc != null)
             {
@@ -301,9 +301,9 @@ namespace HPT1000.Source.Chamber
         }
         //-------------------------------------------------------------------------------------------  
         //Ustaw max wartosc pradu jaka jest jest mozliwa do ustawiania z zasilacza
-        public ERROR SetMaxCurent(double aValue)
+        public ItemLogger SetMaxCurent(double aValue)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
 
             if (plc != null)
             {
@@ -320,9 +320,9 @@ namespace HPT1000.Source.Chamber
         }
         //------------------------------------------------------------------------------------------- 
         //Ustaw czas oczekiwania na sprawdzenie poprawnisci wlaczenia zasilacza
-        public ERROR SetWaitTimeOperate(int aValue)
+        public ItemLogger SetWaitTimeOperate(int aValue)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
             int[] aData = new int[1];
 
             aData[0] = aValue;
@@ -341,9 +341,9 @@ namespace HPT1000.Source.Chamber
         }
         //------------------------------------------------------------------------------------------- 
         //Ustaw czas oczekiwania na stabilizacje sie wartosc setpoint poiedzy zadanymi widelkami programu
-        public ERROR SetWaitTimeSetpoint(int aValue)
+        public ItemLogger SetWaitTimeSetpoint(int aValue)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
             int[] aData = new int[1];
 
             aData[0] = aValue;

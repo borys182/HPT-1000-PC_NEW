@@ -32,7 +32,7 @@ namespace HPT1000.Source.Driver
             }
             catch(Exception e)
             {
-                ERROR aErr = new ERROR();
+                ItemLogger aErr = new ItemLogger();
                 aErr.SetErrorApp(Types.EventType.MX_COMPONENTS_NO_INSTALL);
                 Logger.AddError(aErr);
             }

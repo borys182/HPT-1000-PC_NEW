@@ -10,14 +10,14 @@ namespace HPT1000.Source
     //Klasa służy do logowania wszystkich bledow/zdarzeń występjacych w programie i zbierania ich w jednym miejscu
     class Logger
     {
-        private static List<ERROR> errorList = new List<ERROR>();
+        private static List<ItemLogger> errorList = new List<ItemLogger>();
 
         //------------------------------------------------------------------------------------------------------------------------------------------------
-        private static bool IsContains(ERROR aErr)
+        private static bool IsContains(ItemLogger aErr)
         {
             bool aRes = false;
 
-            foreach (ERROR err in errorList)
+            foreach (ItemLogger err in errorList)
             {
                 if (err.Equals(aErr))
                 {
@@ -29,7 +29,7 @@ namespace HPT1000.Source
             return aRes;
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------
-        public static void AddError(ERROR aErr)
+        public static void AddError(ItemLogger aErr)
         {
             if((aErr.IsError() || aErr.IsInformation()) && !IsContains(aErr))
                 errorList.Add(aErr);
@@ -39,7 +39,7 @@ namespace HPT1000.Source
         {
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------
-        public static List<ERROR> GetErrorList()
+        public static List<ItemLogger> GetErrorList()
         {
             return errorList;
         }
@@ -49,9 +49,9 @@ namespace HPT1000.Source
             errorList.Clear();      
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------
-        public static ERROR GetLastAction()
+        public static ItemLogger GetLastAction()
         {
-            ERROR aErr = null;
+            ItemLogger aErr = null;
 
             if (errorList.Count > 0)
                 aErr = errorList[errorList.Count - 1];
@@ -61,7 +61,7 @@ namespace HPT1000.Source
         //------------------------------------------------------------------------------------------------------------------------------------------------
         public static void AddMsg(string aText,Types.MessageType aTypeMsg)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
 
             aErr.SetMessage(aText, aTypeMsg);
 

@@ -37,9 +37,9 @@ namespace HPT1000.Source.Chamber
          * Funkcja umozliwia ustawienie w przestrzeni PLC czasu cyklu dla sterowania zaworem szybkim w przestrzeni sterownika PLC
          * @param CycleTime - czas cyklu pracy zaworu podawany w ms
         */
-        public ERROR SetCycleTime(float aCycleTime)
+        public ItemLogger SetCycleTime(float aCycleTime)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
 
             if (aCycleTime < onTime)    aErr.SetErrorApp(Types.EventType.BAD_CYCLE_TIME);
             if (plc == null)            aErr.SetErrorApp(Types.EventType.PLC_PTR_NULL);
@@ -66,9 +66,9 @@ namespace HPT1000.Source.Chamber
          * Funkcja umozliwia ustawienie w przestrzeni PLC czasu jak dlugo ma byc wlaczany zawor szybki w danym cyklu
          * @param OnTime - procentowe okreslenie czasu wlaczenia zawotu w danym cyklu
         */
-        public ERROR SetOnTime(float aOnTimeValue, Types.UnitFlow aUnit)
+        public ItemLogger SetOnTime(float aOnTimeValue, Types.UnitFlow aUnit)
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
             double aOnTime = 0;
 
             if (aUnit == Types.UnitFlow.percent)

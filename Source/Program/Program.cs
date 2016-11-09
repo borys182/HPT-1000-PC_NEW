@@ -265,9 +265,9 @@ namespace HPT1000.Source.Program
             return aRes;
         }
         //-------------------------------------------------------------------------------------------------------------------------
-        public ERROR StartProgram()
+        public ItemLogger StartProgram()
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
             //przygotuj dane do wgrania do PLC
             int[] aDataControl  = new int[1];
 
@@ -292,9 +292,9 @@ namespace HPT1000.Source.Program
             return aErr;
         }
         //-------------------------------------------------------------------------------------------------------------------------
-        public ERROR StopProgram()
+        public ItemLogger StopProgram()
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
 
             //przygotuj dane do wgrania do PLC
             int[] aDataControl = new int[1];
@@ -311,9 +311,9 @@ namespace HPT1000.Source.Program
             return aErr;
         }
         //-------------------------------------------------------------------------------------------------------------------------
-        private ERROR WriteProgramToPLC()
+        private ItemLogger WriteProgramToPLC()
         {
-            ERROR aErr = new ERROR();
+            ItemLogger aErr = new ItemLogger();
 
             int[] aDataID = new int[1];
             int[] aData = new int[Types.MAX_SEGMENTS * Types.SEGMENT_SIZE];

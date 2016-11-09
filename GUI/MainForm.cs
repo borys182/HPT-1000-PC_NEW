@@ -29,7 +29,7 @@ namespace HPT1000.GUI
         User                            lastUser      = null;
         bool                            showLoginForm = true;
 
-        ERROR lastError = new ERROR();
+        ItemLogger lastError = new ItemLogger();
 
         int timerLastErrorShow = 0;
 
@@ -400,7 +400,7 @@ namespace HPT1000.GUI
         //----------------------------------------------------------------------------------
         private void ShowLastActionStatus()
         {
-            ERROR aErr = Logger.GetLastAction();
+            ItemLogger aErr = Logger.GetLastAction();
 
             if (aErr != null && !aErr.Equals(lastError))// && ( aErr.IsError() || aErr.IsAction()))
             {

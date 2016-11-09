@@ -44,10 +44,10 @@ namespace HPT1000.Source.Chamber
                     aCode = plc.WriteRealData(Types.ADDR_PRESSURE_SETPOINT, (float)aSetpoint);
                 if (controlMode == Types.ControlMode.Automatic)
                     aCode = plc.WriteRealData("D" + (Types.OFFSET_SEQ_GAS_SETPOINT + Types.ADDR_START_CRT_PROGRAM).ToString(), (float)aSetpoint);
-                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_PRESSURE_SETPOINT, aCode);
+                aErr.SetErrorMXComponents(Types.EventType.SET_PRESSURE_SETPOINT, aCode);
             }
             else
-                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
+                aErr.SetErrorApp(Types.EventType.PLC_PTR_NULL);
 
             return aErr;
         }
@@ -66,10 +66,10 @@ namespace HPT1000.Source.Chamber
                     aCode = plc.WriteWords(Types.ADDR_PRESSURE_MODE,1,aData);
                 if (controlMode == Types.ControlMode.Automatic)
                     aCode = plc.WriteWords("D" + (Types.OFFSET_SEQ_GAS_MODE + Types.ADDR_START_CRT_PROGRAM).ToString(), 1,aData);
-                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_MODE_PRESSURE, aCode);
+                aErr.SetErrorMXComponents(Types.EventType.SET_MODE_PRESSURE, aCode);
             }
             else
-                aErr.SetErrorApp(Types.ERROR_CODE.BAD_FLOW_ID);
+                aErr.SetErrorApp(Types.EventType.BAD_FLOW_ID);
 
             return aErr;
         }

@@ -195,7 +195,7 @@
     <Compile Include="Source\Chamber\PressureControl.cs" />
     <Compile Include="Source\Chamber\Vaporizer.cs" />
     <Compile Include="Source\DB.cs" />
-    <Compile Include="Source\Error.cs" />
+    <Compile Include="Source\ItemLogger.cs" />
     <Compile Include="Source\Logger.cs" />
     <Compile Include="Source\Program\FlushProces.cs" />
     <Compile Include="Source\Chamber\Chamber.cs" />

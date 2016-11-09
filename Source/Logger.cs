@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using HPT1000.Source.Driver;
 namespace HPT1000.Source
 {
-    //Klasa służy do logowania wszystkich bledow wystepjacych w programie i zbierania ich w jednym miejscu
+    //Klasa służy do logowania wszystkich bledow/zdarzeń występjacych w programie i zbierania ich w jednym miejscu
     class Logger
     {
         private static List<ERROR> errorList = new List<ERROR>();
@@ -31,7 +31,7 @@ namespace HPT1000.Source
         //------------------------------------------------------------------------------------------------------------------------------------------------
         public static void AddError(ERROR aErr)
         {
-            if((aErr.IsError() || aErr.IsAction()) && !IsContains(aErr))
+            if((aErr.IsError() || aErr.IsInformation()) && !IsContains(aErr))
                 errorList.Add(aErr);
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------

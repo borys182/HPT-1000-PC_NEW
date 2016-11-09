@@ -33,7 +33,7 @@ namespace HPT1000.Source.Driver
             catch(Exception e)
             {
                 ERROR aErr = new ERROR();
-                aErr.SetErrorApp(Types.ERROR_CODE.MX_COMPONENTS_NO_INSTALL);
+                aErr.SetErrorApp(Types.EventType.MX_COMPONENTS_NO_INSTALL);
                 Logger.AddError(aErr);
             }
         }

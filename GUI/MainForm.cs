@@ -402,14 +402,14 @@ namespace HPT1000.GUI
         {
             ERROR aErr = Logger.GetLastAction();
 
-            if (aErr != null && !aErr.Equals(lastError) && ( aErr.IsError() || aErr.IsAction()))
+            if (aErr != null && !aErr.Equals(lastError))// && ( aErr.IsError() || aErr.IsAction()))
             {
                 if (aErr.IsError())
                 {
                     labStatusAction.Text = "Error : " + aErr.GetText();
                     labStatusAction.ForeColor = Color.Red;
                 }
-                if (aErr.IsAction())
+                if (aErr.IsInformation())
                 {
                     labStatusAction.Text = aErr.GetText();
                     labStatusAction.ForeColor = Color.Green;

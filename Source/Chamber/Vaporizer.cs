@@ -41,8 +41,8 @@ namespace HPT1000.Source.Chamber
         {
             ERROR aErr = new ERROR();
 
-            if (aCycleTime < onTime)    aErr.SetErrorApp(Types.ERROR_CODE.BAD_CYCLE_TIME);
-            if (plc == null)            aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
+            if (aCycleTime < onTime)    aErr.SetErrorApp(Types.EventType.BAD_CYCLE_TIME);
+            if (plc == null)            aErr.SetErrorApp(Types.EventType.PLC_PTR_NULL);
 
             if (!aErr.IsError())
             {
@@ -51,7 +51,7 @@ namespace HPT1000.Source.Chamber
                     aCode = plc.WriteRealData(Types.ADDR_CYCLE_TIME, aCycleTime);
                 if (controlMode == Types.ControlMode.Automatic)
                     aCode = plc.WriteRealData("D" + (Types.OFFSET_SEQ_FLOW_4_CYCLE_TIME + Types.ADDR_START_CRT_PROGRAM).ToString(), aCycleTime);
-                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_CYCLE_TIME, aCode);
+                aErr.SetErrorMXComponents(Types.EventType.SET_CYCLE_TIME, aCode);
             }
                         
             //Aktualizuj czas cyklu pracy. W watku moze byc za wolno dla szybkiego ustawienia czasu wlaczenia zaworu 
@@ -80,8 +80,8 @@ namespace HPT1000.Source.Chamber
             else
                 aOnTime = aOnTimeValue;
 
-            if (aOnTime > cycleTime)    aErr.SetErrorApp(Types.ERROR_CODE.BAD_ON_TIME);
-            if (plc == null)            aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
+            if (aOnTime > cycleTime)    aErr.SetErrorApp(Types.EventType.BAD_ON_TIME);
+            if (plc == null)            aErr.SetErrorApp(Types.EventType.PLC_PTR_NULL);
 
             if (!aErr.IsError())
             {
@@ -90,7 +90,7 @@ namespace HPT1000.Source.Chamber
                     aCode = plc.WriteRealData(Types.ADDR_ON_TIME, (float)aOnTime);
                 if (controlMode == Types.ControlMode.Automatic)
                     aCode = plc.WriteRealData("D" + (Types.OFFSET_SEQ_FLOW_4_ON_TIME + Types.ADDR_START_CRT_PROGRAM).ToString(), (float)aOnTime);
-                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_ON_TIME, aCode);
+                aErr.SetErrorMXComponents(Types.EventType.SET_ON_TIME, aCode);
             }
             Logger.AddError(aErr);
             return aErr;

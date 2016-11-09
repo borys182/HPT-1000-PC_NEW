@@ -284,10 +284,10 @@ namespace HPT1000.Source.Program
                     aCode = plc.WriteWords(Types.ADDR_CONTROL_PROGRAM, 1, aDataControl);
 
                 if (aCode != 0)
-                    aErr.SetErrorMXComponents(Types.ERROR_CODE.START_PROGRAM, aCode);
+                    aErr.SetErrorMXComponents(Types.EventType.START_PROGRAM, aCode);
             }
             else
-                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
+                aErr.SetErrorApp(Types.EventType.PLC_PTR_NULL);
 
             return aErr;
         }
@@ -303,10 +303,10 @@ namespace HPT1000.Source.Program
             {
                 aDataControl[0] = (int)Types.ControlProgram.Stop;
                 int aCode       = plc.WriteWords(Types.ADDR_CONTROL_PROGRAM, 1, aDataControl);
-                aErr.SetErrorMXComponents(Types.ERROR_CODE.STOP_PROGRAM, aCode);
+                aErr.SetErrorMXComponents(Types.EventType.STOP_PROGRAM, aCode);
             }
             else
-                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
+                aErr.SetErrorApp(Types.EventType.PLC_PTR_NULL);
 
             return aErr;
         }
@@ -344,7 +344,7 @@ namespace HPT1000.Source.Program
             if(aCode == 0)
                 aCode = plc.WriteWords(Types.ADDR_START_BUFFER_PROGRAM, aSizeData, aData);
 
-            aErr.SetErrorMXComponents(Types.ERROR_CODE.WRITE_PROGRAM, aCode);
+            aErr.SetErrorMXComponents(Types.EventType.WRITE_PROGRAM, aCode);
 
             return aErr;
         }

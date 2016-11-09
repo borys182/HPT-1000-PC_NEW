@@ -290,7 +290,7 @@ namespace HPT1000.Source.Driver
             else
             {
                 ERROR aErr = new ERROR();
-                aErr.SetErrorApp(Types.ERROR_CODE.NO_PRG_IN_PLC);
+                aErr.SetErrorApp(Types.EventType.NO_PRG_IN_PLC);
                 Logger.AddError(aErr);
             }
         }
@@ -301,7 +301,7 @@ namespace HPT1000.Source.Driver
             int[] aData = new int[Types.LENGHT_SETTINGS_DATA];
 
             int aCode = plc.ReadWords(Types.ADDR_START_SETTINGS, Types.LENGHT_SETTINGS_DATA, aData);
-            aErr.SetErrorMXComponents(Types.ERROR_CODE.UPDATE_SETINGS, aCode);
+            aErr.SetErrorMXComponents(Types.EventType.UPDATE_SETINGS, aCode);
 
             //aktualizuj dane na temat settingsow
             if (aCode == 0)
@@ -420,10 +420,10 @@ namespace HPT1000.Source.Driver
             if (plc != null)
             {
                 int aCode = plc.WriteWords(Types.ADDR_MODE_CONTROL, 1, aData);
-                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_MODE_CONTROL, aCode);
+                aErr.SetErrorMXComponents(Types.EventType.SET_MODE_CONTROL, aCode);
             }
             else
-                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
+                aErr.SetErrorApp(Types.EventType.PLC_PTR_NULL);
 
             return aErr;
         }

@@ -100,16 +100,16 @@ namespace HPT1000.Source.Chamber
                     if (controlMode == Types.ControlMode.Manual)
                     {
                         int aCode = plc.WriteWords(Types.ADDR_VALVES_CTRL, 2, ctrlValve);
-                        aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_STATE_VALVE, aCode);
+                        aErr.SetErrorMXComponents(Types.EventType.SET_STATE_VALVE, aCode);
                     }
                     else
-                        aErr.SetErrorApp(Types.ERROR_CODE.SET_STATE_VALVE);
+                        aErr.SetErrorApp(Types.EventType.SET_STATE_VALVE);
                 }
                 else
-                    aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
+                    aErr.SetErrorApp(Types.EventType.PLC_PTR_NULL);
             }
             else
-                aErr.SetErrorApp(Types.ERROR_CODE.CALL_INCORRECT_OPERATION);
+                aErr.SetErrorApp(Types.EventType.CALL_INCORRECT_OPERATION);
 
 
             return aErr;

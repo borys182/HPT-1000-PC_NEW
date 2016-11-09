@@ -402,7 +402,7 @@ namespace HPT1000.GUI
             if (program != null)
                 aErr = program.StartProgram();
             else
-                aErr.SetErrorApp(Types.ERROR_CODE.NO_SELECT_PROGRAM_TO_RUN);
+                aErr.SetErrorApp(Types.EventType.NO_SELECT_PROGRAM_TO_RUN);
 
             Logger.AddError(aErr);
         }

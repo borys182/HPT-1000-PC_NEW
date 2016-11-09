@@ -67,16 +67,16 @@ namespace HPT1000.Source.Chamber
                     if (controlMode == Types.ControlMode.Manual)
                     {
                         int aCode = plc.WriteWords(Types.ADDR_FP_CTRL, 1, aData);
-                        aErr.SetErrorMXComponents(Types.ERROR_CODE.CONTROL_PUMP, aCode);
+                        aErr.SetErrorMXComponents(Types.EventType.CONTROL_PUMP, aCode);
                     }
                     else
-                        aErr.SetErrorApp(Types.ERROR_CODE.CONTROL_PUMP);
+                        aErr.SetErrorApp(Types.EventType.CONTROL_PUMP);
                 }
                 else
-                    aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
+                    aErr.SetErrorApp(Types.EventType.PLC_PTR_NULL);
             }
             else
-                aErr.SetErrorApp(Types.ERROR_CODE.CALL_INCORRECT_OPERATION);
+                aErr.SetErrorApp(Types.EventType.CALL_INCORRECT_OPERATION);
 
             return aErr;
         }
@@ -90,10 +90,10 @@ namespace HPT1000.Source.Chamber
             if (plc != null)
             {
                 int aCode = plc.WriteWords(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_TIME_WAIT_PF), 1, aData);
-                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_WIAT_TIME_PF, aCode);
+                aErr.SetErrorMXComponents(Types.EventType.SET_WIAT_TIME_PF, aCode);
             }
             else
-                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
+                aErr.SetErrorApp(Types.EventType.PLC_PTR_NULL);
 
             if (!aErr.IsError())
                 timeWaitPF = aValue;
@@ -110,10 +110,10 @@ namespace HPT1000.Source.Chamber
             if (plc != null)
             {
                 int aCode = plc.WriteWords(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_TIME_PUMP_TO_SV), 1, aData);
-                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_TIME_PUMP_TO_SV, aCode);
+                aErr.SetErrorMXComponents(Types.EventType.SET_TIME_PUMP_TO_SV, aCode);
             }
             else
-                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
+                aErr.SetErrorApp(Types.EventType.PLC_PTR_NULL);
 
             if (!aErr.IsError())
                 timePumpToSV = aValue;

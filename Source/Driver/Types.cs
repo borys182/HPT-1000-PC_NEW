@@ -34,18 +34,20 @@ namespace HPT1000.Source.Driver
         public enum Mode            { Automatic = 1, Manual = 2, None = 3 };
         public enum TypeComm        { USB = 0x0D, TCP = 0x05 };
         public enum TypePLC         { L = 0x51 };
-        public enum MessageType     { Error = 1 , Information = 2};
         public enum UserPrivilige   { None = 0, Administrator = 1, Operator = 2, Service = 3, Technican = 4};
         public enum TypeInterlock   { None = 0 , Door = 1 , VacuumSwitch = 2 , ThermalSwitch = 3 , PressureGauge = 4 , EmgStop = 5  }
 
-        public enum ERROR_CATEGORY
+
+        public enum MessageType     { Error = 1, Warrning = 2, Message = 2 };
+        //Okreslenie zdrodla pochodzenia eventu ktory generuje nam wiadomosc do systemu. Jest to wymagane do szukania powiazanego z nim textu informacji - dla mxComponent generujemy dodatkowe info na temat bledu
+        public enum EventCategory
         {
             APLICATION      = 0x01,
             MX_COMPONENTS   = 0x02,
             PLC             = 0x03,
             MESSAGE         = 0x04
         }
-        public enum ERROR_CODE
+        public enum EventType
         {
             NONE                        = 0x00,
             PLC_PTR_NULL                = 0x01,         //Brak wskaznika na obiekt protokolu PLC

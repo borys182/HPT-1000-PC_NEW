@@ -134,13 +134,13 @@ namespace HPT1000.Source.Chamber
                 if (plc != null)
                 {
                     int aExtCode = plc.WriteWords(aAddr, 1, aData);
-                    aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_FLOW, aExtCode);
+                    aErr.SetErrorMXComponents(Types.EventType.SET_FLOW, aExtCode);
                 }
                 else
-                    aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
+                    aErr.SetErrorApp(Types.EventType.PLC_PTR_NULL);
             }
             else
-                aErr.SetErrorApp(Types.ERROR_CODE.BAD_FLOW_ID);
+                aErr.SetErrorApp(Types.EventType.BAD_FLOW_ID);
 
             return aErr;
         }
@@ -213,10 +213,10 @@ namespace HPT1000.Source.Chamber
             if (plc != null)
             {
                 int aExtCode = plc.WriteWords(Types.GetAddress(Types.AddressSpace.Settings, aAddr), 1, aData);
-                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_MAX_FLOW, aExtCode);
+                aErr.SetErrorMXComponents(Types.EventType.SET_MAX_FLOW, aExtCode);
             }
             else
-                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
+                aErr.SetErrorApp(Types.EventType.PLC_PTR_NULL);
 
             if (!aErr.IsError())
                 maxFlow_sccm = aValue;
@@ -239,10 +239,10 @@ namespace HPT1000.Source.Chamber
             if (plc != null)
             {
                 int aExtCode = plc.WriteWords(Types.GetAddress(Types.AddressSpace.Settings, aAddr), 1, aData);
-                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_RANGE_VOLTAGE_MFC, aExtCode);
+                aErr.SetErrorMXComponents(Types.EventType.SET_RANGE_VOLTAGE_MFC, aExtCode);
             }
             else
-                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
+                aErr.SetErrorApp(Types.EventType.PLC_PTR_NULL);
 
             if (!aErr.IsError())
                 rangeVoltage = aValue;
@@ -430,10 +430,10 @@ namespace HPT1000.Source.Chamber
             if (plc != null)
             {
                 int aExtCode = plc.WriteWords(Types.GetAddress(Types.AddressSpace.Settings, Types.OFFSET_TIME_FLOW_STABILITY), 1, aData);
-                aErr.SetErrorMXComponents(Types.ERROR_CODE.SET_TIME_FLOW_STABILITY, aExtCode);
+                aErr.SetErrorMXComponents(Types.EventType.SET_TIME_FLOW_STABILITY, aExtCode);
             }
             else
-                aErr.SetErrorApp(Types.ERROR_CODE.PLC_PTR_NULL);
+                aErr.SetErrorApp(Types.EventType.PLC_PTR_NULL);
 
             if (!aErr.IsError())
                 timeFlowStability = aValue;

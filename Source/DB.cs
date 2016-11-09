@@ -19,7 +19,7 @@ namespace HPT1000.Source
         {
             EventCategory = (Types.EventCategory)aCategory;
             EventType     = (Types.EventType)aType;
-            ErrCode       = aErrCode; 
+            ErrCode = (int)aType;// aErrCode; 
             Text          = aTxt;
             Language      = aLanguage;
         }
@@ -246,11 +246,17 @@ namespace HPT1000.Source
         {
             string aTxt = "No text in data base for action code:" + aError.GetErrorCode().ToString("X8");
 
+            int aErrCode = aError.ErrCode;
+            //MX Componts zawiera kod bledu jako Event poniewaz w polu bledu posiada blad MX Componts
+            if (aError.EventCategory == Types.EventCategory.MX_COMPONENTS)
+                aErrCode = (int)aError.EventType;
+
+
             foreach (ErrorText errorText in actionTextList)
             {
                 if (errorText.EventType == aError.EventType && errorText.EventCategory == aError.EventCategory && errorText.Language == Driver.HPT1000.LanguageApp)
                 {
-                    if (aError.ErrCode == errorText.ErrCode)
+                    if (aErrCode == errorText.ErrCode)
                     {
                         if (aError.ErrCode != 0)
                             aTxt = errorText.Text + aError.ErrCode.ToString("X8"); // wystapil blad                       

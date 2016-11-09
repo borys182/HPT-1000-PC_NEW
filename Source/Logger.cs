@@ -10,16 +10,16 @@ namespace HPT1000.Source
     //Klasa służy do logowania wszystkich bledow/zdarzeń występjacych w programie i zbierania ich w jednym miejscu
     class Logger
     {
-        private static List<ItemLogger> errorList = new List<ItemLogger>();
+        private static List<ItemLogger> logList = new List<ItemLogger>();
 
         //------------------------------------------------------------------------------------------------------------------------------------------------
-        private static bool IsContains(ItemLogger aErr)
+        private static bool IsContains(ItemLogger aItemLog)
         {
             bool aRes = false;
 
-            foreach (ItemLogger err in errorList)
+            foreach (ItemLogger itemLog in logList)
             {
-                if (err.Equals(aErr))
+                if (itemLog.Equals(aItemLog))
                 {
                     aRes = true;
                     break;
@@ -29,44 +29,44 @@ namespace HPT1000.Source
             return aRes;
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------
-        public static void AddError(ItemLogger aErr)
+        public static void AddError(ItemLogger itemLog)
         {
-            if((aErr.IsError() || aErr.IsInformation()) && !IsContains(aErr))
-                errorList.Add(aErr);
+            if(itemLog.IsError() && !IsContains(itemLog))
+                logList.Add(itemLog);
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------
         public static void AddError(Exception ex)
         {
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------
-        public static List<ItemLogger> GetErrorList()
+        public static List<ItemLogger> GetLogList()
         {
-            return errorList;
+            return logList;
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------
-        public static void ClearErrors()
-        {          
-            errorList.Clear();      
+        public static void ClearLogger()
+        {
+            logList.Clear();      
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------
         public static ItemLogger GetLastAction()
         {
-            ItemLogger aErr = null;
+            ItemLogger itemLog = null;
 
-            if (errorList.Count > 0)
-                aErr = errorList[errorList.Count - 1];
+            if (logList.Count > 0)
+                itemLog = logList[logList.Count - 1];
 
-            return aErr;
+            return itemLog;
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------
         public static void AddMsg(string aText,Types.MessageType aTypeMsg)
         {
-            ItemLogger aErr = new ItemLogger();
+            ItemLogger itemLog = new ItemLogger();
 
-            aErr.SetMessage(aText, aTypeMsg);
+            itemLog.SetMessage(aText, aTypeMsg);
 
-            if (!IsContains(aErr))
-                errorList.Add(aErr);
+            if (!IsContains(itemLog))
+                logList.Add(itemLog);
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------
     }

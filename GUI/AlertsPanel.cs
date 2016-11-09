@@ -36,9 +36,9 @@ namespace HPT1000.GUI
             string aNameProgram     = "Program";
             string aNameSubprogram  = "Subprogram";
 
-            for (int i = 0; i < Logger.GetErrorList().Count; i++)
+            for (int i = 0; i < Logger.GetLogList().Count; i++)
             {
-                ItemLogger aErr = Logger.GetErrorList()[i];
+                ItemLogger aErr = Logger.GetLogList()[i];
 
                 if (aErr.IsError() && !IsErrorAlreadyExistInList(aErr))
                 {

@@ -122,7 +122,7 @@ namespace HPT1000.Source
         public void SetErrorPLC(int aErrCode, DateTime aTime, int aProgramID, int aSubprogramID)
         {
             eventCategory = Types.EventCategory.PLC;
-            eventType     = Types.EventType.PLC_ItemLogger;
+            eventType     = Types.EventType.PLC_ERROR;
             errCode       = aErrCode;
             time          = aTime;
             programID     = aProgramID;

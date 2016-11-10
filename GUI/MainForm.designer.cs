@@ -35,14 +35,16 @@
             this.btnLogout = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.labStatusUser = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.labStatusAction = new System.Windows.Forms.ToolStripStatusLabel();
+            this.borderLab1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnConfirm = new System.Windows.Forms.ToolStripSplitButton();
+            this.borderLab2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageMain = new System.Windows.Forms.TabPage();
             this.btnLiveModeData = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -50,9 +52,34 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.grBoxSystem = new System.Windows.Forms.GroupBox();
+            this.pictureCornerUp3 = new System.Windows.Forms.PictureBox();
+            this.picturelineMFC = new System.Windows.Forms.PictureBox();
+            this.pictureBox34 = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.pictureArrowUp1 = new System.Windows.Forms.PictureBox();
+            this.pictureArrowUp2 = new System.Windows.Forms.PictureBox();
+            this.pictureArrowDown = new System.Windows.Forms.PictureBox();
+            this.pictureBox30 = new System.Windows.Forms.PictureBox();
+            this.pictureCornerDown3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox25 = new System.Windows.Forms.PictureBox();
+            this.pictureLineMFC3 = new System.Windows.Forms.PictureBox();
+            this.pictureCornerDown2 = new System.Windows.Forms.PictureBox();
             this.label37 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
+            this.pictureBox28 = new System.Windows.Forms.PictureBox();
+            this.pictureBox27 = new System.Windows.Forms.PictureBox();
+            this.pictureBox26 = new System.Windows.Forms.PictureBox();
+            this.pictureLineMFC2 = new System.Windows.Forms.PictureBox();
+            this.pictureLineMFC1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox20 = new System.Windows.Forms.PictureBox();
+            this.pictureBox17 = new System.Windows.Forms.PictureBox();
+            this.pictureCornerUp2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox16 = new System.Windows.Forms.PictureBox();
+            this.pictureCornerUp1 = new System.Windows.Forms.PictureBox();
+            this.pictureCornerDown1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox10 = new System.Windows.Forms.PictureBox();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.pictureChamber = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabPagePrograms = new System.Windows.Forms.TabPage();
             this.tabPageAlerts = new System.Windows.Forms.TabPage();
@@ -62,6 +89,7 @@
             this.tabPageService = new System.Windows.Forms.TabPage();
             this.tabPageAdmin = new System.Windows.Forms.TabPage();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.labStatusMsgAction = new System.Windows.Forms.ToolStripStatusLabel();
             this.liveGraphicalPanel = new HPT1000.GUI.GraphicalLive();
             this.interlockPanel_Vacuum = new HPT1000.GUI.InterlockPanel();
             this.interlockPanel_Emergency = new HPT1000.GUI.InterlockPanel();
@@ -86,42 +114,12 @@
             this.settingsPanel = new HPT1000.GUI.SettingsPanel();
             this.servicePanel = new HPT1000.GUI.ServicePanel();
             this.adminPanel = new HPT1000.GUI.AdminPanel();
-            this.pictureCornerUp3 = new System.Windows.Forms.PictureBox();
-            this.picturelineMFC = new System.Windows.Forms.PictureBox();
-            this.pictureBox34 = new System.Windows.Forms.PictureBox();
-            this.pictureArrowUp1 = new System.Windows.Forms.PictureBox();
-            this.pictureArrowUp2 = new System.Windows.Forms.PictureBox();
-            this.pictureArrowDown = new System.Windows.Forms.PictureBox();
-            this.pictureBox30 = new System.Windows.Forms.PictureBox();
-            this.pictureCornerDown3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox25 = new System.Windows.Forms.PictureBox();
-            this.pictureLineMFC3 = new System.Windows.Forms.PictureBox();
-            this.pictureCornerDown2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox28 = new System.Windows.Forms.PictureBox();
-            this.pictureBox27 = new System.Windows.Forms.PictureBox();
-            this.pictureBox26 = new System.Windows.Forms.PictureBox();
-            this.pictureLineMFC2 = new System.Windows.Forms.PictureBox();
-            this.pictureLineMFC1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox20 = new System.Windows.Forms.PictureBox();
-            this.pictureBox17 = new System.Windows.Forms.PictureBox();
-            this.pictureCornerUp2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox16 = new System.Windows.Forms.PictureBox();
-            this.pictureCornerUp1 = new System.Windows.Forms.PictureBox();
-            this.pictureCornerDown1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox10 = new System.Windows.Forms.PictureBox();
-            this.pictureBox8 = new System.Windows.Forms.PictureBox();
-            this.pictureChamber = new System.Windows.Forms.PictureBox();
+            this.userManagerPanel = new HPT1000.GUI.UserManagerPanel();
             this.statusStrip1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabPageMain.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.grBoxSystem.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.tabPagePrograms.SuspendLayout();
-            this.tabPageAlerts.SuspendLayout();
-            this.tabPageSettings.SuspendLayout();
-            this.tabPageService.SuspendLayout();
-            this.tabPageAdmin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureCornerUp3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picturelineMFC)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox34)).BeginInit();
@@ -147,6 +145,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureChamber)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.tabPagePrograms.SuspendLayout();
+            this.tabPageAlerts.SuspendLayout();
+            this.tabPageSettings.SuspendLayout();
+            this.tabPageService.SuspendLayout();
+            this.tabPageAdmin.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnLogin
@@ -188,35 +192,75 @@
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.labStatusUser,
+            this.toolStripStatusLabel1,
             this.statusLabel,
-            this.labStatusAction});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 833);
+            this.toolStripStatusLabel2,
+            this.labStatusAction,
+            this.borderLab1,
+            this.btnConfirm,
+            this.borderLab2,
+            this.labStatusMsgAction});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 832);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1706, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(1706, 26);
             this.statusStrip1.TabIndex = 25;
             // 
             // labStatusUser
             // 
             this.labStatusUser.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.labStatusUser.Name = "labStatusUser";
-            this.labStatusUser.Size = new System.Drawing.Size(129, 20);
+            this.labStatusUser.Size = new System.Drawing.Size(129, 21);
             this.labStatusUser.Text = "Login user: None";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(13, 21);
+            this.toolStripStatusLabel1.Text = "|";
             // 
             // statusLabel
             // 
             this.statusLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.statusLabel.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(114, 20);
+            this.statusLabel.Size = new System.Drawing.Size(114, 21);
             this.statusLabel.Text = "Connection fail";
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(13, 21);
+            this.toolStripStatusLabel2.Text = "|";
             // 
             // labStatusAction
             // 
             this.labStatusAction.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.labStatusAction.ForeColor = System.Drawing.Color.Green;
             this.labStatusAction.Name = "labStatusAction";
-            this.labStatusAction.Size = new System.Drawing.Size(169, 20);
+            this.labStatusAction.Size = new System.Drawing.Size(169, 21);
             this.labStatusAction.Text = "Correct set parameters";
+            // 
+            // borderLab1
+            // 
+            this.borderLab1.Name = "borderLab1";
+            this.borderLab1.Size = new System.Drawing.Size(13, 21);
+            this.borderLab1.Text = "|";
+            // 
+            // btnConfirm
+            // 
+            this.btnConfirm.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnConfirm.Image = ((System.Drawing.Image)(resources.GetObject("btnConfirm.Image")));
+            this.btnConfirm.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnConfirm.Name = "btnConfirm";
+            this.btnConfirm.Size = new System.Drawing.Size(92, 24);
+            this.btnConfirm.Text = "CONFIRM";
+            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
+            // 
+            // borderLab2
+            // 
+            this.borderLab2.Name = "borderLab2";
+            this.borderLab2.Size = new System.Drawing.Size(13, 21);
+            this.borderLab2.Text = "|";
             // 
             // tabControlMain
             // 
@@ -234,7 +278,7 @@
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
             this.tabControlMain.ShowToolTips = true;
-            this.tabControlMain.Size = new System.Drawing.Size(1706, 833);
+            this.tabControlMain.Size = new System.Drawing.Size(1706, 832);
             this.tabControlMain.TabIndex = 26;
             // 
             // tabPageMain
@@ -243,9 +287,6 @@
             this.tabPageMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tabPageMain.Controls.Add(this.liveGraphicalPanel);
             this.tabPageMain.Controls.Add(this.btnLiveModeData);
-            this.tabPageMain.Controls.Add(this.textBox1);
-            this.tabPageMain.Controls.Add(this.label7);
-            this.tabPageMain.Controls.Add(this.button1);
             this.tabPageMain.Controls.Add(this.groupBox2);
             this.tabPageMain.Controls.Add(this.grBoxSystem);
             this.tabPageMain.Controls.Add(this.groupBox1);
@@ -254,7 +295,7 @@
             this.tabPageMain.Location = new System.Drawing.Point(4, 29);
             this.tabPageMain.Name = "tabPageMain";
             this.tabPageMain.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMain.Size = new System.Drawing.Size(1698, 800);
+            this.tabPageMain.Size = new System.Drawing.Size(1698, 799);
             this.tabPageMain.TabIndex = 0;
             this.tabPageMain.Text = "     MAIN SCREAN     ";
             // 
@@ -267,32 +308,6 @@
             this.btnLiveModeData.Text = "SWITCH TO GRAPHICAL VIEW";
             this.btnLiveModeData.UseVisualStyleBackColor = true;
             this.btnLiveModeData.Click += new System.EventHandler(this.btnLiveModeData_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(89, 755);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(362, 27);
-            this.textBox1.TabIndex = 29;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label7.Location = new System.Drawing.Point(8, 759);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(74, 20);
-            this.label7.TabIndex = 28;
-            this.label7.Text = "ERROR:";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(454, 752);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(104, 35);
-            this.button1.TabIndex = 27;
-            this.button1.Text = "CONFIRM";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
@@ -422,6 +437,34 @@
             this.grBoxSystem.TabStop = false;
             this.grBoxSystem.Text = "System";
             // 
+            // pictureCornerUp3
+            // 
+            this.pictureCornerUp3.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureCornerUp3.ErrorImage")));
+            this.pictureCornerUp3.Image = ((System.Drawing.Image)(resources.GetObject("pictureCornerUp3.Image")));
+            this.pictureCornerUp3.Location = new System.Drawing.Point(681, 250);
+            this.pictureCornerUp3.Name = "pictureCornerUp3";
+            this.pictureCornerUp3.Size = new System.Drawing.Size(31, 31);
+            this.pictureCornerUp3.TabIndex = 109;
+            this.pictureCornerUp3.TabStop = false;
+            // 
+            // picturelineMFC
+            // 
+            this.picturelineMFC.Image = ((System.Drawing.Image)(resources.GetObject("picturelineMFC.Image")));
+            this.picturelineMFC.Location = new System.Drawing.Point(681, 273);
+            this.picturelineMFC.Name = "picturelineMFC";
+            this.picturelineMFC.Size = new System.Drawing.Size(4, 380);
+            this.picturelineMFC.TabIndex = 108;
+            this.picturelineMFC.TabStop = false;
+            // 
+            // pictureBox34
+            // 
+            this.pictureBox34.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox34.Image")));
+            this.pictureBox34.Location = new System.Drawing.Point(348, 614);
+            this.pictureBox34.Name = "pictureBox34";
+            this.pictureBox34.Size = new System.Drawing.Size(4, 16);
+            this.pictureBox34.TabIndex = 102;
+            this.pictureBox34.TabStop = false;
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -432,6 +475,83 @@
             this.label4.Size = new System.Drawing.Size(109, 20);
             this.label4.TabIndex = 101;
             this.label4.Text = "Atmosphare";
+            // 
+            // pictureArrowUp1
+            // 
+            this.pictureArrowUp1.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureArrowUp1.ErrorImage")));
+            this.pictureArrowUp1.Image = global::HPT1000.Properties.Resources.Arrow_Up;
+            this.pictureArrowUp1.Location = new System.Drawing.Point(36, 638);
+            this.pictureArrowUp1.Name = "pictureArrowUp1";
+            this.pictureArrowUp1.Size = new System.Drawing.Size(35, 65);
+            this.pictureArrowUp1.TabIndex = 100;
+            this.pictureArrowUp1.TabStop = false;
+            // 
+            // pictureArrowUp2
+            // 
+            this.pictureArrowUp2.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureArrowUp2.ErrorImage")));
+            this.pictureArrowUp2.Image = ((System.Drawing.Image)(resources.GetObject("pictureArrowUp2.Image")));
+            this.pictureArrowUp2.Location = new System.Drawing.Point(123, 638);
+            this.pictureArrowUp2.Name = "pictureArrowUp2";
+            this.pictureArrowUp2.Size = new System.Drawing.Size(35, 65);
+            this.pictureArrowUp2.TabIndex = 99;
+            this.pictureArrowUp2.TabStop = false;
+            // 
+            // pictureArrowDown
+            // 
+            this.pictureArrowDown.ErrorImage = null;
+            this.pictureArrowDown.Image = ((System.Drawing.Image)(resources.GetObject("pictureArrowDown.Image")));
+            this.pictureArrowDown.Location = new System.Drawing.Point(335, 638);
+            this.pictureArrowDown.Name = "pictureArrowDown";
+            this.pictureArrowDown.Size = new System.Drawing.Size(33, 65);
+            this.pictureArrowDown.TabIndex = 98;
+            this.pictureArrowDown.TabStop = false;
+            // 
+            // pictureBox30
+            // 
+            this.pictureBox30.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox30.Image")));
+            this.pictureBox30.Location = new System.Drawing.Point(710, 680);
+            this.pictureBox30.Name = "pictureBox30";
+            this.pictureBox30.Size = new System.Drawing.Size(15, 4);
+            this.pictureBox30.TabIndex = 97;
+            this.pictureBox30.TabStop = false;
+            // 
+            // pictureCornerDown3
+            // 
+            this.pictureCornerDown3.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureCornerDown3.ErrorImage")));
+            this.pictureCornerDown3.Image = ((System.Drawing.Image)(resources.GetObject("pictureCornerDown3.Image")));
+            this.pictureCornerDown3.Location = new System.Drawing.Point(681, 653);
+            this.pictureCornerDown3.Name = "pictureCornerDown3";
+            this.pictureCornerDown3.Size = new System.Drawing.Size(31, 31);
+            this.pictureCornerDown3.TabIndex = 96;
+            this.pictureCornerDown3.TabStop = false;
+            // 
+            // pictureBox25
+            // 
+            this.pictureBox25.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox25.Image")));
+            this.pictureBox25.Location = new System.Drawing.Point(499, 581);
+            this.pictureBox25.Name = "pictureBox25";
+            this.pictureBox25.Size = new System.Drawing.Size(183, 4);
+            this.pictureBox25.TabIndex = 95;
+            this.pictureBox25.TabStop = false;
+            // 
+            // pictureLineMFC3
+            // 
+            this.pictureLineMFC3.Image = ((System.Drawing.Image)(resources.GetObject("pictureLineMFC3.Image")));
+            this.pictureLineMFC3.Location = new System.Drawing.Point(684, 538);
+            this.pictureLineMFC3.Name = "pictureLineMFC3";
+            this.pictureLineMFC3.Size = new System.Drawing.Size(40, 4);
+            this.pictureLineMFC3.TabIndex = 94;
+            this.pictureLineMFC3.TabStop = false;
+            // 
+            // pictureCornerDown2
+            // 
+            this.pictureCornerDown2.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureCornerDown2.ErrorImage")));
+            this.pictureCornerDown2.Image = ((System.Drawing.Image)(resources.GetObject("pictureCornerDown2.Image")));
+            this.pictureCornerDown2.Location = new System.Drawing.Point(469, 554);
+            this.pictureCornerDown2.Name = "pictureCornerDown2";
+            this.pictureCornerDown2.Size = new System.Drawing.Size(31, 31);
+            this.pictureCornerDown2.TabIndex = 93;
+            this.pictureCornerDown2.TabStop = false;
             // 
             // label37
             // 
@@ -455,6 +575,137 @@
             this.label36.TabIndex = 89;
             this.label36.Text = "Purging";
             // 
+            // pictureBox28
+            // 
+            this.pictureBox28.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox28.Image")));
+            this.pictureBox28.Location = new System.Drawing.Point(171, 419);
+            this.pictureBox28.Name = "pictureBox28";
+            this.pictureBox28.Size = new System.Drawing.Size(99, 4);
+            this.pictureBox28.TabIndex = 88;
+            this.pictureBox28.TabStop = false;
+            // 
+            // pictureBox27
+            // 
+            this.pictureBox27.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox27.Image")));
+            this.pictureBox27.Location = new System.Drawing.Point(149, 327);
+            this.pictureBox27.Name = "pictureBox27";
+            this.pictureBox27.Size = new System.Drawing.Size(121, 4);
+            this.pictureBox27.TabIndex = 87;
+            this.pictureBox27.TabStop = false;
+            // 
+            // pictureBox26
+            // 
+            this.pictureBox26.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox26.Image")));
+            this.pictureBox26.Location = new System.Drawing.Point(81, 373);
+            this.pictureBox26.Name = "pictureBox26";
+            this.pictureBox26.Size = new System.Drawing.Size(189, 4);
+            this.pictureBox26.TabIndex = 86;
+            this.pictureBox26.TabStop = false;
+            // 
+            // pictureLineMFC2
+            // 
+            this.pictureLineMFC2.Image = ((System.Drawing.Image)(resources.GetObject("pictureLineMFC2.Image")));
+            this.pictureLineMFC2.Location = new System.Drawing.Point(685, 385);
+            this.pictureLineMFC2.Name = "pictureLineMFC2";
+            this.pictureLineMFC2.Size = new System.Drawing.Size(40, 4);
+            this.pictureLineMFC2.TabIndex = 84;
+            this.pictureLineMFC2.TabStop = false;
+            // 
+            // pictureLineMFC1
+            // 
+            this.pictureLineMFC1.Image = ((System.Drawing.Image)(resources.GetObject("pictureLineMFC1.Image")));
+            this.pictureLineMFC1.Location = new System.Drawing.Point(710, 250);
+            this.pictureLineMFC1.Name = "pictureLineMFC1";
+            this.pictureLineMFC1.Size = new System.Drawing.Size(14, 4);
+            this.pictureLineMFC1.TabIndex = 83;
+            this.pictureLineMFC1.TabStop = false;
+            // 
+            // pictureBox20
+            // 
+            this.pictureBox20.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox20.Image")));
+            this.pictureBox20.Location = new System.Drawing.Point(469, 454);
+            this.pictureBox20.Name = "pictureBox20";
+            this.pictureBox20.Size = new System.Drawing.Size(4, 102);
+            this.pictureBox20.TabIndex = 82;
+            this.pictureBox20.TabStop = false;
+            // 
+            // pictureBox17
+            // 
+            this.pictureBox17.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox17.Image")));
+            this.pictureBox17.Location = new System.Drawing.Point(140, 443);
+            this.pictureBox17.Name = "pictureBox17";
+            this.pictureBox17.Size = new System.Drawing.Size(4, 198);
+            this.pictureBox17.TabIndex = 80;
+            this.pictureBox17.TabStop = false;
+            // 
+            // pictureCornerUp2
+            // 
+            this.pictureCornerUp2.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureCornerUp2.ErrorImage")));
+            this.pictureCornerUp2.Image = ((System.Drawing.Image)(resources.GetObject("pictureCornerUp2.Image")));
+            this.pictureCornerUp2.Location = new System.Drawing.Point(140, 419);
+            this.pictureCornerUp2.Name = "pictureCornerUp2";
+            this.pictureCornerUp2.Size = new System.Drawing.Size(31, 31);
+            this.pictureCornerUp2.TabIndex = 79;
+            this.pictureCornerUp2.TabStop = false;
+            // 
+            // pictureBox16
+            // 
+            this.pictureBox16.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox16.Image")));
+            this.pictureBox16.Location = new System.Drawing.Point(51, 396);
+            this.pictureBox16.Name = "pictureBox16";
+            this.pictureBox16.Size = new System.Drawing.Size(4, 245);
+            this.pictureBox16.TabIndex = 78;
+            this.pictureBox16.TabStop = false;
+            // 
+            // pictureCornerUp1
+            // 
+            this.pictureCornerUp1.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureCornerUp1.ErrorImage")));
+            this.pictureCornerUp1.Image = ((System.Drawing.Image)(resources.GetObject("pictureCornerUp1.Image")));
+            this.pictureCornerUp1.Location = new System.Drawing.Point(51, 373);
+            this.pictureCornerUp1.Name = "pictureCornerUp1";
+            this.pictureCornerUp1.Size = new System.Drawing.Size(31, 31);
+            this.pictureCornerUp1.TabIndex = 77;
+            this.pictureCornerUp1.TabStop = false;
+            // 
+            // pictureCornerDown1
+            // 
+            this.pictureCornerDown1.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureCornerDown1.ErrorImage")));
+            this.pictureCornerDown1.Image = ((System.Drawing.Image)(resources.GetObject("pictureCornerDown1.Image")));
+            this.pictureCornerDown1.Location = new System.Drawing.Point(116, 300);
+            this.pictureCornerDown1.Name = "pictureCornerDown1";
+            this.pictureCornerDown1.Size = new System.Drawing.Size(31, 31);
+            this.pictureCornerDown1.TabIndex = 76;
+            this.pictureCornerDown1.TabStop = false;
+            // 
+            // pictureBox10
+            // 
+            this.pictureBox10.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox10.Image")));
+            this.pictureBox10.Location = new System.Drawing.Point(440, 206);
+            this.pictureBox10.Name = "pictureBox10";
+            this.pictureBox10.Size = new System.Drawing.Size(4, 99);
+            this.pictureBox10.TabIndex = 73;
+            this.pictureBox10.TabStop = false;
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox8.Image")));
+            this.pictureBox8.Location = new System.Drawing.Point(347, 454);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(4, 101);
+            this.pictureBox8.TabIndex = 71;
+            this.pictureBox8.TabStop = false;
+            // 
+            // pictureChamber
+            // 
+            this.pictureChamber.BackColor = System.Drawing.Color.Transparent;
+            this.pictureChamber.Image = global::HPT1000.Properties.Resources.Plasma;
+            this.pictureChamber.Location = new System.Drawing.Point(270, 307);
+            this.pictureChamber.Name = "pictureChamber";
+            this.pictureChamber.Size = new System.Drawing.Size(267, 149);
+            this.pictureChamber.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureChamber.TabIndex = 67;
+            this.pictureChamber.TabStop = false;
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.programPanel);
@@ -470,7 +721,7 @@
             this.tabPagePrograms.Controls.Add(this.programsConfigPanel);
             this.tabPagePrograms.Location = new System.Drawing.Point(4, 29);
             this.tabPagePrograms.Name = "tabPagePrograms";
-            this.tabPagePrograms.Size = new System.Drawing.Size(1698, 800);
+            this.tabPagePrograms.Size = new System.Drawing.Size(1698, 799);
             this.tabPagePrograms.TabIndex = 6;
             this.tabPagePrograms.Text = "     PROGRAMS     ";
             this.tabPagePrograms.UseVisualStyleBackColor = true;
@@ -481,7 +732,7 @@
             this.tabPageAlerts.Location = new System.Drawing.Point(4, 29);
             this.tabPageAlerts.Name = "tabPageAlerts";
             this.tabPageAlerts.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAlerts.Size = new System.Drawing.Size(1698, 800);
+            this.tabPageAlerts.Size = new System.Drawing.Size(1698, 799);
             this.tabPageAlerts.TabIndex = 2;
             this.tabPageAlerts.Text = "     ALERTS     ";
             this.tabPageAlerts.UseVisualStyleBackColor = true;
@@ -490,7 +741,7 @@
             // 
             this.tabPageArchive.Location = new System.Drawing.Point(4, 29);
             this.tabPageArchive.Name = "tabPageArchive";
-            this.tabPageArchive.Size = new System.Drawing.Size(1698, 800);
+            this.tabPageArchive.Size = new System.Drawing.Size(1698, 799);
             this.tabPageArchive.TabIndex = 3;
             this.tabPageArchive.Text = "     ARCHIVE     ";
             this.tabPageArchive.UseVisualStyleBackColor = true;
@@ -501,7 +752,7 @@
             this.tabPageSettings.Controls.Add(this.settingsPanel);
             this.tabPageSettings.Location = new System.Drawing.Point(4, 29);
             this.tabPageSettings.Name = "tabPageSettings";
-            this.tabPageSettings.Size = new System.Drawing.Size(1698, 800);
+            this.tabPageSettings.Size = new System.Drawing.Size(1698, 799);
             this.tabPageSettings.TabIndex = 4;
             this.tabPageSettings.Text = "     SETTINGS     ";
             // 
@@ -509,7 +760,7 @@
             // 
             this.tabPageMaintenance.Location = new System.Drawing.Point(4, 29);
             this.tabPageMaintenance.Name = "tabPageMaintenance";
-            this.tabPageMaintenance.Size = new System.Drawing.Size(1698, 800);
+            this.tabPageMaintenance.Size = new System.Drawing.Size(1698, 799);
             this.tabPageMaintenance.TabIndex = 5;
             this.tabPageMaintenance.Text = "     MAINTENANCE     ";
             this.tabPageMaintenance.UseVisualStyleBackColor = true;
@@ -519,20 +770,21 @@
             this.tabPageService.Controls.Add(this.servicePanel);
             this.tabPageService.Location = new System.Drawing.Point(4, 29);
             this.tabPageService.Name = "tabPageService";
-            this.tabPageService.Size = new System.Drawing.Size(1698, 800);
+            this.tabPageService.Size = new System.Drawing.Size(1698, 799);
             this.tabPageService.TabIndex = 7;
             this.tabPageService.Text = "     SERVICE     ";
             this.tabPageService.UseVisualStyleBackColor = true;
             // 
             // tabPageAdmin
             // 
+            this.tabPageAdmin.Controls.Add(this.userManagerPanel);
             this.tabPageAdmin.Controls.Add(this.adminPanel);
             this.tabPageAdmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.tabPageAdmin.Location = new System.Drawing.Point(4, 29);
             this.tabPageAdmin.Name = "tabPageAdmin";
-            this.tabPageAdmin.Size = new System.Drawing.Size(1698, 800);
+            this.tabPageAdmin.Size = new System.Drawing.Size(1698, 799);
             this.tabPageAdmin.TabIndex = 8;
-            this.tabPageAdmin.Text = "     ADMIN     ";
+            this.tabPageAdmin.Text = "USER MANAGER  ";
             this.tabPageAdmin.UseVisualStyleBackColor = true;
             // 
             // timer
@@ -540,15 +792,22 @@
             this.timer.Enabled = true;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
+            // labStatusMsgAction
+            // 
+            this.labStatusMsgAction.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.labStatusMsgAction.ForeColor = System.Drawing.Color.Green;
+            this.labStatusMsgAction.Name = "labStatusMsgAction";
+            this.labStatusMsgAction.Size = new System.Drawing.Size(61, 21);
+            this.labStatusMsgAction.Text = "Corecct";
+            // 
             // liveGraphicalPanel
             // 
             this.liveGraphicalPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.liveGraphicalPanel.Location = new System.Drawing.Point(1329, 748);
+            this.liveGraphicalPanel.Location = new System.Drawing.Point(1321, 753);
             this.liveGraphicalPanel.Margin = new System.Windows.Forms.Padding(4);
             this.liveGraphicalPanel.Name = "liveGraphicalPanel";
-            this.liveGraphicalPanel.Size = new System.Drawing.Size(120, 39);
+            this.liveGraphicalPanel.Size = new System.Drawing.Size(71, 39);
             this.liveGraphicalPanel.TabIndex = 110;
-            this.liveGraphicalPanel.Load += new System.EventHandler(this.graphicalLive1_Load);
             // 
             // interlockPanel_Vacuum
             // 
@@ -718,7 +977,7 @@
             this.programsConfigPanel.HPT1000 = null;
             this.programsConfigPanel.Location = new System.Drawing.Point(0, 0);
             this.programsConfigPanel.Name = "programsConfigPanel";
-            this.programsConfigPanel.Size = new System.Drawing.Size(1698, 804);
+            this.programsConfigPanel.Size = new System.Drawing.Size(1698, 799);
             this.programsConfigPanel.TabIndex = 1;
             // 
             // alertsPanel
@@ -728,7 +987,7 @@
             this.alertsPanel.HPT1000 = null;
             this.alertsPanel.Location = new System.Drawing.Point(3, 3);
             this.alertsPanel.Name = "alertsPanel";
-            this.alertsPanel.Size = new System.Drawing.Size(1692, 798);
+            this.alertsPanel.Size = new System.Drawing.Size(1692, 793);
             this.alertsPanel.TabIndex = 0;
             // 
             // settingsPanel
@@ -737,7 +996,7 @@
             this.settingsPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.settingsPanel.Location = new System.Drawing.Point(0, 0);
             this.settingsPanel.Name = "settingsPanel";
-            this.settingsPanel.Size = new System.Drawing.Size(1698, 804);
+            this.settingsPanel.Size = new System.Drawing.Size(1698, 799);
             this.settingsPanel.TabIndex = 0;
             // 
             // servicePanel
@@ -746,7 +1005,7 @@
             this.servicePanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.servicePanel.Location = new System.Drawing.Point(0, 0);
             this.servicePanel.Name = "servicePanel";
-            this.servicePanel.Size = new System.Drawing.Size(1698, 804);
+            this.servicePanel.Size = new System.Drawing.Size(1698, 799);
             this.servicePanel.TabIndex = 0;
             // 
             // adminPanel
@@ -755,244 +1014,17 @@
             this.adminPanel.Location = new System.Drawing.Point(0, 0);
             this.adminPanel.Margin = new System.Windows.Forms.Padding(4);
             this.adminPanel.Name = "adminPanel";
-            this.adminPanel.Size = new System.Drawing.Size(1698, 804);
+            this.adminPanel.Size = new System.Drawing.Size(1698, 799);
             this.adminPanel.TabIndex = 0;
             // 
-            // pictureCornerUp3
+            // userManagerPanel
             // 
-            this.pictureCornerUp3.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureCornerUp3.ErrorImage")));
-            this.pictureCornerUp3.Image = ((System.Drawing.Image)(resources.GetObject("pictureCornerUp3.Image")));
-            this.pictureCornerUp3.Location = new System.Drawing.Point(681, 250);
-            this.pictureCornerUp3.Name = "pictureCornerUp3";
-            this.pictureCornerUp3.Size = new System.Drawing.Size(31, 31);
-            this.pictureCornerUp3.TabIndex = 109;
-            this.pictureCornerUp3.TabStop = false;
-            // 
-            // picturelineMFC
-            // 
-            this.picturelineMFC.Image = ((System.Drawing.Image)(resources.GetObject("picturelineMFC.Image")));
-            this.picturelineMFC.Location = new System.Drawing.Point(681, 273);
-            this.picturelineMFC.Name = "picturelineMFC";
-            this.picturelineMFC.Size = new System.Drawing.Size(4, 380);
-            this.picturelineMFC.TabIndex = 108;
-            this.picturelineMFC.TabStop = false;
-            // 
-            // pictureBox34
-            // 
-            this.pictureBox34.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox34.Image")));
-            this.pictureBox34.Location = new System.Drawing.Point(348, 614);
-            this.pictureBox34.Name = "pictureBox34";
-            this.pictureBox34.Size = new System.Drawing.Size(4, 16);
-            this.pictureBox34.TabIndex = 102;
-            this.pictureBox34.TabStop = false;
-            // 
-            // pictureArrowUp1
-            // 
-            this.pictureArrowUp1.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureArrowUp1.ErrorImage")));
-            this.pictureArrowUp1.Image = global::HPT1000.Properties.Resources.Arrow_Up;
-            this.pictureArrowUp1.Location = new System.Drawing.Point(36, 638);
-            this.pictureArrowUp1.Name = "pictureArrowUp1";
-            this.pictureArrowUp1.Size = new System.Drawing.Size(35, 65);
-            this.pictureArrowUp1.TabIndex = 100;
-            this.pictureArrowUp1.TabStop = false;
-            // 
-            // pictureArrowUp2
-            // 
-            this.pictureArrowUp2.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureArrowUp2.ErrorImage")));
-            this.pictureArrowUp2.Image = ((System.Drawing.Image)(resources.GetObject("pictureArrowUp2.Image")));
-            this.pictureArrowUp2.Location = new System.Drawing.Point(123, 638);
-            this.pictureArrowUp2.Name = "pictureArrowUp2";
-            this.pictureArrowUp2.Size = new System.Drawing.Size(35, 65);
-            this.pictureArrowUp2.TabIndex = 99;
-            this.pictureArrowUp2.TabStop = false;
-            // 
-            // pictureArrowDown
-            // 
-            this.pictureArrowDown.ErrorImage = null;
-            this.pictureArrowDown.Image = ((System.Drawing.Image)(resources.GetObject("pictureArrowDown.Image")));
-            this.pictureArrowDown.Location = new System.Drawing.Point(335, 638);
-            this.pictureArrowDown.Name = "pictureArrowDown";
-            this.pictureArrowDown.Size = new System.Drawing.Size(33, 65);
-            this.pictureArrowDown.TabIndex = 98;
-            this.pictureArrowDown.TabStop = false;
-            // 
-            // pictureBox30
-            // 
-            this.pictureBox30.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox30.Image")));
-            this.pictureBox30.Location = new System.Drawing.Point(710, 680);
-            this.pictureBox30.Name = "pictureBox30";
-            this.pictureBox30.Size = new System.Drawing.Size(15, 4);
-            this.pictureBox30.TabIndex = 97;
-            this.pictureBox30.TabStop = false;
-            // 
-            // pictureCornerDown3
-            // 
-            this.pictureCornerDown3.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureCornerDown3.ErrorImage")));
-            this.pictureCornerDown3.Image = ((System.Drawing.Image)(resources.GetObject("pictureCornerDown3.Image")));
-            this.pictureCornerDown3.Location = new System.Drawing.Point(681, 653);
-            this.pictureCornerDown3.Name = "pictureCornerDown3";
-            this.pictureCornerDown3.Size = new System.Drawing.Size(31, 31);
-            this.pictureCornerDown3.TabIndex = 96;
-            this.pictureCornerDown3.TabStop = false;
-            // 
-            // pictureBox25
-            // 
-            this.pictureBox25.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox25.Image")));
-            this.pictureBox25.Location = new System.Drawing.Point(499, 581);
-            this.pictureBox25.Name = "pictureBox25";
-            this.pictureBox25.Size = new System.Drawing.Size(183, 4);
-            this.pictureBox25.TabIndex = 95;
-            this.pictureBox25.TabStop = false;
-            // 
-            // pictureLineMFC3
-            // 
-            this.pictureLineMFC3.Image = ((System.Drawing.Image)(resources.GetObject("pictureLineMFC3.Image")));
-            this.pictureLineMFC3.Location = new System.Drawing.Point(684, 538);
-            this.pictureLineMFC3.Name = "pictureLineMFC3";
-            this.pictureLineMFC3.Size = new System.Drawing.Size(40, 4);
-            this.pictureLineMFC3.TabIndex = 94;
-            this.pictureLineMFC3.TabStop = false;
-            // 
-            // pictureCornerDown2
-            // 
-            this.pictureCornerDown2.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureCornerDown2.ErrorImage")));
-            this.pictureCornerDown2.Image = ((System.Drawing.Image)(resources.GetObject("pictureCornerDown2.Image")));
-            this.pictureCornerDown2.Location = new System.Drawing.Point(469, 554);
-            this.pictureCornerDown2.Name = "pictureCornerDown2";
-            this.pictureCornerDown2.Size = new System.Drawing.Size(31, 31);
-            this.pictureCornerDown2.TabIndex = 93;
-            this.pictureCornerDown2.TabStop = false;
-            // 
-            // pictureBox28
-            // 
-            this.pictureBox28.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox28.Image")));
-            this.pictureBox28.Location = new System.Drawing.Point(171, 419);
-            this.pictureBox28.Name = "pictureBox28";
-            this.pictureBox28.Size = new System.Drawing.Size(99, 4);
-            this.pictureBox28.TabIndex = 88;
-            this.pictureBox28.TabStop = false;
-            // 
-            // pictureBox27
-            // 
-            this.pictureBox27.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox27.Image")));
-            this.pictureBox27.Location = new System.Drawing.Point(149, 327);
-            this.pictureBox27.Name = "pictureBox27";
-            this.pictureBox27.Size = new System.Drawing.Size(121, 4);
-            this.pictureBox27.TabIndex = 87;
-            this.pictureBox27.TabStop = false;
-            // 
-            // pictureBox26
-            // 
-            this.pictureBox26.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox26.Image")));
-            this.pictureBox26.Location = new System.Drawing.Point(81, 373);
-            this.pictureBox26.Name = "pictureBox26";
-            this.pictureBox26.Size = new System.Drawing.Size(189, 4);
-            this.pictureBox26.TabIndex = 86;
-            this.pictureBox26.TabStop = false;
-            // 
-            // pictureLineMFC2
-            // 
-            this.pictureLineMFC2.Image = ((System.Drawing.Image)(resources.GetObject("pictureLineMFC2.Image")));
-            this.pictureLineMFC2.Location = new System.Drawing.Point(685, 385);
-            this.pictureLineMFC2.Name = "pictureLineMFC2";
-            this.pictureLineMFC2.Size = new System.Drawing.Size(40, 4);
-            this.pictureLineMFC2.TabIndex = 84;
-            this.pictureLineMFC2.TabStop = false;
-            // 
-            // pictureLineMFC1
-            // 
-            this.pictureLineMFC1.Image = ((System.Drawing.Image)(resources.GetObject("pictureLineMFC1.Image")));
-            this.pictureLineMFC1.Location = new System.Drawing.Point(710, 250);
-            this.pictureLineMFC1.Name = "pictureLineMFC1";
-            this.pictureLineMFC1.Size = new System.Drawing.Size(14, 4);
-            this.pictureLineMFC1.TabIndex = 83;
-            this.pictureLineMFC1.TabStop = false;
-            // 
-            // pictureBox20
-            // 
-            this.pictureBox20.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox20.Image")));
-            this.pictureBox20.Location = new System.Drawing.Point(469, 454);
-            this.pictureBox20.Name = "pictureBox20";
-            this.pictureBox20.Size = new System.Drawing.Size(4, 102);
-            this.pictureBox20.TabIndex = 82;
-            this.pictureBox20.TabStop = false;
-            // 
-            // pictureBox17
-            // 
-            this.pictureBox17.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox17.Image")));
-            this.pictureBox17.Location = new System.Drawing.Point(140, 443);
-            this.pictureBox17.Name = "pictureBox17";
-            this.pictureBox17.Size = new System.Drawing.Size(4, 198);
-            this.pictureBox17.TabIndex = 80;
-            this.pictureBox17.TabStop = false;
-            // 
-            // pictureCornerUp2
-            // 
-            this.pictureCornerUp2.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureCornerUp2.ErrorImage")));
-            this.pictureCornerUp2.Image = ((System.Drawing.Image)(resources.GetObject("pictureCornerUp2.Image")));
-            this.pictureCornerUp2.Location = new System.Drawing.Point(140, 419);
-            this.pictureCornerUp2.Name = "pictureCornerUp2";
-            this.pictureCornerUp2.Size = new System.Drawing.Size(31, 31);
-            this.pictureCornerUp2.TabIndex = 79;
-            this.pictureCornerUp2.TabStop = false;
-            // 
-            // pictureBox16
-            // 
-            this.pictureBox16.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox16.Image")));
-            this.pictureBox16.Location = new System.Drawing.Point(51, 396);
-            this.pictureBox16.Name = "pictureBox16";
-            this.pictureBox16.Size = new System.Drawing.Size(4, 245);
-            this.pictureBox16.TabIndex = 78;
-            this.pictureBox16.TabStop = false;
-            // 
-            // pictureCornerUp1
-            // 
-            this.pictureCornerUp1.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureCornerUp1.ErrorImage")));
-            this.pictureCornerUp1.Image = ((System.Drawing.Image)(resources.GetObject("pictureCornerUp1.Image")));
-            this.pictureCornerUp1.Location = new System.Drawing.Point(51, 373);
-            this.pictureCornerUp1.Name = "pictureCornerUp1";
-            this.pictureCornerUp1.Size = new System.Drawing.Size(31, 31);
-            this.pictureCornerUp1.TabIndex = 77;
-            this.pictureCornerUp1.TabStop = false;
-            // 
-            // pictureCornerDown1
-            // 
-            this.pictureCornerDown1.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureCornerDown1.ErrorImage")));
-            this.pictureCornerDown1.Image = ((System.Drawing.Image)(resources.GetObject("pictureCornerDown1.Image")));
-            this.pictureCornerDown1.Location = new System.Drawing.Point(116, 300);
-            this.pictureCornerDown1.Name = "pictureCornerDown1";
-            this.pictureCornerDown1.Size = new System.Drawing.Size(31, 31);
-            this.pictureCornerDown1.TabIndex = 76;
-            this.pictureCornerDown1.TabStop = false;
-            // 
-            // pictureBox10
-            // 
-            this.pictureBox10.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox10.Image")));
-            this.pictureBox10.Location = new System.Drawing.Point(440, 206);
-            this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.Size = new System.Drawing.Size(4, 99);
-            this.pictureBox10.TabIndex = 73;
-            this.pictureBox10.TabStop = false;
-            // 
-            // pictureBox8
-            // 
-            this.pictureBox8.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox8.Image")));
-            this.pictureBox8.Location = new System.Drawing.Point(347, 454);
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(4, 101);
-            this.pictureBox8.TabIndex = 71;
-            this.pictureBox8.TabStop = false;
-            // 
-            // pictureChamber
-            // 
-            this.pictureChamber.BackColor = System.Drawing.Color.Transparent;
-            this.pictureChamber.Image = global::HPT1000.Properties.Resources.Plasma;
-            this.pictureChamber.Location = new System.Drawing.Point(270, 307);
-            this.pictureChamber.Name = "pictureChamber";
-            this.pictureChamber.Size = new System.Drawing.Size(267, 149);
-            this.pictureChamber.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureChamber.TabIndex = 67;
-            this.pictureChamber.TabStop = false;
+            this.userManagerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.userManagerPanel.Location = new System.Drawing.Point(0, 0);
+            this.userManagerPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.userManagerPanel.Name = "userManagerPanel";
+            this.userManagerPanel.Size = new System.Drawing.Size(1698, 799);
+            this.userManagerPanel.TabIndex = 1;
             // 
             // MainForm
             // 
@@ -1010,17 +1042,10 @@
             this.statusStrip1.PerformLayout();
             this.tabControlMain.ResumeLayout(false);
             this.tabPageMain.ResumeLayout(false);
-            this.tabPageMain.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.grBoxSystem.ResumeLayout(false);
             this.grBoxSystem.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.tabPagePrograms.ResumeLayout(false);
-            this.tabPageAlerts.ResumeLayout(false);
-            this.tabPageSettings.ResumeLayout(false);
-            this.tabPageService.ResumeLayout(false);
-            this.tabPageAdmin.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureCornerUp3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picturelineMFC)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox34)).EndInit();
@@ -1046,6 +1071,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureChamber)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.tabPagePrograms.ResumeLayout(false);
+            this.tabPageAlerts.ResumeLayout(false);
+            this.tabPageSettings.ResumeLayout(false);
+            this.tabPageService.ResumeLayout(false);
+            this.tabPageAdmin.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1125,14 +1156,18 @@
         private InterlockPanel interlockPanel_Thermal;
         private InterlockPanel interlockPanel_Door;
         private System.Windows.Forms.Button btnLiveModeData;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TabPage tabPageService;
         private System.Windows.Forms.TabPage tabPageAdmin;
         private ServicePanel servicePanel;
         private AdminPanel adminPanel;
         private GraphicalLive liveGraphicalPanel;
+        private System.Windows.Forms.ToolStripSplitButton btnConfirm;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel borderLab1;
+        private System.Windows.Forms.ToolStripStatusLabel borderLab2;
+        private System.Windows.Forms.ToolStripStatusLabel labStatusMsgAction;
+        private UserManagerPanel userManagerPanel;
     }
 }
 

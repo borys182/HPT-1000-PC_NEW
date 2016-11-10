@@ -30,7 +30,7 @@ namespace HPT1000.Source
      */ 
     public class DB
     {
-        private User                    userApp         = new User(Types.UserPrivilige.None,"");
+        public static User              userApp         = new User(Types.UserPrivilige.None,"");
        
         private static List<ErrorText>  actionTextList  = new List<ErrorText>();
         private        List<User>       users           = new List<User>();
@@ -41,7 +41,7 @@ namespace HPT1000.Source
             get { return users; }
         }
         //-------------------------------------------------------------------------------------
-        public User UserApp
+        public static User LoggedUser
         {
             get { return userApp; }
         }

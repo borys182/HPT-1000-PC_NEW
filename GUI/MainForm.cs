@@ -29,7 +29,8 @@ namespace HPT1000.GUI
         User                            lastUser      = null;
         bool                            showLoginForm = true;
 
-        ItemLogger lastError = new ItemLogger();
+        ItemLogger                      curentErrorLog  = null;  //aktualnie wyswietlany wpis z loggera traktowny jako ostatni przychodzacy
+        ItemLogger                      curentMsgLog    = null;  //aktualnie wyswietlany wpis z loggera traktowny jako ostatni przychodzacy
 
         int timerLastErrorShow = 0;
 
@@ -217,11 +218,11 @@ namespace HPT1000.GUI
         {
             if(dataBase != null)
             {
-                if(lastUser == null || !lastUser.Equals(dataBase.UserApp))
+                if(lastUser == null || !lastUser.Equals(DB.LoggedUser))
                 {
-                    labStatusUser.Text = "USER:  " + dataBase.UserApp.ToString() + "    ";
+                    labStatusUser.Text = "USER:  " + DB.LoggedUser.ToString() + "    ";
                     CreateTabControl();
-                    switch (dataBase.UserApp.Privilige)
+                    switch (DB.LoggedUser.Privilige)
                     {
                         case Types.UserPrivilige.Administrator:
                             SetUserPriviligeToAppAsAdmin();
@@ -237,10 +238,10 @@ namespace HPT1000.GUI
                             break;
                     }
                 }
-                lastUser = dataBase.UserApp.Copy();
+                lastUser = DB.LoggedUser.Copy();
             }
             bool aUserLoged = false;
-            if (dataBase.UserApp.Privilige != Types.UserPrivilige.None)
+            if (DB.LoggedUser.Privilige != Types.UserPrivilige.None)
                 aUserLoged = true;
 
             btnLogin.Enabled    = !aUserLoged;
@@ -249,7 +250,7 @@ namespace HPT1000.GUI
         //----------------------------------------------------------------------------------
         private void CreateTabControl()
         {
-            if (dataBase != null && dataBase.UserApp.Privilige != Types.UserPrivilige.None)
+            if (dataBase != null && DB.LoggedUser.Privilige != Types.UserPrivilige.None)
             {
                 if (!tabControlMain.TabPages.Contains(tabPagePrograms))
                     tabControlMain.TabPages.Insert(tabControlMain.TabPages.Count, tabPagePrograms);
@@ -398,29 +399,44 @@ namespace HPT1000.GUI
             }
         }
         //----------------------------------------------------------------------------------
+        //Funkcja ma za zadanie pokazanie ostatniego logu. Jezeli jest to blad to info sie wyswietla tak dlugo dopuki nie zostanie potwierdzony
         private void ShowLastActionStatus()
         {
-            ItemLogger aErr = Logger.GetLastAction();
+            //Podaj mi ostatni niepotwierdzony blad lub ostatnia akcje. Przy akcjach komunikat jest prezetnowany przez 5s zas przy bledach dopoki nie zostana potwierdzone
+            ItemLogger aItemErrorLog = Logger.GetLastError();
+            ItemLogger aItemMsgLog   = Logger.GetLastInformation();
 
-            if (aErr != null && !aErr.Equals(lastError))// && ( aErr.IsError() || aErr.IsAction()))
+            if (aItemErrorLog != null && !aItemErrorLog.Equals(curentErrorLog))
             {
-                if (aErr.IsError())
-                {
-                    labStatusAction.Text = "Error : " + aErr.GetText();
-                    labStatusAction.ForeColor = Color.Red;
-                }
-                if (aErr.IsInformation())
-                {
-                    labStatusAction.Text = aErr.GetText();
-                    labStatusAction.ForeColor = Color.Green;
-                }
-                lastError = aErr;
-                timerLastErrorShow = 0;
+                labStatusAction.Text      = "Error : " + aItemErrorLog.GetText();
+                labStatusAction.ForeColor = Color.Red;
+                btnConfirm.Visible        = true;
+                borderLab1.Visible        = true;
+                borderLab2.Visible        = true;
+
+                curentErrorLog = aItemErrorLog;
             }
 
-            if (timerLastErrorShow > 50)
+            if (aItemMsgLog != null && !aItemMsgLog.Equals(curentMsgLog))
+            {
+                labStatusMsgAction.Text = aItemMsgLog.GetText();
+                timerLastErrorShow = 0;
+              
+                curentMsgLog = aItemMsgLog;
+            }
+            
+            //wyswietlaj komunikat dopuki blad nie zostanie potwierdzony - wtedy metoda nie zwroci zadnego bledu
+            if (aItemErrorLog == null)
+            {
                 labStatusAction.Text = "";
-
+                btnConfirm.Visible = false;
+                borderLab1.Visible = false;
+                borderLab2.Visible = false;
+            }
+            //wyswietlaj komunikat dopuki nie minie 5 s
+            if (timerLastErrorShow > 50)
+                labStatusMsgAction.Text = "";
+     
             if (timerLastErrorShow <= 50)
                 timerLastErrorShow++;
         }
@@ -449,10 +465,11 @@ namespace HPT1000.GUI
             else
                 btnLiveModeData.Text = "SWITCH TO GRAPHICAL VIEW";
         }
-
-        private void graphicalLive1_Load(object sender, EventArgs e)
+        //----------------------------------------------------------------------------------
+        private void btnConfirm_Click(object sender, EventArgs e)
         {
-
+            if (curentErrorLog != null)
+                curentErrorLog.SetConfirmError();
         }
         //----------------------------------------------------------------------------------
     }

@@ -32,10 +32,17 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.listViewEvents = new System.Windows.Forms.ListView();
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // listViewErrors
@@ -44,7 +51,6 @@
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
-            this.columnHeader4,
             this.columnHeader5,
             this.columnHeader6,
             this.columnHeader7});
@@ -52,60 +58,112 @@
             this.listViewErrors.ForeColor = System.Drawing.Color.Black;
             this.listViewErrors.FullRowSelect = true;
             this.listViewErrors.GridLines = true;
-            this.listViewErrors.Location = new System.Drawing.Point(0, 0);
+            this.listViewErrors.Location = new System.Drawing.Point(3, 23);
+            this.listViewErrors.MultiSelect = false;
             this.listViewErrors.Name = "listViewErrors";
             this.listViewErrors.OwnerDraw = true;
-            this.listViewErrors.Size = new System.Drawing.Size(1692, 752);
+            this.listViewErrors.Size = new System.Drawing.Size(1686, 468);
             this.listViewErrors.TabIndex = 1;
             this.listViewErrors.UseCompatibleStateImageBehavior = false;
             this.listViewErrors.View = System.Windows.Forms.View.Details;
             this.listViewErrors.DrawColumnHeader += new System.Windows.Forms.DrawListViewColumnHeaderEventHandler(this.listViewErrors_DrawColumnHeader);
             this.listViewErrors.DrawItem += new System.Windows.Forms.DrawListViewItemEventHandler(this.listViewErrors_DrawItem);
             this.listViewErrors.DrawSubItem += new System.Windows.Forms.DrawListViewSubItemEventHandler(this.listViewErrors_DrawSubItem);
+            this.listViewErrors.DoubleClick += new System.EventHandler(this.listViewErrors_DoubleClick);
             // 
             // columnHeader1
             // 
             this.columnHeader1.Text = "Error Code";
-            this.columnHeader1.Width = 124;
+            this.columnHeader1.Width = 120;
             // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Date and time";
-            this.columnHeader2.Width = 164;
+            this.columnHeader2.Width = 150;
             // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "Message text";
-            this.columnHeader3.Width = 777;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Event ?";
-            this.columnHeader4.Width = 119;
+            this.columnHeader3.Width = 550;
             // 
             // columnHeader5
             // 
             this.columnHeader5.Text = "Program";
-            this.columnHeader5.Width = 140;
+            this.columnHeader5.Width = 130;
             // 
             // columnHeader6
             // 
             this.columnHeader6.Text = "Subprogram";
-            this.columnHeader6.Width = 129;
+            this.columnHeader6.Width = 130;
             // 
             // columnHeader7
             // 
             this.columnHeader7.Text = "Charge";
-            this.columnHeader7.Width = 110;
+            this.columnHeader7.Width = 130;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.listViewErrors);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(1692, 494);
+            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Logview Errors ";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.listViewEvents);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox2.Location = new System.Drawing.Point(0, 494);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(1692, 252);
+            this.groupBox2.TabIndex = 3;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Logview Events";
+            // 
+            // listViewEvents
+            // 
+            this.listViewEvents.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader8,
+            this.columnHeader9});
+            this.listViewEvents.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewEvents.FullRowSelect = true;
+            this.listViewEvents.GridLines = true;
+            this.listViewEvents.Location = new System.Drawing.Point(3, 23);
+            this.listViewEvents.MultiSelect = false;
+            this.listViewEvents.Name = "listViewEvents";
+            this.listViewEvents.OwnerDraw = true;
+            this.listViewEvents.Size = new System.Drawing.Size(1686, 226);
+            this.listViewEvents.TabIndex = 0;
+            this.listViewEvents.UseCompatibleStateImageBehavior = false;
+            this.listViewEvents.View = System.Windows.Forms.View.Details;
+            this.listViewEvents.DrawColumnHeader += new System.Windows.Forms.DrawListViewColumnHeaderEventHandler(this.listViewErrors_DrawColumnHeader);
+            this.listViewEvents.DrawItem += new System.Windows.Forms.DrawListViewItemEventHandler(this.listViewErrors_DrawItem);
+            this.listViewEvents.DrawSubItem += new System.Windows.Forms.DrawListViewSubItemEventHandler(this.listViewErrors_DrawSubItem);
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "Date and time";
+            this.columnHeader8.Width = 200;
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "Message text";
+            this.columnHeader9.Width = 1137;
             // 
             // AlertsPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.Controls.Add(this.listViewErrors);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Name = "AlertsPanel";
             this.Size = new System.Drawing.Size(1692, 752);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -116,9 +174,14 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
-        internal System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.ListView listViewEvents;
+        private System.Windows.Forms.ColumnHeader columnHeader8;
+        private System.Windows.Forms.ColumnHeader columnHeader9;
     }
 }

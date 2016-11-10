@@ -7,13 +7,14 @@ using System.Globalization;
 using System.Windows.Forms;
 using HPT1000.Source;
 using HPT1000.Source.Program;
+using HPT1000.Source.Driver;
 
 namespace HPT1000.GUI
 {
     public partial class AlertsPanel : UserControl
     {
         private Source.Driver.HPT1000 hpt1000 = null;
-
+   
         //---------------------------------------------------------------------------------------
         public Source.Driver.HPT1000 HPT1000
         {
@@ -28,43 +29,93 @@ namespace HPT1000.GUI
         //----------------------------------------------------------------------------------
         public void  RefreshPanel()
         {
-            ShowErrorList();
+            ShowLogViewErrors();
+            ShowLogViewEvents();
         }
         //----------------------------------------------------------------------------------
-        private void ShowErrorList()
+        private void ShowLogViewErrors()
         {
             string aNameProgram     = "Program";
             string aNameSubprogram  = "Subprogram";
 
             for (int i = 0; i < Logger.GetLogList().Count; i++)
             {
-                ItemLogger aErr = Logger.GetLogList()[i];
+                ItemLogger itemLog = Logger.GetLogList()[i];
 
-                if (aErr.IsError() && !IsErrorAlreadyExistInList(aErr))
+                if (itemLog.IsError())
                 {
-                    aNameProgram    = GetNameProgram(aErr.ProgramID);
-                    aNameSubprogram = GetNameSubprogram(aErr.SubprogramID);
+                    if (!IsItemExistInLstView(listViewErrors, itemLog))
+                    {
+                        aNameProgram = GetNameProgram(itemLog.ProgramID);
+                        aNameSubprogram = GetNameSubprogram(itemLog.SubprogramID);
 
-                    ListViewItem aItem = new ListViewItem();
-                    aItem.Text = "0x" + aErr.GetErrorCode().ToString("X8");
-                    aItem.SubItems.Add(aErr.Time.ToString());
-                    aItem.SubItems.Add(aErr.GetText());
-                    aItem.SubItems.Add("Event");
-                    aItem.SubItems.Add(aNameProgram);
-                    aItem.SubItems.Add(aNameSubprogram);
-                    aItem.SubItems.Add("Administrator");
+                        ListViewItem aItem = new ListViewItem();
 
-                    aItem.BackColor = Color.Red;
-                    aItem.Tag = aErr;
+                        string aErrCode = "";
 
-                    listViewErrors.Items.Add(aItem);
+                        if (itemLog.TypeLog == Types.MessageType.Error)
+                            aErrCode = "E 0x" + itemLog.GetErrorCode().ToString("X8");
+
+                        if (itemLog.TypeLog == Types.MessageType.Warrning)
+                            aErrCode = "W 0x" + itemLog.GetErrorCode().ToString("X8");
+
+                        aItem.Text = aErrCode;
+                        aItem.SubItems.Add(itemLog.Time.ToString());
+                        aItem.SubItems.Add(itemLog.GetText());
+                        aItem.SubItems.Add(aNameProgram);
+                        aItem.SubItems.Add(aNameSubprogram);
+                        aItem.SubItems.Add(itemLog.UserConfirm);
+
+                        aItem.Tag = itemLog;
+
+                        listViewErrors.Items.Add(aItem);
+                    }
+                    else
+                    {
+                        //Aktualizacja wpisu w LogView na temat osoby ktora potwierdzila dany blad
+                        ListViewItem aItem = GetItemFromListView(itemLog); // pobierz Item ktroy odpowiadana daenum Logowi (jest on zapisany jako Tag)
+                        if (aItem != null && aItem.SubItems.Count > 5 && aItem.SubItems[5].Text == "" && itemLog != null && itemLog.UserConfirm != "")
+                            aItem.SubItems[5].Text = itemLog.UserConfirm;
+                    }
                 }
             }
         }
         //----------------------------------------------------------------------------------
+        private void ShowLogViewEvents()
+        {           
+            for (int i = 0; i < Logger.GetLogList().Count; i++)
+            {
+                ItemLogger itemLog = Logger.GetLogList()[i];
+
+                if (itemLog.IsInformation() && !IsItemExistInLstView(listViewEvents, itemLog))
+                {                  
+                    ListViewItem aItem = new ListViewItem();
+                 
+                    aItem.Text = itemLog.Time.ToString();
+                    aItem.SubItems.Add(itemLog.GetText());
+                    aItem.Tag = itemLog;
+
+                    listViewEvents.Items.Add(aItem);
+               }
+           }
+        }
+        //----------------------------------------------------------------------------------
+        //Funkcja ma za zadanie zwrocenie Itemu z listView ktroy przechowuje dany wpis z Loggera
+        public ListViewItem GetItemFromListView(ItemLogger itemLog)
+        {
+            ListViewItem itemListViewRes = null;
+
+            foreach(ListViewItem itemListView in listViewErrors.Items)
+            {
+                if (itemListView.Tag == itemLog)
+                    itemListViewRes = itemListView;
+            }
+            return itemListViewRes;
+        }
+        //----------------------------------------------------------------------------------
         private string GetNameProgram(int aId)
         {
-            string aName = "----------";
+            string aName = "";
 
             if(hpt1000 != null)
             {
@@ -83,7 +134,7 @@ namespace HPT1000.GUI
         //----------------------------------------------------------------------------------
         private string GetNameSubprogram(int aId)
         {
-            string aName = "----------";
+            string aName = "";
 
             if (hpt1000 != null)
             {
@@ -102,14 +153,17 @@ namespace HPT1000.GUI
             return aName;
         }
         //----------------------------------------------------------------------------------
-        private bool IsErrorAlreadyExistInList(ItemLogger aErr)
+        private bool IsItemExistInLstView(ListView listView , ItemLogger itemLog)
         {
             bool aRes = false;
 
-            foreach (ListViewItem aItem in listViewErrors.Items)
+            if (listView != null && itemLog != null)
             {
-                if (aErr.Equals(aItem.Tag))
-                    aRes = true;
+                foreach (ListViewItem aItem in listView.Items)
+                {
+                    if (itemLog.Equals(aItem.Tag))
+                        aRes = true;
+                }
             }
             return aRes;
         }
@@ -145,12 +199,12 @@ namespace HPT1000.GUI
                     e.Graphics.FillRectangle(brush, e.Bounds);
                 }
                 e.DrawText();
-            }
+            }            
             return;
          }
         //----------------------------------------------------------------------------------
         private void listViewErrors_DrawItem(object sender, DrawListViewItemEventArgs e)
-        {
+        {            
             if ((e.State & ListViewItemStates.Selected) != 0)
             {
                 // Draw the background and focus rectangle for a selected item.
@@ -164,8 +218,7 @@ namespace HPT1000.GUI
                 {
                  //   e.Graphics.FillRectangle(brush, e.Bounds);
                 }
-            }
-
+            }            
             // Draw the item text for views other than the Details view.
             //e.DrawText();      
         }
@@ -173,7 +226,7 @@ namespace HPT1000.GUI
         private void listViewErrors_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
         {
             TextFormatFlags flags = TextFormatFlags.Left;
-
+          
             using (StringFormat sf = new StringFormat())
             {
                 // Store the column text alignment, letting it default
@@ -191,11 +244,34 @@ namespace HPT1000.GUI
                 }
 
                 // Draw the subitem text in red to highlight it. 
-                e.Graphics.DrawString(e.SubItem.Text, listViewErrors.Font, Brushes.Red, e.Bounds, sf);
-                
+                if(((ListView)sender).Name == "listViewErrors")
+                    e.Graphics.DrawString(e.SubItem.Text, listViewErrors.Font, Brushes.Red, e.Bounds, sf);
+                else
+                    e.Graphics.DrawString(e.SubItem.Text, listViewErrors.Font, Brushes.Green, e.Bounds, sf);
+
                 // Draw normal text for a subitem with a nonnegative 
                 // or nonnumerical value.
                 //         e.DrawText(flags);
+            }
+        }
+        //----------------------------------------------------------------------------------
+        //Na zdarzenie double click pokaz komunikat zapytania czy mam potwierdzic dany blad
+        private void listViewErrors_DoubleClick(object sender, EventArgs e)
+        {
+            //Jezeli item jeszcze nie jest potwierdzony to pokaz komunikat zapytania
+            ItemLogger selectedItemLogger = null;
+
+            foreach (ListViewItem item in listViewErrors.Items)
+            {
+                if (item.Selected)
+                    selectedItemLogger = (ItemLogger)item.Tag;
+            }
+            if (selectedItemLogger != null && !selectedItemLogger.ConfirmError)
+            {
+                DialogResult result = MessageBox.Show("Do you want confirm selected errors", "Confirm Errors", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                //potwierdz blad dla kazdego zaznaczonego bledu
+                if (result == DialogResult.Yes)
+                    selectedItemLogger.SetConfirmError();
             }
         }
         //----------------------------------------------------------------------------------

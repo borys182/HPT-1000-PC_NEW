@@ -27,6 +27,23 @@ namespace HPT1000.Source
         private int                     subprogramID    = 0;
         private string                  text            = "";
 
+        private bool                    confirmError    = false;                            // flaga okresla czy blad zostal potwierdzony
+        private string                  userConfirm     = "";    //User ktroy potwierdzil nam blad
+        //-----------------------------------------------------------------------------------------
+        public bool ConfirmError
+        {
+            get { return confirmError; }
+        }
+        //-----------------------------------------------------------------------------------------
+        public string UserConfirm
+        {
+            get { return userConfirm; }
+        }
+        //-----------------------------------------------------------------------------------------
+        public Types.MessageType TypeLog
+        {
+            get { return msgType; }
+        }
         //-----------------------------------------------------------------------------------------
         public Types.EventCategory EventCategory
         {
@@ -212,7 +229,13 @@ namespace HPT1000.Source
                 aRes = true;
      
             return aRes;
-        //-----------------------------------------------------------------------------------------
         }
+        //-----------------------------------------------------------------------------------------
+        public void SetConfirmError()
+        {
+            confirmError = true;
+            userConfirm = DB.LoggedUser.ToString();
+        }
+        //-----------------------------------------------------------------------------------------
     }
 }

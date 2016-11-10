@@ -31,7 +31,7 @@ namespace HPT1000.Source
         //------------------------------------------------------------------------------------------------------------------------------------------------
         public static void AddError(ItemLogger itemLog)
         {
-            if(itemLog.IsError() && !IsContains(itemLog))
+            if(!IsContains(itemLog))
                 logList.Add(itemLog);
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------
@@ -49,16 +49,37 @@ namespace HPT1000.Source
             logList.Clear();      
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------
-        public static ItemLogger GetLastAction()
+        //Funkcja ma za zadanie podanie ostatniej akcji zakonczonej bledem. Kolejne bledy nie beda prezentowane dopuki aktulny nie zostanie potwierdzony
+        public static ItemLogger GetLastError()
         {
-            ItemLogger itemLog = null;
+            ItemLogger itemLogRes = null;
 
-            if (logList.Count > 0)
-                itemLog = logList[logList.Count - 1];
+            foreach (ItemLogger itemLog in logList)
+            {
+                //znalazlem wpis z niepotwierdzonym bledem. Ustawiam go jako rezulta funkcji
+                if (itemLog.IsError() && !itemLog.ConfirmError)
+                {
+                    itemLogRes = itemLog;
+                    break;
+                }
+            }
 
-            return itemLog;
+            return itemLogRes;
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie podanie ostatniej akcji bedacej informacja
+        public static ItemLogger GetLastInformation()
+        {
+            ItemLogger itemLogRes = null;
+
+            foreach (ItemLogger itemLog in logList)
+            {
+                //znalazlem wpis z niepotwierdzonym bledem. Ustawiam go jako rezulta funkcji
+                if (itemLog.IsInformation())
+                    itemLogRes = itemLog;
+            }
+            return itemLogRes;
+        }//------------------------------------------------------------------------------------------------------------------------------------------------
         public static void AddMsg(string aText,Types.MessageType aTypeMsg)
         {
             ItemLogger itemLog = new ItemLogger();

@@ -52,7 +52,7 @@ namespace HPT1000.GUI
                 foreach (User user in db.Users)
                 {
                     cBoxUsers.Items.Add(user);
-                    if (db.UserApp.Equals(user))
+                    if (DB.LoggedUser.Equals(user))
                         index = i;
                     i++;
                 }

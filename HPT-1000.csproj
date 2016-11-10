@@ -166,6 +166,18 @@
     <Compile Include="GUI\SettingsPanel.Designer.cs">
       <DependentUpon>SettingsPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\UserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\UserForm.Designer.cs">
+      <DependentUpon>UserForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\UserManagerPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\UserManagerPanel.Designer.cs">
+      <DependentUpon>UserManagerPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\ValvePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -266,6 +278,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\SettingsPanel.resx">
       <DependentUpon>SettingsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\UserForm.resx">
+      <DependentUpon>UserForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\UserManagerPanel.resx">
+      <DependentUpon>UserManagerPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ValvePanel.resx">
       <DependentUpon>ValvePanel.cs</DependentUpon>

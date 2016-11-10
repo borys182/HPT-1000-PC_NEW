@@ -8,8 +8,16 @@ namespace HPT1000.Source
 {
     public class User
     {
-        private Types.UserPrivilige privilige = Types.UserPrivilige.Operator;
-        private string              password  = "";
+        private string              name;
+        private string              surname;
+        private string              login;
+        private string              password ;
+        private Types.UserPrivilige privilige               = Types.UserPrivilige.Operator;
+        private bool                allowChangeAccount      = false;                        //falga okresla czy user moze zmienic parametry konta (password)
+        private bool                termAccount             = true;                         //flaga okresla czy kotno jest aktywne NA DANY OKRES
+        private DateTime            dateTimeEnableAccount   = DateTime.MinValue;            //data okresla do kiedy konto ma być aktywne
+
+        //---------------------------------------------------------------------------------------------------------------------
 
         //---------------------------------------------------------------------------------------------------------------------
         public Types.UserPrivilige Privilige

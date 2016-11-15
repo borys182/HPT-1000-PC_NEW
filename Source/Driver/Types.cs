@@ -36,7 +36,7 @@ namespace HPT1000.Source.Driver
         public enum TypePLC         { L = 0x51 };
         public enum UserPrivilige   { None = 0, Administrator = 1, Operator = 2, Service = 3, Technican = 4};
         public enum TypeInterlock   { None = 0 , Door = 1 , VacuumSwitch = 2 , ThermalSwitch = 3 , PressureGauge = 4 , EmgStop = 5  }
-
+        public enum TypeDisableAccount  { Temporarily = 1 , Immediately = 2 , Access = 3  }
 
         public enum MessageType     { Error = 1, Warrning = 2, Message = 3 };
         //Okreslenie zdrodla pochodzenia eventu ktory generuje nam wiadomosc do systemu. Jest to wymagane do szukania powiazanego z nim textu informacji - dla mxComponent generujemy dodatkowe info na temat bledu

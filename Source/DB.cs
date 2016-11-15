@@ -29,37 +29,12 @@ namespace HPT1000.Source
      * : translacji tekstow , użytkowników i uprawnień, pomiarów, programów 
      */ 
     public class DB
-    {
-        public static User              userApp         = new User(Types.UserPrivilige.None,"");
-       
+    {    
         private static List<ErrorText>  actionTextList  = new List<ErrorText>();
-        private        List<User>       users           = new List<User>();
 
-        //-------------------------------------------------------------------------------------
-        public List<User>Users
-        {
-            get { return users; }
-        }
-        //-------------------------------------------------------------------------------------
-        public static User LoggedUser
-        {
-            get { return userApp; }
-        }
         //-------------------------------------------------------------------------------------
         public DB()
         {
-            //For teest
-            User user = new User(Types.UserPrivilige.Administrator,"admin");
-            users.Add(user);
-            user = new User(Types.UserPrivilige.Operator,"operator");
-            users.Add(user);
-            user = new User(Types.UserPrivilige.Service,"service");
-            users.Add(user);
-            user = new User(Types.UserPrivilige.Technican, "technican");
-            users.Add(user);
-
-
-
             ErrorText aErrorText;
 
             //Tymczasowe dodanie tekstow dla bledow aplilacko
@@ -287,24 +262,6 @@ namespace HPT1000.Source
             */
             return aTxt;
         }
-        //-------------------------------------------------------------------------------------
-        public bool ChangeUserApp(User user,string psw)
-        {
-            bool aRes = false;
-
-            if(user != null && user.Password == psw)
-            {
-                userApp = user;
-                aRes = true;
-            }
-
-            return aRes;
-        }
-        //-------------------------------------------------------------------------------------
-        public void LogoutUser()
-        {
-            userApp = new User(Types.UserPrivilige.None, ""); 
-        }
-        //-------------------------------------------------------------------------------------
+    
     }
 }

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using HPT1000.Source.Driver;
 namespace HPT1000.Source
 {
+    /**
+     * Klasa jest odpowiedzialna za reprezentowania Usera w aplikacji. Poasiada wszelkie informacje na jego temat
+     */ 
     public class User
     {
         private string              name;
@@ -13,12 +16,53 @@ namespace HPT1000.Source
         private string              login;
         private string              password ;
         private Types.UserPrivilige privilige               = Types.UserPrivilige.Operator;
-        private bool                allowChangeAccount      = false;                        //falga okresla czy user moze zmienic parametry konta (password)
-        private bool                termAccount             = true;                         //flaga okresla czy kotno jest aktywne NA DANY OKRES
-        private DateTime            dateTimeEnableAccount   = DateTime.MinValue;            //data okresla do kiedy konto ma być aktywne
+        private bool                allowChangePsw          = true;                         //falga okresla czy user moze zmienic parametry konta (password)
+        private DateTime            dateStartDisableAccount = DateTime.Now;                 //data okresla do kiedy konto ma być aktywne
+        private DateTime            dateEndtDisableAccount  = DateTime.Now;                 //data okresla do kiedy konto ma być aktywne
+        private Types.TypeDisableAccount disableAccount = Types.TypeDisableAccount.Access;
 
         //---------------------------------------------------------------------------------------------------------------------
-
+        public string Name
+        {
+            set { name = value; }
+            get { return name; }
+        }
+        //---------------------------------------------------------------------------------------------------------------------
+        public string Surname
+        {
+            set { surname = value; }
+            get { return surname; }
+        }
+        //---------------------------------------------------------------------------------------------------------------------
+        public string Login
+        {
+            set { login = value; }
+            get { return login; }
+        }
+        //---------------------------------------------------------------------------------------------------------------------
+        public Types.TypeDisableAccount DisableAccount
+        {
+            set { disableAccount = value; }
+            get { return disableAccount; }
+        }
+        //---------------------------------------------------------------------------------------------------------------------
+        public DateTime DateStartDisableAccount
+        {
+            set { dateStartDisableAccount = value; }
+            get { return dateStartDisableAccount; }
+        }
+        //---------------------------------------------------------------------------------------------------------------------
+        public DateTime DateEndDisableAccount
+        {
+            set { dateEndtDisableAccount = value; }
+            get { return dateEndtDisableAccount; }
+        }
+        //---------------------------------------------------------------------------------------------------------------------
+        public bool AllowChangePsw
+        {
+            set { allowChangePsw = value; }
+            get { return allowChangePsw; }
+        }
         //---------------------------------------------------------------------------------------------------------------------
         public Types.UserPrivilige Privilige
         {
@@ -26,10 +70,16 @@ namespace HPT1000.Source
             get { return privilige;  }
         }
         //---------------------------------------------------------------------------------------------------------------------
-        public User(Types.UserPrivilige aPrivilige,string psw)
+        public User()
+        {
+
+        }
+        //---------------------------------------------------------------------------------------------------------------------
+        public User(Types.UserPrivilige aPrivilige,string psw,string alogin)
         {
             privilige = aPrivilige;
             password  = psw;
+            login     = alogin;
         }
         //---------------------------------------------------------------------------------------------------------------------
         public string Password
@@ -38,12 +88,13 @@ namespace HPT1000.Source
             get { return password; }
         }
         //---------------------------------------------------------------------------------------------------------------------
+        //Przeciarzenie funkcji ToString ktrora jest wywolywana poprzez mechanizm dodawania jako ItemComboBox Usera
         public override string ToString()
         {
-            string name = privilige.ToString();
-            return name;
+            return login;
         }
         //---------------------------------------------------------------------------------------------------------------------
+        //Przeciarzenie funkcji porownywania obiektow. Jest wykorzystywana do dodawania tylko raz danego usera do listy
         public override bool Equals(object obj)
         {
             bool aRes = false;
@@ -52,13 +103,14 @@ namespace HPT1000.Source
             {
                 User user = (User)obj;
 
-                if (user != null && user.Privilige == privilige && user.Password == password)
+                if (user != null && user.Privilige == privilige && user.Password == password && user.Login == login)
                     aRes = true;
 
             }
             return aRes;
         }
         //---------------------------------------------------------------------------------------------------------------------
+        //Plytka kopia obiektu
         public User Copy()
         {
             return (User)this.MemberwiseClone();

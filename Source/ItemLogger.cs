@@ -234,7 +234,7 @@ namespace HPT1000.Source
         public void SetConfirmError()
         {
             confirmError = true;
-            userConfirm = DB.LoggedUser.ToString();
+            userConfirm = ApplicationData.LoggedUser.ToString();
         }
         //-----------------------------------------------------------------------------------------
     }

@@ -21,9 +21,10 @@ namespace HPT1000.GUI
     {
         private Source.Driver.HPT1000   hpt1000   = new HPT1000.Source.Driver.HPT1000();
         private Source.DB               dataBase  = new DB();
+        private ApplicationData         appData   = new ApplicationData();
 
         private Login                   loginForm = null;
-
+   
         private bool                    liveModeData_Graphical = false;
 
         User                            lastUser      = null;
@@ -86,6 +87,8 @@ namespace HPT1000.GUI
                 liveGraphicalPanel.SetForePumpObjPtr(hpt1000.GetForePump());
                 liveGraphicalPanel.MainForm = this;
 
+                userManagerPanel.AppData = appData;
+
                 pumpComponent.SetPumpPtr(hpt1000.GetForePump());
             }
             //Dodaj obserwatorow
@@ -99,7 +102,8 @@ namespace HPT1000.GUI
             GasTypes.AddToRefreshList(new RefreshGasType(mfcPanel1.RefreshGasType));
             GasTypes.AddToRefreshList(new RefreshGasType(mfcPanel2.RefreshGasType));
             GasTypes.AddToRefreshList(new RefreshGasType(mfcPanel3.RefreshGasType));
-
+            //Odswiezanie userow gdy cos sie z nimi zmienilo
+            ApplicationData.AddToRefreshUsersList(new RefreshUsers(userManagerPanel.RefreshUsers));
             //Ustaw odpowidnie obrazki dla SystemWindow
             LoadBitmap();
 
@@ -218,11 +222,11 @@ namespace HPT1000.GUI
         {
             if(dataBase != null)
             {
-                if(lastUser == null || !lastUser.Equals(DB.LoggedUser))
+                if(lastUser == null || !lastUser.Equals(ApplicationData.LoggedUser))
                 {
-                    labStatusUser.Text = "USER:  " + DB.LoggedUser.ToString() + "    ";
+                    labStatusUser.Text = "USER:  " + ApplicationData.LoggedUser.ToString() + "    ";
                     CreateTabControl();
-                    switch (DB.LoggedUser.Privilige)
+                    switch (ApplicationData.LoggedUser.Privilige)
                     {
                         case Types.UserPrivilige.Administrator:
                             SetUserPriviligeToAppAsAdmin();
@@ -238,10 +242,10 @@ namespace HPT1000.GUI
                             break;
                     }
                 }
-                lastUser = DB.LoggedUser.Copy();
+                lastUser = ApplicationData.LoggedUser.Copy();
             }
             bool aUserLoged = false;
-            if (DB.LoggedUser.Privilige != Types.UserPrivilige.None)
+            if (ApplicationData.LoggedUser.Privilige != Types.UserPrivilige.None)
                 aUserLoged = true;
 
             btnLogin.Enabled    = !aUserLoged;
@@ -250,7 +254,7 @@ namespace HPT1000.GUI
         //----------------------------------------------------------------------------------
         private void CreateTabControl()
         {
-            if (dataBase != null && DB.LoggedUser.Privilige != Types.UserPrivilige.None)
+            if (dataBase != null && ApplicationData.LoggedUser.Privilige != Types.UserPrivilige.None)
             {
                 if (!tabControlMain.TabPages.Contains(tabPagePrograms))
                     tabControlMain.TabPages.Insert(tabControlMain.TabPages.Count, tabPagePrograms);
@@ -333,7 +337,7 @@ namespace HPT1000.GUI
             {
                 loginForm = new Login();
                 loginForm.FormClosed += new FormClosedEventHandler(loginForm_closed);
-                loginForm.SetDB(dataBase);
+                loginForm.SetApp(appData);
             }
             if(loginForm.Visible == false)
                 loginForm.ShowDialog();
@@ -453,8 +457,8 @@ namespace HPT1000.GUI
         //----------------------------------------------------------------------------------
         private void btnLogout_Click(object sender, EventArgs e)
         {
-            if (dataBase != null)
-                dataBase.LogoutUser();
+            if (appData != null)
+                appData.LogoutUser();
         }
         //----------------------------------------------------------------------------------
         private void btnLiveModeData_Click(object sender, EventArgs e)

@@ -164,9 +164,9 @@ namespace HPT1000.GUI
             if (cBoxDisableAcount.Checked)
             {
                 if (rBtnAfterData.Checked)
-                    user.DisableAccount = Types.TypeDisableAccount.Temporarily;
+                    aNewUser.DisableAccount = Types.TypeDisableAccount.Temporarily;
                 if (rBtnImmediately.Checked)
-                    user.DisableAccount = Types.TypeDisableAccount.Immediately;
+                    aNewUser.DisableAccount = Types.TypeDisableAccount.Immediately;
             }
             else
                 aNewUser.DisableAccount = Types.TypeDisableAccount.Access;
@@ -186,12 +186,15 @@ namespace HPT1000.GUI
                 if (!IsRequiredFiledFill())
                     MessageBox.Show("Can't create new user because require filed aren't fill", "New user", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            //Wszystko jest ok to utworz usera
+            //Dane wprowadzone sa ok to sprobuj utworz usera w bazie danych
             if (appData != null && aAccountIsCorrect)
             {
-                appData.AddUser(aNewUser);
-                user = aNewUser;
-                aRes = true;
+                if (appData.AddUser(aNewUser) == 0)
+                {
+                    user = aNewUser;
+                    aRes = true;
+                    btnOK.Text = "Modify";
+                }
             }
             return aRes;
         }
@@ -225,7 +228,10 @@ namespace HPT1000.GUI
 
                     if (cBoxEditPsw.Checked)
                         user.Password = tBoxPassword.Text;
-                    aRes = true;
+
+                    //Modyfikuj user w bazi danych
+                    if (appData != null && appData.ModifyUser(user) == 0)
+                        aRes = true;
                 }
                 else
                     MessageBox.Show("Can't modify user because require fileds aren't fill or confirm password is incorrect", "Modify user", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -239,12 +245,7 @@ namespace HPT1000.GUI
             if (user != null)
             {
                 if (ModifyUser())
-                {
-                    //powiadom innych ze user zostal odswiezony
-                    if (appData != null)
-                        appData.ModifyUser(user);
-                    MessageBox.Show("User " + user.Login + " data has been modified successfully", "Modify user", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                     MessageBox.Show("User " + user.Login + " data has been modified successfully", "Modify user", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {

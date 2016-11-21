@@ -35,8 +35,9 @@ namespace HPT1000.Source
                 logList.Add(itemLog);
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------
-        public static void AddError(Exception ex)
+        public static void AddException(Exception ex)
         {
+            MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------
         public static List<ItemLogger> GetLogList()

@@ -68,7 +68,7 @@ namespace HPT1000.GUI.Cotrols
                 }
                 catch (Exception ex)
                 {
-                    Source.Logger.AddError(ex);
+                    Source.Logger.AddException(ex);
                 }
             }
             get { return GetValue(tBox.Text); }

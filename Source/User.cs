@@ -11,6 +11,7 @@ namespace HPT1000.Source
      */ 
     public class User
     {
+        private Int32               id;                                                     //ID usera w bazie danych
         private string              name;
         private string              surname;
         private string              login;
@@ -21,6 +22,12 @@ namespace HPT1000.Source
         private DateTime            dateEndtDisableAccount  = DateTime.Now;                 //data okresla do kiedy konto ma być aktywne
         private Types.TypeDisableAccount disableAccount = Types.TypeDisableAccount.Access;
 
+        //---------------------------------------------------------------------------------------------------------------------
+        public Int32 ID
+        {
+            set { id = value; }
+            get { return id; }
+        }
         //---------------------------------------------------------------------------------------------------------------------
         public string Name
         {

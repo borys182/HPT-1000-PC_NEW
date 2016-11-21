@@ -121,8 +121,8 @@ namespace HPT1000.GUI
             {
                 //Wywolaj funkcje odpowiedzilana za usuwanie usera i odpieci go z listy dostepnych userow
                 string aLogin = user.Login;
-                appData.RemoveUser(user);
-                MessageBox.Show("User " + aLogin + " has been removed", "User remove", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if(appData.RemoveUser(user) == 0)
+                    MessageBox.Show("User " + aLogin + " has been removed", "User remove", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
                 MessageBox.Show("No selected user to remove", "User remove", MessageBoxButtons.OK, MessageBoxIcon.Error);

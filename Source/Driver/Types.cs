@@ -309,7 +309,7 @@ namespace HPT1000.Source.Driver
             }
             catch(Exception ex)
             {
-                Source.Logger.AddError(ex);
+                Logger.AddException(ex);
             }
 
             return aDateTime;

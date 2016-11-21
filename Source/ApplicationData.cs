@@ -37,15 +37,13 @@ namespace HPT1000.Source
             get { return loggedUser; }
         }
         //--------------------------------------------------------------------------------------------------------------
-        public DB DataBase
-        {
-            set { dataBase = value; }
-        }
-        //--------------------------------------------------------------------------------------------------------------
         //Konstruktor aplikacji ustawia odrazu wymagane referencje
         public ApplicationData()
         {
+            //pobierz liste userow z bazy danych
+
             //For teest
+            /*
             User user = new User(Types.UserPrivilige.Administrator, "admin","admin");
             AddUser(user);
             user = new User(Types.UserPrivilige.Operator, "operator","operator");
@@ -54,7 +52,21 @@ namespace HPT1000.Source
             AddUser(user);
             user = new User(Types.UserPrivilige.Technican, "technican","technics");
             AddUser(user);
-        }   
+            */
+        }
+        //--------------------------------------------------------------------------------------------------------------
+        public void SetDataBase(DB aDataBase)
+        {
+            dataBase = aDataBase;
+
+            if (dataBase != null)
+            {
+                //pobierz liste userow z bazy danych
+                users = dataBase.GetUsers();
+                if (refreshObject != null)
+                    refreshObject();
+            }
+        }
         //-------------------------------------------------------------------------------------
         //Funkcja wykonuje operacje zwiazane z operacja logowania usera do aplikacji. Jezeli operacja sie powiedzie to ustaw aktualnego usera jako ten zalogwany
         public bool LoginUser(User user, string psw)
@@ -76,30 +88,58 @@ namespace HPT1000.Source
             loggedUser = userNone;
         }
         //-------------------------------------------------------------------------------------
-        //Dodaj usera do listy wszystkich userow
-        public void AddUser(User user)
+        //Dodaj usera do bazy danych oraz listy wszystkich userow
+        public int AddUser(User user)
         {
-            if (users != null)
+            int aRes = 0;
+            if (users != null && dataBase != null )
             {
-                users.Add(user);
-                if (refreshObject != null)
-                    refreshObject();
+                //Dodaj usera do bazy danych
+                aRes = dataBase.AddUser(user);
+                //Jezeli udalo sie dodac usera do bazy danych to dodaj go do listy userow aplikacji
+                if (aRes == 0)
+                {
+                    users.Add(user);
+                    if (refreshObject != null)
+                        refreshObject();
+                }
             }
+            return aRes;
         }
         //--------------------------------------------------------------------------------------------------------------
-        //Usun danego usera
-        public void RemoveUser(User user)
+        //Usun danego usera z bazy danych oraz lokalnej listy aplkiacji
+        public int RemoveUser(User user)
         {
-            users.Remove(user);
-            if (refreshObject != null)
-                refreshObject();
+            int aRes = 0;
+            if (user != null && dataBase != null)
+            {
+                //Usun usera z bazy danych i zwroc wynik Operacji. Wynik rozny od zera oznacza problemy i jest to kod bledu 
+                aRes = dataBase.RemoveUser(user);
+                //Sprawdz czy sie udalo usunac usera z bazy danych. Jezeli tak to usun go takze z listy aplikacji i powiadom o tym fakcie subskrytentow
+                if (aRes == 0)
+                {
+                    users.Remove(user);
+                    if (refreshObject != null)
+                        refreshObject();
+                }
+            }
+            return aRes;
         }
         //--------------------------------------------------------------------------------------------------------------
         //Wykonanie akcji modyfikacji usera. Powiadom moich subskryptentow ze cos sie zmienilo
-        public void ModifyUser(User user)
+        public int ModifyUser(User user)
         {
-            if (refreshObject != null)
-                refreshObject();
+            int aRes = 0;
+            if (user != null && dataBase != null)
+            {
+                aRes = dataBase.ModifyUser(user);
+                if (user != null)
+                {
+                    if (refreshObject != null)
+                        refreshObject();
+                }
+            }
+            return aRes;
         }
         //--------------------------------------------------------------------------------------------------------------
         //Dodanie do listy subskrypcji danej funkcji

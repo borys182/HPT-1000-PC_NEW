@@ -109,6 +109,8 @@ namespace HPT1000.GUI
 
             liveGraphicalPanel.Location = grBoxSystem.Location;
             liveGraphicalPanel.Size = grBoxSystem.Size;
+
+            appData.SetDataBase(dataBase);
         }
         //------------------------------------------------------------------------------------------
         private void LoadBitmap()

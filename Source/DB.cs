@@ -1,12 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Data;
+using System.Data.Odbc;
+using Npgsql;
+
 using System.Text;
 using System.Threading.Tasks;
 using HPT1000.Source.Driver;
 
+/*Lista rzeczy do zrobienia
+ *  dostosowanie procedury AddUser aby podawac typ privligie a nie id
+ *  serial dla tabel
+ *  zwracac info czy sie udalo wykonac procedury
+ */
+
 namespace HPT1000.Source
 {
+    enum TypeFillParameters { NewUser = 1 , ModifyUser = 2 , RemoveUser = 3};
     struct ErrorText
     {
         public Types.EventCategory EventCategory;
@@ -14,6 +24,8 @@ namespace HPT1000.Source
         public int                 ErrCode;
         public string              Text;
         public Types.Language      Language;
+
+        
 
         public ErrorText(int aCategory,int aType,int aErrCode,string aTxt,Types.Language aLanguage)
         {
@@ -32,9 +44,339 @@ namespace HPT1000.Source
     {    
         private static List<ErrorText>  actionTextList  = new List<ErrorText>();
 
+        //korzystanie ze standardowego sterownika ODBC dostarczonego przez framwork visula
+        private OdbcConnection connection = new OdbcConnection("Dsn=PostgreSQL;" + "database=HE-005;server=localhost;" + "port=5432;uid=postgres;");
+
+        //korzystanie z providera bazy Postgres dla C# (framework Npsql)
+        private string pwd = "jan83lech";
+        NpgsqlConnection conn = new NpgsqlConnection("Server = 127.0.0.1 ; User ID = postgres ;" + "Password = " + "jan83lech" + "; Database=HE-005;");
+
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie otwarcie polaczenia z baza danych. Jezeli sie to udalo to zwraca 0 w przeciwnym wypadku wartosc rozna od 0 
+        private int Open()
+        {
+            int aRes = 1;
+            try
+            {
+                conn.Open();
+            //    connection.Open();
+                aRes = 0;
+            }
+            catch (Exception ex){
+                Logger.AddException(ex);
+                Logger.AddMsg("For unknown reasons database connection can't be opened", Types.MessageType.Error);
+            }
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie zamkniecia polaczenia z baza danych. Jezeli sie to udalo to zwraca 0 w przeciwnym wypadku wartosc rozna od 0 
+        public int Close()
+        {
+            int aRes = 1;
+            try
+            {
+                // connection.Close();
+                conn.Close();
+                aRes = 0;
+            }
+            catch(Exception ex){
+                Logger.AddException(ex);
+                Logger.AddMsg("For unknown reasons database connection can't be closed.", Types.MessageType.Error);
+            }
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie podanie listy userow wpisanych do tabeli Users bazy danych
+        public List<User> GetUsers()
+        {
+            List<User> users = new List<User>();
+
+            //Programowanie komunikcji z baza z urzyciem frameworka Npgswl sprecyzowanego na komuniakcje z baza danych srodowiska Visual
+           
+            //utworz zapytanie
+            string query = " SELECT * FROM \"Users\"";
+            NpgsqlCommand cmd = new NpgsqlCommand(query,conn);
+            //wykonaj zapytanie
+            NpgsqlDataReader data = cmd.ExecuteReader();
+            //odczytaj wszystkich userow zwroconych przez zapytanie i przypisz je do obietku User oraz do lsity users
+            while (data.Read())
+            {
+                User user = new User();
+                try
+                {
+                    if (!data.IsDBNull(data.GetOrdinal("id")))
+                        user.ID = data.GetInt32(data.GetOrdinal("id"));
+
+                    if (!data.IsDBNull(data.GetOrdinal("name")))
+                        user.Name = data.GetString(data.GetOrdinal("name"));
+
+                    if (!data.IsDBNull(data.GetOrdinal("surname")))
+                        user.Surname = data.GetString(data.GetOrdinal("surname"));
+
+                    if (!data.IsDBNull(data.GetOrdinal("login")))
+                        user.Login = data.GetString(data.GetOrdinal("login"));
+
+                    if (!data.IsDBNull(data.GetOrdinal("password")))
+                        user.Password = data.GetString(data.GetOrdinal("password"));
+
+                    if (!data.IsDBNull(data.GetOrdinal("allow_change_psw")))
+                        user.AllowChangePsw = data.GetBoolean(data.GetOrdinal("allow_change_psw"));
+
+                    if (!data.IsDBNull(data.GetOrdinal("type_block_account")))
+                        user.DisableAccount = (Types.TypeDisableAccount)data.GetInt32(data.GetOrdinal("type_block_account"));
+
+                    if (!data.IsDBNull(data.GetOrdinal("privilige")))
+                        user.Privilige = (Types.UserPrivilige)data.GetInt32(data.GetOrdinal("privilige"));
+
+                    if (!data.IsDBNull(data.GetOrdinal("start_date_block_account")))
+                        user.DateStartDisableAccount = (DateTime)data.GetDate(data.GetOrdinal("start_date_block_account"));
+
+                    if (!data.IsDBNull(data.GetOrdinal("end_date_block_account")))
+                        user.DateEndDisableAccount = (DateTime)data.GetDate(data.GetOrdinal("end_date_block_account"));
+
+                    users.Add(user);
+
+                }
+                catch (Exception ex){
+                    Logger.AddException(ex);
+                }
+            }
+            data.Close();
+        
+            return users;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja dodaje usera do bazy danych. Jezeli operacja sie powiedzia xwraca 0 w przeciwnym wypadku wartosc rozna od 0
+        public int AddUser(User user)
+        {
+            int aRes = 0;
+            List<NpgsqlParameter>parameters = GetUserParameters(user, TypeFillParameters.NewUser);
+            aRes = PerformFunctionDB("\"NewUser\"", parameters);
+            //Funkcja zwraca ID nowo utworzonego usera
+            if (aRes > 0 && user != null)
+            {
+                user.ID = aRes; //wynik funkicji bazodanowej zwraca ID nowo utworzonego usera
+                aRes = 0; //Ustaw reuslt jako ze obulo sie bez problemow
+            }
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja dodaje usera do bazy danych. Jezeli operacja sie powiedzia xwraca 0 w przeciwnym wypadku wartosc rozna od 0
+        public int ModifyUser(User user)
+        {
+            int aRes = 0;
+            //Przygotuj parametry dla procedury modife na bazie obiektu usera
+            List<NpgsqlParameter> parameters = GetUserParameters(user, TypeFillParameters.ModifyUser);
+            //Wykonaj procedure modyfikowania usera
+            aRes = PerformFunctionDB("\"ModifyUser\"", parameters);          
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja dodaje usera do bazy danych. Jezeli operacja sie powiedzia xwraca 0 w przeciwnym wypadku wartosc rozna od 0
+        public int RemoveUser(User user)
+        {
+            int aRes = 0;
+            //Przygotuj parametry dla procedury usuwania na bazie obiektu usera
+            List<NpgsqlParameter> parameters = GetUserParameters(user, TypeFillParameters.RemoveUser);
+            //Wykonaj procedure usuwania usera
+            aRes = PerformFunctionDB("\"RemoveUser\"", parameters);
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funckja dodaje do bazy danych program
+        public int AddProgram(Program.Program program)
+        {
+            int aRes = -1;
+            if (program != null)
+            {
+                //Przygotuj parametry dla procedury dodawania programuw bazie danych
+                List<NpgsqlParameter> parameters = new List<NpgsqlParameter>();
+                NpgsqlParameter para = null;
+
+                para = new NpgsqlParameter();       //utworz parametr name                    
+                para.ParameterName = "name";
+                para.DbType = DbType.AnsiString;
+                para.Value = program.GetName();
+                parameters.Add(para);
+
+                para = new NpgsqlParameter();       //utworz parametr description                    
+                para.ParameterName = "description";
+                para.DbType = DbType.AnsiString;
+                para.Value = program.GetDescription();
+                parameters.Add(para);
+
+                //Wykonaj procedure dodawania programu
+                aRes = PerformFunctionDB("\"NewProgram\"", parameters);
+            }
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja dodaje do bazy danych subprogram. Powiazanie subprogramu z programem odbywa sie juz po stronie bazy danych w funkcji AddSubprpgram
+        public int AddSubProgram(Program.Subprogram subprogram,string programName)
+        {
+            int aRes = -1;
+            if (subprogram != null)
+            {
+                //Przygotuj parametry dla procedury dodawania subprogramu powiazanego z programem
+                List<NpgsqlParameter> parameters = new List<NpgsqlParameter>();
+                NpgsqlParameter para = null;
+
+                para = new NpgsqlParameter();       //utworz parametr program name                    
+                para.ParameterName = "name_program";
+                para.DbType = DbType.AnsiString;
+                para.Value = programName;
+                parameters.Add(para);
+
+                para = new NpgsqlParameter();       //utworz parametr subprogram name                    
+                para.ParameterName = "name_subprogram";
+                para.DbType = DbType.AnsiString;
+                para.Value = subprogram.GetName();
+                parameters.Add(para);
+
+                para = new NpgsqlParameter();       //utworz parametr description                    
+                para.ParameterName = "description";
+                para.DbType = DbType.AnsiString;
+                para.Value = subprogram.GetDescription();
+                parameters.Add(para);
+
+                //Wykonaj procedure dodawania programu
+                aRes = PerformFunctionDB("\"NewProgram\"", parameters);
+            }
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie utworzenie parametrow procedury Add/Modify user 
+        private List<NpgsqlParameter> GetUserParameters(User user, TypeFillParameters typeFill)
+        {
+            List<NpgsqlParameter> parameters = new List<NpgsqlParameter>();
+            NpgsqlParameter para = null;
+            //Wpraowdz parametr ID. Jest on wymagany dla procedur Remove oraz Modify
+            if (typeFill == TypeFillParameters.ModifyUser || typeFill == TypeFillParameters.RemoveUser)
+            {
+                para = new NpgsqlParameter();       //utworz parametr name                    
+                para.ParameterName = "id";
+                para.DbType = DbType.Int32;
+                para.Value = user.ID;
+                parameters.Add(para);
+            }
+            //WPrawdz parametry funkcji New/Modify na podstawie ustawien usera
+            if (typeFill == TypeFillParameters.ModifyUser || typeFill == TypeFillParameters.NewUser)
+            {
+                para = new NpgsqlParameter();       //utworz parametr name                    
+                para.ParameterName = "name";
+                para.DbType = DbType.AnsiString;
+                para.Value = user.Name;
+                parameters.Add(para);
+
+                para = new NpgsqlParameter();       //utworz parametr surnname                    
+                para.ParameterName = "surname";
+                para.DbType = DbType.AnsiString;
+                para.Value = user.Surname;
+                parameters.Add(para);
+
+                para = new NpgsqlParameter();       //utworz parametr login                    
+                para.ParameterName = "login";
+                para.DbType = DbType.AnsiString;
+                para.Value = user.Login;
+                parameters.Add(para);
+
+                para = new NpgsqlParameter();       //utworz parametr password                    
+                para.ParameterName = "password";
+                para.DbType = DbType.AnsiString;
+                para.Value = user.Password;
+                parameters.Add(para);
+
+                para = new NpgsqlParameter();       //utworz parametr allow_change psw                    
+                para.ParameterName = "allow_change_psw";
+                para.DbType = DbType.Boolean;
+                para.Value = user.AllowChangePsw;
+                parameters.Add(para);
+
+                para = new NpgsqlParameter();       //utworz parametr typ blokowania usera                    
+                para.ParameterName = "type_block";
+                para.DbType = DbType.Int32;
+                para.Value = user.DisableAccount;
+                parameters.Add(para);
+
+                para = new NpgsqlParameter();       //utworz parametr uprawnienia                    
+                para.ParameterName = "privilige";
+                para.DbType = DbType.Int32;
+                para.Value = user.Privilige;
+                parameters.Add(para);
+
+                para = new NpgsqlParameter();       //utworz parametr data poczaktu ewentualnej blokady                    
+                para.ParameterName = "start_date_block";
+                para.DbType = DbType.Date;
+                para.Value = user.DateStartDisableAccount;
+                parameters.Add(para);
+
+                para = new NpgsqlParameter();       //utworz parametr data konca ewentualnej blokady                      
+                para.ParameterName = "end_date_block";
+                para.DbType = DbType.Date;
+                para.Value = user.DateEndDisableAccount;
+                parameters.Add(para);
+            }
+            return parameters;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie przekopiowanie parametrow z lity do parametrow komendy utworzonych na bazie obiektu komendy
+        public void PrepareParameters(NpgsqlCommand cmd, List<NpgsqlParameter> parameters)
+        {
+            if (cmd != null && parameters != null)
+            {
+                NpgsqlParameter paraCMD = null;
+                foreach (NpgsqlParameter para in parameters)
+                {
+                    paraCMD = cmd.CreateParameter();       //utworz parametr name                    
+                    paraCMD.ParameterName = para.ParameterName;
+                    paraCMD.DbType = para.DbType;
+                    paraCMD.Value = para.NpgsqlValue;
+                    cmd.Parameters.Add(paraCMD);
+                }
+            }
+        }
+        //-------------------------------------------------------------------------------------
+        private int PerformFunctionDB(string functionName, List<NpgsqlParameter> parameters)
+        {
+            int aRes = -1;
+            NpgsqlTransaction trans = null;
+            try
+            {
+                trans = conn.BeginTransaction();   //Rozpoczecie tranzakcji
+                //Powolonie pbiektu komendy i nadaniu mu komendy jako nazwy procedury ktora ma wykonac. Nazwa musi byc w cudzyslowiach bo wtedy sa rozpoznawane duze i male litery
+                NpgsqlCommand cmd = new NpgsqlCommand(functionName, conn); 
+                //Ustawienie komendy jako komendy dla ProceduryStorowanej
+                cmd.CommandType = CommandType.StoredProcedure;              
+                //Uzupelnij liste parametrow
+                PrepareParameters(cmd, parameters);
+                //Przygotuj obiekty wymagane do wykonania procedure
+                NpgsqlDataAdapter data = new NpgsqlDataAdapter(cmd);
+                DataSet ds = new DataSet();
+                //wypelnij data set danymi odebrannymi z procedury
+                data.Fill(ds);
+                //Odbierz wynik zwracany funkcje przez bazy danych
+                if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                    aRes = (int)ds.Tables[0].Rows[0].ItemArray[0];
+            }
+            //Jezeli zdazyl sie jakis problem to zglos to
+            catch (Exception ex)
+            {
+                Logger.AddException(ex);
+             }
+            //Zakonczenie tranzakcji
+            finally
+            {
+                if (trans != null)
+                    trans.Commit();
+            }
+
+            return aRes;
+        }
         //-------------------------------------------------------------------------------------
         public DB()
         {
+            Open();
+
             ErrorText aErrorText;
 
             //Tymczasowe dodanie tekstow dla bledow aplilacko

@@ -58,6 +58,8 @@ namespace HPT1000.GUI
             settingsPanel.SetPtrHPT(hpt1000);
             servicePanel.SetPtrHPT(hpt1000);
 
+            programsConfigPanel.DataBase = dataBase;
+            
             if (hpt1000 != null)
             {
                 generatorPanel.SetGeneratorPtr(hpt1000.GetPowerSupply());
@@ -90,6 +92,8 @@ namespace HPT1000.GUI
                 userManagerPanel.AppData = appData;
 
                 pumpComponent.SetPumpPtr(hpt1000.GetForePump());
+
+                hpt1000.DataBase = dataBase;
             }
             //Dodaj obserwatorow
 

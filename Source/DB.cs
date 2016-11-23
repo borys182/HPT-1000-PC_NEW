@@ -146,6 +146,230 @@ namespace HPT1000.Source
             return users;
         }
         //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie podanie listy userow wpisanych do tabeli Users bazy danych
+        public List<Program.Program> GetPrograms()
+        {
+            List<Program.Program> programs = new List<Program.Program>();
+
+            //utworz zapytanie
+            string query = " SELECT * FROM \"Programs\"";
+            NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+            //wykonaj zapytanie
+            NpgsqlDataReader data = cmd.ExecuteReader();
+            //odczytaj wszystkich userow zwroconych przez zapytanie i przypisz je do obietku User oraz do lsity users
+            int aProgramId = 0;
+            while (data.Read())
+            {
+                Program.Program     program     = null;
+                Program.Subprogram  subprogram  = null; 
+                try
+                {
+                    if (!data.IsDBNull(data.GetOrdinal("program_id")))
+                        aProgramId = data.GetInt32(data.GetOrdinal("program_id"));
+                    
+                    //Podaj mi wskaznik na program z danym ID ktory zostal juz wczesniej utworzony
+                    program = GetProgram(programs, aProgramId);
+                    if (program == null)
+                    {
+                        program = new Program.Program();
+                        program.SetID((uint)aProgramId);
+                  //      program.SetPtrPLC(); TO DO Zastanowic sien ad twrzemioenm progrmu z fabryky aby w jendym miejscu poprawnieni inijclizowac wymagane atrybuty obiektu
+                        program.DataBase = this;
+                        programs.Add(program);
+                    }
+
+                    if (!data.IsDBNull(data.GetOrdinal("program_name")))
+                        program.SetName(data.GetString(data.GetOrdinal("program_name")));
+
+                    if (!data.IsDBNull(data.GetOrdinal("program_description")))
+                        program.SetDescription(data.GetString(data.GetOrdinal("program_description")));
+
+                    //Jezeli program posiada jakis subprogram to zczytaj jego podstawoe info i dodaj do listy
+                    if (!data.IsDBNull(data.GetOrdinal("subprogram_id")))
+                    {
+                        subprogram = new Program.Subprogram();
+                        subprogram.ID = (uint)data.GetInt32(data.GetOrdinal("subprogram_id"));
+
+                        if (!data.IsDBNull(data.GetOrdinal("subprogram_name")))
+                            subprogram.SetName(data.GetString(data.GetOrdinal("subprogram_name")));
+
+                        if (!data.IsDBNull(data.GetOrdinal("subprogram_description")))
+                            subprogram.SetDescription(data.GetString(data.GetOrdinal("subprogram_description")));
+
+                        program.AddSubprogram(subprogram);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Logger.AddException(ex);
+                }
+            }
+            data.Close();
+
+            return programs;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie zwrocenie danego prgramu z lisy ale jezeli nie istnieje to go musi utworzyc
+         private Program.Program GetProgram(List<Program.Program>programs,int aIdProgram)
+        {
+            Program.Program program = null;
+            foreach(Program.Program pr in programs)
+            {
+                if (pr.GetID() == aIdProgram)
+                    program = pr;
+            }
+            return program;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie podanie listy userow wpisanych do tabeli Users bazy danychwypelnienie danymi procesowymi podanengo subprogramu
+        public void FillProcessParametersOfSubprograms(List<Program.Subprogram> subprograms)
+        {
+             //utworz zapytanie
+            string query = " SELECT * FROM \"Subprograms\"";
+            NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+            //wykonaj zapytanie
+            NpgsqlDataReader data = cmd.ExecuteReader();
+            //odczytaj wszystkich userow zwroconych przez zapytanie i przypisz je do obietku User oraz do lsity users
+            int subprogramID = 0;
+            while (data.Read())
+            {
+                try
+                {
+                    if (!data.IsDBNull(data.GetOrdinal("subprogram_id")))
+                        subprogramID = data.GetInt32(data.GetOrdinal("subprogram_id"));
+
+                    if (subprogramID > 0)
+                    {
+                        Program.Subprogram subprogram = GetSubprogram(subprograms, subprogramID);
+                        if (subprogram != null)
+                        {
+                            FillVentProcessData(subprogram.GetVentProces(), data);
+                            FillPumpProcessData(subprogram.GetPumpProces(), data);
+                            FillPurgeProcessData(subprogram.GetPurgeProces(), data);
+                            FillPowerProcessData(subprogram.GetPlasmaProces(), data);
+                            FillGasProcessData(subprogram.GetGasProces(), data);
+                        }
+                    }             
+                }
+                catch (Exception ex)
+                {
+                    Logger.AddException(ex);
+                }
+            }
+            data.Close();
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        private Program.Subprogram GetSubprogram(List<Program.Subprogram> subprograms, int subprogramID)
+        {
+            Program.Subprogram subprogram = null;
+            foreach(Program.Subprogram subpr in subprograms)
+            {
+                if (subpr.ID == subprogramID)
+                    subprogram = subpr;
+            }
+            return subprogram;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        private void FillVentProcessData(Program.VentProces ventProcess, NpgsqlDataReader data)
+        {
+            if (ventProcess != null && data != null)
+            {
+                if (!data.IsDBNull(data.GetOrdinal("vent_time")))
+                    ventProcess.SetTimeVent((DateTime)data.GetTime(data.GetOrdinal("vent_time")));
+            }
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        private void FillPurgeProcessData(Program.FlushProces purgeProcess, NpgsqlDataReader data)
+        {
+            if (purgeProcess != null && data != null)
+            {
+                if (!data.IsDBNull(data.GetOrdinal("purge_time")))
+                    purgeProcess.SetTimePurge((DateTime)data.GetTime(data.GetOrdinal("purge_time")));
+            }
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        private void FillPumpProcessData(Program.PumpProces pumpProcess, NpgsqlDataReader data)
+        {
+            if (pumpProcess != null && data != null)
+            {
+                if (!data.IsDBNull(data.GetOrdinal("setpoint_pump_pressure")))
+                    pumpProcess.SetSetpoint(data.GetFloat(data.GetOrdinal("setpoint_pump_pressure")));
+                if (!data.IsDBNull(data.GetOrdinal("max_time_pump")))
+                    pumpProcess.SetTimeWaitForPumpDown((DateTime)data.GetTime(data.GetOrdinal("max_time_pump")));
+            }
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        private void FillPowerProcessData(Program.PlasmaProces powerProcess, NpgsqlDataReader data)
+        {
+            if (powerProcess != null && data != null)
+            {
+                if (!data.IsDBNull(data.GetOrdinal("power_supply_time_process")))
+                    powerProcess.SetTimeOperate((DateTime)data.GetTime(data.GetOrdinal("power_supply_time_process")));
+                if (!data.IsDBNull(data.GetOrdinal("power_supply_setpoint")))
+                    powerProcess.SetSetpointValue(data.GetFloat(data.GetOrdinal("power_supply_setpoint")));
+                if (!data.IsDBNull(data.GetOrdinal("power_supply_max_devation")))
+                    powerProcess.SetDeviation(data.GetFloat(data.GetOrdinal("power_supply_max_devation")));
+                if (!data.IsDBNull(data.GetOrdinal("power_supply_mode")))
+                    powerProcess.SetWorkMode((Types.WorkModeHV)data.GetInt32(data.GetOrdinal("power_supply_mode")));
+            }
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        private void FillGasProcessData(Program.GasProces gasProcess, NpgsqlDataReader data)
+        {
+            if (gasProcess != null && data != null)
+            {
+                if (!data.IsDBNull(data.GetOrdinal("gas_process_duration")))
+                    gasProcess.SetTimeProcesDuration((DateTime)data.GetTime(data.GetOrdinal("gas_process_duration")));
+                if (!data.IsDBNull(data.GetOrdinal("mode_gas")))
+                    gasProcess.SetModeProces((Types.GasProcesMode)data.GetInt32(data.GetOrdinal("mode_gas")));
+                if (!data.IsDBNull(data.GetOrdinal("gas_setpoint_pressure")))
+                    gasProcess.SetSetpointPressure(data.GetFloat(data.GetOrdinal("gas_setpoint_pressure")));
+                if (!data.IsDBNull(data.GetOrdinal("vaporaiser_cycle_time")))
+                    gasProcess.SetCycleTime(data.GetFloat(data.GetOrdinal("vaporaiser_cycle_time")));
+                if (!data.IsDBNull(data.GetOrdinal("vaporaiser_on_time")))
+                    gasProcess.SetOnTime((int)data.GetFloat(data.GetOrdinal("vaporaiser_on_time")));
+                if (!data.IsDBNull(data.GetOrdinal("mfc1_flow")))
+                    gasProcess.SetGasFlow(data.GetFloat(data.GetOrdinal("mfc1_flow")), Types.UnitFlow.sccm,1);
+                if (!data.IsDBNull(data.GetOrdinal("mfc2_flow")))
+                    gasProcess.SetGasFlow(data.GetFloat(data.GetOrdinal("mfc2_flow")), Types.UnitFlow.sccm,2);
+                if (!data.IsDBNull(data.GetOrdinal("mfc3_flow")))
+                    gasProcess.SetGasFlow(data.GetFloat(data.GetOrdinal("mfc3_flow")), Types.UnitFlow.sccm,3);
+                if (!data.IsDBNull(data.GetOrdinal("mfc1_min_flow")))
+                    gasProcess.SetMinGasFlow((int)data.GetFloat(data.GetOrdinal("mfc1_min_flow")), 1);
+                if (!data.IsDBNull(data.GetOrdinal("mfc2_min_flow")))
+                    gasProcess.SetMinGasFlow((int)data.GetFloat(data.GetOrdinal("mfc2_min_flow")), 2);
+                if (!data.IsDBNull(data.GetOrdinal("mfc3_min_flow")))
+                    gasProcess.SetMinGasFlow((int)data.GetFloat(data.GetOrdinal("mfc3_min_flow")), 3);
+                if (!data.IsDBNull(data.GetOrdinal("mfc1_max_flow")))
+                    gasProcess.SetMaxGasFlow((int)data.GetFloat(data.GetOrdinal("mfc1_max_flow")), 1);
+                if (!data.IsDBNull(data.GetOrdinal("mfc2_max_flow")))
+                    gasProcess.SetMaxGasFlow((int)data.GetFloat(data.GetOrdinal("mfc2_max_flow")), 2);
+                if (!data.IsDBNull(data.GetOrdinal("mfc3_max_flow")))
+                    gasProcess.SetMaxGasFlow((int)data.GetFloat(data.GetOrdinal("mfc3_max_flow")), 3);
+                if (!data.IsDBNull(data.GetOrdinal("mfc1_gas_share")))
+                    gasProcess.SetShareGas((int)data.GetFloat(data.GetOrdinal("mfc1_gas_share")), 1);
+                if (!data.IsDBNull(data.GetOrdinal("mfc2_gas_share")))
+                    gasProcess.SetShareGas((int)data.GetFloat(data.GetOrdinal("mfc2_gas_share")), 2);
+                if (!data.IsDBNull(data.GetOrdinal("mfc3_gas_share")))
+                    gasProcess.SetShareGas((int)data.GetFloat(data.GetOrdinal("mfc3_gas_share")), 3);
+                if (!data.IsDBNull(data.GetOrdinal("mfc1_max_devation")))
+                    gasProcess.SetShareDevaition((int)data.GetFloat(data.GetOrdinal("mfc1_max_devation")), 1);
+                if (!data.IsDBNull(data.GetOrdinal("mfc2_max_devation")))
+                    gasProcess.SetShareDevaition((int)data.GetFloat(data.GetOrdinal("mfc2_max_devation")), 2);
+                if (!data.IsDBNull(data.GetOrdinal("mfc3_max_devation")))
+                    gasProcess.SetShareDevaition((int)data.GetFloat(data.GetOrdinal("mfc3_max_devation")), 3);
+                if (!data.IsDBNull(data.GetOrdinal("mfc1_active")))
+                    gasProcess.SetActiveFlow(data.GetBoolean(data.GetOrdinal("mfc1_active")), 1);
+                if (!data.IsDBNull(data.GetOrdinal("mfc2_active")))
+                    gasProcess.SetActiveFlow(data.GetBoolean(data.GetOrdinal("mfc2_active")), 2);
+                if (!data.IsDBNull(data.GetOrdinal("mfc3_active")))
+                    gasProcess.SetActiveFlow(data.GetBoolean(data.GetOrdinal("mfc3_active")), 3);
+                if (!data.IsDBNull(data.GetOrdinal("vaporaiser_active")))
+                    gasProcess.SetVaporaiserActive(data.GetBoolean(data.GetOrdinal("vaporaiser_active")));
+            }
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
         //Funkcja dodaje usera do bazy danych. Jezeli operacja sie powiedzia xwraca 0 w przeciwnym wypadku wartosc rozna od 0
         public int AddUser(User user)
         {
@@ -190,133 +414,282 @@ namespace HPT1000.Source
             if (program != null)
             {
                 //Przygotuj parametry dla procedury dodawania programuw bazie danych
-                List<NpgsqlParameter> parameters = new List<NpgsqlParameter>();
-                NpgsqlParameter para = null;
-
-                para = new NpgsqlParameter();       //utworz parametr name                    
-                para.ParameterName = "name";
-                para.DbType = DbType.AnsiString;
-                para.Value = program.GetName();
-                parameters.Add(para);
-
-                para = new NpgsqlParameter();       //utworz parametr description                    
-                para.ParameterName = "description";
-                para.DbType = DbType.AnsiString;
-                para.Value = program.GetDescription();
-                parameters.Add(para);
-
+                List<NpgsqlParameter> parameters = GetProgramParameters(program, TypeFillParameters.NewUser);
                 //Wykonaj procedure dodawania programu
                 aRes = PerformFunctionDB("\"NewProgram\"", parameters);
             }
             return aRes;
         }
         //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja dodaje usera do bazy danych. Jezeli operacja sie powiedzia xwraca 0 w przeciwnym wypadku wartosc rozna od 0
+        public int ModifyProgram(Program.Program program)
+        {
+            int aRes = -1;
+            if (program != null)
+            {
+                //Przygotuj parametry dla procedury modife na bazie obiektu usera
+                List<NpgsqlParameter> parameters = GetProgramParameters(program, TypeFillParameters.ModifyUser);
+                //Wykonaj procedure modyfikowania usera
+                aRes = PerformFunctionDB("\"ModifyProgram\"", parameters);
+            }
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja usuwa program z bazy danych. Jezeli operacja sie powiedzia xwraca 0 w przeciwnym wypadku wartosc rozna od 0
+        public int RemoveProgram(Program.Program program)
+        {
+            int aRes = -1;
+            if (program != null)
+            {
+                //Przygotuj parametry dla procedury usuwania standardowo rekordu z bazy danych to naczy funkcja posiada tylko jeden parametr o nazwie ID
+                List<NpgsqlParameter> parameters = GetRemoveStandardParameters((int)program.GetID());
+                //Wykonaj procedure usuwania programu
+                aRes = PerformFunctionDB("\"RemoveProgram\"", parameters);
+            }
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
         //Funkcja dodaje do bazy danych subprogram. Powiazanie subprogramu z programem odbywa sie juz po stronie bazy danych w funkcji AddSubprpgram
-        public int AddSubProgram(Program.Subprogram subprogram,string programName)
+        public int AddSubProgram(Program.Subprogram subprogram,Int32 idProgram)
         {
             int aRes = -1;
             if (subprogram != null)
             {
                 //Przygotuj parametry dla procedury dodawania subprogramu powiazanego z programem
                 List<NpgsqlParameter> parameters = new List<NpgsqlParameter>();
-                NpgsqlParameter para = null;
 
-                para = new NpgsqlParameter();       //utworz parametr program name                    
-                para.ParameterName = "name_program";
-                para.DbType = DbType.AnsiString;
-                para.Value = programName;
-                parameters.Add(para);
-
-                para = new NpgsqlParameter();       //utworz parametr subprogram name                    
-                para.ParameterName = "name_subprogram";
-                para.DbType = DbType.AnsiString;
-                para.Value = subprogram.GetName();
-                parameters.Add(para);
-
-                para = new NpgsqlParameter();       //utworz parametr description                    
-                para.ParameterName = "description";
-                para.DbType = DbType.AnsiString;
-                para.Value = subprogram.GetDescription();
-                parameters.Add(para);
-
+                //utworz parametr program name                    
+                parameters.Add(GetParameter("id_program", DbType.Int32, idProgram));
+                //utworz parametr subprogram name                    
+                parameters.Add(GetParameter("name_subprogram", DbType.AnsiString, subprogram.GetName()));
+                //utworz parametr description                    
+                parameters.Add(GetParameter("description", DbType.AnsiString, subprogram.GetDescription()));
+         
                 //Wykonaj procedure dodawania programu
-                aRes = PerformFunctionDB("\"NewProgram\"", parameters);
+                aRes = PerformFunctionDB("\"AddSubprogram\"", parameters);
             }
             return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja modyfikuje dane w bazie danych dla tabeli subprogram. 
+        public int ModifySubprogram(Program.Subprogram subprogram)
+        {
+            int aRes = -1;
+            if (subprogram != null)
+            {
+                //Przygotuj parametry dla procedury dodawania subprogramu powiazanego z programem
+                List<NpgsqlParameter> parameters = new List<NpgsqlParameter>();
+
+                //utworz parametr program id                    
+                parameters.Add(GetParameter("id", DbType.Int32, subprogram.ID));
+                //utworz parametr subprogram name                    
+                parameters.Add(GetParameter("name", DbType.AnsiString, subprogram.GetName()));
+                //utworz parametr description                    
+                parameters.Add(GetParameter("description", DbType.AnsiString, subprogram.GetDescription()));
+            
+                //Wykonaj procedure dodawania programu
+                aRes = PerformFunctionDB("\"ModifySubprogram\"", parameters);
+
+                //Modyfikuj tabele zwiazane z prcesami
+                ModifySubprogramStages_1(subprogram);
+                ModifySubprogramStages_2(subprogram);
+            }
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja modyfikuje dane w bazie danych dla tabel powiazanych z danym subprogramem i przechowujacych info na temat jego parametrow odnosnie:
+        //vent, purgu, pump oraz zasilacza. 
+        public int ModifySubprogramStages_1(Program.Subprogram subprogram)
+        {
+            int aRes = -1;
+            if (subprogram != null && subprogram.GetVentProces() != null && subprogram.GetPlasmaProces() != null && subprogram.GetPumpProces() != null && subprogram.GetPurgeProces() != null)
+            {
+                //Przygotuj parametry dla procedury dodawania subprogramu powiazanego z programem
+                List<NpgsqlParameter> parameters = new List<NpgsqlParameter>();
+
+                //utworz liste parametrow dla funkcji ModifySubprogramStages_1
+                parameters.Add(GetParameter("id_subprogram", DbType.Int32, subprogram.ID));
+                parameters.Add(GetParameter("time_vent", DbType. Time, subprogram.GetVentProces().GetTimeVent() ));
+                parameters.Add(GetParameter("time_purge", DbType.Time, subprogram.GetPurgeProces().GetTimePurge()));
+                parameters.Add(GetParameter("time_pump", DbType.Time, subprogram.GetPumpProces().GetTimeWaitForPumpDown()));
+                parameters.Add(GetParameter("setpoint_pressure_pump", DbType.Single, (float)subprogram.GetPumpProces().GetSetpoint()));
+                parameters.Add(GetParameter("setpoint_power_supply", DbType.Single, (float)subprogram.GetPlasmaProces().GetSetpointValue()));
+                parameters.Add(GetParameter("mode", DbType.Int32, (int)subprogram.GetPlasmaProces().GetWorkMode()));
+                parameters.Add(GetParameter("max_devation_power_supply", DbType.Single, (float)subprogram.GetPlasmaProces().GetDeviation()));
+                parameters.Add(GetParameter("time_duration_power_supply", DbType.Time, subprogram.GetPlasmaProces().GetTimeOperate()));
+             
+                //Wykonaj procedure dodawania programu
+                aRes = PerformFunctionDB("\"ModifySubprogramStages_1\"", parameters);
+            }
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja modyfikuje dane w bazie danych dla tabel powiazanych z danym subprogramem i przechowujacych info na temat jego parametrow odnosnie sterowania gazami:
+        public int ModifySubprogramStages_2(Program.Subprogram subprogram)
+        {
+            int aRes = -1;
+            if (subprogram != null && subprogram.GetGasProces() != null)
+            {
+                Program.GasProces gas = subprogram.GetGasProces();
+                //Przygotuj parametry dla procedury dodawania subprogramu powiazanego z programem
+                List<NpgsqlParameter> parameters = new List<NpgsqlParameter>();
+
+                //utworz liste parametrow dla funkcji ModifySubprogramStages_2 - edycja tabeli przechowujacej info na temat sterowania gazami
+                parameters.Add(GetParameter("id_subprogram", DbType.Int32, subprogram.ID));
+                parameters.Add(GetParameter("active_mfc1",   DbType.Boolean, gas.GetActiveFlow(1)));
+                parameters.Add(GetParameter("active_mfc2",   DbType.Boolean, gas.GetActiveFlow(2)));
+                parameters.Add(GetParameter("active_mfc3",   DbType.Boolean, gas.GetActiveFlow(3)));
+                parameters.Add(GetParameter("active_vaporaiser", DbType.Boolean, gas.GetVaporiserActive()));
+                parameters.Add(GetParameter("flow_mfc1",     DbType.Single, (float)gas.GetGasFlow(Types.UnitFlow.sccm,1)));
+                parameters.Add(GetParameter("flow_mfc2",     DbType.Single, (float)gas.GetGasFlow(Types.UnitFlow.sccm,2)));
+                parameters.Add(GetParameter("flow_mfc3",     DbType.Single, (float)gas.GetGasFlow(Types.UnitFlow.sccm,3)));
+                parameters.Add(GetParameter("min_flow_mfc1", DbType.Single, (float)gas.GetMinGasFlow(1)));
+                parameters.Add(GetParameter("min_flow_mfc2", DbType.Single, (float)gas.GetMinGasFlow(2)));
+                parameters.Add(GetParameter("min_flow_mfc3", DbType.Single, (float)gas.GetMinGasFlow(3)));
+                parameters.Add(GetParameter("max_flow_mfc1", DbType.Single, (float)gas.GetMaxGasFlow(1)));
+                parameters.Add(GetParameter("max_flow_mfc2", DbType.Single, (float)gas.GetMaxGasFlow(2)));
+                parameters.Add(GetParameter("max_flow_mfc3", DbType.Single, (float)gas.GetMaxGasFlow(3)));
+                parameters.Add(GetParameter("vaporaiser_cycle", DbType.Single, (float)gas.GetCycleTime()));
+                parameters.Add(GetParameter("vaporaiser_time_on", DbType.Single, (float)gas.GetOnTime()));
+                parameters.Add(GetParameter("setpoint_press", DbType.Single, (float)gas.GetSetpointPressure()));
+                parameters.Add(GetParameter("max_dev_up", DbType.Single, (float)gas.GetMaxDeviationPresure()));
+                parameters.Add(GetParameter("max_dev_down", DbType.Single, (float)gas.GetMinDeviationPresure()));
+                parameters.Add(GetParameter("mfc1_max_dev", DbType.Single, (float)gas.GetShareDevaition(1)));
+                parameters.Add(GetParameter("mfc2_max_dev", DbType.Single, (float)gas.GetShareDevaition(2)));
+                parameters.Add(GetParameter("mfc3_max_dev", DbType.Single, (float)gas.GetShareDevaition(3)));
+                parameters.Add(GetParameter("mfc1_gas_share", DbType.Single, (float)gas.GetShareGas(1)));
+                parameters.Add(GetParameter("mfc2_gas_share", DbType.Single, (float)gas.GetShareGas(2)));
+                parameters.Add(GetParameter("mfc3_gas_share", DbType.Single, (float)gas.GetShareGas(3)));
+                parameters.Add(GetParameter("time", DbType.Time, gas.GetTimeProcesDuration()));
+                parameters.Add(GetParameter("mode_process", DbType.Int32, gas.GetModeProces()));
+
+                //Wykonaj procedure dodawania programu
+                aRes = PerformFunctionDB("\"ModifySubprogramStages_2\"", parameters);
+            }
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja usuwa subprogram z bazy danych. Jezeli operacja sie powiedzia xwraca 0 w przeciwnym wypadku wartosc rozna od 0
+        public int RemoveSubprogram(Program.Subprogram subprogram)
+        {
+            int aRes = -1;
+            if (subprogram != null)
+            {
+                //Przygotuj parametry dla procedury usuwania standardowo rekordu z bazy danych to naczy funkcja posiada tylko jeden parametr o nazwie ID
+                List<NpgsqlParameter> parameters = GetRemoveStandardParameters((int)subprogram.ID);
+                //Wykonaj procedure usuwania subprogramu
+                aRes = PerformFunctionDB("\"RemoveSubprogram\"", parameters);
+            }
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie utworzenie lsity parametrow sla standardowej funkcji usuwania rekordu za bazy danych posiadajacej tylko jedne parametro nazwie ID
+        private List<NpgsqlParameter> GetRemoveStandardParameters(int aId)
+        {
+            List<NpgsqlParameter> parameters = new List<NpgsqlParameter>();
+
+           //utworz parametr id                    
+            parameters.Add(GetParameter("id", DbType.Int32, aId));
+
+            return parameters;
         }
         //------------------------------------------------------------------------------------------------------------------------------
         //Funkcja ma za zadanie utworzenie parametrow procedury Add/Modify user 
         private List<NpgsqlParameter> GetUserParameters(User user, TypeFillParameters typeFill)
         {
             List<NpgsqlParameter> parameters = new List<NpgsqlParameter>();
-            NpgsqlParameter para = null;
+      
             //Wpraowdz parametr ID. Jest on wymagany dla procedur Remove oraz Modify
             if (typeFill == TypeFillParameters.ModifyUser || typeFill == TypeFillParameters.RemoveUser)
             {
-                para = new NpgsqlParameter();       //utworz parametr name                    
-                para.ParameterName = "id";
-                para.DbType = DbType.Int32;
-                para.Value = user.ID;
-                parameters.Add(para);
+                //utworz parametr id 
+                parameters.Add(GetParameter("id", DbType.Int32, user.ID));
             }
             //WPrawdz parametry funkcji New/Modify na podstawie ustawien usera
             if (typeFill == TypeFillParameters.ModifyUser || typeFill == TypeFillParameters.NewUser)
             {
-                para = new NpgsqlParameter();       //utworz parametr name                    
-                para.ParameterName = "name";
-                para.DbType = DbType.AnsiString;
-                para.Value = user.Name;
-                parameters.Add(para);
-
-                para = new NpgsqlParameter();       //utworz parametr surnname                    
-                para.ParameterName = "surname";
-                para.DbType = DbType.AnsiString;
-                para.Value = user.Surname;
-                parameters.Add(para);
-
-                para = new NpgsqlParameter();       //utworz parametr login                    
-                para.ParameterName = "login";
-                para.DbType = DbType.AnsiString;
-                para.Value = user.Login;
-                parameters.Add(para);
-
-                para = new NpgsqlParameter();       //utworz parametr password                    
-                para.ParameterName = "password";
-                para.DbType = DbType.AnsiString;
-                para.Value = user.Password;
-                parameters.Add(para);
-
-                para = new NpgsqlParameter();       //utworz parametr allow_change psw                    
-                para.ParameterName = "allow_change_psw";
-                para.DbType = DbType.Boolean;
-                para.Value = user.AllowChangePsw;
-                parameters.Add(para);
-
-                para = new NpgsqlParameter();       //utworz parametr typ blokowania usera                    
-                para.ParameterName = "type_block";
-                para.DbType = DbType.Int32;
-                para.Value = user.DisableAccount;
-                parameters.Add(para);
-
-                para = new NpgsqlParameter();       //utworz parametr uprawnienia                    
-                para.ParameterName = "privilige";
-                para.DbType = DbType.Int32;
-                para.Value = user.Privilige;
-                parameters.Add(para);
-
-                para = new NpgsqlParameter();       //utworz parametr data poczaktu ewentualnej blokady                    
-                para.ParameterName = "start_date_block";
-                para.DbType = DbType.Date;
-                para.Value = user.DateStartDisableAccount;
-                parameters.Add(para);
-
-                para = new NpgsqlParameter();       //utworz parametr data konca ewentualnej blokady                      
-                para.ParameterName = "end_date_block";
-                para.DbType = DbType.Date;
-                para.Value = user.DateEndDisableAccount;
-                parameters.Add(para);
+                //utworz parametr name 
+                parameters.Add(GetParameter("name", DbType.AnsiString, user.Name));
+                //utworz parametr surnname                    
+                parameters.Add(GetParameter("surname", DbType.AnsiString, user.Surname));
+                //utworz parametr login                    
+                parameters.Add(GetParameter("login", DbType.AnsiString, user.Login));  
+                //utworz parametr password                    
+                parameters.Add(GetParameter("password", DbType.AnsiString, user.Password));  
+                //utworz parametr allow_change psw                    
+                parameters.Add(GetParameter("allow_change_psw", DbType.Boolean, user.AllowChangePsw));
+                //utworz parametr typ blokowania usera                    
+                parameters.Add(GetParameter("type_block", DbType.Int32, user.DisableAccount)); 
+                //utworz parametr uprawnienia                    
+                parameters.Add(GetParameter("privilige", DbType.Int32, user.Privilige));
+                //utworz parametr data poczaktu ewentualnej blokady                    
+                parameters.Add(GetParameter("start_date_block", DbType.Date, user.DateStartDisableAccount));
+                //utworz parametr data konca ewentualnej blokady                      
+                parameters.Add(GetParameter("end_date_block", DbType.Date, user.DateEndDisableAccount));
             }
             return parameters;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie utworzenie parametrow procedury Add/Modify dla programu 
+        private List<NpgsqlParameter> GetProgramParameters(Program.Program program, TypeFillParameters typeFill)
+        {
+            List<NpgsqlParameter> parameters = new List<NpgsqlParameter>();
+            NpgsqlParameter para = null;
+            if (program != null)
+            {
+                //Wpraowdz parametr ID. Jest on wymagany dla procedur Remove oraz Modify
+                if (typeFill == TypeFillParameters.ModifyUser || typeFill == TypeFillParameters.RemoveUser)
+                {
+                    //utworz parametr id                    
+                    parameters.Add(GetParameter("id", DbType.Int32, program.GetID()));
+                }
+                //WPrawdz parametry funkcji New/Modify na podstawie ustawien usera
+                if (typeFill == TypeFillParameters.ModifyUser || typeFill == TypeFillParameters.NewUser)
+                {
+                    //utworz parametr name 
+                    parameters.Add(GetParameter("name", DbType.AnsiString, program.GetName()));
+                    //utworz parametr surnname                    
+                    parameters.Add(GetParameter("description", DbType.AnsiString, program.GetDescription()));
+                }
+            }
+            return parameters;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie utworzenie parametrow procedury Add/Modify dla subprogramu 
+        private List<NpgsqlParameter> GetSubprogramParameters(Program.Subprogram subprogram, TypeFillParameters typeFill)
+        {
+            List<NpgsqlParameter> parameters = new List<NpgsqlParameter>();
+            NpgsqlParameter para = null;
+            if (subprogram != null)
+            {
+                //Wpraowdz parametr ID. Jest on wymagany dla procedur Remove oraz Modify
+                if (typeFill == TypeFillParameters.ModifyUser || typeFill == TypeFillParameters.RemoveUser)
+                {
+                    //utworz parametr id                    
+                    parameters.Add(GetParameter("id", DbType.Int32, subprogram.ID));
+                }
+                //WPrawdz parametry funkcji New/Modify na podstawie ustawien usera
+                if (typeFill == TypeFillParameters.ModifyUser || typeFill == TypeFillParameters.NewUser)
+                {
+                    //utworz parametr name 
+                    parameters.Add(GetParameter("name" , DbType.AnsiString , subprogram.GetName()));
+
+                    //utworz parametr surnname                    
+                    parameters.Add(GetParameter("description", DbType.AnsiString, subprogram.GetDescription()));
+                }
+            }
+            return parameters;
+        }
+        //-------------------------------------------------------------------------------------
+        private NpgsqlParameter GetParameter(string name, DbType type, object value)
+        {
+            NpgsqlParameter para = new NpgsqlParameter();       //utworz parametr description                    
+
+            para.ParameterName  = name;
+            para.DbType         = type;
+            para.Value          = value;
+
+            return para;
         }
         //------------------------------------------------------------------------------------------------------------------------------
         //Funkcja ma za zadanie przekopiowanie parametrow z lity do parametrow komendy utworzonych na bazie obiektu komendy

@@ -144,6 +144,7 @@
             this.label83 = new System.Windows.Forms.Label();
             this.btnAddNewProgram = new System.Windows.Forms.Button();
             this.grBoxProgram = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.label76 = new System.Windows.Forms.Label();
             this.label77 = new System.Windows.Forms.Label();
             this.tBoxNameProgram = new System.Windows.Forms.TextBox();
@@ -1351,6 +1352,7 @@
             // 
             // grBoxProgram
             // 
+            this.grBoxProgram.Controls.Add(this.button1);
             this.grBoxProgram.Controls.Add(this.label76);
             this.grBoxProgram.Controls.Add(this.label77);
             this.grBoxProgram.Controls.Add(this.tBoxNameProgram);
@@ -1361,6 +1363,16 @@
             this.grBoxProgram.TabIndex = 46;
             this.grBoxProgram.TabStop = false;
             this.grBoxProgram.Text = "Program";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(143, -4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(86, 37);
+            this.button1.TabIndex = 43;
+            this.button1.Text = "Save";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label76
             // 
@@ -2435,6 +2447,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Name = "ProgramsConfigPanel";
             this.Size = new System.Drawing.Size(1698, 758);
+            this.VisibleChanged += new System.EventHandler(this.ProgramsConfigPanel_VisibleChanged);
             this.grBoxGasPressure.ResumeLayout(false);
             this.grBoxGasPressure.PerformLayout();
             this.grBoxGasesMFC3.ResumeLayout(false);
@@ -2690,5 +2703,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuItem_RemoveProgram;
         private System.Windows.Forms.ToolStripMenuItem menuItem_RemoveSubprogram;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
+        private System.Windows.Forms.Button button1;
     }
 }

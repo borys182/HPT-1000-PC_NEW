@@ -96,7 +96,8 @@ namespace HPT1000.Source.Program
     };
 
     public class Program : Object
-    { 
+    {
+        private DB                      dataBase            = null;
         //Dane odczytane z PLC
         private Types.StatusProgram     status              = Types.StatusProgram.NoLoad;
         private int                     countSubprogramsPLC = 0;        //liczba subprogramow z ktorych sie skalada program wczytny do PLC
@@ -111,12 +112,17 @@ namespace HPT1000.Source.Program
        // private List<Subprogram>        subProgramsActual   = new List<Subprogram>(); //Lista subprogramow ktora sluzy do akutalizacji parametrow uruchomionego procesu. 
                                                                                       //Aby nie nadpisywac parametrow zapisanych w programie tworze alternatywna liste
 
-        private static uint             UniqueID            = 1;
+       // private static uint             UniqueID            = 1;
 
         private static object           Sync                = new object();
 
         private static RefreshProgram   refreshProgram      = null;
 
+        //-------------------------------------------------------------------------------------------------------------------------
+        public DB DataBase
+        {
+            set { dataBase = value; }
+        }
         //-------------------------------------------------------------------------------------------------------------------------
         public Types.StatusProgram Status
         {
@@ -135,11 +141,6 @@ namespace HPT1000.Source.Program
         //-------------------------------------------------------------------------------------------------------------------------
         public Program()
         {
-            lock (Sync)
-            {
-                id = UniqueID;
-                UniqueID++;
-            }
         }
         //-------------------------------------------------------------------------------------------------------------------------
         public override bool Equals(object other)
@@ -382,7 +383,10 @@ namespace HPT1000.Source.Program
                 SubprogramData subProgramData;
                 for (uint i = 0; i < countSubprogramsPLC; i++)
                 {
-                    Subprogram subProgram = new Subprogram(i + 1);
+                    subProgramData = GetSegmentData(aDataSeq, i);
+                    uint aIdSubprogram = 0; //TO DO - odczytaj ID subprogramu z PLC
+                    Subprogram subProgram = new Subprogram();
+                    subProgram.ID = aIdSubprogram; // TO DO ODCZYTAJ id Z PLC
                     subProgramData = GetSegmentData(aDataSeq, i);
                     subProgram.UpdateData(subProgramData);
                     AddSubprogram(subProgram);
@@ -429,13 +433,25 @@ namespace HPT1000.Source.Program
             return aActualSubprogram;
         }
         //-------------------------------------------------------------------------------------------------------------------------
+        //Utworz subprogram w bazie danych a nastepnie jako obiekt programu i  przypisz subprogramowi unikalne ID otrzymane z bazy danych
         public void NewSubprogram()
         {
-            Subprogram aSubprogram = new Subprogram(GetUnigueSubprogramID());
-            AddSubprogram(aSubprogram);
+            if (dataBase != null)
+            {
+                //Utworz obiekt subprogramu
+                Subprogram aSubprogram = new Subprogram();
+                //Zapisz subprogram w bazie danych
+                int aId = dataBase.AddSubProgram(aSubprogram, (Int32)id);
+                //Jezeli poprawnie dodano obiekt do bazy danych to dodaj go do lsity subprogramow
+                if (aId > 0)
+                {
+                    aSubprogram.ID = (uint)aId;
+                    AddSubprogram(aSubprogram);
+                }
+            }
         }
         //-------------------------------------------------------------------------------------------------------------------------
-        private void AddSubprogram(Subprogram subProgram)
+        public void AddSubprogram(Subprogram subProgram)
         {
             subPrograms.Add(subProgram);        
             //Poinformuj moich obserwatorow aby odswiezyly sobie informacje na temat programow
@@ -446,16 +462,20 @@ namespace HPT1000.Source.Program
         public bool RemoveSubprogram(Subprogram aSubprogram)
         {
             bool aRes = false;
+            if (dataBase != null)
+            {
+                //Usub subprogram z  bazy danych. Jezeli to sie uda to usun takzez z lokalnej lsity
+                if(dataBase.RemoveSubprogram(aSubprogram) == 0)
+                    aRes = subPrograms.Remove(aSubprogram);
 
-            aRes = subPrograms.Remove(aSubprogram);
-
-            //Poinformuj moich obserwatorow aby odswiezyly sobie informacje na temat programow
-            if (refreshProgram != null)
-                refreshProgram();
-
+                //Poinformuj moich obserwatorow aby odswiezyly sobie informacje na temat programow
+                if (refreshProgram != null)
+                    refreshProgram();
+            }
             return aRes;
         }
         //-------------------------------------------------------------------------------------------------------------------------
+        /*
         private uint GetUnigueSubprogramID()
         {
             uint aId = 0;
@@ -473,6 +493,7 @@ namespace HPT1000.Source.Program
             }
             return aId;
         }
+        */
         //-------------------------------------------------------------------------------------------------------------------------
         private bool IsBitActive(int aData, int aBitNo)
         {
@@ -491,11 +512,16 @@ namespace HPT1000.Source.Program
         }
         //-------------------------------------------------------------------------------------------------------------------------
         //Zwroc subprogramy ktrorych parametry zostaly odczytane na podstawie pamieci PLC
-       /* public List<Subprogram> GetSubprogramsPLC()
+        /* public List<Subprogram> GetSubprogramsPLC()
+         {
+             return subProgramsActual;
+         }
+         */
+        //-------------------------------------------------------------------------------------------------------------------------
+        public void SetID(uint aId)
         {
-            return subProgramsActual;
+            id = aId;
         }
-        */
         //-------------------------------------------------------------------------------------------------------------------------
         public uint GetID()
         {

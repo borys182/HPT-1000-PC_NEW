@@ -13,7 +13,7 @@ namespace HPT1000.Source.Driver
     /// </summary>
     public class HPT1000 : IDisposable
     {
-
+        private DB                      dataBase            = null;
         private PLC                     plc                 = new PLC_Mitsubishi();
         private Chamber.Chamber         chamber             = new Chamber.Chamber();
         private List<Program.Program>   programs            = new List<Program.Program>(); //Lista wszystkich programow zapisanych w aplikacji
@@ -33,6 +33,17 @@ namespace HPT1000.Source.Driver
         public static Types.Language    LanguageApp         = Types.Language.English; //zm globalna określająca jezyk aplikacji
 
         //-----------------------------------------------------------------------------------------
+        public DB DataBase
+        {
+            set
+            {
+                dataBase = value;
+                //pobierz listę programó zapisanych w bazie danych
+                if (dataBase != null)
+                    ReadProgramsFromDB();
+            }
+        }
+        //-----------------------------------------------------------------------------------------
         public static Types.Mode Mode
         {
             get { return mode; }
@@ -48,6 +59,7 @@ namespace HPT1000.Source.Driver
             threadReadData = new Thread(funThr);
 
             threadReadData.Start();
+
         }
         //-----------------------------------------------------------------------------------------
         ~HPT1000()
@@ -105,6 +117,22 @@ namespace HPT1000.Source.Driver
             UpdateSettings();
             //Odczytaj z PLC parametry programu aktualnie wgranego
             ReadProgramFromPLC();
+        }
+        //-----------------------------------------------------------------------------------------
+        //Funkcja odczytuje parametry programow zapisane w bazie danych. Do programow sa takze odczytywane parametry subprogramow
+        private void ReadProgramsFromDB()
+        {
+            if (dataBase != null)
+            {
+                //Odczytaj liste programow z bazy danych
+                foreach (Program.Program pr in dataBase.GetPrograms())
+                {
+                    //Wypelnij subprogramy parametrmi procesow
+                    if(pr != null)
+                        dataBase.FillProcessParametersOfSubprograms(pr.GetSubprograms());
+                    programs.Add(pr);
+                }
+            }
         }
         //-----------------------------------------------------------------------------------------
         //W PLC bledy sa przechowywane w buforze cyklicznym, ktory posiada dwa wskazniki START i END. Bledy sa zapisywane pomiedzy tymi indeksami. Oprocz kodow bledow jest takze zapisana data wystapienia
@@ -281,6 +309,8 @@ namespace HPT1000.Source.Driver
                 if (programPLC == null)
                 {
                     programPLC = new Program.Program();
+                    programPLC.DataBase = dataBase;
+                    programPLC.SetID((uint)aProgramIdInPLC);
                     programPLC.SetPtrPLC(plc);
                     AddProgram(programPLC);
                 }
@@ -365,11 +395,26 @@ namespace HPT1000.Source.Driver
             return programs;
         }
         //-----------------------------------------------------------------------------------------
+        //Funckaj ma za zadanie utworzenie nowego programu. Najpierw program jest zapisany w bazie danych. Jezeli zapis sie powisodl to jest tworzony obiekt i nadawany jest mu id rekordu bazy danych
         public void NewProgram()
         {
-            Program.Program program = new Program.Program();
-            program.SetPtrPLC(plc);
-            AddProgram(program);
+            if (dataBase != null)
+            {
+                //Utworz program aby posiadac obiekt na bazie ktorego utworzymy program w bazie danych.
+                Program.Program program = new Program.Program();
+                //Nadaj programowi unikalna nazwe
+                program.SetName(GetUniqueProgramName());
+                //Dodaj program do bazy danych
+                int id = dataBase.AddProgram(program);
+                //Poprawnie dodano program do bazy danych wiec dodaj program do lsity programow
+                if (id > 0)
+                {
+                    program.SetID((uint)id);
+                    program.DataBase = dataBase;
+                    program.SetPtrPLC(plc);
+                    AddProgram(program);
+                }
+            }
         }
         //-----------------------------------------------------------------------------------------
         private void AddProgram(Program.Program program)
@@ -383,32 +428,36 @@ namespace HPT1000.Source.Driver
         public bool RemoveProgram(Program.Program program)
         {
             bool aRes = false;
+            if (dataBase != null)
+            {
+                //Usun program z bazy danych. Jezeli to sie uda to usun takze z lokalnej listy
+                if(dataBase.RemoveProgram(program) == 0)
+                    aRes = programs.Remove(program);
 
-            aRes = programs.Remove(program);
-
-            //Poinformuj moich obserwatorow aby odswiezyly sobie informacje na temat programow
-            if (refreshProgram != null)
-                refreshProgram();
-
+                //Poinformuj moich obserwatorow aby odswiezyly sobie informacje na temat programow
+                if (refreshProgram != null)
+                    refreshProgram();
+            }
             return aRes;
         }
         //-----------------------------------------------------------------------------------------
-        private uint GetUniqueProgramID()
+        private string GetUniqueProgramName()
         {
-            uint aId = 0;
-            bool aExist = true;
+            string  aName ;
+            int     aNo = 1;
 
-            while (aExist)
+            aName = "Program " + aNo.ToString();
+            for(int i = 0; i < programs.Count; i++)
             {
-                aId++;
-                aExist = false;
-                foreach (Program.Program program in programs)
+                Program.Program program = programs[i];
+                if (program.GetName() == aName)
                 {
-                    if (program.GetID() == aId)
-                        aExist = true;
+                    aName = "Program " + (++aNo).ToString();
+                    i = 0;
                 }
             }
-            return aId;
+
+            return aName;
         }
         //-------------------------------------------------------------------------------------------------------------------------
         public ItemLogger SetMode(Types.Mode aMode)

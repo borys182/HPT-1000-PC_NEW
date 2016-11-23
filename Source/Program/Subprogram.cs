@@ -23,12 +23,16 @@ namespace HPT1000.Source.Program
         public ProcesObject PlasmaProces    { get { return stepObjects[2]; } }
         public ProcesObject PurgeProces     { get { return stepObjects[3]; } }
         public ProcesObject VentProces      { get { return stepObjects[4]; } }
-        public uint ID { get { return id; } }
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------
-        public Subprogram(uint aId)
+        public uint ID
+        {   
+            set { id = value; }
+            get { return id; }
+        }
+        //------------------------------------------------------------------------------------------------------------------------------------------------------
+        public Subprogram()
         {
-            id = aId;
             stepObjects[0] = new PumpProces();
             stepObjects[1] = new GasProces();
             stepObjects[2] = new PlasmaProces();

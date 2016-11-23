@@ -26,7 +26,7 @@ namespace HPT1000.GUI
         private const double pressureResolution = 1000;    //zmienna okresla ile miejsc po przecinku mozna wprowadzac do zmiennych presure
 
         private bool        flagRefreshProgram = false;
-
+        private DB          dataBase = null;
         
         //--------------------------------------------------------------------------------------------------------------------------------------
         public ProgramsConfigPanel()
@@ -51,8 +51,13 @@ namespace HPT1000.GUI
             scrollGasPressureDevaUp.Maximum     = (int)pressureResolution * 1100;
             scrollGasPressureDevaUp.Minimum     = 1;
 
-            ShowCorrespondingTabPage();
+            ShowCorrespondingTabPage();      
 
+        }
+        //--------------------------------------------------------------------------------------------------------------------------------------
+        public DB DataBase
+        {
+            set { dataBase = value; }
         }
         //--------------------------------------------------------------------------------------------------------------------------------------
         public HPT1000.Source.Driver.HPT1000 HPT1000
@@ -378,7 +383,7 @@ namespace HPT1000.GUI
             if (pumpStage != null)
             {
                 cBoxPump.Checked                = pumpStage.Active;
-                timePump.Value                  = pumpStage.GetTimeWaitForPumpDown();
+                timePump.Value                  = pumpStage.GetTimeWaitForPumpDown().AddYears(2000);
                 tBoxPumpSetpoint.Text           = pumpStage.GetSetpoint().ToString();
                 int aValue = (int)(pumpStage.GetSetpoint() * pressureResolution);
 
@@ -392,7 +397,7 @@ namespace HPT1000.GUI
             if(gasStage != null)
             {
                 cBoxGas.Checked = gasStage.Active;
-                timeGas.Value   = gasStage.GetTimeProcesDuration();
+                timeGas.Value   = gasStage.GetTimeProcesDuration().AddYears(2000);
 
                 tBoxFlow1.Text = gasStage.GetGasFlow(Types.UnitFlow.sccm, 1).ToString();
                 tBoxFlow2.Text = gasStage.GetGasFlow(Types.UnitFlow.sccm, 2).ToString();
@@ -489,7 +494,7 @@ namespace HPT1000.GUI
             if (plasmaStage != null)
             {
                 cBoxPower.Checked           = plasmaStage.Active;
-                timePlasma.Value            = plasmaStage.GetTimeOperate();
+                timePlasma.Value            = plasmaStage.GetTimeOperate().AddYears(2000);
                 tBoxPlasmaSetpoint.Text     = plasmaStage.GetSetpointPercent().ToString(); 
                 tBoxPlasmaDeviation.Text    = plasmaStage.GetDeviation().ToString();
                 if(scrollPlasmaSetpoint.Maximum > plasmaStage.GetSetpointPercent()  && scrollPlasmaSetpoint.Minimum < plasmaStage.GetSetpointPercent())
@@ -517,14 +522,14 @@ namespace HPT1000.GUI
         {
             cBoxPurge.Checked = purgeStage.Active;
             if(purgeStage != null)
-                timePurge.Value = purgeStage.GetTimePurge();
+                timePurge.Value = purgeStage.GetTimePurge().AddYears(2000);
         }
         //--------------------------------------------------------------------------------------------------------------------------------------
         void ShowInfoVentStage(VentProces ventStage)
         {
             cBoxVent.Checked = ventStage.Active;
             if (ventStage != null)
-                timeVent.Value = ventStage.GetTimeVent();
+                timeVent.Value = ventStage.GetTimeVent().AddYears(2000);
         }
         //--------------------------------------------------------------------------------------------------------------------------------------
         void SetLimitGasScroll(GasProces gasStage)
@@ -1556,6 +1561,25 @@ namespace HPT1000.GUI
         private void menuItem_RemoveSubprogram_Click(object sender, EventArgs e)
         {
             RemoveSubprogram();
+        }
+        //-------------------------------------------------------------------------------------------------------------------------------------
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //zapisz ustawienia programow i subprogramow w bazie danych
+            if (hpt1000 != null && dataBase != null)
+            {
+                foreach (Program pr in hpt1000.GetPrograms())
+                {
+                    dataBase.ModifyProgram(pr);
+                    foreach (Subprogram subpr in pr.GetSubprograms())
+                        dataBase.ModifySubprogram(subpr);
+                }
+            }
+        }
+        //-------------------------------------------------------------------------------------------------------------------------------------
+        private void ProgramsConfigPanel_VisibleChanged(object sender, EventArgs e)
+        {
+            RefreshTreeViewPrograms();
         }
         //-------------------------------------------------------------------------------------------------------------------------------------
     }

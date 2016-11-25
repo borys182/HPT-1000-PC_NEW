@@ -42,10 +42,17 @@
             this.borderLab1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnConfirm = new System.Windows.Forms.ToolStripSplitButton();
             this.borderLab2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.labStatusMsgAction = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageMain = new System.Windows.Forms.TabPage();
+            this.liveGraphicalPanel = new HPT1000.GUI.GraphicalLive();
             this.btnLiveModeData = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.interlockPanel_Vacuum = new HPT1000.GUI.InterlockPanel();
+            this.interlockPanel_Emergency = new HPT1000.GUI.InterlockPanel();
+            this.interlockPanel_Pressure = new HPT1000.GUI.InterlockPanel();
+            this.interlockPanel_Thermal = new HPT1000.GUI.InterlockPanel();
+            this.interlockPanel_Door = new HPT1000.GUI.InterlockPanel();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -54,6 +61,11 @@
             this.grBoxSystem = new System.Windows.Forms.GroupBox();
             this.pictureCornerUp3 = new System.Windows.Forms.PictureBox();
             this.picturelineMFC = new System.Windows.Forms.PictureBox();
+            this.pumpComponent = new HPT1000.GUI.PumpComponent();
+            this.valve_Vent = new HPT1000.GUI.ValvePanel();
+            this.valve_SV = new HPT1000.GUI.ValvePanel();
+            this.valve_Gas = new HPT1000.GUI.ValvePanel();
+            this.valve_Purge = new HPT1000.GUI.ValvePanel();
             this.pictureBox34 = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
             this.pictureArrowUp1 = new System.Windows.Forms.PictureBox();
@@ -64,6 +76,7 @@
             this.pictureBox25 = new System.Windows.Forms.PictureBox();
             this.pictureLineMFC3 = new System.Windows.Forms.PictureBox();
             this.pictureCornerDown2 = new System.Windows.Forms.PictureBox();
+            this.vaporiserPanel = new HPT1000.GUI.VaporiserPanel();
             this.label37 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
             this.pictureBox28 = new System.Windows.Forms.PictureBox();
@@ -80,41 +93,29 @@
             this.pictureBox10 = new System.Windows.Forms.PictureBox();
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.pictureChamber = new System.Windows.Forms.PictureBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tabPagePrograms = new System.Windows.Forms.TabPage();
-            this.tabPageAlerts = new System.Windows.Forms.TabPage();
-            this.tabPageArchive = new System.Windows.Forms.TabPage();
-            this.tabPageSettings = new System.Windows.Forms.TabPage();
-            this.tabPageMaintenance = new System.Windows.Forms.TabPage();
-            this.tabPageService = new System.Windows.Forms.TabPage();
-            this.tabPageAdmin = new System.Windows.Forms.TabPage();
-            this.timer = new System.Windows.Forms.Timer(this.components);
-            this.labStatusMsgAction = new System.Windows.Forms.ToolStripStatusLabel();
-            this.liveGraphicalPanel = new HPT1000.GUI.GraphicalLive();
-            this.interlockPanel_Vacuum = new HPT1000.GUI.InterlockPanel();
-            this.interlockPanel_Emergency = new HPT1000.GUI.InterlockPanel();
-            this.interlockPanel_Pressure = new HPT1000.GUI.InterlockPanel();
-            this.interlockPanel_Thermal = new HPT1000.GUI.InterlockPanel();
-            this.interlockPanel_Door = new HPT1000.GUI.InterlockPanel();
-            this.pumpComponent = new HPT1000.GUI.PumpComponent();
-            this.valve_Vent = new HPT1000.GUI.ValvePanel();
-            this.valve_SV = new HPT1000.GUI.ValvePanel();
-            this.valve_Gas = new HPT1000.GUI.ValvePanel();
-            this.valve_Purge = new HPT1000.GUI.ValvePanel();
-            this.vaporiserPanel = new HPT1000.GUI.VaporiserPanel();
             this.generatorPanel = new HPT1000.GUI.GeneratorPanel();
             this.pumpPanel = new HPT1000.GUI.PumpPanel();
             this.pressurePanel = new HPT1000.GUI.PressurePanel();
             this.mfcPanel3 = new HPT1000.GUI.MFCPanel();
             this.mfcPanel1 = new HPT1000.GUI.MFCPanel();
             this.mfcPanel2 = new HPT1000.GUI.MFCPanel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.programPanel = new HPT1000.GUI.ProgramPanel();
+            this.tabPagePrograms = new System.Windows.Forms.TabPage();
             this.programsConfigPanel = new HPT1000.GUI.ProgramsConfigPanel();
+            this.tabPageAlerts = new System.Windows.Forms.TabPage();
             this.alertsPanel = new HPT1000.GUI.AlertsPanel();
+            this.tabPageArchive = new System.Windows.Forms.TabPage();
+            this.archivePanel = new HPT1000.GUI.ArchivePanel();
+            this.tabPageSettings = new System.Windows.Forms.TabPage();
             this.settingsPanel = new HPT1000.GUI.SettingsPanel();
+            this.tabPageMaintenance = new System.Windows.Forms.TabPage();
+            this.tabPageService = new System.Windows.Forms.TabPage();
             this.servicePanel = new HPT1000.GUI.ServicePanel();
-            this.adminPanel = new HPT1000.GUI.AdminPanel();
+            this.tabPageAdmin = new System.Windows.Forms.TabPage();
             this.userManagerPanel = new HPT1000.GUI.UserManagerPanel();
+            this.adminPanel = new HPT1000.GUI.AdminPanel();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabPageMain.SuspendLayout();
@@ -148,6 +149,7 @@
             this.groupBox1.SuspendLayout();
             this.tabPagePrograms.SuspendLayout();
             this.tabPageAlerts.SuspendLayout();
+            this.tabPageArchive.SuspendLayout();
             this.tabPageSettings.SuspendLayout();
             this.tabPageService.SuspendLayout();
             this.tabPageAdmin.SuspendLayout();
@@ -262,6 +264,14 @@
             this.borderLab2.Size = new System.Drawing.Size(13, 21);
             this.borderLab2.Text = "|";
             // 
+            // labStatusMsgAction
+            // 
+            this.labStatusMsgAction.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.labStatusMsgAction.ForeColor = System.Drawing.Color.Green;
+            this.labStatusMsgAction.Name = "labStatusMsgAction";
+            this.labStatusMsgAction.Size = new System.Drawing.Size(61, 21);
+            this.labStatusMsgAction.Text = "Corecct";
+            // 
             // tabControlMain
             // 
             this.tabControlMain.Controls.Add(this.tabPageMain);
@@ -299,6 +309,15 @@
             this.tabPageMain.TabIndex = 0;
             this.tabPageMain.Text = "     MAIN SCREAN     ";
             // 
+            // liveGraphicalPanel
+            // 
+            this.liveGraphicalPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.liveGraphicalPanel.Location = new System.Drawing.Point(1321, 753);
+            this.liveGraphicalPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.liveGraphicalPanel.Name = "liveGraphicalPanel";
+            this.liveGraphicalPanel.Size = new System.Drawing.Size(71, 39);
+            this.liveGraphicalPanel.TabIndex = 110;
+            // 
             // btnLiveModeData
             // 
             this.btnLiveModeData.Location = new System.Drawing.Point(563, 751);
@@ -327,6 +346,46 @@
             this.groupBox2.TabIndex = 26;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Interlocks";
+            // 
+            // interlockPanel_Vacuum
+            // 
+            this.interlockPanel_Vacuum.Location = new System.Drawing.Point(137, 19);
+            this.interlockPanel_Vacuum.Margin = new System.Windows.Forms.Padding(5);
+            this.interlockPanel_Vacuum.Name = "interlockPanel_Vacuum";
+            this.interlockPanel_Vacuum.Size = new System.Drawing.Size(30, 30);
+            this.interlockPanel_Vacuum.TabIndex = 111;
+            // 
+            // interlockPanel_Emergency
+            // 
+            this.interlockPanel_Emergency.Location = new System.Drawing.Point(468, 19);
+            this.interlockPanel_Emergency.Margin = new System.Windows.Forms.Padding(5);
+            this.interlockPanel_Emergency.Name = "interlockPanel_Emergency";
+            this.interlockPanel_Emergency.Size = new System.Drawing.Size(30, 30);
+            this.interlockPanel_Emergency.TabIndex = 110;
+            // 
+            // interlockPanel_Pressure
+            // 
+            this.interlockPanel_Pressure.Location = new System.Drawing.Point(357, 19);
+            this.interlockPanel_Pressure.Margin = new System.Windows.Forms.Padding(5);
+            this.interlockPanel_Pressure.Name = "interlockPanel_Pressure";
+            this.interlockPanel_Pressure.Size = new System.Drawing.Size(30, 30);
+            this.interlockPanel_Pressure.TabIndex = 109;
+            // 
+            // interlockPanel_Thermal
+            // 
+            this.interlockPanel_Thermal.Location = new System.Drawing.Point(242, 19);
+            this.interlockPanel_Thermal.Margin = new System.Windows.Forms.Padding(5);
+            this.interlockPanel_Thermal.Name = "interlockPanel_Thermal";
+            this.interlockPanel_Thermal.Size = new System.Drawing.Size(30, 30);
+            this.interlockPanel_Thermal.TabIndex = 108;
+            // 
+            // interlockPanel_Door
+            // 
+            this.interlockPanel_Door.Location = new System.Drawing.Point(33, 19);
+            this.interlockPanel_Door.Margin = new System.Windows.Forms.Padding(4);
+            this.interlockPanel_Door.Name = "interlockPanel_Door";
+            this.interlockPanel_Door.Size = new System.Drawing.Size(30, 30);
+            this.interlockPanel_Door.TabIndex = 107;
             // 
             // label6
             // 
@@ -456,6 +515,46 @@
             this.picturelineMFC.TabIndex = 108;
             this.picturelineMFC.TabStop = false;
             // 
+            // pumpComponent
+            // 
+            this.pumpComponent.Location = new System.Drawing.Point(311, 550);
+            this.pumpComponent.Margin = new System.Windows.Forms.Padding(4);
+            this.pumpComponent.Name = "pumpComponent";
+            this.pumpComponent.Size = new System.Drawing.Size(72, 62);
+            this.pumpComponent.TabIndex = 107;
+            // 
+            // valve_Vent
+            // 
+            this.valve_Vent.Location = new System.Drawing.Point(125, 479);
+            this.valve_Vent.Margin = new System.Windows.Forms.Padding(5);
+            this.valve_Vent.Name = "valve_Vent";
+            this.valve_Vent.Size = new System.Drawing.Size(35, 50);
+            this.valve_Vent.TabIndex = 106;
+            // 
+            // valve_SV
+            // 
+            this.valve_SV.Location = new System.Drawing.Point(332, 479);
+            this.valve_SV.Margin = new System.Windows.Forms.Padding(5);
+            this.valve_SV.Name = "valve_SV";
+            this.valve_SV.Size = new System.Drawing.Size(35, 50);
+            this.valve_SV.TabIndex = 105;
+            // 
+            // valve_Gas
+            // 
+            this.valve_Gas.Location = new System.Drawing.Point(455, 479);
+            this.valve_Gas.Margin = new System.Windows.Forms.Padding(5);
+            this.valve_Gas.Name = "valve_Gas";
+            this.valve_Gas.Size = new System.Drawing.Size(35, 50);
+            this.valve_Gas.TabIndex = 104;
+            // 
+            // valve_Purge
+            // 
+            this.valve_Purge.Location = new System.Drawing.Point(35, 479);
+            this.valve_Purge.Margin = new System.Windows.Forms.Padding(4);
+            this.valve_Purge.Name = "valve_Purge";
+            this.valve_Purge.Size = new System.Drawing.Size(35, 50);
+            this.valve_Purge.TabIndex = 103;
+            // 
             // pictureBox34
             // 
             this.pictureBox34.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox34.Image")));
@@ -552,6 +651,16 @@
             this.pictureCornerDown2.Size = new System.Drawing.Size(31, 31);
             this.pictureCornerDown2.TabIndex = 93;
             this.pictureCornerDown2.TabStop = false;
+            // 
+            // vaporiserPanel
+            // 
+            this.vaporiserPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.vaporiserPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.vaporiserPanel.Location = new System.Drawing.Point(721, 595);
+            this.vaporiserPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.vaporiserPanel.Name = "vaporiserPanel";
+            this.vaporiserPanel.Size = new System.Drawing.Size(372, 132);
+            this.vaporiserPanel.TabIndex = 92;
             // 
             // label37
             // 
@@ -706,199 +815,6 @@
             this.pictureChamber.TabIndex = 67;
             this.pictureChamber.TabStop = false;
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.programPanel);
-            this.groupBox1.Location = new System.Drawing.Point(9, 43);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(546, 610);
-            this.groupBox1.TabIndex = 19;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Program";
-            // 
-            // tabPagePrograms
-            // 
-            this.tabPagePrograms.Controls.Add(this.programsConfigPanel);
-            this.tabPagePrograms.Location = new System.Drawing.Point(4, 29);
-            this.tabPagePrograms.Name = "tabPagePrograms";
-            this.tabPagePrograms.Size = new System.Drawing.Size(1698, 799);
-            this.tabPagePrograms.TabIndex = 6;
-            this.tabPagePrograms.Text = "     PROGRAMS     ";
-            this.tabPagePrograms.UseVisualStyleBackColor = true;
-            // 
-            // tabPageAlerts
-            // 
-            this.tabPageAlerts.Controls.Add(this.alertsPanel);
-            this.tabPageAlerts.Location = new System.Drawing.Point(4, 29);
-            this.tabPageAlerts.Name = "tabPageAlerts";
-            this.tabPageAlerts.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAlerts.Size = new System.Drawing.Size(1698, 799);
-            this.tabPageAlerts.TabIndex = 2;
-            this.tabPageAlerts.Text = "     ALERTS     ";
-            this.tabPageAlerts.UseVisualStyleBackColor = true;
-            // 
-            // tabPageArchive
-            // 
-            this.tabPageArchive.Location = new System.Drawing.Point(4, 29);
-            this.tabPageArchive.Name = "tabPageArchive";
-            this.tabPageArchive.Size = new System.Drawing.Size(1698, 799);
-            this.tabPageArchive.TabIndex = 3;
-            this.tabPageArchive.Text = "     ARCHIVE     ";
-            this.tabPageArchive.UseVisualStyleBackColor = true;
-            // 
-            // tabPageSettings
-            // 
-            this.tabPageSettings.BackColor = System.Drawing.Color.Transparent;
-            this.tabPageSettings.Controls.Add(this.settingsPanel);
-            this.tabPageSettings.Location = new System.Drawing.Point(4, 29);
-            this.tabPageSettings.Name = "tabPageSettings";
-            this.tabPageSettings.Size = new System.Drawing.Size(1698, 799);
-            this.tabPageSettings.TabIndex = 4;
-            this.tabPageSettings.Text = "     SETTINGS     ";
-            // 
-            // tabPageMaintenance
-            // 
-            this.tabPageMaintenance.Location = new System.Drawing.Point(4, 29);
-            this.tabPageMaintenance.Name = "tabPageMaintenance";
-            this.tabPageMaintenance.Size = new System.Drawing.Size(1698, 799);
-            this.tabPageMaintenance.TabIndex = 5;
-            this.tabPageMaintenance.Text = "     MAINTENANCE     ";
-            this.tabPageMaintenance.UseVisualStyleBackColor = true;
-            // 
-            // tabPageService
-            // 
-            this.tabPageService.Controls.Add(this.servicePanel);
-            this.tabPageService.Location = new System.Drawing.Point(4, 29);
-            this.tabPageService.Name = "tabPageService";
-            this.tabPageService.Size = new System.Drawing.Size(1698, 799);
-            this.tabPageService.TabIndex = 7;
-            this.tabPageService.Text = "     SERVICE     ";
-            this.tabPageService.UseVisualStyleBackColor = true;
-            // 
-            // tabPageAdmin
-            // 
-            this.tabPageAdmin.Controls.Add(this.userManagerPanel);
-            this.tabPageAdmin.Controls.Add(this.adminPanel);
-            this.tabPageAdmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.tabPageAdmin.Location = new System.Drawing.Point(4, 29);
-            this.tabPageAdmin.Name = "tabPageAdmin";
-            this.tabPageAdmin.Size = new System.Drawing.Size(1698, 799);
-            this.tabPageAdmin.TabIndex = 8;
-            this.tabPageAdmin.Text = "USER MANAGER  ";
-            this.tabPageAdmin.UseVisualStyleBackColor = true;
-            // 
-            // timer
-            // 
-            this.timer.Enabled = true;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
-            // 
-            // labStatusMsgAction
-            // 
-            this.labStatusMsgAction.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.labStatusMsgAction.ForeColor = System.Drawing.Color.Green;
-            this.labStatusMsgAction.Name = "labStatusMsgAction";
-            this.labStatusMsgAction.Size = new System.Drawing.Size(61, 21);
-            this.labStatusMsgAction.Text = "Corecct";
-            // 
-            // liveGraphicalPanel
-            // 
-            this.liveGraphicalPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.liveGraphicalPanel.Location = new System.Drawing.Point(1321, 753);
-            this.liveGraphicalPanel.Margin = new System.Windows.Forms.Padding(4);
-            this.liveGraphicalPanel.Name = "liveGraphicalPanel";
-            this.liveGraphicalPanel.Size = new System.Drawing.Size(71, 39);
-            this.liveGraphicalPanel.TabIndex = 110;
-            // 
-            // interlockPanel_Vacuum
-            // 
-            this.interlockPanel_Vacuum.Location = new System.Drawing.Point(137, 19);
-            this.interlockPanel_Vacuum.Margin = new System.Windows.Forms.Padding(5);
-            this.interlockPanel_Vacuum.Name = "interlockPanel_Vacuum";
-            this.interlockPanel_Vacuum.Size = new System.Drawing.Size(30, 30);
-            this.interlockPanel_Vacuum.TabIndex = 111;
-            // 
-            // interlockPanel_Emergency
-            // 
-            this.interlockPanel_Emergency.Location = new System.Drawing.Point(468, 19);
-            this.interlockPanel_Emergency.Margin = new System.Windows.Forms.Padding(5);
-            this.interlockPanel_Emergency.Name = "interlockPanel_Emergency";
-            this.interlockPanel_Emergency.Size = new System.Drawing.Size(30, 30);
-            this.interlockPanel_Emergency.TabIndex = 110;
-            // 
-            // interlockPanel_Pressure
-            // 
-            this.interlockPanel_Pressure.Location = new System.Drawing.Point(357, 19);
-            this.interlockPanel_Pressure.Margin = new System.Windows.Forms.Padding(5);
-            this.interlockPanel_Pressure.Name = "interlockPanel_Pressure";
-            this.interlockPanel_Pressure.Size = new System.Drawing.Size(30, 30);
-            this.interlockPanel_Pressure.TabIndex = 109;
-            // 
-            // interlockPanel_Thermal
-            // 
-            this.interlockPanel_Thermal.Location = new System.Drawing.Point(242, 19);
-            this.interlockPanel_Thermal.Margin = new System.Windows.Forms.Padding(5);
-            this.interlockPanel_Thermal.Name = "interlockPanel_Thermal";
-            this.interlockPanel_Thermal.Size = new System.Drawing.Size(30, 30);
-            this.interlockPanel_Thermal.TabIndex = 108;
-            // 
-            // interlockPanel_Door
-            // 
-            this.interlockPanel_Door.Location = new System.Drawing.Point(33, 19);
-            this.interlockPanel_Door.Margin = new System.Windows.Forms.Padding(4);
-            this.interlockPanel_Door.Name = "interlockPanel_Door";
-            this.interlockPanel_Door.Size = new System.Drawing.Size(30, 30);
-            this.interlockPanel_Door.TabIndex = 107;
-            // 
-            // pumpComponent
-            // 
-            this.pumpComponent.Location = new System.Drawing.Point(311, 550);
-            this.pumpComponent.Margin = new System.Windows.Forms.Padding(4);
-            this.pumpComponent.Name = "pumpComponent";
-            this.pumpComponent.Size = new System.Drawing.Size(72, 62);
-            this.pumpComponent.TabIndex = 107;
-            // 
-            // valve_Vent
-            // 
-            this.valve_Vent.Location = new System.Drawing.Point(125, 479);
-            this.valve_Vent.Margin = new System.Windows.Forms.Padding(5);
-            this.valve_Vent.Name = "valve_Vent";
-            this.valve_Vent.Size = new System.Drawing.Size(35, 50);
-            this.valve_Vent.TabIndex = 106;
-            // 
-            // valve_SV
-            // 
-            this.valve_SV.Location = new System.Drawing.Point(332, 479);
-            this.valve_SV.Margin = new System.Windows.Forms.Padding(5);
-            this.valve_SV.Name = "valve_SV";
-            this.valve_SV.Size = new System.Drawing.Size(35, 50);
-            this.valve_SV.TabIndex = 105;
-            // 
-            // valve_Gas
-            // 
-            this.valve_Gas.Location = new System.Drawing.Point(455, 479);
-            this.valve_Gas.Margin = new System.Windows.Forms.Padding(5);
-            this.valve_Gas.Name = "valve_Gas";
-            this.valve_Gas.Size = new System.Drawing.Size(35, 50);
-            this.valve_Gas.TabIndex = 104;
-            // 
-            // valve_Purge
-            // 
-            this.valve_Purge.Location = new System.Drawing.Point(35, 479);
-            this.valve_Purge.Margin = new System.Windows.Forms.Padding(4);
-            this.valve_Purge.Name = "valve_Purge";
-            this.valve_Purge.Size = new System.Drawing.Size(35, 50);
-            this.valve_Purge.TabIndex = 103;
-            // 
-            // vaporiserPanel
-            // 
-            this.vaporiserPanel.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.vaporiserPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.vaporiserPanel.Location = new System.Drawing.Point(721, 595);
-            this.vaporiserPanel.Margin = new System.Windows.Forms.Padding(4);
-            this.vaporiserPanel.Name = "vaporiserPanel";
-            this.vaporiserPanel.Size = new System.Drawing.Size(372, 132);
-            this.vaporiserPanel.TabIndex = 92;
-            // 
             // generatorPanel
             // 
             this.generatorPanel.BackColor = System.Drawing.SystemColors.ControlDark;
@@ -959,6 +875,16 @@
             this.mfcPanel2.Size = new System.Drawing.Size(378, 140);
             this.mfcPanel2.TabIndex = 45;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.programPanel);
+            this.groupBox1.Location = new System.Drawing.Point(9, 43);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(546, 610);
+            this.groupBox1.TabIndex = 19;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Program";
+            // 
             // programPanel
             // 
             this.programPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -970,6 +896,16 @@
             this.programPanel.Size = new System.Drawing.Size(540, 584);
             this.programPanel.TabIndex = 0;
             // 
+            // tabPagePrograms
+            // 
+            this.tabPagePrograms.Controls.Add(this.programsConfigPanel);
+            this.tabPagePrograms.Location = new System.Drawing.Point(4, 29);
+            this.tabPagePrograms.Name = "tabPagePrograms";
+            this.tabPagePrograms.Size = new System.Drawing.Size(1698, 799);
+            this.tabPagePrograms.TabIndex = 6;
+            this.tabPagePrograms.Text = "     PROGRAMS     ";
+            this.tabPagePrograms.UseVisualStyleBackColor = true;
+            // 
             // programsConfigPanel
             // 
             this.programsConfigPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -979,6 +915,17 @@
             this.programsConfigPanel.Name = "programsConfigPanel";
             this.programsConfigPanel.Size = new System.Drawing.Size(1698, 799);
             this.programsConfigPanel.TabIndex = 1;
+            // 
+            // tabPageAlerts
+            // 
+            this.tabPageAlerts.Controls.Add(this.alertsPanel);
+            this.tabPageAlerts.Location = new System.Drawing.Point(4, 29);
+            this.tabPageAlerts.Name = "tabPageAlerts";
+            this.tabPageAlerts.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAlerts.Size = new System.Drawing.Size(1698, 799);
+            this.tabPageAlerts.TabIndex = 2;
+            this.tabPageAlerts.Text = "     ALERTS     ";
+            this.tabPageAlerts.UseVisualStyleBackColor = true;
             // 
             // alertsPanel
             // 
@@ -990,6 +937,36 @@
             this.alertsPanel.Size = new System.Drawing.Size(1692, 793);
             this.alertsPanel.TabIndex = 0;
             // 
+            // tabPageArchive
+            // 
+            this.tabPageArchive.Controls.Add(this.archivePanel);
+            this.tabPageArchive.Location = new System.Drawing.Point(4, 29);
+            this.tabPageArchive.Name = "tabPageArchive";
+            this.tabPageArchive.Size = new System.Drawing.Size(1698, 799);
+            this.tabPageArchive.TabIndex = 3;
+            this.tabPageArchive.Text = "     ARCHIVE     ";
+            this.tabPageArchive.UseVisualStyleBackColor = true;
+            // 
+            // archivePanel
+            // 
+            this.archivePanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.archivePanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.archivePanel.Location = new System.Drawing.Point(0, 0);
+            this.archivePanel.Margin = new System.Windows.Forms.Padding(4);
+            this.archivePanel.Name = "archivePanel";
+            this.archivePanel.Size = new System.Drawing.Size(1698, 799);
+            this.archivePanel.TabIndex = 0;
+            // 
+            // tabPageSettings
+            // 
+            this.tabPageSettings.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageSettings.Controls.Add(this.settingsPanel);
+            this.tabPageSettings.Location = new System.Drawing.Point(4, 29);
+            this.tabPageSettings.Name = "tabPageSettings";
+            this.tabPageSettings.Size = new System.Drawing.Size(1698, 799);
+            this.tabPageSettings.TabIndex = 4;
+            this.tabPageSettings.Text = "     SETTINGS     ";
+            // 
             // settingsPanel
             // 
             this.settingsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -998,6 +975,25 @@
             this.settingsPanel.Name = "settingsPanel";
             this.settingsPanel.Size = new System.Drawing.Size(1698, 799);
             this.settingsPanel.TabIndex = 0;
+            // 
+            // tabPageMaintenance
+            // 
+            this.tabPageMaintenance.Location = new System.Drawing.Point(4, 29);
+            this.tabPageMaintenance.Name = "tabPageMaintenance";
+            this.tabPageMaintenance.Size = new System.Drawing.Size(1698, 799);
+            this.tabPageMaintenance.TabIndex = 5;
+            this.tabPageMaintenance.Text = "     MAINTENANCE     ";
+            this.tabPageMaintenance.UseVisualStyleBackColor = true;
+            // 
+            // tabPageService
+            // 
+            this.tabPageService.Controls.Add(this.servicePanel);
+            this.tabPageService.Location = new System.Drawing.Point(4, 29);
+            this.tabPageService.Name = "tabPageService";
+            this.tabPageService.Size = new System.Drawing.Size(1698, 799);
+            this.tabPageService.TabIndex = 7;
+            this.tabPageService.Text = "     SERVICE     ";
+            this.tabPageService.UseVisualStyleBackColor = true;
             // 
             // servicePanel
             // 
@@ -1008,6 +1004,28 @@
             this.servicePanel.Size = new System.Drawing.Size(1698, 799);
             this.servicePanel.TabIndex = 0;
             // 
+            // tabPageAdmin
+            // 
+            this.tabPageAdmin.Controls.Add(this.userManagerPanel);
+            this.tabPageAdmin.Controls.Add(this.adminPanel);
+            this.tabPageAdmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.tabPageAdmin.Location = new System.Drawing.Point(4, 29);
+            this.tabPageAdmin.Name = "tabPageAdmin";
+            this.tabPageAdmin.Size = new System.Drawing.Size(1698, 799);
+            this.tabPageAdmin.TabIndex = 8;
+            this.tabPageAdmin.Text = "USER MANAGER  ";
+            this.tabPageAdmin.UseVisualStyleBackColor = true;
+            // 
+            // userManagerPanel
+            // 
+            this.userManagerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.userManagerPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.userManagerPanel.Location = new System.Drawing.Point(0, 0);
+            this.userManagerPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.userManagerPanel.Name = "userManagerPanel";
+            this.userManagerPanel.Size = new System.Drawing.Size(1698, 799);
+            this.userManagerPanel.TabIndex = 1;
+            // 
             // adminPanel
             // 
             this.adminPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1017,14 +1035,10 @@
             this.adminPanel.Size = new System.Drawing.Size(1698, 799);
             this.adminPanel.TabIndex = 0;
             // 
-            // userManagerPanel
+            // timer
             // 
-            this.userManagerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.userManagerPanel.Location = new System.Drawing.Point(0, 0);
-            this.userManagerPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.userManagerPanel.Name = "userManagerPanel";
-            this.userManagerPanel.Size = new System.Drawing.Size(1698, 799);
-            this.userManagerPanel.TabIndex = 1;
+            this.timer.Enabled = true;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // MainForm
             // 
@@ -1074,6 +1088,7 @@
             this.groupBox1.ResumeLayout(false);
             this.tabPagePrograms.ResumeLayout(false);
             this.tabPageAlerts.ResumeLayout(false);
+            this.tabPageArchive.ResumeLayout(false);
             this.tabPageSettings.ResumeLayout(false);
             this.tabPageService.ResumeLayout(false);
             this.tabPageAdmin.ResumeLayout(false);
@@ -1168,6 +1183,7 @@
         private System.Windows.Forms.ToolStripStatusLabel borderLab2;
         private System.Windows.Forms.ToolStripStatusLabel labStatusMsgAction;
         private UserManagerPanel userManagerPanel;
+        private ArchivePanel archivePanel;
     }
 }
 

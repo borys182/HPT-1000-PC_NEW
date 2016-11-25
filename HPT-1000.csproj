@@ -94,6 +94,12 @@
     <Compile Include="GUI\AlertsPanel.Designer.cs">
       <DependentUpon>AlertsPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\ArchivePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\ArchivePanel.Designer.cs">
+      <DependentUpon>ArchivePanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Cotrols\DoubleEdit.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -209,9 +215,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Source\ApplicationData.cs" />
+    <Compile Include="Source\Chamber\Device.cs" />
     <Compile Include="Source\Chamber\GasTypes.cs" />
     <Compile Include="Source\Chamber\Interlocks.cs" />
+    <Compile Include="Source\Chamber\Parameter.cs" />
     <Compile Include="Source\Chamber\PressureControl.cs" />
+    <Compile Include="Source\Chamber\Value.cs" />
     <Compile Include="Source\Chamber\Vaporizer.cs" />
     <Compile Include="Source\DB.cs" />
     <Compile Include="Source\ItemLogger.cs" />
@@ -244,6 +253,9 @@
     <EmbeddedResource Include="GUI\AlertsPanel.resx">
       <DependentUpon>AlertsPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ArchivePanel.resx">
+      <DependentUpon>ArchivePanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\Cotrols\DoubleEdit.resx">
       <DependentUpon>DoubleEdit.cs</DependentUpon>
     </EmbeddedResource>
@@ -261,6 +273,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\MFCPanel.resx">
       <DependentUpon>MFCPanel.cs</DependentUpon>
@@ -273,6 +286,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ProgramsConfigPanel.resx">
       <DependentUpon>ProgramsConfigPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\PumpComponent.resx">
       <DependentUpon>PumpComponent.cs</DependentUpon>

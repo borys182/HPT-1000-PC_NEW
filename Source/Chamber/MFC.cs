@@ -19,6 +19,13 @@ namespace HPT1000.Source.Chamber
         private int      rangeVoltage = 10000;           //okreslenie zakresu napieciowego pracy przeplywki
         private int      maxFlow_sccm = 10000;           //okreslenie max przeplywu przeplywki wyrazonego w jednostkach sccm
 
+        private Value     valueFlow     = new Value();   //Zmiena jest wykorzystywana do przenoszenia aktualnych wartosci odczytywanych z PLC do obiektu zapisujacego dane w bazie danych jako parametr urzadzenia MFC
+
+        //-----------------------------------------------------------------------------------------
+        public Value GetValueFlowPtr()
+        {
+            return valueFlow;
+        }
         //-----------------------------------------------------------------------------------------
         public MFC_Channel(int aID)
         {
@@ -64,6 +71,8 @@ namespace HPT1000.Source.Chamber
                     actualFlow = aData[aIndex_Flow];
                     setpoint   = aData[aIndex_Setpoint];
                 }
+                //Aktualizuj wartosc przeplywu w obiekcie wykorzystywanym do zapisu aktualnje wartosci przeplywu w bazie danych
+                valueFlow.Value_ = actualFlow;
             }
             base.UpdateData(aData);
         }
@@ -272,6 +281,16 @@ namespace HPT1000.Source.Chamber
             flowMeters.Add(new MFC_Channel(1));
             flowMeters.Add(new MFC_Channel(2));
             flowMeters.Add(new MFC_Channel(3));
+
+            // TO DO NA CZAS TESTOW USTAWIAM NA SZTYWNO ID TRZEBA TO ZAPISAC/ODCZYTAC Z PLIKU
+            //Uzupelnij liste parametrow ktore powinny byc zapisywane w bazi danych
+            AddParameter("MFC1 Flow", flowMeters[0].GetValueFlowPtr(),"sccm").ID = 8;
+            AddParameter("MFC2 Flow", flowMeters[1].GetValueFlowPtr(),"sccm").ID = 9;
+            AddParameter("MFC3 Flow", flowMeters[2].GetValueFlowPtr(),"sccm").ID = 10;
+            //Ustaw nazwe urzadzenia - pamietaj ze musi ona byc unikalna dla calego systemu
+            Name = "MFC";
+
+            ID_DB = 3; //TO DO Ta wartosc musi byc odczytywana z pliku i do niego zapisywana Na testy ustawina na sztywno ID device
         }
         //-----------------------------------------------------------------------------------------
         private MFC_Channel GetMFC_Channel(int aId)

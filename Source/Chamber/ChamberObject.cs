@@ -7,7 +7,7 @@ using HPT1000.Source.Driver;
 
 namespace HPT1000.Source.Chamber
 {
-    public abstract class ChamberObject
+    public abstract class ChamberObject:  Device
     {
         protected PLC               plc         = null;
         protected Types.ControlMode controlMode = Types.ControlMode.Manual;

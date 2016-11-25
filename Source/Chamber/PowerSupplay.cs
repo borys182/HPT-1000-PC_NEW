@@ -16,6 +16,11 @@ namespace HPT1000.Source.Chamber
         private double          curent      = 0;
         private double          setpoint    = 0;
 
+        //Utworz wartosci ktore beda wykorzystywane do aktualizacji danych w bazie danych
+        Value powerValue    = new Value();
+        Value voltageValue  = new Value();
+        Value curentValue   = new Value();
+
         //parametry zasilacza
         private double          limitVoltage        = 1000;
         private double          limitCurent         = 50;
@@ -26,6 +31,20 @@ namespace HPT1000.Source.Chamber
         private int             timeWaitOnOperate   = 5;    //czas oczekiwania na potwierdzenie wlaczenia zasilacza
         private int             timeWaitOnSetpoint  = 30;   //czas oczekiwania na sptrawdzenie czy aktualny setpoint miesci sie w wyznaczonych widelkach programu
 
+        //-------------------------------------------------------------------------------------------
+        //Ustaw w konstruktorze liste parametrow ktore powinny byc zapisywane w bazie danyc
+        public PowerSupplay()
+        {
+            // TO DO NA CZAS TESTOW USTAWIAM NA SZTYWNO ID TRZEBA TO ZAPISAC/ODCZYTAC Z PLIKU
+            //Uzupelnij liste parametrow ktore powinny byc zapisywane w bazi danych
+            AddParameter("Power", powerValue,"W").ID = 5;
+            AddParameter("Voltage", voltageValue,"V").ID = 6;
+            AddParameter("Curent", curentValue,"A").ID = 7;
+            //Ustaw nazwe urzadzenia - pamietaj ze musi ona byc unikalna dla calego systemu
+            Name = "PowerSupply";
+
+            ID_DB = 2; //TO DO Ta wartosc musi byc odczytywana z pliku i do niego zapisywana Na testy ustawina na sztywno ID device
+        }
         //-------------------------------------------------------------------------------------------
         public double LimitVoltage
         {
@@ -115,6 +134,12 @@ namespace HPT1000.Source.Chamber
                     state = (Types.StateHV)Enum.Parse(typeof(Types.StateHV), (aData[Types.OFFSET_STATUS_HV]).ToString()); // konwertuj int na Enum
                 else
                     state = Types.StateHV.Error;
+
+                //aktualizuj wartosci w obiektach parametrow ktore sa wykorzystywane do zapisu danych w bazie danych
+                powerValue.Value_   = power;
+                voltageValue.Value_ = voltage;
+                curentValue.Value_  = curent;
+
             }
             base.UpdateData(aData);
         }

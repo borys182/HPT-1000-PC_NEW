@@ -3,12 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HPT1000.Source.Chamber;
 
 namespace HPT1000.Source.Driver
 {
     /// <summary>
     /// Klasa zawiera definicje typow oraz adresy komorek
     /// </summary>
+
+    public struct DataBaseData
+    {
+        public int      ID_Para;
+        public double   Value;
+        public Value    ValuePtr;
+        public string   Unit;
+        public DateTime Date;
+
+    };
+
+    public struct Sesion
+    {
+        public int ID;
+        public DateTime StartDate;
+        public DateTime EndDate;
+    };
 
     public class Types
     {

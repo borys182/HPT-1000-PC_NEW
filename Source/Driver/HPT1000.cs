@@ -32,6 +32,47 @@ namespace HPT1000.Source.Driver
  
         public static Types.Language    LanguageApp         = Types.Language.English; //zm globalna określająca jezyk aplikacji
 
+        List<DataBaseData>              dataBaseData        = new List<DataBaseData>(); //Lista z wartoscami danych ktore nalezy zapisac do bazy danych
+
+        //-----Zestaw parametrow okreslajych akwizycj danych w bazie danych
+        long                            lastTimeSaveDataInDB    = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;    //Counter jest wykorzystywany do odmierzania czasu zapidu danych w bazie danych
+        int                             frqSaveDataInDB         = 30;    //Czestotliwość okresla jak czesto powinismy zapisywac dane w bazie. Dane sa zbierane a nastepnie zbiorczo zapisywane [s]
+        double                          pressureAcq             = 1;     //Poziom prozni ponizej ktorej dane sa zapisywane w bazie danych
+        bool                            activeCheckPressureAcq  = true;  //Flaga okresla czy podczas zapisu danych w bazie danych mam sprawdzac warunek na poziom cisnienia w komorze
+        bool                            acqDuringOnlyProcess    = false; //Flaga okresla czy mam zapisywac dane tylko podczas trwania prcesu 
+        bool                            acqAllTime              = true;  //Flaga okresla czy mam zapisywac dane caly czas
+        bool                            lastConditionsSaveData  = false; // flaga okresla czy poprzednio warunki do zapisu danych byly spelnione
+        bool                            firstRunNewSesion       = false; //Flaga okresla ze wykonywana jest pierwszy przebieg petli po utworzeniu nowej sesji danych
+        //-----------------------------------------------------------------------------------------
+        public int FrequencySaveDataInDB
+        {
+            set { frqSaveDataInDB = value; }
+            get { return frqSaveDataInDB; }
+        }
+        //-----------------------------------------------------------------------------------------
+        public double PressureAcq
+        {
+            set { pressureAcq = value; }
+            get { return pressureAcq; }
+        }
+        //-----------------------------------------------------------------------------------------
+        public bool ActiveCheckPressureAcq
+        {
+            set { activeCheckPressureAcq = value; }
+            get { return activeCheckPressureAcq; }
+        }
+        //-----------------------------------------------------------------------------------------
+        public bool AcqDuringOnlyProcess
+        {
+            set { acqDuringOnlyProcess = value; }
+            get { return acqDuringOnlyProcess; }
+        }
+        //-----------------------------------------------------------------------------------------
+        public bool AcqAllTime
+        {
+            set { acqAllTime = value; }
+            get { return acqAllTime; }
+        }
         //-----------------------------------------------------------------------------------------
         public DB DataBase
         {
@@ -40,13 +81,21 @@ namespace HPT1000.Source.Driver
                 dataBase = value;
                 //pobierz listę programó zapisanych w bazie danych
                 if (dataBase != null)
+                {
                     ReadProgramsFromDB();
+                    RegisterDevice();
+                }
             }
         }
         //-----------------------------------------------------------------------------------------
         public static Types.Mode Mode
         {
             get { return mode; }
+        }
+        //-----------------------------------------------------------------------------------------
+        public Chamber.Chamber Chamber
+        {
+            get { return chamber; }
         }
         //-----------------------------------------------------------------------------------------
         public HPT1000()
@@ -106,8 +155,110 @@ namespace HPT1000.Source.Driver
                 //Odczytaj bledy z PLC
                 if(flagError)
                     ReadErrorsFromPLC();
+
+                //Wywolaj funkcje odpowiedzialna za wykonywanie akwizycji danych
+                     MakeAcquisitionData();
+
                 //Odczytuj dane co 0.5 s
                 Thread.Sleep(500);
+            }
+        }
+        //-----------------------------------------------------------------------------------------
+        //Funkcja organizuje zapis danych do bazy. Jej zadanie polega na sprawdzeniu warunkow zapisu, zbieraniu danych oraz zapisie danych w bazie
+        private void MakeAcquisitionData()
+        {
+            //Sprawdz czy nie ma nowej sesji danych. Jezeli tak to wyczysc liste i ustaw w bazie danych nowa sesje
+            if(ConditionsSaveData() && !lastConditionsSaveData)
+            {
+                //Rozpocznij nowa sesje danych poprzez wpis w bazie i kasowanie aktualnej listy parametrow
+                if (dataBase != null)
+                    dataBase.StartSesion();
+                dataBaseData.Clear(); //wyczysc liste parametrow do zapisu w bazie
+            }
+            //Jezeli sa spelnione warunki do zapisu danych to zbieraj dane a w odpowiedniej chwili zgodnie z ustawionymi parametrami czestotliwisc zapisz je do bazy
+            if(ConditionsSaveData())
+            {
+                //Zbieraj parametry ktore zostana zapisane w bazie danych w odpowiednim czasie
+                ColetctDataToSaveInDB();
+                //Sprawcz czy nadszedl czas na zpisa danych do bazy danych. Po rozpoczciu nowej sesji dane sa zapisywane odrazu ale tylko przez pierwsza iteracje
+                if (Math.Abs(DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond - lastTimeSaveDataInDB) >= frqSaveDataInDB * 1000 || firstRunNewSesion)
+                    SaveDataInDataBase();              
+            }
+            firstRunNewSesion       = false;
+            lastConditionsSaveData  = ConditionsSaveData();
+        }
+        //-----------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie sprawdzenie czy sa spelnione warunki do zapisu danych w bazie danych
+        private bool ConditionsSaveData()
+        {
+            bool    aRes            = false;
+            double  aPressure       = 0;
+            bool    aProcessActive  = false;
+
+            //Sprawdz czy nie wykonuje sie jakis program.
+            foreach (Program.Program program in programs)
+            {
+                if (program.IsRun())
+                    aProcessActive = true;
+            }
+            //Odczytaj wartosc aktualnej prozni
+            if (chamber != null && chamber.GetObject(Types.TypeObject.PC) != null)
+                aPressure = ((PressureControl)chamber.GetObject(Types.TypeObject.PC)).GetPressure();
+
+            //Sprawdz czy sa spelnione warunki aby zapisac dane w bazie danych
+            //Warunki to proznia jezeli opcja aktywna oraz wykonywany proces jezeli opcja aktywna
+            if (connectionPLC && (!activeCheckPressureAcq || (activeCheckPressureAcq && aPressure <= pressureAcq)) && (acqAllTime || (acqDuringOnlyProcess && aProcessActive)))
+                aRes = true;
+            
+            return aRes;
+        }
+        //-----------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie zapisanie danych w bazie danych 
+        private void SaveDataInDataBase()
+        {
+            //Pobierz wyszstkie elementy do zapisu i zapisany element z listy usun
+            while (dataBaseData.Count > 0)
+            {
+                DataBaseData data = dataBaseData[0]; //pobierz pierwszy element z listy do zapisu do bazy danych
+                dataBaseData.RemoveAt(0);            //usun pobrany elemnt z listy
+                if (dataBase != null)
+                {
+                    int aRes = dataBase.AddData(data);
+
+                }
+            }
+            lastTimeSaveDataInDB = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+        }
+        //-----------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie zbieranie danych i wprowadzanie ich do listy parametrow ktore zostana zapisane w bazie. Zbieranie odbywa sie zgodnie z indywiduaknymi preferenacjami parametru
+        private void ColetctDataToSaveInDB()
+        {
+            //Odczytaj dane ze wszystkich zarejestrowanych urzadzen i ich parametrow
+            foreach (Device device in chamber.GetObjects())
+            {
+                if (device.ID_DB > 0)
+                {
+                    foreach (Parameter para in device.GetParameters())
+                    {
+                        if (para.ID > 0 && para.ValuePtr != null)
+                        {
+                            //Sprawdz czy sa spelnione warunki aby parametr dodac do listy tych kotre zostana zapisane do bazy danych. 
+                            //Pod uwage biore roznice pomiedzy wartoscia aktualna a ostatnia oraz ostatni czas wprowadzenia parametru do lsity
+                            if (para.IsDifferenceValue() && para.IsTimeSavePara() && para.EnabledAcq)
+                            {
+                                DataBaseData data = new DataBaseData();
+
+                                data.ID_Para  = para.ID;
+                                data.Value    = para.ValuePtr.Value_;
+                                data.ValuePtr = para.ValuePtr;
+                                data.Unit     = para.Unit;
+                                data.Date     = DateTime.Now;
+
+                                dataBaseData.Add(data);
+                            }
+                        }
+                    }
+                }
             }
         }
         //-----------------------------------------------------------------------------------------
@@ -131,6 +282,19 @@ namespace HPT1000.Source.Driver
                     if(pr != null)
                         dataBase.FillProcessParametersOfSubprograms(pr.GetSubprograms());
                     programs.Add(pr);
+                }
+            }
+        }
+        //-----------------------------------------------------------------------------------------
+        //Zarejestruj urzadzenia w bazie danych powolane w komorze
+        private void  RegisterDevice()
+        {
+            if(chamber != null && dataBase != null)
+            {
+                foreach (Device device in chamber.GetObjects())
+                {
+                    dataBase.RegisterDevice(device);
+                    dataBase.RegisterParameters(device.ID_DB, device.GetParameters());
                 }
             }
         }

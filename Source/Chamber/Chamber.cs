@@ -7,7 +7,7 @@ using HPT1000.Source.Driver;
 
 namespace HPT1000.Source.Chamber
 {
-    class Chamber
+    public class Chamber
     {
         private List<ChamberObject> objects = new List<ChamberObject>();
 
@@ -67,6 +67,11 @@ namespace HPT1000.Source.Chamber
                     aObject = obj;
             }
             return aObject;
+        }
+        //------------------------------------------------------------------------------------------------
+        public List<ChamberObject> GetObjects()
+        {
+            return objects;
         }
         //------------------------------------------------------------------------------------------------
     }

@@ -70,7 +70,6 @@ namespace HPT1000.GUI
                 mfcPanel2.SetMFC(hpt1000.GetMFC(), hpt1000.GetGasTypes(), 2);
                 mfcPanel3.SetMFC(hpt1000.GetMFC(), hpt1000.GetGasTypes(), 3);
 
-
                 valve_Gas.SetValvePtr(hpt1000.GetValve(), Types.TypeValve.Gas);
                 valve_Purge.SetValvePtr(hpt1000.GetValve(), Types.TypeValve.Purge);
                 valve_SV.SetValvePtr(hpt1000.GetValve(), Types.TypeValve.SV);
@@ -88,6 +87,10 @@ namespace HPT1000.GUI
                 liveGraphicalPanel.SetVaporizerObjPtr(hpt1000.GetVaporizer());
                 liveGraphicalPanel.SetForePumpObjPtr(hpt1000.GetForePump());
                 liveGraphicalPanel.MainForm = this;
+
+                archivePanel.Hpt1000    = hpt1000;
+                archivePanel.MainForm   = this;
+                archivePanel.DataBase   = dataBase;
 
                 userManagerPanel.AppData = appData;
 

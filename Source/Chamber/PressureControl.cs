@@ -9,11 +9,25 @@ namespace HPT1000.Source.Chamber
 {
     public class PressureControl : ChamberObject
     {
-        double              actualPressure      = 0;
-        Types.GasProcesMode mode                = Types.GasProcesMode.FlowSP;
+        double actualPressure = 0;
+        Value  pressureValue = new Value();
 
-        private double      setpoint            = 0;
-        
+        Types.GasProcesMode mode = Types.GasProcesMode.FlowSP;
+
+        private double setpoint = 0;
+
+        //-----------------------------------------------------------------------------------------
+        public PressureControl()
+        {
+            // TO DO NA CZAS TESTOW USTAWIAM NA SZTYWNO ID TRZEBA TO ZAPISAC/ODCZYTAC Z PLIKU
+            //Uzupelnij liste parametrow ktore powinny byc zapisywane w bazi danych
+            AddParameter("Pressure", pressureValue,"mBar").ID = 11;
+     
+            //Ustaw nazwe urzadzenia - pamietaj ze musi ona byc unikalna dla calego systemu
+            Name = "PressureControl";
+
+            ID_DB = 4; //TO DO Ta wartosc musi byc odczytywana z pliku i do niego zapisywana Na testy ustawina na sztywno ID device
+        }
         //-----------------------------------------------------------------------------------------
         //Ustwa aktualny przeplyw dla wszystkich przeplywek
         override public void UpdateData(int[] aData)
@@ -28,6 +42,8 @@ namespace HPT1000.Source.Chamber
                     mode = (Types.GasProcesMode)Enum.Parse(typeof(Types.GasProcesMode), (aData[Types.OFFSET_MODE_PRESSURE]).ToString()); // konwertuj int na Enum
                 else
                     mode = Types.GasProcesMode.Unknown;
+                //Aktualizuj dane zapisywane do bazy danych
+                pressureValue.Value_ = actualPressure;
             }
             base.UpdateData(aData);
         }

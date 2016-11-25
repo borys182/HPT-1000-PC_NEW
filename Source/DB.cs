@@ -7,6 +7,7 @@ using Npgsql;
 using System.Text;
 using System.Threading.Tasks;
 using HPT1000.Source.Driver;
+using HPT1000.Source.Chamber;
 
 /*Lista rzeczy do zrobienia
  *  dostosowanie procedury AddUser aby podawac typ privligie a nie id
@@ -39,10 +40,10 @@ namespace HPT1000.Source
     /*
      * Klasa jest odpowiedzilana za komunikacje z baza danych oraz udostpenianie danych z niej pobranych. W bazie danych sa przechowywane informacje na temat:
      * : translacji tekstow , użytkowników i uprawnień, pomiarów, programów 
-     */ 
+     */
     public class DB
-    {    
-        private static List<ErrorText>  actionTextList  = new List<ErrorText>();
+    {
+        private static List<ErrorText> actionTextList = new List<ErrorText>();
 
         //korzystanie ze standardowego sterownika ODBC dostarczonego przez framwork visula
         private OdbcConnection connection = new OdbcConnection("Dsn=PostgreSQL;" + "database=HE-005;server=localhost;" + "port=5432;uid=postgres;");
@@ -59,10 +60,10 @@ namespace HPT1000.Source
             try
             {
                 conn.Open();
-            //    connection.Open();
+                //    connection.Open();
                 aRes = 0;
             }
-            catch (Exception ex){
+            catch (Exception ex) {
                 Logger.AddException(ex);
                 Logger.AddMsg("For unknown reasons database connection can't be opened", Types.MessageType.Error);
             }
@@ -79,7 +80,7 @@ namespace HPT1000.Source
                 conn.Close();
                 aRes = 0;
             }
-            catch(Exception ex){
+            catch (Exception ex) {
                 Logger.AddException(ex);
                 Logger.AddMsg("For unknown reasons database connection can't be closed.", Types.MessageType.Error);
             }
@@ -92,10 +93,10 @@ namespace HPT1000.Source
             List<User> users = new List<User>();
 
             //Programowanie komunikcji z baza z urzyciem frameworka Npgswl sprecyzowanego na komuniakcje z baza danych srodowiska Visual
-           
+
             //utworz zapytanie
             string query = " SELECT * FROM \"Users\"";
-            NpgsqlCommand cmd = new NpgsqlCommand(query,conn);
+            NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
             //wykonaj zapytanie
             NpgsqlDataReader data = cmd.ExecuteReader();
             //odczytaj wszystkich userow zwroconych przez zapytanie i przypisz je do obietku User oraz do lsity users
@@ -137,12 +138,12 @@ namespace HPT1000.Source
                     users.Add(user);
 
                 }
-                catch (Exception ex){
+                catch (Exception ex) {
                     Logger.AddException(ex);
                 }
             }
             data.Close();
-        
+
             return users;
         }
         //------------------------------------------------------------------------------------------------------------------------------
@@ -160,20 +161,20 @@ namespace HPT1000.Source
             int aProgramId = 0;
             while (data.Read())
             {
-                Program.Program     program     = null;
-                Program.Subprogram  subprogram  = null; 
+                Program.Program program = null;
+                Program.Subprogram subprogram = null;
                 try
                 {
                     if (!data.IsDBNull(data.GetOrdinal("program_id")))
                         aProgramId = data.GetInt32(data.GetOrdinal("program_id"));
-                    
+
                     //Podaj mi wskaznik na program z danym ID ktory zostal juz wczesniej utworzony
                     program = GetProgram(programs, aProgramId);
                     if (program == null)
                     {
                         program = new Program.Program();
                         program.SetID((uint)aProgramId);
-                  //      program.SetPtrPLC(); TO DO Zastanowic sien ad twrzemioenm progrmu z fabryky aby w jendym miejscu poprawnieni inijclizowac wymagane atrybuty obiektu
+                        //      program.SetPtrPLC(); TO DO Zastanowic sien ad twrzemioenm progrmu z fabryky aby w jendym miejscu poprawnieni inijclizowac wymagane atrybuty obiektu
                         program.DataBase = this;
                         programs.Add(program);
                     }
@@ -211,10 +212,10 @@ namespace HPT1000.Source
         }
         //------------------------------------------------------------------------------------------------------------------------------
         //Funkcja ma za zadanie zwrocenie danego prgramu z lisy ale jezeli nie istnieje to go musi utworzyc
-         private Program.Program GetProgram(List<Program.Program>programs,int aIdProgram)
+        private Program.Program GetProgram(List<Program.Program> programs, int aIdProgram)
         {
             Program.Program program = null;
-            foreach(Program.Program pr in programs)
+            foreach (Program.Program pr in programs)
             {
                 if (pr.GetID() == aIdProgram)
                     program = pr;
@@ -225,7 +226,7 @@ namespace HPT1000.Source
         //Funkcja ma za zadanie podanie listy userow wpisanych do tabeli Users bazy danychwypelnienie danymi procesowymi podanengo subprogramu
         public void FillProcessParametersOfSubprograms(List<Program.Subprogram> subprograms)
         {
-             //utworz zapytanie
+            //utworz zapytanie
             string query = " SELECT * FROM \"Subprograms\"";
             NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
             //wykonaj zapytanie
@@ -250,7 +251,7 @@ namespace HPT1000.Source
                             FillPowerProcessData(subprogram.GetPlasmaProces(), data);
                             FillGasProcessData(subprogram.GetGasProces(), data);
                         }
-                    }             
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -260,10 +261,47 @@ namespace HPT1000.Source
             data.Close();
         }
         //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie odczytanie listy sesji zapisu danych zawartych w bazie danych
+        public List<Sesion> GetSesions()
+        {
+            List<Sesion> sesions = new List<Sesion>();
+
+            //utworz zapytanie
+            string query = " SELECT * FROM \"Sesions\"";
+            NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+            //wykonaj zapytanie
+            NpgsqlDataReader data = cmd.ExecuteReader();
+            //odczytaj wszystkie sesje zwrocone przez zapytanie
+            while (data.Read())
+            {
+                Sesion sesion = new Sesion();
+                try
+                {
+                    if (!data.IsDBNull(data.GetOrdinal("id")))
+                        sesion.ID = data.GetInt32(data.GetOrdinal("id"));
+
+                    if (!data.IsDBNull(data.GetOrdinal("date_start")))
+                        sesion.StartDate = data.GetDateTime(data.GetOrdinal("date_start"));
+
+                    if (!data.IsDBNull(data.GetOrdinal("date_end")))
+                        sesion.EndDate = data.GetDateTime(data.GetOrdinal("date_end"));
+
+                    sesions.Add(sesion);
+                }
+                catch (Exception ex)
+                {
+                    Logger.AddException(ex);
+                }
+            }
+            data.Close();
+
+            return sesions;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
         private Program.Subprogram GetSubprogram(List<Program.Subprogram> subprograms, int subprogramID)
         {
             Program.Subprogram subprogram = null;
-            foreach(Program.Subprogram subpr in subprograms)
+            foreach (Program.Subprogram subpr in subprograms)
             {
                 if (subpr.ID == subprogramID)
                     subprogram = subpr;
@@ -330,11 +368,11 @@ namespace HPT1000.Source
                 if (!data.IsDBNull(data.GetOrdinal("vaporaiser_on_time")))
                     gasProcess.SetOnTime((int)data.GetFloat(data.GetOrdinal("vaporaiser_on_time")));
                 if (!data.IsDBNull(data.GetOrdinal("mfc1_flow")))
-                    gasProcess.SetGasFlow(data.GetFloat(data.GetOrdinal("mfc1_flow")), Types.UnitFlow.sccm,1);
+                    gasProcess.SetGasFlow(data.GetFloat(data.GetOrdinal("mfc1_flow")), Types.UnitFlow.sccm, 1);
                 if (!data.IsDBNull(data.GetOrdinal("mfc2_flow")))
-                    gasProcess.SetGasFlow(data.GetFloat(data.GetOrdinal("mfc2_flow")), Types.UnitFlow.sccm,2);
+                    gasProcess.SetGasFlow(data.GetFloat(data.GetOrdinal("mfc2_flow")), Types.UnitFlow.sccm, 2);
                 if (!data.IsDBNull(data.GetOrdinal("mfc3_flow")))
-                    gasProcess.SetGasFlow(data.GetFloat(data.GetOrdinal("mfc3_flow")), Types.UnitFlow.sccm,3);
+                    gasProcess.SetGasFlow(data.GetFloat(data.GetOrdinal("mfc3_flow")), Types.UnitFlow.sccm, 3);
                 if (!data.IsDBNull(data.GetOrdinal("mfc1_min_flow")))
                     gasProcess.SetMinGasFlow((int)data.GetFloat(data.GetOrdinal("mfc1_min_flow")), 1);
                 if (!data.IsDBNull(data.GetOrdinal("mfc2_min_flow")))
@@ -374,7 +412,7 @@ namespace HPT1000.Source
         public int AddUser(User user)
         {
             int aRes = 0;
-            List<NpgsqlParameter>parameters = GetUserParameters(user, TypeFillParameters.NewUser);
+            List<NpgsqlParameter> parameters = GetUserParameters(user, TypeFillParameters.NewUser);
             aRes = PerformFunctionDB("\"NewUser\"", parameters);
             //Funkcja zwraca ID nowo utworzonego usera
             if (aRes > 0 && user != null)
@@ -392,7 +430,7 @@ namespace HPT1000.Source
             //Przygotuj parametry dla procedury modife na bazie obiektu usera
             List<NpgsqlParameter> parameters = GetUserParameters(user, TypeFillParameters.ModifyUser);
             //Wykonaj procedure modyfikowania usera
-            aRes = PerformFunctionDB("\"ModifyUser\"", parameters);          
+            aRes = PerformFunctionDB("\"ModifyUser\"", parameters);
             return aRes;
         }
         //------------------------------------------------------------------------------------------------------------------------------
@@ -450,7 +488,7 @@ namespace HPT1000.Source
         }
         //------------------------------------------------------------------------------------------------------------------------------
         //Funkcja dodaje do bazy danych subprogram. Powiazanie subprogramu z programem odbywa sie juz po stronie bazy danych w funkcji AddSubprpgram
-        public int AddSubProgram(Program.Subprogram subprogram,Int32 idProgram)
+        public int AddSubProgram(Program.Subprogram subprogram, Int32 idProgram)
         {
             int aRes = -1;
             if (subprogram != null)
@@ -464,7 +502,7 @@ namespace HPT1000.Source
                 parameters.Add(GetParameter("name_subprogram", DbType.AnsiString, subprogram.GetName()));
                 //utworz parametr description                    
                 parameters.Add(GetParameter("description", DbType.AnsiString, subprogram.GetDescription()));
-         
+
                 //Wykonaj procedure dodawania programu
                 aRes = PerformFunctionDB("\"AddSubprogram\"", parameters);
             }
@@ -486,7 +524,7 @@ namespace HPT1000.Source
                 parameters.Add(GetParameter("name", DbType.AnsiString, subprogram.GetName()));
                 //utworz parametr description                    
                 parameters.Add(GetParameter("description", DbType.AnsiString, subprogram.GetDescription()));
-            
+
                 //Wykonaj procedure dodawania programu
                 aRes = PerformFunctionDB("\"ModifySubprogram\"", parameters);
 
@@ -509,7 +547,7 @@ namespace HPT1000.Source
 
                 //utworz liste parametrow dla funkcji ModifySubprogramStages_1
                 parameters.Add(GetParameter("id_subprogram", DbType.Int32, subprogram.ID));
-                parameters.Add(GetParameter("time_vent", DbType. Time, subprogram.GetVentProces().GetTimeVent() ));
+                parameters.Add(GetParameter("time_vent", DbType.Time, subprogram.GetVentProces().GetTimeVent()));
                 parameters.Add(GetParameter("time_purge", DbType.Time, subprogram.GetPurgeProces().GetTimePurge()));
                 parameters.Add(GetParameter("time_pump", DbType.Time, subprogram.GetPumpProces().GetTimeWaitForPumpDown()));
                 parameters.Add(GetParameter("setpoint_pressure_pump", DbType.Single, (float)subprogram.GetPumpProces().GetSetpoint()));
@@ -517,7 +555,7 @@ namespace HPT1000.Source
                 parameters.Add(GetParameter("mode", DbType.Int32, (int)subprogram.GetPlasmaProces().GetWorkMode()));
                 parameters.Add(GetParameter("max_devation_power_supply", DbType.Single, (float)subprogram.GetPlasmaProces().GetDeviation()));
                 parameters.Add(GetParameter("time_duration_power_supply", DbType.Time, subprogram.GetPlasmaProces().GetTimeOperate()));
-             
+
                 //Wykonaj procedure dodawania programu
                 aRes = PerformFunctionDB("\"ModifySubprogramStages_1\"", parameters);
             }
@@ -536,13 +574,13 @@ namespace HPT1000.Source
 
                 //utworz liste parametrow dla funkcji ModifySubprogramStages_2 - edycja tabeli przechowujacej info na temat sterowania gazami
                 parameters.Add(GetParameter("id_subprogram", DbType.Int32, subprogram.ID));
-                parameters.Add(GetParameter("active_mfc1",   DbType.Boolean, gas.GetActiveFlow(1)));
-                parameters.Add(GetParameter("active_mfc2",   DbType.Boolean, gas.GetActiveFlow(2)));
-                parameters.Add(GetParameter("active_mfc3",   DbType.Boolean, gas.GetActiveFlow(3)));
+                parameters.Add(GetParameter("active_mfc1", DbType.Boolean, gas.GetActiveFlow(1)));
+                parameters.Add(GetParameter("active_mfc2", DbType.Boolean, gas.GetActiveFlow(2)));
+                parameters.Add(GetParameter("active_mfc3", DbType.Boolean, gas.GetActiveFlow(3)));
                 parameters.Add(GetParameter("active_vaporaiser", DbType.Boolean, gas.GetVaporiserActive()));
-                parameters.Add(GetParameter("flow_mfc1",     DbType.Single, (float)gas.GetGasFlow(Types.UnitFlow.sccm,1)));
-                parameters.Add(GetParameter("flow_mfc2",     DbType.Single, (float)gas.GetGasFlow(Types.UnitFlow.sccm,2)));
-                parameters.Add(GetParameter("flow_mfc3",     DbType.Single, (float)gas.GetGasFlow(Types.UnitFlow.sccm,3)));
+                parameters.Add(GetParameter("flow_mfc1", DbType.Single, (float)gas.GetGasFlow(Types.UnitFlow.sccm, 1)));
+                parameters.Add(GetParameter("flow_mfc2", DbType.Single, (float)gas.GetGasFlow(Types.UnitFlow.sccm, 2)));
+                parameters.Add(GetParameter("flow_mfc3", DbType.Single, (float)gas.GetGasFlow(Types.UnitFlow.sccm, 3)));
                 parameters.Add(GetParameter("min_flow_mfc1", DbType.Single, (float)gas.GetMinGasFlow(1)));
                 parameters.Add(GetParameter("min_flow_mfc2", DbType.Single, (float)gas.GetMinGasFlow(2)));
                 parameters.Add(GetParameter("min_flow_mfc3", DbType.Single, (float)gas.GetMinGasFlow(3)));
@@ -582,6 +620,236 @@ namespace HPT1000.Source
             }
             return aRes;
         }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie zarejestrowanie urzadzenia w bazie danych
+        public int RegisterDevice(Device device)
+        {
+            int aRes = -1;
+            if (device != null)
+            {
+                //jezeli urzadzenie nie zostal jeszcze zarejestrowany to go zarejestruj
+                if (device.ID_DB <= 0 && device.Name != null)
+                {
+                    //Przygotuj parametry dla procedury rejestracji urzadzenia w bazie danych
+                    List<NpgsqlParameter> parameters = new List<NpgsqlParameter>();
+                    parameters.Add(GetParameter("dev_name", DbType.AnsiString, device.Name));
+                    //Wykonaj procedure rejestracji urzadzenia w bazie danych subprogramu
+                    int id = PerformFunctionDB("\"RegisterDevice\"", parameters); //procedura zwraca id utworzonego 
+                    if (id > 0)
+                    {
+                        device.ID_DB = id;
+                        aRes = 0;
+                    }
+                }
+                else
+                    aRes = 0;
+            }
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie zarejestrowanie listy parametrow w bazie danych
+        public int RegisterParameters(int idDevice, List<Parameter> parameters)
+        {
+            int aRes = -1;
+            int aCountOK = 0; // liczba poprawnie zapisanych parametrow
+            if (parameters != null)
+            {
+                foreach (Parameter para in parameters)
+                {
+                    //jezeli parametr nie zostal jeszcze zarejestrowany to go zarejestruj
+                    if (para.ID <= 0)
+                    {
+                        //Przygotuj parametry dla procedury rejestracji urzadzenia w bazie danych
+                        List<NpgsqlParameter> parametersDB = new List<NpgsqlParameter>();
+                        parametersDB.Add(GetParameter("dev_id", DbType.Int32, idDevice));
+                        parametersDB.Add(GetParameter("para_name", DbType.AnsiString, para.Name));
+                        //Wykonaj procedure rejestracji urzadzenia w bazie danych subprogramu
+                        int id = PerformFunctionDB("\"RegisterParameter\"", parametersDB); //procedura zwraca id utworzonego 
+                        if (id > 0)
+                        {
+                            para.ID = id;
+                            aCountOK++;
+                        }
+                    }
+                    else
+                        aCountOK++;
+                }
+                if (aCountOK == parameters.Count)
+                    aRes = 0;
+            }
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie zarejestrowanie urzadzenia w bazie danych
+        public int AddData(DataBaseData data)
+        {
+            int aRes = -1;
+
+            if (data.ValuePtr != null)
+            {
+                //Przygotuj parametry dla procedury rejestracji urzadzenia w bazie danych
+                List<NpgsqlParameter> parameters = new List<NpgsqlParameter>();
+                parameters.Add(GetParameter("para_id", DbType.Int32, data.ID_Para));
+                parameters.Add(GetParameter("value_", DbType.Single, (float)data.Value));
+                parameters.Add(GetParameter("unit_", DbType.AnsiString, data.Unit));
+                parameters.Add(GetParameter("date_", DbType.DateTime, data.Date));
+                //Wykonaj procedure zapisu danych pomiarowytch w bazie danych jako danych historycznych
+                aRes = PerformFunctionDB("\"AddData\"", parameters); //procedura zwraca id utworzonego 
+                //jezeli udalo sie zapisac to ustaw wartosc jako ostania zapisna do bazy
+                if (aRes > 0)
+                    data.ValuePtr.LastValueDB = data.Value;
+            }
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie zapis daty poczatku sesji zapisu danych do bazy danych
+        public int StartSesion()
+        {
+            int aRes = -1;
+
+            //Przygotuj parametry dla procedury rejestracji urzadzenia w bazie danych
+            List<NpgsqlParameter> parameters = new List<NpgsqlParameter>();
+            parameters.Add(GetParameter("start_date", DbType.DateTime, DateTime.Now));
+            //Wykonaj procedurerozpoczecia sesji zapisu danych do bazy danych
+            aRes = PerformFunctionDB("\"StartSesion\"", parameters); //procedura zwraca id utworzonego 
+
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie pobranie danych z bazy danych z danego okresu
+        public List<DataBaseData> GetHistoryData(DateTime dateTimeStart, DateTime dateTimeEnd)
+        {
+            List<DataBaseData> listData = new List<DataBaseData>();
+
+            //Przygotuj parametry dla procedury rejestracji urzadzenia w bazie danych
+            List<NpgsqlParameter> parameters = new List<NpgsqlParameter>();
+            parameters.Add(GetParameter("StartDate", DbType.DateTime, dateTimeStart));
+            parameters.Add(GetParameter("EndDate", DbType.DateTime, dateTimeEnd));
+            //Wykonaj procedurerozpoczecia sesji zapisu danych do bazy danych
+            DataSet dataSet = null;
+            PerformFunctionDB("\"GetData\"", parameters, out dataSet); //procedura zwraca id utworzonego 
+
+            if (dataSet != null)
+            {
+                if (dataSet.Tables.Count > 0)
+                {
+                    for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                    {
+                        //if(dataSet.Tables[0].Rows[i].ItemArray. == 5)
+                        {
+                            DataBaseData data = new DataBaseData();
+
+                            data.ID_Para = (int)dataSet.Tables[0].Rows[i].ItemArray[1];
+                            data.Value = (float)dataSet.Tables[0].Rows[i].ItemArray[2];
+                            data.Date = (DateTime)dataSet.Tables[0].Rows[i].ItemArray[4];
+
+                            listData.Add(data);
+                        }
+                    }
+                }
+            }
+            //Wykonaj korekcje danych o zakres sesji to znaczy wprowadz wartosci pomiedzy punkty nalezace do roznych sesji aby nie rysowac miedzy nimi lini na wykresie
+            CorectDataAboutSesion(listData);
+            //Posortuj liste po datach rosnaco aby wykres zostal poprawnie narysowany
+            SortList(listData);
+            return listData;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie wstawianie pkt zero pomiedzy dwa sasiednie punkty nalezacy do roznych sesji. Ma to na celu przerywanie lini na wykresie aby nie sugerowac userowi ze dane byly odczydtywane w sytuacji gdy ich nie bylo
+        private void CorectDataAboutSesion(List<DataBaseData> listData)
+        {
+            if(listData != null)
+            {
+                DataBaseData dataFirst;
+                DataBaseData dataNext;
+                //Posortuj liste po datach rosnaco
+                SortList(listData);
+                for (int i = 0; i < listData.Count - 1; i++)
+                {
+                    //Pobierz dwa sąsiednie punkty tego samego parametru
+                    dataFirst   = listData[i];
+                    dataNext    = GetNextPara(listData, dataFirst.ID_Para, i + 1);
+                    //Jezeli zostal znaleziony sasiedni punkt i wartosc pierwszego jezt rozna od zera to dodaj dodatkowe punkty 0 aby nie rysowac danych na wykresie dla nieistniejacych sesji
+                    if (dataFirst.ID_Para == dataNext.ID_Para && dataFirst.Value != 0)
+                    {
+                        //Podaj mi id sesji do ktorej nalezy dany punkt
+                        int idSesionFirstPkt = GetIdSesion(dataFirst.Date);
+                        int idSesionNextPkt = GetIdSesion(dataNext.Date);
+                        //Sprawdzam czy oba punkty naleza do tej samej sesji jezeli nie to dla obydwu dodaje punkt 0 co spowoduje sciagniecie wykresu do wartosci 0
+                        if(idSesionFirstPkt != idSesionNextPkt)
+                        {
+                            DataBaseData newDataFirst = new DataBaseData();
+                            newDataFirst.ID_Para  = dataFirst.ID_Para;
+                            newDataFirst.Unit     = dataFirst.Unit;
+                            newDataFirst.Date     = dataFirst.Date.AddSeconds(1);
+                            newDataFirst.ValuePtr = dataFirst.ValuePtr;
+                            newDataFirst.Value    = 0;
+
+                            DataBaseData newDataNext = new DataBaseData();
+                            newDataNext.ID_Para  = dataNext.ID_Para;
+                            newDataNext.Unit     = dataNext.Unit;
+                            newDataNext.Date     = dataNext.Date.AddSeconds(-1);
+                            newDataNext.ValuePtr = dataNext.ValuePtr;
+                            newDataNext.Value    = 0;
+
+                            listData.Add(newDataFirst);
+                            listData.Add(newDataNext);
+                        }
+                    }
+                }
+            }
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie zwrocenie id sesji do ktroej nalezy dany punkt
+        private int GetIdSesion(DateTime date)
+        {
+            int aId = 0;
+            if (GetSesions() != null)
+            {
+                foreach (Sesion sesion in GetSesions())
+                {
+                    if (date >= sesion.StartDate && date <= sesion.EndDate)
+                        aId = sesion.ID;
+                }
+            }         
+            return aId;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcaj ma za zadanie podanie nastepnego punkty tego samego parametru z listy
+        private DataBaseData GetNextPara(List<DataBaseData> listData,int idPara,int index)
+        {
+            DataBaseData data = new DataBaseData();
+            for (int i = index; i < listData.Count ; i++)
+            {
+                //Pobierz pierwszy z brzegu punkt tego samego parametru ktroy zostal przekazany jako parametr
+                if(listData[i].ID_Para == idPara)
+                {
+                    data = listData[i];
+                    break;
+                }
+            }
+            return data;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie sortowanie listy
+        private void SortList(List<DataBaseData>listData)
+        {
+            if (listData != null)
+            {
+                for (int i = 0; i < listData.Count; i++)
+                {
+                    for (int j = 0; j < listData.Count - 1; j++)
+                    {
+                        if (listData[j].Date > listData[j + 1].Date)
+                        {
+                            DataBaseData data = listData[j];
+                            listData[j] = listData[j + 1];
+                            listData[j + 1] = data;
+                        }
+                    }
+                }
+            }
+        } 
         //------------------------------------------------------------------------------------------------------------------------------
         //Funkcja ma za zadanie utworzenie lsity parametrow sla standardowej funkcji usuwania rekordu za bazy danych posiadajacej tylko jedne parametro nazwie ID
         private List<NpgsqlParameter> GetRemoveStandardParameters(int aId)
@@ -743,6 +1011,42 @@ namespace HPT1000.Source
                     trans.Commit();
             }
 
+            return aRes;
+        }
+        //-------------------------------------------------------------------------------------
+        private int PerformFunctionDB(string functionName, List<NpgsqlParameter> parameters, out DataSet ds)
+        {
+            int aRes = -1;
+            ds = new DataSet();
+            NpgsqlTransaction trans = null;
+            try
+            {
+                trans = conn.BeginTransaction();   //Rozpoczecie tranzakcji
+                //Powolonie pbiektu komendy i nadaniu mu komendy jako nazwy procedury ktora ma wykonac. Nazwa musi byc w cudzyslowiach bo wtedy sa rozpoznawane duze i male litery
+                NpgsqlCommand cmd = new NpgsqlCommand(functionName, conn);
+                //Ustawienie komendy jako komendy dla ProceduryStorowanej
+                cmd.CommandType = CommandType.StoredProcedure;
+                //Uzupelnij liste parametrow
+                PrepareParameters(cmd, parameters);
+                //Przygotuj obiekty wymagane do wykonania procedure
+                NpgsqlDataAdapter data = new NpgsqlDataAdapter(cmd);
+                //wypelnij data set danymi odebrannymi z procedury
+                data.Fill(ds);
+                //Odbierz wynik zwracany funkcje przez bazy danych
+                if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                    aRes = (int)ds.Tables[0].Rows[0].ItemArray[0];
+            }
+            //Jezeli zdazyl sie jakis problem to zglos to
+            catch (Exception ex)
+            {
+                Logger.AddException(ex);
+            }
+            //Zakonczenie tranzakcji
+            finally
+            {
+                if (trans != null)
+                    trans.Commit();
+            }
             return aRes;
         }
         //-------------------------------------------------------------------------------------

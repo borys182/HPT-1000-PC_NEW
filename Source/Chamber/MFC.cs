@@ -288,9 +288,9 @@ namespace HPT1000.Source.Chamber
             AddParameter("MFC2 Flow", flowMeters[1].GetValueFlowPtr(),"sccm").ID = 9;
             AddParameter("MFC3 Flow", flowMeters[2].GetValueFlowPtr(),"sccm").ID = 10;
             //Ustaw nazwe urzadzenia - pamietaj ze musi ona byc unikalna dla calego systemu
-            Name = "MFC";
+            name = "MFC";
 
-            ID_DB = 3; //TO DO Ta wartosc musi byc odczytywana z pliku i do niego zapisywana Na testy ustawina na sztywno ID device
+            acqData = true; //Ustawiam flage ze urzadzenie jest przenzaczone do arachiwzowania danych w nbazie danych
         }
         //-----------------------------------------------------------------------------------------
         private MFC_Channel GetMFC_Channel(int aId)

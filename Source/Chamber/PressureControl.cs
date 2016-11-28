@@ -24,9 +24,9 @@ namespace HPT1000.Source.Chamber
             AddParameter("Pressure", pressureValue,"mBar").ID = 11;
      
             //Ustaw nazwe urzadzenia - pamietaj ze musi ona byc unikalna dla calego systemu
-            Name = "PressureControl";
+            name = "PressureControl";
 
-            ID_DB = 4; //TO DO Ta wartosc musi byc odczytywana z pliku i do niego zapisywana Na testy ustawina na sztywno ID device
+            acqData = true; //Ustawiam flage ze urzadzenie jest przenzaczone do arachiwzowania danych w nbazie danych
         }
         //-----------------------------------------------------------------------------------------
         //Ustwa aktualny przeplyw dla wszystkich przeplywek

@@ -10,23 +10,30 @@ namespace HPT1000.Source.Chamber
      */ 
     public class Device
     {
-       //TO DO - zapisz id do pliku configuracyjnego !!!!
         private int             id_DB;      //ID urzadzenia zapisanego w bazie danych
-        private string          name;       //Nazwa urzadzenia ktora musi byc unikalna dla calego systemu. Jest ona nadawana w konstruktorze urzadzenia a poznij dopiero zapisywana w bazie danych
+        protected string        name;       //Nazwa urzadzenia ktora musi byc unikalna dla calego systemu. Jest ona nadawana w konstruktorze urzadzenia a poznij dopiero zapisywana w bazie danych
                                             //Jezeli urzadzenie nie ma byc rejestrowane w bazie danych to nie ustawiam pola name
         private List<Parameter> parameters = new List<Parameter>(); //Lista parametrow urzadzenia ktore sa zapisywane w bazie danych
-
+        protected bool          acqData = false; //Flaga okresla czy dane urzadzenie jest przenzaczone do archwizaji danych w bazie danych
         //---------------------------------------------------------------------------------------------------------------------------
         public int ID_DB
         {
-            set { id_DB = value; }
+            set
+            {
+                id_DB = value;
+                DataFile.SetID(name,id_DB);//Zapisz wartosc do pliku odrazu
+            }
             get { return id_DB; }
         }
         //---------------------------------------------------------------------------------------------------------------------------
         public string Name
         {
-            set { name = value; }
             get { return name; }
+        }
+        //---------------------------------------------------------------------------------------------------------------------------
+        public bool AcqData
+        {
+            get { return acqData; }
         }
         //---------------------------------------------------------------------------------------------------------------------------
         public Parameter AddParameter(string name, Value value, string unit)

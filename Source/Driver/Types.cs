@@ -28,6 +28,15 @@ namespace HPT1000.Source.Driver
         public DateTime EndDate;
     };
 
+    public struct DataBaseDevice
+    {
+        public int DeviceID;
+        public int ParaID;
+        public string DeviceName;
+        public string ParaName;
+    };
+
+
     public class Types
     {
         /// <summary>

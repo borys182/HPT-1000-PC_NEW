@@ -41,9 +41,9 @@ namespace HPT1000.Source.Chamber
             AddParameter("Voltage", voltageValue,"V").ID = 6;
             AddParameter("Curent", curentValue,"A").ID = 7;
             //Ustaw nazwe urzadzenia - pamietaj ze musi ona byc unikalna dla calego systemu
-            Name = "PowerSupply";
+            name = "PowerSupply";
 
-            ID_DB = 2; //TO DO Ta wartosc musi byc odczytywana z pliku i do niego zapisywana Na testy ustawina na sztywno ID device
+            acqData = true; //Ustawiam flage ze urzadzenie jest przenzaczone do arachiwzowania danych w nbazie danych
         }
         //-------------------------------------------------------------------------------------------
         public double LimitVoltage

@@ -298,6 +298,43 @@ namespace HPT1000.Source
             return sesions;
         }
         //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie odczytanie listy urzadzen i jej parametrow
+        public List<DataBaseDevice> GetDevices()
+        {
+            List<DataBaseDevice> devices = new List<DataBaseDevice>();
+
+            //utworz zapytanie
+            string query = " SELECT * FROM \"Devices\"";
+            NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+            //wykonaj zapytanie
+            NpgsqlDataReader data = cmd.ExecuteReader();
+            //odczytaj wszystkie sesje zwrocone przez zapytanie
+            while (data.Read())
+            {
+                DataBaseDevice device = new DataBaseDevice();
+                try
+                {
+                    if (!data.IsDBNull(data.GetOrdinal("device_id")))
+                        device.DeviceID = data.GetInt32(data.GetOrdinal("device_id"));
+                    if (!data.IsDBNull(data.GetOrdinal("para_id")))
+                        device.ParaID = data.GetInt32(data.GetOrdinal("para_id"));
+                    if (!data.IsDBNull(data.GetOrdinal("device_name")))
+                        device.DeviceName = data.GetString(data.GetOrdinal("device_name"));
+                    if (!data.IsDBNull(data.GetOrdinal("para_name")))
+                        device.ParaName = data.GetString(data.GetOrdinal("para_name"));
+
+                    devices.Add(device);
+                }
+                catch (Exception ex)
+                {
+                    Logger.AddException(ex);
+                }
+            }
+            data.Close();
+
+            return devices;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
         private Program.Subprogram GetSubprogram(List<Program.Subprogram> subprograms, int subprogramID)
         {
             Program.Subprogram subprogram = null;
@@ -627,18 +664,27 @@ namespace HPT1000.Source
             int aRes = -1;
             if (device != null)
             {
-                //jezeli urzadzenie nie zostal jeszcze zarejestrowany to go zarejestruj
-                if (device.ID_DB <= 0 && device.Name != null)
+                //Sprawdz czy dane urzadzenie jest przenzaczone do zbierania danych z bazy danych
+                if (device.AcqData)
                 {
-                    //Przygotuj parametry dla procedury rejestracji urzadzenia w bazie danych
-                    List<NpgsqlParameter> parameters = new List<NpgsqlParameter>();
-                    parameters.Add(GetParameter("dev_name", DbType.AnsiString, device.Name));
-                    //Wykonaj procedure rejestracji urzadzenia w bazie danych subprogramu
-                    int id = PerformFunctionDB("\"RegisterDevice\"", parameters); //procedura zwraca id utworzonego 
-                    if (id > 0)
+                    //jezeli urzadzenie nie zostal jeszcze zarejestrowany to go zarejestruj. Zarejestruj tylko te urzadzenia ktore sa przeznacozne do zbierania danych
+                    int aID = GetRegisterDeviceID(device.Name, true);
+                    if (aID == 0)
                     {
-                        device.ID_DB = id;
-                        aRes = 0;
+                        //Przygotuj parametry dla procedury rejestracji urzadzenia w bazie danych
+                        List<NpgsqlParameter> parameters = new List<NpgsqlParameter>();
+                        parameters.Add(GetParameter("dev_name", DbType.AnsiString, device.Name));
+                        //Wykonaj procedure rejestracji urzadzenia w bazie danych subprogramu
+                        int id = PerformFunctionDB("\"RegisterDevice\"", parameters); //procedura zwraca id utworzonego 
+                        if (id > 0)
+                        {
+                            device.ID_DB = id;
+                            aRes = 0;
+                        }
+                    }
+                    else //Urzadzenie jest zarejestrowane to ustaw ID
+                    {
+                        device.ID_DB = aID;
                     }
                 }
                 else
@@ -657,7 +703,8 @@ namespace HPT1000.Source
                 foreach (Parameter para in parameters)
                 {
                     //jezeli parametr nie zostal jeszcze zarejestrowany to go zarejestruj
-                    if (para.ID <= 0)
+                    int aID = GetRegisterDeviceID(para.Name, false);
+                    if (aID == 0)
                     {
                         //Przygotuj parametry dla procedury rejestracji urzadzenia w bazie danych
                         List<NpgsqlParameter> parametersDB = new List<NpgsqlParameter>();
@@ -671,11 +718,38 @@ namespace HPT1000.Source
                             aCountOK++;
                         }
                     }
-                    else
+                    else //Parametr jest zarejestrowany to ustaw ID
+                    {
+                        para.ID = aID;
+                    }
                         aCountOK++;
                 }
                 if (aCountOK == parameters.Count)
                     aRes = 0;
+            }
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie zwrocenie ID urzadzenia/parametru z bazy danych . Rozpoznaien nastepuje po nazwie urzadzenia/parametru. Druho parametr okresla czy szukam urzadzenia czy parametru
+        private int GetRegisterDeviceID(string name, bool findDev)
+        {
+            int aRes = 0;
+            List<DataBaseDevice> devices = GetDevices();
+            if (devices != null)
+            {
+                foreach (DataBaseDevice device in devices)
+                {
+                    if (findDev)
+                    {
+                        if (device.DeviceName == name)
+                            aRes = device.DeviceID;
+                    }
+                    else
+                    {
+                        if (device.ParaName == name)
+                            aRes = device.ParaID;
+                    }
+                }
             }
             return aRes;
         }

@@ -11,6 +11,7 @@ using HPT1000.Source.Driver;
 using HPT1000.Source.Chamber;
 using HPT1000.Source.Program;
 using HPT1000.Source;
+using HPT1000;
 
 namespace HPT1000.GUI
 {
@@ -22,6 +23,7 @@ namespace HPT1000.GUI
         private Source.Driver.HPT1000   hpt1000   = new HPT1000.Source.Driver.HPT1000();
         private Source.DB               dataBase  = new DB();
         private ApplicationData         appData   = new ApplicationData();
+        private Source.Message          message   = new Source.Message();
 
         private Login                   loginForm = null;
    
@@ -50,6 +52,9 @@ namespace HPT1000.GUI
         //------------------------------------------------------------------------------------------
         public MainForm()
         {
+         //   DataFile.SetID(123);
+         //   DataFile.SaveFile();
+
             InitializeComponent();
 
             programsConfigPanel.HPT1000 = hpt1000;
@@ -97,6 +102,9 @@ namespace HPT1000.GUI
                 pumpComponent.SetPumpPtr(hpt1000.GetForePump());
 
                 hpt1000.DataBase = dataBase;
+
+                message.DataBase = dataBase;
+                message.LoadErrorMessages();// pobierz dane z bazy danych
             }
             //Dodaj obserwatorow
 

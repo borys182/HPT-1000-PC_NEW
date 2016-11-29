@@ -35,11 +35,10 @@ namespace HPT1000.Source.Chamber
         //Ustaw w konstruktorze liste parametrow ktore powinny byc zapisywane w bazie danyc
         public PowerSupplay()
         {
-            // TO DO NA CZAS TESTOW USTAWIAM NA SZTYWNO ID TRZEBA TO ZAPISAC/ODCZYTAC Z PLIKU
             //Uzupelnij liste parametrow ktore powinny byc zapisywane w bazi danych
-            AddParameter("Power", powerValue,"W").ID = 5;
-            AddParameter("Voltage", voltageValue,"V").ID = 6;
-            AddParameter("Curent", curentValue,"A").ID = 7;
+            AddParameter("Power", powerValue,"W");
+            AddParameter("Voltage", voltageValue,"V");
+            AddParameter("Curent", curentValue,"A");
             //Ustaw nazwe urzadzenia - pamietaj ze musi ona byc unikalna dla calego systemu
             name = "PowerSupply";
 

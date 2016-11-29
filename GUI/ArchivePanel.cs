@@ -70,6 +70,8 @@ namespace HPT1000.GUI
             dEditAcqPressure.Enabled = cBoxActivePressure.Checked;
             //Inicjalizuj charta
             InitChartData();
+            //Inicjalizuj ComboBoxa wartosciami z Enuma
+            FillComboBoxMode();
         }
         //-------------------------------------------------------------------------------
         public Source.DB DataBase
@@ -85,6 +87,15 @@ namespace HPT1000.GUI
         public Source.Driver.HPT1000 Hpt1000
         {
             set { hpt1000 = value; }
+        }
+        //------------------------------------------------------------------------------------------
+        private void FillComboBoxMode()
+        {
+            cBoxMode.Items.Clear();
+            foreach (string nameMode in Enum.GetNames(typeof(Types.ModeAcq)))
+            {
+                cBoxMode.Items.Add(nameMode);
+            }
         }
         //------------------------------------------------------------------------------------------
         //Funkcja ma za zadanie utworzenie listy urzadzen wraz z jej parametrami
@@ -134,6 +145,12 @@ namespace HPT1000.GUI
                 dEditDifferencesValue.Value = para.Differance;
                 cBoxParaActive.Checked = para.EnabledAcq;
                 labParaUnit.Text = "[" + para.Unit + "]";
+
+                for (int i = 0; i < cBoxMode.Items.Count; i++)
+                {
+                    if (cBoxMode.Items[i].ToString() == para.Mode.ToString())
+                        cBoxMode.SelectedIndex = i;
+                }                
             }
         }
         //------------------------------------------------------------------------------------------
@@ -142,10 +159,11 @@ namespace HPT1000.GUI
         {
             if (hpt1000 != null)
             {
-                dEditAcqPressure.Value = hpt1000.PressureAcq;
-                cBoxActivePressure.Checked = hpt1000.ActiveCheckPressureAcq;
+                dEditAcqPressure.Value       = hpt1000.PressureAcq;
+                cBoxActivePressure.Checked   = hpt1000.ActiveCheckPressureAcq;
                 rBtnAcqDuringProcess.Checked = hpt1000.AcqDuringOnlyProcess;
-                rBtnAcqAllTime.Checked = hpt1000.AcqAllTime;
+                rBtnAcqAllTime.Checked       = hpt1000.AcqAllTime;
+                cBoxEnabledAcq.Checked       = hpt1000.EnabledAcq;
             }
         }
         //------------------------------------------------------------------------------------------
@@ -214,14 +232,14 @@ namespace HPT1000.GUI
             if (hpt1000 != null)
                 hpt1000.ActiveCheckPressureAcq = cBoxActivePressure.Checked;
         }
-        //------------------------------------------------------------------------------------------
-        private void rBtnAcqDuringProcess_Click(object sender, EventArgs e)
+        //-------------------------------------------------------------------------------
+        private void rBtnAcqDuringProcess_CheckedChanged(object sender, EventArgs e)
         {
             if (hpt1000 != null)
                 hpt1000.AcqDuringOnlyProcess = rBtnAcqDuringProcess.Checked;
         }
-        //------------------------------------------------------------------------------------------
-        private void rBtnAcqAllTime_Click(object sender, EventArgs e)
+        //-------------------------------------------------------------------------------
+        private void rBtnAcqAllTime_CheckedChanged(object sender, EventArgs e)
         {
             if (hpt1000 != null)
                 hpt1000.AcqAllTime = rBtnAcqAllTime.Checked;
@@ -259,6 +277,14 @@ namespace HPT1000.GUI
         {
             //Podswietalj aktulnie zaznaczony wezel caly czas
             LightSelectedNode(treeViewDevices.Nodes);
+            //Jezeli jest wylaczona akwizycja danych to nie pozwol na zmiane parametrow
+            if (hpt1000 != null)
+            {
+                if (grBoxDevice.Enabled != hpt1000.EnabledAcq)
+                    grBoxDevice.Enabled = hpt1000.EnabledAcq;
+                if (grBoxParameter.Enabled != hpt1000.EnabledAcq)
+                    grBoxParameter.Enabled = hpt1000.EnabledAcq;
+            }
         }
         //------------------------------------------------------------------------------------------
         //Wyszaz mozliwosc wprowadzania wartosci prozni gdy opcja jest wylaczona
@@ -276,6 +302,47 @@ namespace HPT1000.GUI
             {
                 para.EnabledAcq = cBoxParaActive.Checked;
             }
+        }
+        //------------------------------------------------------------------------------------------
+        private void cBoxMode_SelectedValueChanged(object sender, EventArgs e)
+        {
+            Parameter para = GetSelectedPara();
+            if (para != null)
+            {
+                para.Mode = (Types.ModeAcq)Enum.Parse(typeof(Types.ModeAcq),cBoxMode.SelectedItem.ToString());
+            }
+        }
+        //------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie zapisanie parametrow wszystkich urzadzen w bazie danych
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            //SPrawdz czy istnieja referencje na wykorzystywane obiekty
+            if (dataBase != null && hpt1000 != null && hpt1000.Chamber.GetObjects() != null)
+            {
+                //Pobierz liste wszystkich urzadzen
+                foreach (Device device in hpt1000.Chamber.GetObjects())
+                {
+                    //Wykonaj zapis parametrow ale tylko urzadzenia ktore zapisuje parametry w bazie danych
+                    if (device.AcqData)
+                    {
+                        //Pobierz liste parametrow urzadzenia
+                        foreach (Parameter para in device.GetParameters())
+                        {
+                            //wykonaj zapis parametrow danego parametru w bazie dnaych
+                            dataBase.ModifyConfigPara(para);
+                        }
+                    }
+                }
+                //Zapisz konfigruacje dla urzadzenia
+                hpt1000.SaveData();
+            }
+        }
+        //------------------------------------------------------------------------------------------
+        //Funckaj ustawia flage wlaczenia/wylacze akwizycji danych
+        private void cBoxEnabledAcq_CheckedChanged(object sender, EventArgs e)
+        {
+            if (hpt1000 != null)
+                hpt1000.EnabledAcq = cBoxEnabledAcq.Checked;
         }
         //------------------------------------------------------------------------------------------
         //----------------------------------KOD ZWIAZANY Z PREZENACJA DANYCH HISTORYCZNYCH----------

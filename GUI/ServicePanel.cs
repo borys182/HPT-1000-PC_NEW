@@ -64,43 +64,119 @@ namespace HPT1000.GUI
                 MFC             aMFC         = hpt1000.GetMFC();
                 ForePump        aForePump    = hpt1000.GetForePump();
 
-                if (aPowerSupply != null)
-                {
-                    dEditCurentLimit.Value  = aPowerSupply.LimitCurent;
-                    dEditPowerLimit.Value   = aPowerSupply.LimitPower;
-                    dEditVoltageLimit.Value = aPowerSupply.LimitVoltage;
-                    dEditRangePower.Value   = aPowerSupply.MaxPower;
-                    dEditRangeCurent.Value  = aPowerSupply.MaxCurent;
-                    dEditRangeVoltage.Value = aPowerSupply.MaxVoltage;
-                    timeSetpointStabilization.Value = Types.ConvertDate((int)aPowerSupply.TimeWaitSetpoint);
-                    timeWaitOnOperate.Value = Types.ConvertDate((int)aPowerSupply.TimeWaitOperate);
-                }
-
-                if (aMFC != null)
-                {
-                    dEditMaxFlow_MFC1.Value = aMFC.GetMaxFlow(1);
-                    dEditMaxFlow_MFC2.Value = aMFC.GetMaxFlow(2);
-                    dEditMaxFlow_MFC3.Value = aMFC.GetMaxFlow(3);
-                    dEditRangeVoltageMFC1.Value = aMFC.GetRangeVoltage(1);
-                    dEditRangeVoltageMFC2.Value = aMFC.GetRangeVoltage(2);
-                    dEditRangeVoltageMFC3.Value = aMFC.GetRangeVoltage(3);
-                    timeFlowStabilization.Value = Types.ConvertDate((int)aMFC.TimeFlowStability);
-
-                    cBoxMFC1.Checked = aMFC.GetActive(1);
-                    cBoxMFC2.Checked = aMFC.GetActive(2);
-                    cBoxMFC3.Checked = aMFC.GetActive(3);
-                }
-
-                if (aForePump != null)
-                {
-                    timePumpToSV.Value = Types.ConvertDate((int)aForePump.TimePumpToSV);
-                    timeWaitPF.Value = Types.ConvertDate((int)aForePump.TimeWaitPF);
-                }
-
+                RefreshPowerSupply(aPowerSupply);
+                RefreshMFC(aMFC);
+                RefreshForePump(aForePump); 
+              
                 for (int i = 0; i < cBoxComm.Items.Count; i++)
                 {
                     if (hpt1000.GetPLC() != null && cBoxComm.Items[i].ToString() == hpt1000.GetPLC().GetTypeComm().ToString())
                         cBoxComm.SelectedIndex = i;
+                }
+            }
+        }
+        //----------------------------------------------------------------------------------------------------------------------------
+        private void RefreshPowerSupply(PowerSupplay powerSupply)
+        {
+            if (powerSupply != null && hpt1000 != null)
+            {
+                dEditCurentLimit.Enabled    = hpt1000.CoonectionPLC;
+                dEditPowerLimit.Enabled     = hpt1000.CoonectionPLC;
+                dEditVoltageLimit.Enabled   = hpt1000.CoonectionPLC;
+                dEditRangePower.Enabled     = hpt1000.CoonectionPLC;
+                dEditRangeCurent.Enabled    = hpt1000.CoonectionPLC;
+                dEditRangeVoltage.Enabled   = hpt1000.CoonectionPLC;
+                timeSetpointStabilization.Enabled = hpt1000.CoonectionPLC;
+                timeWaitOnOperate.Enabled   = hpt1000.CoonectionPLC;
+
+
+                if (hpt1000.CoonectionPLC)
+                {
+                    dEditCurentLimit.Value          = powerSupply.LimitCurent;
+                    dEditPowerLimit.Value           = powerSupply.LimitPower;
+                    dEditVoltageLimit.Value         = powerSupply.LimitVoltage;
+                    dEditRangePower.Value           = powerSupply.MaxPower;
+                    dEditRangeCurent.Value          = powerSupply.MaxCurent;
+                    dEditRangeVoltage.Value         = powerSupply.MaxVoltage;
+                    timeSetpointStabilization.Value = Types.ConvertDate((int)powerSupply.TimeWaitSetpoint);
+                    timeWaitOnOperate.Value         = Types.ConvertDate((int)powerSupply.TimeWaitOperate);
+                }
+                else
+                {
+                    dEditCurentLimit.Value          = 0;
+                    dEditPowerLimit.Value           = 0;
+                    dEditVoltageLimit.Value         = 0;
+                    dEditRangePower.Value           = 0;
+                    dEditRangeCurent.Value          = 0;
+                    dEditRangeVoltage.Value         = 0;
+                    timeSetpointStabilization.Value = Types.ConvertDate(0);
+                    timeWaitOnOperate.Value         = Types.ConvertDate(0);
+                }
+            }
+        }
+        //----------------------------------------------------------------------------------------------------------------------------
+        private void RefreshMFC(MFC mfc)
+        {
+            if (mfc != null && hpt1000 != null)
+            {
+                dEditMaxFlow_MFC1.Enabled     = hpt1000.CoonectionPLC;
+                dEditMaxFlow_MFC2.Enabled     = hpt1000.CoonectionPLC;
+                dEditMaxFlow_MFC3.Enabled     = hpt1000.CoonectionPLC;
+                dEditRangeVoltageMFC1.Enabled = hpt1000.CoonectionPLC;
+                dEditRangeVoltageMFC2.Enabled = hpt1000.CoonectionPLC;
+                dEditRangeVoltageMFC3.Enabled = hpt1000.CoonectionPLC;
+                timeFlowStabilization.Enabled = hpt1000.CoonectionPLC;
+                cBoxMFC1.Enabled              = hpt1000.CoonectionPLC;
+                cBoxMFC2.Enabled              = hpt1000.CoonectionPLC;
+                cBoxMFC3.Enabled              = hpt1000.CoonectionPLC;
+
+                if (hpt1000.CoonectionPLC)
+                {
+                    dEditMaxFlow_MFC1.Value     = mfc.GetMaxFlow(1);
+                    dEditMaxFlow_MFC2.Value     = mfc.GetMaxFlow(2);
+                    dEditMaxFlow_MFC3.Value     = mfc.GetMaxFlow(3);
+                    dEditRangeVoltageMFC1.Value = mfc.GetRangeVoltage(1);
+                    dEditRangeVoltageMFC2.Value = mfc.GetRangeVoltage(2);
+                    dEditRangeVoltageMFC3.Value = mfc.GetRangeVoltage(3);
+                    timeFlowStabilization.Value = Types.ConvertDate((int)mfc.TimeFlowStability);
+
+                    cBoxMFC1.Checked = mfc.GetActive(1);
+                    cBoxMFC2.Checked = mfc.GetActive(2);
+                    cBoxMFC3.Checked = mfc.GetActive(3);
+                }
+                else
+                {
+                    dEditMaxFlow_MFC1.Value     = 0;
+                    dEditMaxFlow_MFC2.Value     = 0;
+                    dEditMaxFlow_MFC3.Value     = 0;
+                    dEditRangeVoltageMFC1.Value = 0;
+                    dEditRangeVoltageMFC2.Value = 0;
+                    dEditRangeVoltageMFC3.Value = 0;
+                    timeFlowStabilization.Value = Types.ConvertDate(0);
+
+                    cBoxMFC1.Checked = false;
+                    cBoxMFC2.Checked = false;
+                    cBoxMFC3.Checked = false;
+                }
+            }
+        }
+        //----------------------------------------------------------------------------------------------------------------------------
+        private void RefreshForePump(ForePump forePump)
+        {
+            if (forePump != null && hpt1000 != null)
+            {
+                timePumpToSV.Enabled = hpt1000.CoonectionPLC;
+                timeWaitPF.Enabled   = hpt1000.CoonectionPLC;
+
+                if (hpt1000.CoonectionPLC)
+                {
+                     timePumpToSV.Value = Types.ConvertDate((int)forePump.TimePumpToSV);
+                     timeWaitPF.Value   = Types.ConvertDate((int)forePump.TimeWaitPF);
+                }
+                else
+                {
+                    timePumpToSV.Value  = Types.ConvertDate(0);
+                    timeWaitPF.Value    = Types.ConvertDate(0);
                 }
             }
         }

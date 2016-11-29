@@ -40,6 +40,16 @@ namespace HPT1000.Source
             MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------
+        public static void AddMsg(string aText, Types.MessageType aTypeMsg)
+        {
+            ItemLogger itemLog = new ItemLogger();
+
+            itemLog.SetMessage(aText, aTypeMsg);
+
+            if (!IsContains(itemLog))
+                logList.Add(itemLog);
+        }
+        //------------------------------------------------------------------------------------------------------------------------------------------------
         public static List<ItemLogger> GetLogList()
         {
             return logList;
@@ -80,16 +90,7 @@ namespace HPT1000.Source
                     itemLogRes = itemLog;
             }
             return itemLogRes;
-        }//------------------------------------------------------------------------------------------------------------------------------------------------
-        public static void AddMsg(string aText,Types.MessageType aTypeMsg)
-        {
-            ItemLogger itemLog = new ItemLogger();
-
-            itemLog.SetMessage(aText, aTypeMsg);
-
-            if (!IsContains(itemLog))
-                logList.Add(itemLog);
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------
-    }
+   }
 }

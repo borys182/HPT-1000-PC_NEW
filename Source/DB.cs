@@ -18,33 +18,14 @@ using HPT1000.Source.Chamber;
 namespace HPT1000.Source
 {
     enum TypeFillParameters { NewUser = 1 , ModifyUser = 2 , RemoveUser = 3};
-    struct ErrorText
-    {
-        public Types.EventCategory EventCategory;
-        public Types.EventType     EventType;
-        public int                 ErrCode;
-        public string              Text;
-        public Types.Language      Language;
-
-        
-
-        public ErrorText(int aCategory,int aType,int aErrCode,string aTxt,Types.Language aLanguage)
-        {
-            EventCategory = (Types.EventCategory)aCategory;
-            EventType     = (Types.EventType)aType;
-            ErrCode = (int)aType;// aErrCode; 
-            Text          = aTxt;
-            Language      = aLanguage;
-        }
-    }
+   
     /*
      * Klasa jest odpowiedzilana za komunikacje z baza danych oraz udostpenianie danych z niej pobranych. W bazie danych sa przechowywane informacje na temat:
      * : translacji tekstow , użytkowników i uprawnień, pomiarów, programów 
      */
     public class DB
     {
-        private static List<ErrorText> actionTextList = new List<ErrorText>();
-
+   
         //korzystanie ze standardowego sterownika ODBC dostarczonego przez framwork visula
         private OdbcConnection connection = new OdbcConnection("Dsn=PostgreSQL;" + "database=HE-005;server=localhost;" + "port=5432;uid=postgres;");
 
@@ -333,6 +314,125 @@ namespace HPT1000.Source
             data.Close();
 
             return devices;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie odczytanie listy urzadzen i jej parametrow
+        public List<ConfigPara> GetConfigParameters()
+        {
+            List<ConfigPara> parameters = new List<ConfigPara>();
+
+            //utworz zapytanie
+            string query = " SELECT * FROM \"ConfigParametersAcq\"";
+            NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+            //wykonaj zapytanie
+            NpgsqlDataReader data = cmd.ExecuteReader();
+            //odczytaj wszystkie sesje zwrocone przez zapytanie
+            while (data.Read())
+            {
+                ConfigPara configPara = new ConfigPara();
+                try
+                {
+                    if (!data.IsDBNull(data.GetOrdinal("id")))
+                        configPara.ID = data.GetInt32(data.GetOrdinal("id"));
+                    if (!data.IsDBNull(data.GetOrdinal("id_parameter")))
+                        configPara.ParameterID = data.GetInt32(data.GetOrdinal("id_parameter"));
+                    if (!data.IsDBNull(data.GetOrdinal("frequency")))
+                        configPara.Frequency = data.GetFloat(data.GetOrdinal("frequency"));
+                    if (!data.IsDBNull(data.GetOrdinal("difference_value")))
+                        configPara.Difference = data.GetFloat(data.GetOrdinal("difference_value"));
+                    if (!data.IsDBNull(data.GetOrdinal("enabled_acq")))
+                        configPara.Enabled = data.GetBoolean(data.GetOrdinal("enabled_acq"));
+                    if (!data.IsDBNull(data.GetOrdinal("mode_acq")))
+                        configPara.Mode = data.GetInt32(data.GetOrdinal("mode_acq"));
+
+                    parameters.Add(configPara);
+                }
+                catch (Exception ex)
+                {
+                    Logger.AddException(ex);
+                }
+            }
+            data.Close();
+
+            return parameters;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie odczytanie listy bledow
+        public List<MessageError> GetMessageErrors()
+        {
+            List<MessageError> errors = new List<MessageError>();
+
+            //utworz zapytanie
+            string query = " SELECT * FROM \"Errors_Txt\"";
+            NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+            //wykonaj zapytanie
+            NpgsqlDataReader data = cmd.ExecuteReader();
+            //odczytaj wszystkie sesje zwrocone przez zapytanie
+            while (data.Read())
+            {
+                MessageError error = new MessageError();
+                try
+                {
+                    if (!data.IsDBNull(data.GetOrdinal("id")))
+                        error.ID = data.GetInt32(data.GetOrdinal("id"));
+                    if (!data.IsDBNull(data.GetOrdinal("error_code")))
+                        error.ErrCode = data.GetInt32(data.GetOrdinal("error_code"));
+                    if (!data.IsDBNull(data.GetOrdinal("event_type")))
+                        error.EventType = (Types.EventType)data.GetInt32(data.GetOrdinal("event_type"));
+                    if (!data.IsDBNull(data.GetOrdinal("event_category")))
+                        error.EventCategory = (Types.EventCategory)data.GetInt32(data.GetOrdinal("event_category"));
+                    if (!data.IsDBNull(data.GetOrdinal("text")))
+                        error.Text = data.GetString(data.GetOrdinal("text"));
+                    if (!data.IsDBNull(data.GetOrdinal("language_value")))
+                        error.Language = (Types.Language)data.GetInt32(data.GetOrdinal("language_value"));
+
+                    errors.Add(error);
+                }
+                catch (Exception ex)
+                {
+                    Logger.AddException(ex);
+                }
+            }
+            data.Close();
+
+            return errors;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie odczytanie listy bledow
+        public List<MessageEvent> GetMessageEvents()
+        {
+            List<MessageEvent> events = new List<MessageEvent>();
+
+            //utworz zapytanie
+            string query = " SELECT * FROM \"Events_Txt\"";
+            NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+            //wykonaj zapytanie
+            NpgsqlDataReader data = cmd.ExecuteReader();
+            //odczytaj wszystkie sesje zwrocone przez zapytanie
+            while (data.Read())
+            {
+                MessageEvent eventTxt = new MessageEvent();
+                try
+                {
+                    if (!data.IsDBNull(data.GetOrdinal("id")))
+                        eventTxt.ID = data.GetInt32(data.GetOrdinal("id"));
+                    if (!data.IsDBNull(data.GetOrdinal("code")))
+                        eventTxt.Code = data.GetInt32(data.GetOrdinal("code"));
+                    if (!data.IsDBNull(data.GetOrdinal("text")))
+                        eventTxt.Text = data.GetString(data.GetOrdinal("text"));
+                    if (!data.IsDBNull(data.GetOrdinal("language_value")))
+                        eventTxt.Language = (Types.Language)data.GetInt32(data.GetOrdinal("language_value"));
+
+                    events.Add(eventTxt);
+                }
+                catch (Exception ex)
+                {
+                    Logger.AddException(ex);
+                }
+            }
+            data.Close();
+
+            return events;
         }
         //------------------------------------------------------------------------------------------------------------------------------
         private Program.Subprogram GetSubprogram(List<Program.Subprogram> subprograms, int subprogramID)
@@ -723,10 +823,127 @@ namespace HPT1000.Source
                         para.ID = aID;
                     }
                         aCountOK++;
+                    //Dodaj wpis do tabeli konfiguracje akwizycji danego parametru w bazie danych
+                    AddParaConfiguration(para);
                 }
                 if (aCountOK == parameters.Count)
                     aRes = 0;
             }
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie dodanie do zarejestrowanego parametru konfiguracji akwizycji danych
+        public int AddParaConfiguration(Parameter parameter)
+        {
+            int aRes = -1;
+            if (parameter != null)
+            {
+                //jezeli konfiguracja parametr nie zostala jeszcze zarejestrowana to ja zarejestruj
+                ConfigPara configPara = GetConfigPara(parameter.ID);
+                if (configPara.ID == 0)
+                {
+                    //Przygotuj parametry dla procedury dodajacej konfiguracje parametru w bazie danych
+                    List<NpgsqlParameter> parametersDB = new List<NpgsqlParameter>();
+                    parametersDB.Add(GetParameter("parameter_id", DbType.Int32, parameter.ID));
+                    parametersDB.Add(GetParameter("freq", DbType.Single, (float)parameter.Frequency));
+                    parametersDB.Add(GetParameter("differ_value", DbType.Single, (float)parameter.Differance));
+                    parametersDB.Add(GetParameter("enabled", DbType.Boolean, parameter.EnabledAcq));
+                    parametersDB.Add(GetParameter("mode", DbType.Int32, (int)parameter.Mode));
+                    //Wykonaj procedure rejestracji urzadzenia w bazie danych subprogramu
+                    int id = PerformFunctionDB("\"AddParameterConfig\"", parametersDB); //procedura zwraca id utworzonego 
+                    if (id > 0)
+                    {
+                        parameter.ID_Configuration = id;
+                        aRes = 0;
+                    }
+                }
+                //Parametr jest zarejestrowany to ustaw ID
+                else
+                {
+                    parameter.ID_Configuration = configPara.ID;
+                    parameter.Frequency = configPara.Frequency;
+                    parameter.Differance = configPara.Difference;
+                    parameter.EnabledAcq = configPara.Enabled;
+                    parameter.Mode = (Types.ModeAcq)configPara.Mode;
+                    aRes = 0;
+                }
+            }
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja modyfikuje konfiguracje akwizyji danych dla danego parametru
+        public int ModifyConfigPara(Parameter para)
+        {
+            int aRes = 0;
+            if (para != null)
+            {
+                //Przygotuj parametry dla procedury modife na bazie
+                List<NpgsqlParameter> parameters = new List<NpgsqlParameter>();
+                parameters.Add(GetParameter("id", DbType.Int32, para.ID_Configuration));
+                parameters.Add(GetParameter("freq", DbType.Single, (float)para.Frequency));
+                parameters.Add(GetParameter("differ_value", DbType.Single, (float) para.Differance));
+                parameters.Add(GetParameter("enabled", DbType.Boolean, para.EnabledAcq));
+                parameters.Add(GetParameter("mode", DbType.Int32, (int)para.Mode));
+
+                //Wykonaj procedure modyfikowania usera
+                aRes = PerformFunctionDB("\"ModifyParaConfig\"", parameters);
+            }
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie zapisanie parametru w bazie danych
+        public int SaveParameter(ProgramParameter programParameter)
+        {
+            int aRes = -1;
+            //Przygotuj parametry dla procedury dodajacej konfiguracje parametru w bazie danych
+            List<NpgsqlParameter> parametersDB = new List<NpgsqlParameter>();
+            parametersDB.Add(GetParameter("id_", DbType.Int32, programParameter.ID));
+            parametersDB.Add(GetParameter("name", DbType.AnsiString, programParameter.Name));
+            parametersDB.Add(GetParameter("parameter", DbType.AnsiString, programParameter.Data));
+            //Wykonaj procedure rejestracji urzadzenia w bazie danych subprogramu
+            int id = PerformFunctionDB("\"SaveParameter\"", parametersDB); //procedura zwraca id utworzonego 
+            if (id > 0)
+            {
+                programParameter.ID = id;
+                aRes = 0;
+            }
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie zwrocenie wartosci parametru zkojarzonego z podana nazwa
+        public int LoadParameter(string nameParameter, out ProgramParameter programParameter)
+        {
+            int aRes = -1;
+             List<ProgramParameter> programParameters = new List<ProgramParameter>();
+
+            programParameter = new ProgramParameter();
+            //utworz zapytanie
+            string query = " SELECT * FROM \"ProgramParameters\"";
+            NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+            //wykonaj zapytanie
+            NpgsqlDataReader data = cmd.ExecuteReader();
+            //odczytaj wszystkie parametry programu i znajdz ten ktorego szukamy
+            while (data.Read())
+            {
+                try
+                {
+                    if (!data.IsDBNull(data.GetOrdinal("name")) && data.GetString(data.GetOrdinal("name")) == nameParameter)
+                    {
+                        if (!data.IsDBNull(data.GetOrdinal("id")))
+                            programParameter.ID = data.GetInt32(data.GetOrdinal("id"));
+                        if (!data.IsDBNull(data.GetOrdinal("parameter")))
+                            programParameter.Data = data.GetString(data.GetOrdinal("parameter"));
+
+                        aRes = 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.AddException(ex);
+                }
+            }
+            data.Close();
+
             return aRes;
         }
         //------------------------------------------------------------------------------------------------------------------------------
@@ -752,6 +969,21 @@ namespace HPT1000.Source
                 }
             }
             return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie zwrocenie ID konfiguracji parametru arejestrowanego juz w bazie danych
+        private ConfigPara GetConfigPara(int aParaID)
+        {
+            ConfigPara configParaRes = new ConfigPara() ;
+            List<ConfigPara> parameters = GetConfigParameters();
+
+            configParaRes.ID = 0;
+            foreach (ConfigPara configPara in parameters)
+            {
+                if (configPara.ParameterID == aParaID)
+                    configParaRes = configPara;
+            }            
+            return configParaRes;
         }
         //------------------------------------------------------------------------------------------------------------------------------
         //Funkcja ma za zadanie zarejestrowanie urzadzenia w bazie danych
@@ -1128,233 +1360,6 @@ namespace HPT1000.Source
         {
             Open();
 
-            ErrorText aErrorText;
-
-            //Tymczasowe dodanie tekstow dla bledow aplilacko
-            aErrorText = new ErrorText((int)Types.EventCategory.APLICATION, (int)Types.EventType.BAD_CYCLE_TIME, 0, "BAD_CYCLE_TIME", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.APLICATION, (int)Types.EventType.BAD_FLOW_ID, 0, "BAD_FLOW_ID", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.APLICATION, (int)Types.EventType.BAD_ON_TIME, 0, "BAD_ON_TIME", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.APLICATION, (int)Types.EventType.CALL_INCORRECT_OPERATION, 0, "CALL_INCORRECT_OPERATION", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.APLICATION, (int)Types.EventType.NO_PRG_IN_PLC, 0, "W pamieci PLC nie posiada zadnego zaladowanego procesu", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.APLICATION, (int)Types.EventType.PLC_PTR_NULL, 0, "PLC_PTR_NULL", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.APLICATION, (int)Types.EventType.MX_COMPONENTS_NO_INSTALL, 0, "MX Components not installed. Communication with PLC is impossible", Types.Language.English);
-            actionTextList.Add(aErrorText);
-
-            //Tymczasowe dodanie tekstow dla bledow MX Components
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_FLOW, 1, "Nie moge ustawic przeplywu. MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_MAX_FLOW, 1, "Nie moge ustawic max przeplywu. MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_RANGE_VOLTAGE_MFC, 1, "Nie moge ustawic zakresu napiec dla przeplywki. MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_TIME_FLOW_STABILITY, 1, "Nie moge ustawic czasu stabilizacji przeplywu przeplywki. MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.START_PROGRAM, 1, "Nie mofe uruchomic programu. MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.STOP_PROGRAM, 1, "Nie moge zatrzymac programu. MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.UPDATE_SETINGS, 1, "Nie moge zaktualizowac ustawien urzadzen PLC. MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.WRITE_PROGRAM, 1, "Nie moge zaladowac programu do PLC. MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_PRESSURE_SETPOINT, 1, "Nie moge ustawic setpointa cisnienia komory. MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_SETPOINT_HV, 1, "Nie moge ustawic setpointa dla zasilacza HV . MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_MODE, 1, "Nie moge ustawic trybu pracy zasilacza HV . MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_OPERATE_HV, 1, "Nie moge ustawic trybu operate zasilacza HV . MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_LIMIT_CURRENT_HV, 1, "NNie moge ustawic limitu pradu zasilacza HV. MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_LIMIT_POWER_HV, 1, "Nie moge ustawic limitu mocy zasilacza HV . MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_LIMIT_VOLTAGE_HV, 1, "Nie moge ustawic limitu napiecia zasilacza HV . MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_MAX_CURENT_HV, 1, "Nie moge ustawic max pradu zasilacza HV . MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_MAX_POWER_HV, 1, "Nie moge ustawic max mocy zasilacza HV . MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_MAX_VOLTAGE_HV, 1, "Nie moge ustawic max napiecia zasilacza HV . MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_WAIT_TIME_OPERATE_HV, 1, "Nie moge ustawic czasu oczekiwania na stan operate . MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_WAIT_TIME_SETPOINT_HV, 1, "Nie moge ustawic czasu oczekiwania na stavilizacje sie wartosci . MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.CONTROL_PUMP, 1, "Nie moge zmienic stanu pracy pompy wstepnej . MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_WIAT_TIME_PF, 1, "Nie moge ustawic czasu oczekiwania na poprawny stan pompy wstepnej . MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_TIME_PUMP_TO_SV, 1, "Nie moge ustawic czasu pompowania do zaworu HV . MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_CYCLE_TIME, 1, "Nie moge ustawic czasu cyklu pracy vaporatora . MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_ON_TIME, 1, "Nie moge ustawic czasu wlaczenia vaporatora. MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_STATE_VALVE, 1, "Nie moge ustawic . MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_MODE_PRESSURE ,1, "Nie moge ustawic trybu oracy cisnieniowego komory. MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.NO_SELECT_PROGRAM_TO_RUN, 1, "Nie mozna uruchomic programu poniewaz nie wybrano zadnego do uruchomienia . MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_MODE_CONTROL, 1, "Nie moge ustawic trybu pracy . MX Components zglasza blad: ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-
-            //Tymczasowe dodanie tekstow dla akcji usera
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_FLOW, 0, "Przeplyw zostal ustawiony.", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_MAX_FLOW, 0, "Max przeplyw zostal ustawiony.", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_RANGE_VOLTAGE_MFC, 0, "Zakresu napiec dla przeplywki zostal ustawiony. ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_TIME_FLOW_STABILITY, 0, "Czasu stabilizacji przeplywu przeplywki zostal ustawiony.", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.START_PROGRAM, 0, "Programu zostal uruchomiony.", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.STOP_PROGRAM, 0, "Programu zostal zatrzymany.", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.UPDATE_SETINGS, 0, "Ustawienia urzadzen PLC zostaly poprawnie odczytane.", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.WRITE_PROGRAM, 0, "Programu do PLC zostal poprawnie zaladowany.", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_PRESSURE_SETPOINT, 0, "Setpointa cisnienia komory zostal ustawiony.", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_SETPOINT_HV, 0, "Setpointa dla zasilacza HV zostal ustawiony .", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_MODE, 0, "Tryb pracy zasilacza HV zostal ustawiony .", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_OPERATE_HV, 0, "Tryb operate zasilacza HV zostal ustawiony .", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_LIMIT_CURRENT_HV, 0, "Limitu pradu zasilacza HV zostal ustawiony.", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_LIMIT_POWER_HV, 0, "Limitu mocy zasilacza HV zostal ustawiony ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_LIMIT_VOLTAGE_HV, 0, "Limitu napiecia zasilacza HV zostal ustawiony .", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_MAX_CURENT_HV, 0, "Max pradu zasilacza HV zostal ustawiony .", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_MAX_POWER_HV, 0, "Max mocy zasilacza HV zostal ustawiony .", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_MAX_VOLTAGE_HV, 0, "Max napiecia zasilacza HV zostal ustawiony .", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_WAIT_TIME_OPERATE_HV, 0, "Czas oczekiwania na stan operate zostal ustawiony .", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_WAIT_TIME_SETPOINT_HV, 0, "Czas oczekiwania na stavilizacje sie wartosci zostal ustawiony .", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.CONTROL_PUMP, 0, "Stan pracy pompy wstepnej zostal ustawiony .", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_WIAT_TIME_PF,0, "Czas oczekiwania na poprawny stan pompy wstepnej  zostal ustawiony.", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_TIME_PUMP_TO_SV, 0, "Czas pompowania do zaworu HV zostal ustawiony.", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_CYCLE_TIME, 0, "Czas cyklu pracy vaporatora zostal ustawiony.", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_ON_TIME, 0, "Czas wlaczenia vaporatora zostal ustawiony ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_STATE_VALVE, 0, "Stan zaworu zostal poprawnie zmioniony . ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_MODE_PRESSURE, 0, "Trybu pracy cisnieniowego komory zostal ustawiony.", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.MX_COMPONENTS, (int)Types.EventType.SET_MODE_CONTROL, 0, "Tryb pracy zostal ustawiony .", Types.Language.English);
-            actionTextList.Add(aErrorText);
-
-            //Tymczasowe dodanie tekstow dla bledow PLC
-            aErrorText = new ErrorText((int)Types.EventCategory.PLC,(int)Types.EventType.PLC_ERROR, 1, "Nie moge wykonac programu poniewaz nie moge znalezc znacznika konca", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.PLC, (int)Types.EventType.PLC_ERROR, 2, "Nie moge wykonac programu poniewaz drzwi komory sa ciagle otwarte", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.PLC, (int)Types.EventType.PLC_ERROR, 3, "Nie moge wykonac programu poniewaz glowne zasilanie jst wylaczone", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.PLC, (int)Types.EventType.PLC_ERROR, 109, "Blad wykonania programu. Przekroczony zostal czas oczekiwania na odpompowanie komory", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.PLC, (int)Types.EventType.PLC_ERROR, 110, "Blad wykonania programu. Pompa wstępna zglasza problem", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.PLC, (int)Types.EventType.PLC_ERROR, 115, "Blad wykonania programu. Prcedura ventowania zostala przerwana poniewaz pompa wstepna jest wlaczona", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.PLC, (int)Types.EventType.PLC_ERROR, 116, "Blad wykonania programu. Brak potwierdzenia wlaczenia zasilacza plazmy", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.PLC, (int)Types.EventType.PLC_ERROR, 117, "Blad wykonania programu. Proba ustawienia nastawy zasilacza plazmy spoza dopuszczalnego zakresu", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.PLC, (int)Types.EventType.PLC_ERROR, 118, "Blad wykonania programu. Zasilacz plazmy zglasza problem sprzętowy", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.PLC, (int)Types.EventType.PLC_ERROR, 119, "Blad wykonania programu. Wartosc nastawy zasilacza plazmy nie moze sie ustabilizowac pomiedzy zadanymi widelkami", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.PLC, (int)Types.EventType.PLC_ERROR, 120, "Blad wykonania programu. Wybrano niepoprawny tryb pracy zasilacza plazmy", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.PLC, (int)Types.EventType.PLC_ERROR, 121, "Blad wykonania programu. Niepoprawne ustawienie limitow nastawy zasilacza plazmy. Nie moga byc 0 ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.PLC, (int)Types.EventType.PLC_ERROR, 122, "Blad wykonania programu. Wartosc nastawy przeplywu dla MFC1 jest poza zakresem pracy przeplwyki", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.PLC, (int)Types.EventType.PLC_ERROR, 123, "Blad wykonania programu. Wartosc przeplywu dla MFC1 nie potrafi się ustabilizowac pomiedzy zadanymi widelkami ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.PLC, (int)Types.EventType.PLC_ERROR, 124, "Blad wykonania programu. Wartosc nastawy przeplywu dla MFC2 jest poza zakresem pracy przeplwyki", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.PLC, (int)Types.EventType.PLC_ERROR, 125, "Blad wykonania programu. Wartosc przeplywu dla MFC2 nie potrafi się ustabilizowac pomiedzy zadanymi widelkami ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.PLC, (int)Types.EventType.PLC_ERROR, 126, "Blad wykonania programu. Wartosc nastawy przeplywu dla MFC3 jest poza zakresem pracy przeplwyki", Types.Language.English);
-            actionTextList.Add(aErrorText);
-            aErrorText = new ErrorText((int)Types.EventCategory.PLC, (int)Types.EventType.PLC_ERROR, 127, "Blad wykonania programu. Wartosc przeplywu dla MFC3 nie potrafi się ustabilizowac pomiedzy zadanymi widelkami ", Types.Language.English);
-            actionTextList.Add(aErrorText);
-
         }
-        //-------------------------------------------------------------------------------------
-        private void FillErrorTextList()
-        {
-
-        }
-        //-------------------------------------------------------------------------------------
-        //Podaj tekst dla danego bledu pobrany z bazy danych
-        public static string GetErrorText(ItemLogger aError)
-        {
-            string aTxt = "No text in data base for action code:" + aError.GetErrorCode().ToString("X8");
-
-            int aErrCode = aError.ErrCode;
-            //MX Componts zawiera kod bledu jako Event poniewaz w polu bledu posiada blad MX Componts
-            if (aError.EventCategory == Types.EventCategory.MX_COMPONENTS)
-                aErrCode = (int)aError.EventType;
-
-
-            foreach (ErrorText errorText in actionTextList)
-            {
-                if (errorText.EventType == aError.EventType && errorText.EventCategory == aError.EventCategory && errorText.Language == Driver.HPT1000.LanguageApp)
-                {
-                    if (aErrCode == errorText.ErrCode)
-                    {
-                        if (aError.ErrCode != 0)
-                            aTxt = errorText.Text + aError.ErrCode.ToString("X8"); // wystapil blad                       
-                        else
-                            aTxt = errorText.Text; // wystapila akcja
-                    }
-                }
-            }
-            /*
-            foreach (ErrorText errorText in actionTextList)
-            {
-                if (aError.EventCategory == Types.EventCategory.MX_COMPONENTS || aError.EventCategory == Types.EventCategory.APLICATION)
-                {
-                    if (errorText.Code == aError.EventType && errorText.Category == aError.EventCategory && errorText.Language == Driver.HPT1000.LanguageApp)
-                    {
-                        if (aError.ExtCode != 0 && errorText.ExtCode != 0) // wystapil blad
-                            aTxt = errorText.Text + aError.ExtCode.ToString("X8");
-                        if (aError.ExtCode == 0 && errorText.ExtCode == 0) // wystapila akcja
-                            aTxt = errorText.Text;
-                    }
-                }
-                else
-                {
-                    if (errorText.Code == aError.Code && errorText.ExtCode == aError.ExtCode && errorText.Category == aError.Category && errorText.Language == Driver.HPT1000.LanguageApp)
-                        aTxt = errorText.Text;
-                }
-            }
-            */
-            return aTxt;
-        }
-    
     }
 }

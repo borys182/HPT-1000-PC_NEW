@@ -34,6 +34,8 @@ namespace HPT1000.Source.Driver
 
         List<DataBaseData>              dataBaseData        = new List<DataBaseData>(); //Lista z wartoscami danych ktore nalezy zapisac do bazy danych
 
+        ProgramParameter                parameterAcq        = new ProgramParameter();  //Zmienna jest wykorzystywana do przechowyania w bazie danych informacji na temat parametorw urzadzenie dotyczace archiwizacji danych
+
         //-----Zestaw parametrow okreslajych akwizycj danych w bazie danych
         long                            lastTimeSaveDataInDB    = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;    //Counter jest wykorzystywany do odmierzania czasu zapidu danych w bazie danych
         int                             frqSaveDataInDB         = 30;    //Czestotliwość okresla jak czesto powinismy zapisywac dane w bazie. Dane sa zbierane a nastepnie zbiorczo zapisywane [s]
@@ -43,6 +45,7 @@ namespace HPT1000.Source.Driver
         bool                            acqAllTime              = true;  //Flaga okresla czy mam zapisywac dane caly czas
         bool                            lastConditionsSaveData  = false; // flaga okresla czy poprzednio warunki do zapisu danych byly spelnione
         bool                            firstRunNewSesion       = false; //Flaga okresla ze wykonywana jest pierwszy przebieg petli po utworzeniu nowej sesji danych
+        bool                            enabledAcq              = true; //Flaga okresla czy jesrt wlaczona akwizycja danych
         //-----------------------------------------------------------------------------------------
         public int FrequencySaveDataInDB
         {
@@ -74,6 +77,17 @@ namespace HPT1000.Source.Driver
             get { return acqAllTime; }
         }
         //-----------------------------------------------------------------------------------------
+        public bool CoonectionPLC
+        {
+            get { return connectionPLC; }
+        }
+        //-----------------------------------------------------------------------------------------
+        public bool EnabledAcq
+        {
+            set { enabledAcq = value; }
+            get { return enabledAcq; }
+        }
+        //-----------------------------------------------------------------------------------------
         public DB DataBase
         {
             set
@@ -84,6 +98,7 @@ namespace HPT1000.Source.Driver
                 {
                     ReadProgramsFromDB();
                     RegisterDevice();
+                    LoadData();
                 }
             }
         }
@@ -109,6 +124,7 @@ namespace HPT1000.Source.Driver
 
             threadReadData.Start();
 
+            parameterAcq.Name = "ParameterAcq";
         }
         //-----------------------------------------------------------------------------------------
         ~HPT1000()
@@ -157,7 +173,7 @@ namespace HPT1000.Source.Driver
                     ReadErrorsFromPLC();
 
                 //Wywolaj funkcje odpowiedzialna za wykonywanie akwizycji danych
-                     MakeAcquisitionData();
+                 MakeAcquisitionData();
 
                 //Odczytuj dane co 0.5 s
                 Thread.Sleep(500);
@@ -207,7 +223,7 @@ namespace HPT1000.Source.Driver
 
             //Sprawdz czy sa spelnione warunki aby zapisac dane w bazie danych
             //Warunki to proznia jezeli opcja aktywna oraz wykonywany proces jezeli opcja aktywna
-            if (connectionPLC && (!activeCheckPressureAcq || (activeCheckPressureAcq && aPressure <= pressureAcq)) && (acqAllTime || (acqDuringOnlyProcess && aProcessActive)))
+            if (connectionPLC && enabledAcq && (!activeCheckPressureAcq || (activeCheckPressureAcq && aPressure <= pressureAcq)) && (acqAllTime || (acqDuringOnlyProcess && aProcessActive)))
                 aRes = true;
             
             return aRes;
@@ -649,6 +665,76 @@ namespace HPT1000.Source.Driver
         public GasTypes GetGasTypes()
         {
             return gasTypes;
+        }
+        //-------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie zapisanie w jednym stringu parametrow dotyczacych akwizyji danych urzadzenia w baziee danych
+        private void ParseParameterToAcqData(string data)
+        {
+            string [] parameters = data.Split(';');
+            foreach(string para in parameters)
+            {
+                try
+                {
+                    if (para.Contains("EnabledAcq"))
+                        enabledAcq = Convert.ToBoolean(para.Split('=')[1]);
+                    if (para.Contains("Pressure"))
+                        pressureAcq = Convert.ToDouble(para.Split('=')[1]);
+                    if (para.Contains("DuringProces"))
+                        acqDuringOnlyProcess = Convert.ToBoolean(para.Split('=')[1]);
+                    if (para.Contains("AllTime"))
+                        acqAllTime = Convert.ToBoolean(para.Split('=')[1]);
+                }
+                catch(Exception ex)
+                {
+                    Logger.AddException(ex);
+                }
+            }
+        }
+        //-------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie wyodrebnienie z danych parametry zapisanych w formie zbiorczego stringa kolejnych wartosci dla parametrow akwizycji danych
+        string ParseAcqDataToParameter()
+        {
+            string parameter;
+
+            parameter = "EnabledAcq = " + EnabledAcq.ToString() + ";";
+            parameter += "Pressure = " + pressureAcq.ToString() + ";";
+            parameter += "DuringProces = " + acqDuringOnlyProcess.ToString() + ";";
+            parameter += "AllTime = " + acqAllTime.ToString() + ";";
+
+            return parameter;
+        }
+        //-------------------------------------------------------------------------------------------------------------------------
+        //Funckaj jest wykorzystywana do odczytu parametrow urzadzenia z bazie danych
+        public int LoadData()
+        {
+            int aRes = -1;
+
+            if (dataBase != null)
+            {
+                //Odczytaj z bazy danych wartosc dla tego parametru
+                ProgramParameter parameter;
+                if (dataBase.LoadParameter(parameterAcq.Name, out parameter) == 0)
+                {
+                    parameterAcq.ID = parameter.ID;
+                    parameterAcq.Data = parameter.Data;
+                    ParseParameterToAcqData(parameter.Data); // dane zostaly poprawnie odczytane z bazy danych to przekonwertuj je na parametry dotyczace akwizycji danych
+                    aRes = 0;    
+                }
+            }            
+            return aRes;
+        }
+        //-------------------------------------------------------------------------------------------------------------------------
+        //Funckja jest wykorzystywana do zapisu danyuch urzadzenia w bazie danych
+        public int SaveData()
+        {
+            int aRes = -1;
+            if (dataBase != null)
+            {
+                parameterAcq.Data = ParseAcqDataToParameter(); //Wykonaj parsowanie parametrow akwizycji danych ktroe powinny zostac zapisane w bazie danych
+                                                               //W bazie danych sa przechowaywane jako jeden string rozdzielony ;
+                aRes = dataBase.SaveParameter(parameterAcq);
+            }
+            return aRes;
         }
         //-------------------------------------------------------------------------------------------------------------------------
 

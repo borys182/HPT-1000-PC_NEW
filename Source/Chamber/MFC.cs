@@ -282,11 +282,10 @@ namespace HPT1000.Source.Chamber
             flowMeters.Add(new MFC_Channel(2));
             flowMeters.Add(new MFC_Channel(3));
 
-            // TO DO NA CZAS TESTOW USTAWIAM NA SZTYWNO ID TRZEBA TO ZAPISAC/ODCZYTAC Z PLIKU
             //Uzupelnij liste parametrow ktore powinny byc zapisywane w bazi danych
-            AddParameter("MFC1 Flow", flowMeters[0].GetValueFlowPtr(),"sccm").ID = 8;
-            AddParameter("MFC2 Flow", flowMeters[1].GetValueFlowPtr(),"sccm").ID = 9;
-            AddParameter("MFC3 Flow", flowMeters[2].GetValueFlowPtr(),"sccm").ID = 10;
+            AddParameter("MFC1 Flow", flowMeters[0].GetValueFlowPtr(),"sccm");
+            AddParameter("MFC2 Flow", flowMeters[1].GetValueFlowPtr(),"sccm");
+            AddParameter("MFC3 Flow", flowMeters[2].GetValueFlowPtr(),"sccm");
             //Ustaw nazwe urzadzenia - pamietaj ze musi ona byc unikalna dla calego systemu
             name = "MFC";
 

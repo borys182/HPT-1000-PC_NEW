@@ -214,7 +214,7 @@ namespace HPT1000.Source
             if (eventCategory == Types.EventCategory.MESSAGE)
                 aTxt = text;
             else
-                aTxt = DB.GetErrorText(this);
+                aTxt = Message.GetText(this);
 
             return aTxt;
         }

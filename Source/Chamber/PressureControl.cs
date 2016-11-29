@@ -19,9 +19,8 @@ namespace HPT1000.Source.Chamber
         //-----------------------------------------------------------------------------------------
         public PressureControl()
         {
-            // TO DO NA CZAS TESTOW USTAWIAM NA SZTYWNO ID TRZEBA TO ZAPISAC/ODCZYTAC Z PLIKU
             //Uzupelnij liste parametrow ktore powinny byc zapisywane w bazi danych
-            AddParameter("Pressure", pressureValue,"mBar").ID = 11;
+            AddParameter("Pressure", pressureValue,"mBar");
      
             //Ustaw nazwe urzadzenia - pamietaj ze musi ona byc unikalna dla calego systemu
             name = "PressureControl";

@@ -82,6 +82,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Source\DataFile.cs" />
     <Compile Include="GUI\AdminPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -225,6 +226,7 @@
     <Compile Include="Source\DB.cs" />
     <Compile Include="Source\ItemLogger.cs" />
     <Compile Include="Source\Logger.cs" />
+    <Compile Include="Source\Message.cs" />
     <Compile Include="Source\Program\FlushProces.cs" />
     <Compile Include="Source\Chamber\Chamber.cs" />
     <Compile Include="Source\Chamber\ChamberObject.cs" />

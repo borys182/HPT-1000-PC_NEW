@@ -71,7 +71,7 @@ namespace HPT1000.GUI
                 for (int i = 0; i < cBoxGasType.Items.Count; i++)
                 {
                     GasType gasType = (GasType)cBoxGasType.Items[i];
-                    if (gasType != null && gasType.Equals(mfc.GetGasType(channelId)))
+                    if (gasType != null && gasType.ID == mfc.GetGasType(channelId))
                         cBoxGasType.SelectedIndex = i;
                 }
             }
@@ -151,7 +151,7 @@ namespace HPT1000.GUI
             if (mfc != null)
             {
                 GasType gasType = (GasType)cBoxGasType.SelectedItem;
-                mfc.SetGasType(channelId, gasType);
+                mfc.SetGasType(channelId, gasType.ID);
             }
         }
         //-----------------------------------------------------------------------------------------

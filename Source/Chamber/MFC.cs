@@ -12,7 +12,7 @@ namespace HPT1000.Source.Chamber
         private int      id              = 0;                //powiazanie obiketu po stronie PC z obiektem po stronie PLC
         private bool     enabled         = true;            //flaga okresla czy przplywka wchodzi w sklad danej konfiguracji komory 
         private int      actualFlow      = 0;                //wartosc przeplywu wyrazona w sccm
-        private GasType  gasType         = null;
+        private int      gasTypeID       = 0;
 
         private int      setpoint        = 0;
         //zmienne konfigurujace przeplywke
@@ -20,6 +20,9 @@ namespace HPT1000.Source.Chamber
         private int      maxFlow_sccm = 10000;           //okreslenie max przeplywu przeplywki wyrazonego w jednostkach sccm
 
         private Value     valueFlow     = new Value();   //Zmiena jest wykorzystywana do przenoszenia aktualnych wartosci odczytywanych z PLC do obiektu zapisujacego dane w bazie danych jako parametr urzadzenia MFC
+
+        private DB       dataBase       = null;
+        string           paraName;                      //Zmienna jest wykorzystywana do zbiorczego zapisu/odczytu parametrow MFC so/z bazy danych
 
         //-----------------------------------------------------------------------------------------
         public Value GetValueFlowPtr()
@@ -30,6 +33,7 @@ namespace HPT1000.Source.Chamber
         public MFC_Channel(int aID)
         {
             id = aID;
+            paraName = "MFC" + id.ToString() + "_Parameter";
         }
         //-----------------------------------------------------------------------------------------
         public int GetID()
@@ -37,10 +41,65 @@ namespace HPT1000.Source.Chamber
             return id;
         }
         //-----------------------------------------------------------------------------------------
-        public GasType GasType
+        public int GasTypeID
         {
-            set { gasType = value; }
-            get { return gasType; }
+            set
+            {
+                gasTypeID = value;
+                //Zapisz typ gazu w bazie danych
+                SaveData();
+            }
+            get { return gasTypeID; }
+        }
+        //-----------------------------------------------------------------------------------------
+        public DB DataBase
+        {
+            set
+            {
+                dataBase = value;
+                //Ustaw parametry przeplywki odczytane z bazy danych
+                LoadData();
+            }
+        }
+        //-----------------------------------------------------------------------------------------
+        //Funkcja odczytuje z bazy danych zapisane wczesniej parametry
+        private void LoadData()
+        {
+            if (dataBase != null)
+            {
+                ProgramParameter parameter = new ProgramParameter();
+                parameter.Name = paraName;
+                dataBase.LoadParameter(parameter.Name,out parameter);
+                if (parameter.Data != null)
+                {
+                    string[] parameters = parameter.Data.Split(';');
+                    foreach (string para in parameters)
+                    {
+                        try
+                        {
+                            if (para.Contains("Active"))
+                                enabled = Convert.ToBoolean(para.Split('=')[1]);
+                            if (para.Contains("GasTypeID"))
+                                gasTypeID = Convert.ToInt32(para.Split('=')[1]);
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.AddException(ex);
+                        }
+                    }
+                }
+            }
+        }
+        //-----------------------------------------------------------------------------------------
+        //Funkcja zapisuje do bazu danych informacje na temat powiazanego typu gazu oraz czy jest aktywna czy nie
+        private void SaveData()
+        {
+            ProgramParameter parameter = new ProgramParameter();
+
+            parameter.Name = paraName;
+            parameter.Data = "Active = " + enabled + ";" + "GasTypeID = " + gasTypeID.ToString() + ";";
+            
+            int aRes = dataBase.SaveParameter(parameter);
         }
         //-----------------------------------------------------------------------------------------
         public override void UpdateData(int[] aData)
@@ -173,6 +232,8 @@ namespace HPT1000.Source.Chamber
         public void SetActive(bool aState)
         {
             enabled = aState;
+            //Zapisz stan w bazie danych
+            SaveData();
         }
         //-----------------------------------------------------------------------------------------
         public bool GetActive()
@@ -269,7 +330,7 @@ namespace HPT1000.Source.Chamber
         private List<MFC_Channel>   flowMeters          = new List<MFC_Channel>();
 
         private int                 timeFlowStability   = 30; //czas oczekiwania na stablizicacje przeplywu po ustawineiu setpointa
-
+   
         //-----------------------------------------------------------------------------------------
         public int TimeFlowStability
         {
@@ -459,24 +520,31 @@ namespace HPT1000.Source.Chamber
             return aErr;
         }
         //------------------------------------------------------------------------------------------- 
-        public void SetGasType(int aId, GasType gasType)
+        public void SetGasType(int aId, int gasTypeID)
         {
             MFC_Channel mfc_Channel = GetMFC_Channel(aId);
 
             if (mfc_Channel != null)
-                mfc_Channel.GasType = gasType;
+                mfc_Channel.GasTypeID = gasTypeID;
         }
         //------------------------------------------------------------------------------------------- 
-        public GasType GetGasType(int aId)
+        public int GetGasType(int aId)
         {
-            GasType gasType = null;
+            int gasTypeID = 0;
 
             MFC_Channel mfc_Channel = GetMFC_Channel(aId);
 
             if (mfc_Channel != null)
-                gasType = mfc_Channel.GasType;
+                gasTypeID = mfc_Channel.GasTypeID;
 
-            return gasType;
+            return gasTypeID;
+        }
+        //------------------------------------------------------------------------------------------- 
+        public void SetDataBase(DB dataBase)
+        {
+            if (GetMFC_Channel(1) != null) GetMFC_Channel(1).DataBase = dataBase;
+            if (GetMFC_Channel(2) != null) GetMFC_Channel(2).DataBase = dataBase;
+            if (GetMFC_Channel(3) != null) GetMFC_Channel(3).DataBase = dataBase;
         }
         //------------------------------------------------------------------------------------------- 
     }

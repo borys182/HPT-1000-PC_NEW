@@ -106,11 +106,10 @@ namespace HPT1000.GUI
                     dEditRangeVoltageMFC2.Value = mfc.GetRangeVoltage(2);
                     dEditRangeVoltageMFC3.Value = mfc.GetRangeVoltage(3);
                     timeFlowStabilization.Value = Types.ConvertDate((int)mfc.TimeFlowStability);
-
-                    cBoxMFC1.Checked = mfc.GetActive(1);
-                    cBoxMFC2.Checked = mfc.GetActive(2);
-                    cBoxMFC3.Checked = mfc.GetActive(3);
                 }
+                cBoxMFC1.Checked = mfc.GetActive(1);
+                cBoxMFC2.Checked = mfc.GetActive(2);
+                cBoxMFC3.Checked = mfc.GetActive(3);
             }
         }
         //----------------------------------------------------------------------------------------------------------------------------
@@ -138,10 +137,6 @@ namespace HPT1000.GUI
             dEditRangeVoltageMFC2.Value = 0;
             dEditRangeVoltageMFC3.Value = 0;
             timeFlowStabilization.Value = Types.ConvertDate(0);
-
-            cBoxMFC1.Checked = false;
-            cBoxMFC2.Checked = false;
-            cBoxMFC3.Checked = false;
 
             SetEnableComponentMFC(false);
         }
@@ -181,9 +176,6 @@ namespace HPT1000.GUI
             dEditRangeVoltageMFC2.Enabled = enabled;
             dEditRangeVoltageMFC3.Enabled = enabled;
             timeFlowStabilization.Enabled = enabled;
-            cBoxMFC1.Enabled              = enabled;
-            cBoxMFC2.Enabled              = enabled;
-            cBoxMFC3.Enabled              = enabled;
         }
         //----------------------------------------------------------------------------------------------------------------------------
         //Uutaw dostepnosc komponentow odpowiedzialnych za prezentacje/ustawianie parametrow zasilacza

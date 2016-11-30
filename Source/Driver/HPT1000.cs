@@ -94,6 +94,8 @@ namespace HPT1000.Source.Driver
             {
                 dataBase = value;
                 gasTypes.DataBase = value;
+                if (chamber != null && chamber.GetObject(Types.TypeObject.FM) != null)
+                    ((MFC)chamber.GetObject(Types.TypeObject.FM)).SetDataBase(dataBase);
             }
         }
         //-----------------------------------------------------------------------------------------
@@ -676,23 +678,26 @@ namespace HPT1000.Source.Driver
         //Funkcja ma za zadanie zapisanie w jednym stringu parametrow dotyczacych akwizyji danych urzadzenia w baziee danych
         private void ParseParameterToAcqData(string data)
         {
-            string [] parameters = data.Split(';');
-            foreach(string para in parameters)
-            {
-                try
+            if (data != null)
+            { 
+                string[] parameters = data.Split(';');
+                foreach (string para in parameters)
                 {
-                    if (para.Contains("EnabledAcq"))
-                        enabledAcq = Convert.ToBoolean(para.Split('=')[1]);
-                    if (para.Contains("Pressure"))
-                        pressureAcq = Convert.ToDouble(para.Split('=')[1]);
-                    if (para.Contains("DuringProces"))
-                        acqDuringOnlyProcess = Convert.ToBoolean(para.Split('=')[1]);
-                    if (para.Contains("AllTime"))
-                        acqAllTime = Convert.ToBoolean(para.Split('=')[1]);
-                }
-                catch(Exception ex)
-                {
-                    Logger.AddException(ex);
+                    try
+                    {
+                        if (para.Contains("EnabledAcq"))
+                            enabledAcq = Convert.ToBoolean(para.Split('=')[1]);
+                        if (para.Contains("Pressure"))
+                            pressureAcq = Convert.ToDouble(para.Split('=')[1]);
+                        if (para.Contains("DuringProces"))
+                            acqDuringOnlyProcess = Convert.ToBoolean(para.Split('=')[1]);
+                        if (para.Contains("AllTime"))
+                            acqAllTime = Convert.ToBoolean(para.Split('=')[1]);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.AddException(ex);
+                    }
                 }
             }
         }

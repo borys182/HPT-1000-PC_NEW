@@ -1342,7 +1342,7 @@
             // 
             // btnAddNewProgram
             // 
-            this.btnAddNewProgram.Location = new System.Drawing.Point(6, 594);
+            this.btnAddNewProgram.Location = new System.Drawing.Point(6, 555);
             this.btnAddNewProgram.Name = "btnAddNewProgram";
             this.btnAddNewProgram.Size = new System.Drawing.Size(139, 33);
             this.btnAddNewProgram.TabIndex = 34;
@@ -1352,7 +1352,6 @@
             // 
             // grBoxProgram
             // 
-            this.grBoxProgram.Controls.Add(this.button1);
             this.grBoxProgram.Controls.Add(this.label76);
             this.grBoxProgram.Controls.Add(this.label77);
             this.grBoxProgram.Controls.Add(this.tBoxNameProgram);
@@ -1366,9 +1365,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(143, -4);
+            this.button1.Location = new System.Drawing.Point(6, 669);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(86, 37);
+            this.button1.Size = new System.Drawing.Size(296, 33);
             this.button1.TabIndex = 43;
             this.button1.Text = "Save";
             this.button1.UseVisualStyleBackColor = true;
@@ -1436,6 +1435,7 @@
             this.cBoxGasListMFC1.Name = "cBoxGasListMFC1";
             this.cBoxGasListMFC1.Size = new System.Drawing.Size(134, 28);
             this.cBoxGasListMFC1.TabIndex = 17;
+            this.cBoxGasListMFC1.SelectedIndexChanged += new System.EventHandler(this.cBoxGasListMFC1_SelectedIndexChanged);
             // 
             // cBoxMFC2
             // 
@@ -1451,7 +1451,7 @@
             // 
             // btnRemoveSubprogram
             // 
-            this.btnRemoveSubprogram.Location = new System.Drawing.Point(6, 671);
+            this.btnRemoveSubprogram.Location = new System.Drawing.Point(6, 632);
             this.btnRemoveSubprogram.Name = "btnRemoveSubprogram";
             this.btnRemoveSubprogram.Size = new System.Drawing.Size(296, 33);
             this.btnRemoveSubprogram.TabIndex = 43;
@@ -1587,6 +1587,7 @@
             this.cBoxGasListMFC3.Name = "cBoxGasListMFC3";
             this.cBoxGasListMFC3.Size = new System.Drawing.Size(134, 28);
             this.cBoxGasListMFC3.TabIndex = 22;
+            this.cBoxGasListMFC3.SelectedIndexChanged += new System.EventHandler(this.cBoxGasListMFC3_SelectedIndexChanged);
             // 
             // cBoxMFC1
             // 
@@ -1607,6 +1608,7 @@
             this.cBoxGasListMFC2.Name = "cBoxGasListMFC2";
             this.cBoxGasListMFC2.Size = new System.Drawing.Size(134, 28);
             this.cBoxGasListMFC2.TabIndex = 20;
+            this.cBoxGasListMFC2.SelectedIndexChanged += new System.EventHandler(this.cBoxGasListMFC2_SelectedIndexChanged);
             // 
             // grBoxGasFlow
             // 
@@ -2325,7 +2327,7 @@
             this.treeViewProgram.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode8});
             this.treeViewProgram.SelectedImageIndex = 0;
-            this.treeViewProgram.Size = new System.Drawing.Size(296, 566);
+            this.treeViewProgram.Size = new System.Drawing.Size(296, 527);
             this.treeViewProgram.TabIndex = 45;
             this.treeViewProgram.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewProgram_AfterSelect);
             // 
@@ -2385,7 +2387,7 @@
             // 
             // btnRemoveProgram
             // 
-            this.btnRemoveProgram.Location = new System.Drawing.Point(148, 594);
+            this.btnRemoveProgram.Location = new System.Drawing.Point(148, 555);
             this.btnRemoveProgram.Name = "btnRemoveProgram";
             this.btnRemoveProgram.Size = new System.Drawing.Size(156, 33);
             this.btnRemoveProgram.TabIndex = 41;
@@ -2395,6 +2397,7 @@
             // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.button1);
             this.groupBox10.Controls.Add(this.treeViewProgram);
             this.groupBox10.Controls.Add(this.grBoxSubprogram);
             this.groupBox10.Controls.Add(this.btnRemoveSubprogram);
@@ -2411,7 +2414,7 @@
             // 
             // btnAddNewSubprogram
             // 
-            this.btnAddNewSubprogram.Location = new System.Drawing.Point(6, 632);
+            this.btnAddNewSubprogram.Location = new System.Drawing.Point(6, 593);
             this.btnAddNewSubprogram.Name = "btnAddNewSubprogram";
             this.btnAddNewSubprogram.Size = new System.Drawing.Size(296, 33);
             this.btnAddNewSubprogram.TabIndex = 42;

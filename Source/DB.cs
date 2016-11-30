@@ -579,6 +579,12 @@ namespace HPT1000.Source
                     gasProcess.SetActiveFlow(data.GetBoolean(data.GetOrdinal("mfc3_active")), 3);
                 if (!data.IsDBNull(data.GetOrdinal("vaporaiser_active")))
                     gasProcess.SetVaporaiserActive(data.GetBoolean(data.GetOrdinal("vaporaiser_active")));
+                if (!data.IsDBNull(data.GetOrdinal("mfc1_id_gas_type")))
+                    gasProcess.SetGasType(data.GetInt32(data.GetOrdinal("mfc1_id_gas_type")),1);
+                if (!data.IsDBNull(data.GetOrdinal("mfc2_id_gas_type")))
+                    gasProcess.SetGasType(data.GetInt32(data.GetOrdinal("mfc2_id_gas_type")),2);
+                if (!data.IsDBNull(data.GetOrdinal("mfc3_id_gas_type")))
+                    gasProcess.SetGasType(data.GetInt32(data.GetOrdinal("mfc3_id_gas_type")),3);
             }
         }
         //------------------------------------------------------------------------------------------------------------------------------
@@ -745,7 +751,7 @@ namespace HPT1000.Source
                 Program.GasProces gas = subprogram.GetGasProces();
                 //Przygotuj parametry dla procedury dodawania subprogramu powiazanego z programem
                 List<NpgsqlParameter> parameters = new List<NpgsqlParameter>();
-
+               
                 //utworz liste parametrow dla funkcji ModifySubprogramStages_2 - edycja tabeli przechowujacej info na temat sterowania gazami
                 parameters.Add(GetParameter("id_subprogram", DbType.Int32, subprogram.ID));
                 parameters.Add(GetParameter("active_mfc1", DbType.Boolean, gas.GetActiveFlow(1)));
@@ -774,6 +780,9 @@ namespace HPT1000.Source
                 parameters.Add(GetParameter("mfc3_gas_share", DbType.Single, (float)gas.GetShareGas(3)));
                 parameters.Add(GetParameter("time", DbType.Time, gas.GetTimeProcesDuration()));
                 parameters.Add(GetParameter("mode_process", DbType.Int32, gas.GetModeProces()));
+                parameters.Add(GetParameter("mfc1_id_type_gas", DbType.Int32, gas.GetGasType(1)));
+                parameters.Add(GetParameter("mfc2_id_type_gas", DbType.Int32, gas.GetGasType(2)));
+                parameters.Add(GetParameter("mfc3_id_type_gas", DbType.Int32, gas.GetGasType(3)));
 
                 //Wykonaj procedure dodawania programu
                 aRes = PerformFunctionDB("\"ModifySubprogramStages_2\"", parameters);

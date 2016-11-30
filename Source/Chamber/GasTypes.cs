@@ -114,6 +114,8 @@ namespace HPT1000.Source.Chamber
                 {
                     gasType.DataBase = dataBase;
                     items.Add(gasType);
+                    if (refreshObject != null)
+                        refreshObject();
                 }
             }
         }

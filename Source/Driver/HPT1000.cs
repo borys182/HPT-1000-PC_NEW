@@ -94,14 +94,6 @@ namespace HPT1000.Source.Driver
             {
                 dataBase = value;
                 gasTypes.DataBase = value;
-                //pobierz listę programó zapisanych w bazie danych
-                if (dataBase != null)
-                {
-                    ReadProgramsFromDB();
-                    RegisterDevice();
-                    LoadData();
-                    gasTypes.LoadGasType();
-                }
             }
         }
         //-----------------------------------------------------------------------------------------
@@ -138,6 +130,18 @@ namespace HPT1000.Source.Driver
         {
             if(threadReadData.IsAlive)
                 threadReadData.Abort();
+        }
+        //-----------------------------------------------------------------------------------------
+        public void LoadDataFromDB()
+        {
+            //pobierz listę programó zapisanych w bazie danych
+            if (dataBase != null)
+            {
+                ReadProgramsFromDB();
+                RegisterDevice();
+                LoadData();
+                gasTypes.LoadGasType();
+            }
         }
         //-----------------------------------------------------------------------------------------
         //Funkcaj watku drivera

@@ -25,8 +25,9 @@ namespace HPT1000.GUI
 
         private const double pressureResolution = 1000;    //zmienna okresla ile miejsc po przecinku mozna wprowadzac do zmiennych presure
 
-        private bool        flagRefreshProgram = false;
-        private DB          dataBase = null;
+        private bool        flagRefreshProgram  = false;
+        private DB          dataBase            = null;
+        private GasTypes    gasTypes            = null;
         
         //--------------------------------------------------------------------------------------------------------------------------------------
         public ProgramsConfigPanel()
@@ -64,6 +65,11 @@ namespace HPT1000.GUI
         {
             set { hpt1000 = value; }
             get { return hpt1000; }
+        }
+        //--------------------------------------------------------------------------------------------------------------------------------------
+        public GasTypes TypesGas
+        {
+            set { gasTypes = value; }
         }
         //--------------------------------------------------------------------------------------------------------------------------------------
         protected override void OnPaint(PaintEventArgs e)
@@ -485,6 +491,8 @@ namespace HPT1000.GUI
 
                 cBoxVaporiser.Checked   = gasStage.GetVaporiserActive();
                 grBoxVaporiser.Enabled  = gasStage.GetVaporiserActive();
+
+                ShowGasType(gasStage);
             }
             SetLimitGasScroll(gasStage);
         }
@@ -530,6 +538,39 @@ namespace HPT1000.GUI
             cBoxVent.Checked = ventStage.Active;
             if (ventStage != null)
                 timeVent.Value = ventStage.GetTimeVent().AddYears(2000);
+        }
+        //Funkcja preentuje aktulnie przypisany typ gazu do danej przeplywki
+        //-------------------------------------------------------------------------------------------------------------------------------------
+        private void ShowGasType(GasProces gasStage)
+        {
+            //Nie odsiwezaj gdy kist jest rozwinieta. Robie to sprawdzajac czy focusa nie posiadaja dzieci zas gdy focus jest na Parencie to mozna odswiezac
+            if (gasStage != null)
+            {
+                //Pokaz typ gazu dla przeplywki 
+                cBoxGasListMFC1.SelectedIndex = -1; 
+                for (int i = 0; i < cBoxGasListMFC1.Items.Count; i++)
+                {
+                    GasType gasType = (GasType)cBoxGasListMFC1.Items[i];
+                    if (gasType != null && gasType.ID == gasStage.GetGasType(1))
+                        cBoxGasListMFC1.SelectedIndex = i;
+                }
+                //Pokaz typ gazu dla przeplywki 2
+                cBoxGasListMFC2.SelectedIndex = -1;
+                for (int i = 0; i < cBoxGasListMFC2.Items.Count; i++)
+                {
+                    GasType gasType = (GasType)cBoxGasListMFC2.Items[i];
+                    if (gasType != null && gasType.ID == gasStage.GetGasType(2))
+                        cBoxGasListMFC2.SelectedIndex = i;
+                }
+                //Pokaz typ gazu dla przeplywki 3
+                cBoxGasListMFC3.SelectedIndex = -1;
+                for (int i = 0; i < cBoxGasListMFC3.Items.Count; i++)
+                {
+                    GasType gasType = (GasType)cBoxGasListMFC3.Items[i];
+                    if (gasType != null && gasType.ID == gasStage.GetGasType(3))
+                        cBoxGasListMFC3.SelectedIndex = i;
+                }
+            }
         }
         //--------------------------------------------------------------------------------------------------------------------------------------
         void SetLimitGasScroll(GasProces gasStage)
@@ -1582,5 +1623,55 @@ namespace HPT1000.GUI
             RefreshTreeViewPrograms();
         }
         //-------------------------------------------------------------------------------------------------------------------------------------
+        //Funkcaj ma za zadanie wyswietleni listy dostepnych typow gazow ktore moga byc przypisane do danego kanalu gazowego
+        public void RefreshGasType()
+        {
+            if (gasTypes != null )
+            {
+                cBoxGasListMFC1.Items.Clear();
+                cBoxGasListMFC2.Items.Clear();
+                cBoxGasListMFC3.Items.Clear();
+                foreach (GasType gasType in gasTypes.Items)
+                {
+                    cBoxGasListMFC1.Items.Add(gasType);
+                    cBoxGasListMFC2.Items.Add(gasType);
+                    cBoxGasListMFC3.Items.Add(gasType);
+                }
+                //Pokaz gas type dla aktulnie wybranego subprogramu
+                GasProces gasStage = GetCurrentGasProcess();
+                ShowGasType(gasStage);                
+            }
+        }
+        //-----------------------------------------------------------------------------------------
+        //Ustaw dany typ gazu dla przeplywki 1
+        private void cBoxGasListMFC1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GasProces gasStage  = GetCurrentGasProcess();
+            GasType   typeGas   = (GasType)cBoxGasListMFC1.SelectedItem;
+
+            if (gasStage != null && typeGas != null)
+                gasStage.SetGasType(typeGas.ID,1);
+        }
+        //-----------------------------------------------------------------------------------------
+        //Ustaw dany typ gazu dla przeplywki 2
+        private void cBoxGasListMFC2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GasProces gasStage  = GetCurrentGasProcess();
+            GasType   typeGas   = (GasType)cBoxGasListMFC2.SelectedItem;
+
+            if (gasStage != null && typeGas != null)
+                gasStage.SetGasType(typeGas.ID, 2);
+        }
+        //-----------------------------------------------------------------------------------------
+        //Ustaw dany typ gazu dla przeplywki 3
+        private void cBoxGasListMFC3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GasProces gasStage  = GetCurrentGasProcess();
+            GasType   typeGas   = (GasType)cBoxGasListMFC3.SelectedItem;
+
+            if (gasStage != null && typeGas != null)
+                gasStage.SetGasType(typeGas.ID, 3);
+        }
+        //-----------------------------------------------------------------------------------------
     }
 }

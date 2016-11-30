@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HPT1000.Source.Driver;
+using HPT1000.Source.Chamber;
 
 namespace HPT1000.Source.Program
 {
@@ -28,6 +29,7 @@ namespace HPT1000.Source.Program
             public int      GasLimitDown;   //min przeplyw jaki moze byc uzyskany przez przeplywke
             public int      GasLimitUp;     //max przeplyw jaki moze byc uzyskany przez przeplywke
             public Types.GasProcesMode Mode;
+            public int      IDTypeGas;
             private int[,] addresses;  
 
             //---------------------------------------------------------------------------------------------------------------
@@ -43,7 +45,7 @@ namespace HPT1000.Source.Program
                 GasLimitDown    = 5;
                 GasLimitUp      = 2000;
                 Mode            = Types.GasProcesMode.Unknown;
-
+                IDTypeGas       = 0;
                 addresses       = new int[3,6];
                 InitAddresses(); 
             }
@@ -274,6 +276,24 @@ namespace HPT1000.Source.Program
             }        
 
             return aGasFlow;
+        }
+        //---------------------------------------------------------------------------------------------------------------
+        public void SetGasType(int idTypeGas, int aFlowNo)
+        {
+            if (aFlowNo == 1) tabFlow[0].IDTypeGas = idTypeGas;
+            if (aFlowNo == 2) tabFlow[1].IDTypeGas = idTypeGas;
+            if (aFlowNo == 3) tabFlow[2].IDTypeGas = idTypeGas;
+        }
+        //---------------------------------------------------------------------------------------------------------------
+        public int GetGasType(int aFlowNo)
+        {
+            int idTypeGas = 0;
+
+            if (aFlowNo == 1) idTypeGas = tabFlow[0].IDTypeGas;
+            if (aFlowNo == 2) idTypeGas = tabFlow[1].IDTypeGas;
+            if (aFlowNo == 3) idTypeGas = tabFlow[2].IDTypeGas;
+
+            return idTypeGas;
         }
         //---------------------------------------------------------------------------------------------------------------
         public void SetTimeProcesDuration(DateTime aTimeProces)

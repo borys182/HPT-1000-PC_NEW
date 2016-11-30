@@ -103,9 +103,10 @@ namespace HPT1000.GUI
 
                 message.DataBase = dataBase;
                 message.LoadErrorMessages();// pobierz dane z bazy danych
+
+                programsConfigPanel.TypesGas = hpt1000.GetGasTypes();
             }
             //Dodaj obserwatorow
-
             //Odswiezaj nazwy programow/subprogramow w glownym oknie aplikacji gdy zostanie zmieniona one zmoienone w oknie ConfigsProgram
             Program.AddToRefreshList(new RefreshProgram(programPanel.RefreshProgram));
             Program.AddToRefreshList(new RefreshProgram(programsConfigPanel.RefreshProgram));
@@ -115,6 +116,7 @@ namespace HPT1000.GUI
             GasTypes.AddToRefreshList(new RefreshGasType(mfcPanel1.RefreshGasType));
             GasTypes.AddToRefreshList(new RefreshGasType(mfcPanel2.RefreshGasType));
             GasTypes.AddToRefreshList(new RefreshGasType(mfcPanel3.RefreshGasType));
+            GasTypes.AddToRefreshList(new RefreshGasType(programsConfigPanel.RefreshGasType));
             //Odswiezanie userow gdy cos sie z nimi zmienilo
             ApplicationData.AddToRefreshUsersList(new RefreshUsers(userManagerPanel.RefreshUsers));
             //Ustaw odpowidnie obrazki dla SystemWindow
@@ -124,6 +126,9 @@ namespace HPT1000.GUI
             liveGraphicalPanel.Size = grBoxSystem.Size;
 
             appData.SetDataBase(dataBase);
+
+            if (hpt1000 != null)
+                hpt1000.LoadDataFromDB();
         }
         //------------------------------------------------------------------------------------------
         private void LoadBitmap()

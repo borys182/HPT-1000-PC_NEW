@@ -52,19 +52,17 @@ namespace HPT1000.GUI
         //------------------------------------------------------------------------------------------
         public MainForm()
         {
-         //   DataFile.SetID(123);
-         //   DataFile.SaveFile();
-
             InitializeComponent();
 
             programsConfigPanel.HPT1000 = hpt1000;
             programPanel.HPT1000        = hpt1000;
             alertsPanel.HPT1000         = hpt1000;
-            settingsPanel.SetPtrHPT(hpt1000);
+            settingsPanel.Hpt1000       = hpt1000;
             servicePanel.SetPtrHPT(hpt1000);
 
             programsConfigPanel.DataBase = dataBase;
-            
+            settingsPanel.DataBase       = dataBase;
+
             if (hpt1000 != null)
             {
                 generatorPanel.SetGeneratorPtr(hpt1000.GetPowerSupply());

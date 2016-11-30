@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ArchivePanel));
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
@@ -36,20 +35,6 @@
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            this.grBoxParameter = new System.Windows.Forms.GroupBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.cBoxMode = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cBoxParaActive = new System.Windows.Forms.CheckBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.labParaUnit = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
             this.btnGetData = new System.Windows.Forms.Button();
@@ -76,199 +61,12 @@
             this.cBoxFlow2 = new System.Windows.Forms.CheckBox();
             this.cBoxPressure = new System.Windows.Forms.CheckBox();
             this.cBoxPower = new System.Windows.Forms.CheckBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.treeViewDevices = new System.Windows.Forms.TreeView();
-            this.label10 = new System.Windows.Forms.Label();
-            this.grBoxDevice = new System.Windows.Forms.GroupBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.cBoxEnabledAcq = new System.Windows.Forms.CheckBox();
-            this.rBtnAcqDuringProcess = new System.Windows.Forms.RadioButton();
-            this.rBtnAcqAllTime = new System.Windows.Forms.RadioButton();
-            this.cBoxActivePressure = new System.Windows.Forms.CheckBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label40 = new System.Windows.Forms.Label();
-            this.labUnitPressure = new System.Windows.Forms.Label();
-            this.labPressure = new System.Windows.Forms.Label();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
-            this.timer = new System.Windows.Forms.Timer(this.components);
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.dEditAcqPressure = new HPT1000.GUI.Cotrols.DoubleEdit();
-            this.dEditDifferencesValue = new HPT1000.GUI.Cotrols.DoubleEdit();
-            this.dEditFrqAcq = new HPT1000.GUI.Cotrols.DoubleEdit();
-            this.grBoxParameter.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             this.grBoxSeries.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.grBoxDevice.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // grBoxParameter
-            // 
-            this.grBoxParameter.Controls.Add(this.label12);
-            this.grBoxParameter.Controls.Add(this.cBoxMode);
-            this.grBoxParameter.Controls.Add(this.label11);
-            this.grBoxParameter.Controls.Add(this.label4);
-            this.grBoxParameter.Controls.Add(this.cBoxParaActive);
-            this.grBoxParameter.Controls.Add(this.label9);
-            this.grBoxParameter.Controls.Add(this.label8);
-            this.grBoxParameter.Controls.Add(this.labParaUnit);
-            this.grBoxParameter.Controls.Add(this.dEditDifferencesValue);
-            this.grBoxParameter.Controls.Add(this.label3);
-            this.grBoxParameter.Controls.Add(this.dEditFrqAcq);
-            this.grBoxParameter.Controls.Add(this.label2);
-            this.grBoxParameter.Controls.Add(this.label1);
-            this.grBoxParameter.Location = new System.Drawing.Point(419, 360);
-            this.grBoxParameter.Name = "grBoxParameter";
-            this.grBoxParameter.Size = new System.Drawing.Size(1192, 357);
-            this.grBoxParameter.TabIndex = 5;
-            this.grBoxParameter.TabStop = false;
-            this.grBoxParameter.Text = "Parameter configuration";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label12.Location = new System.Drawing.Point(83, 308);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(55, 20);
-            this.label12.TabIndex = 109;
-            this.label12.Text = "Mode:";
-            // 
-            // cBoxMode
-            // 
-            this.cBoxMode.FormattingEnabled = true;
-            this.cBoxMode.Location = new System.Drawing.Point(281, 305);
-            this.cBoxMode.Name = "cBoxMode";
-            this.cBoxMode.Size = new System.Drawing.Size(148, 28);
-            this.cBoxMode.TabIndex = 108;
-            this.cBoxMode.SelectedValueChanged += new System.EventHandler(this.cBoxMode_SelectedValueChanged);
-            // 
-            // label11
-            // 
-            this.label11.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.label11.Location = new System.Drawing.Point(46, 265);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(1003, 23);
-            this.label11.TabIndex = 107;
-            this.label11.Text = "Determines is value will be save on event frequency , difference value or mixed b" +
-    "oth";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label4
-            // 
-            this.label4.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.label4.Location = new System.Drawing.Point(37, 28);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(866, 22);
-            this.label4.TabIndex = 106;
-            this.label4.Text = "Determine is value of parameter is saved in archive";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // cBoxParaActive
-            // 
-            this.cBoxParaActive.AutoSize = true;
-            this.cBoxParaActive.Location = new System.Drawing.Point(87, 62);
-            this.cBoxParaActive.Name = "cBoxParaActive";
-            this.cBoxParaActive.Size = new System.Drawing.Size(257, 24);
-            this.cBoxParaActive.TabIndex = 105;
-            this.cBoxParaActive.Text = "Enabled parameter acquisition";
-            this.cBoxParaActive.UseVisualStyleBackColor = true;
-            this.cBoxParaActive.CheckedChanged += new System.EventHandler(this.cBoxParaActive_CheckedChanged);
-            // 
-            // label9
-            // 
-            this.label9.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.label9.Location = new System.Drawing.Point(37, 172);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(1134, 42);
-            this.label9.TabIndex = 104;
-            this.label9.Text = "Parameter determines level of differences between actual and last value when data" +
-    " of chamber parameters should be saved in archive.";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label8
-            // 
-            this.label8.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.label8.Location = new System.Drawing.Point(37, 95);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(1012, 24);
-            this.label8.TabIndex = 103;
-            this.label8.Text = "Parameter determines how often data of chamber parameters should be saved in  arc" +
-    "hive.";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // labParaUnit
-            // 
-            this.labParaUnit.AutoSize = true;
-            this.labParaUnit.ForeColor = System.Drawing.Color.Green;
-            this.labParaUnit.Location = new System.Drawing.Point(461, 220);
-            this.labParaUnit.Name = "labParaUnit";
-            this.labParaUnit.Size = new System.Drawing.Size(35, 20);
-            this.labParaUnit.TabIndex = 5;
-            this.labParaUnit.Text = "[W]";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label3.Location = new System.Drawing.Point(83, 225);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(145, 20);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Difference values:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.Green;
-            this.label2.Location = new System.Drawing.Point(461, 134);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(28, 20);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "[s]";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label1.Location = new System.Drawing.Point(83, 134);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(92, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Frequency:";
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1690, 790);
-            this.tabControl1.TabIndex = 6;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.groupBox1);
-            this.tabPage1.Controls.Add(this.toolStrip1);
-            this.tabPage1.Controls.Add(this.chart);
-            this.tabPage1.Controls.Add(this.grBoxSeries);
-            this.tabPage1.Location = new System.Drawing.Point(4, 29);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1682, 757);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "History data";
-            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -279,9 +77,9 @@
             this.groupBox1.Controls.Add(this.timeStart);
             this.groupBox1.Controls.Add(this.dateEnd);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Location = new System.Drawing.Point(1456, 449);
+            this.groupBox1.Location = new System.Drawing.Point(1462, 473);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(223, 302);
+            this.groupBox1.Size = new System.Drawing.Size(222, 312);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Range time";
@@ -362,9 +160,9 @@
             this.toolStripSeparator2,
             this.toolStripSeparator4,
             this.toolStripBtnZoomReset});
-            this.toolStrip1.Location = new System.Drawing.Point(3, 3);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1676, 28);
+            this.toolStrip1.Size = new System.Drawing.Size(1690, 28);
             this.toolStrip1.TabIndex = 13;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -466,7 +264,7 @@
             this.chart.ChartAreas.Add(chartArea1);
             this.chart.ChartAreas.Add(chartArea2);
             this.chart.ChartAreas.Add(chartArea3);
-            this.chart.Location = new System.Drawing.Point(0, 30);
+            this.chart.Location = new System.Drawing.Point(1, 27);
             this.chart.Name = "chart";
             this.chart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
             series1.ChartArea = "ChartAreaPressure";
@@ -481,7 +279,7 @@
             this.chart.Series.Add(series1);
             this.chart.Series.Add(series2);
             this.chart.Series.Add(series3);
-            this.chart.Size = new System.Drawing.Size(1450, 721);
+            this.chart.Size = new System.Drawing.Size(1452, 757);
             this.chart.TabIndex = 12;
             this.chart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.chart_MouseDown);
             this.chart.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart_MouseMove);
@@ -496,9 +294,9 @@
             this.grBoxSeries.Controls.Add(this.cBoxFlow2);
             this.grBoxSeries.Controls.Add(this.cBoxPressure);
             this.grBoxSeries.Controls.Add(this.cBoxPower);
-            this.grBoxSeries.Location = new System.Drawing.Point(1456, 34);
+            this.grBoxSeries.Location = new System.Drawing.Point(1462, 30);
             this.grBoxSeries.Name = "grBoxSeries";
-            this.grBoxSeries.Size = new System.Drawing.Size(221, 409);
+            this.grBoxSeries.Size = new System.Drawing.Size(221, 420);
             this.grBoxSeries.TabIndex = 14;
             this.grBoxSeries.TabStop = false;
             this.grBoxSeries.Text = "Series";
@@ -601,251 +399,21 @@
             this.cBoxPower.UseVisualStyleBackColor = true;
             this.cBoxPower.CheckedChanged += new System.EventHandler(this.cBox_CheckedChanged);
             // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.groupBox3);
-            this.tabPage2.Location = new System.Drawing.Point(4, 29);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1682, 757);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Configuration data acquisition";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.groupBox2);
-            this.groupBox3.Controls.Add(this.btnSave);
-            this.groupBox3.Controls.Add(this.treeViewDevices);
-            this.groupBox3.Controls.Add(this.label10);
-            this.groupBox3.Controls.Add(this.grBoxDevice);
-            this.groupBox3.Controls.Add(this.grBoxParameter);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(3, 3);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(1676, 751);
-            this.groupBox3.TabIndex = 7;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Acquisition configuration";
-            // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(31, 678);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(357, 39);
-            this.btnSave.TabIndex = 10;
-            this.btnSave.Text = "Save configuration";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // treeViewDevices
-            // 
-            this.treeViewDevices.Location = new System.Drawing.Point(31, 77);
-            this.treeViewDevices.Name = "treeViewDevices";
-            this.treeViewDevices.Size = new System.Drawing.Size(357, 595);
-            this.treeViewDevices.TabIndex = 9;
-            this.treeViewDevices.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewDevices_AfterSelect);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(27, 38);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(296, 20);
-            this.label10.TabIndex = 8;
-            this.label10.Text = "List all parameters add data to archive";
-            // 
-            // grBoxDevice
-            // 
-            this.grBoxDevice.Controls.Add(this.rBtnAcqDuringProcess);
-            this.grBoxDevice.Controls.Add(this.rBtnAcqAllTime);
-            this.grBoxDevice.Controls.Add(this.cBoxActivePressure);
-            this.grBoxDevice.Controls.Add(this.label7);
-            this.grBoxDevice.Controls.Add(this.label40);
-            this.grBoxDevice.Controls.Add(this.dEditAcqPressure);
-            this.grBoxDevice.Controls.Add(this.labUnitPressure);
-            this.grBoxDevice.Controls.Add(this.labPressure);
-            this.grBoxDevice.Location = new System.Drawing.Point(418, 166);
-            this.grBoxDevice.Name = "grBoxDevice";
-            this.grBoxDevice.Size = new System.Drawing.Size(1193, 190);
-            this.grBoxDevice.TabIndex = 7;
-            this.grBoxDevice.TabStop = false;
-            this.grBoxDevice.Text = "Conditions of start acquisition all data";
-            // 
-            // label13
-            // 
-            this.label13.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.label13.Location = new System.Drawing.Point(38, 24);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(866, 22);
-            this.label13.TabIndex = 107;
-            this.label13.Text = "Determine is value of parameter is saved in archive";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // cBoxEnabledAcq
-            // 
-            this.cBoxEnabledAcq.AutoSize = true;
-            this.cBoxEnabledAcq.Location = new System.Drawing.Point(88, 56);
-            this.cBoxEnabledAcq.Name = "cBoxEnabledAcq";
-            this.cBoxEnabledAcq.Size = new System.Drawing.Size(176, 24);
-            this.cBoxEnabledAcq.TabIndex = 106;
-            this.cBoxEnabledAcq.Text = "Enabled acquisition";
-            this.cBoxEnabledAcq.UseVisualStyleBackColor = true;
-            this.cBoxEnabledAcq.CheckedChanged += new System.EventHandler(this.cBoxEnabledAcq_CheckedChanged);
-            // 
-            // rBtnAcqDuringProcess
-            // 
-            this.rBtnAcqDuringProcess.AutoSize = true;
-            this.rBtnAcqDuringProcess.Location = new System.Drawing.Point(88, 154);
-            this.rBtnAcqDuringProcess.Name = "rBtnAcqDuringProcess";
-            this.rBtnAcqDuringProcess.Size = new System.Drawing.Size(233, 24);
-            this.rBtnAcqDuringProcess.TabIndex = 105;
-            this.rBtnAcqDuringProcess.TabStop = true;
-            this.rBtnAcqDuringProcess.Text = "Acquisioton during process";
-            this.rBtnAcqDuringProcess.UseVisualStyleBackColor = true;
-            this.rBtnAcqDuringProcess.CheckedChanged += new System.EventHandler(this.rBtnAcqDuringProcess_CheckedChanged);
-            // 
-            // rBtnAcqAllTime
-            // 
-            this.rBtnAcqAllTime.AutoSize = true;
-            this.rBtnAcqAllTime.Location = new System.Drawing.Point(395, 154);
-            this.rBtnAcqAllTime.Name = "rBtnAcqAllTime";
-            this.rBtnAcqAllTime.Size = new System.Drawing.Size(171, 24);
-            this.rBtnAcqAllTime.TabIndex = 104;
-            this.rBtnAcqAllTime.TabStop = true;
-            this.rBtnAcqAllTime.Text = "Acquisition all time";
-            this.rBtnAcqAllTime.UseVisualStyleBackColor = true;
-            this.rBtnAcqAllTime.CheckedChanged += new System.EventHandler(this.rBtnAcqAllTime_CheckedChanged);
-            // 
-            // cBoxActivePressure
-            // 
-            this.cBoxActivePressure.AutoSize = true;
-            this.cBoxActivePressure.Location = new System.Drawing.Point(573, 85);
-            this.cBoxActivePressure.Name = "cBoxActivePressure";
-            this.cBoxActivePressure.Size = new System.Drawing.Size(127, 24);
-            this.cBoxActivePressure.TabIndex = 103;
-            this.cBoxActivePressure.Text = "Active option";
-            this.cBoxActivePressure.UseVisualStyleBackColor = true;
-            this.cBoxActivePressure.CheckedChanged += new System.EventHandler(this.cBoxActivePressure_CheckedChanged);
-            this.cBoxActivePressure.Click += new System.EventHandler(this.cBoxActivePressure_Click);
-            // 
-            // label7
-            // 
-            this.label7.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.label7.Location = new System.Drawing.Point(38, 118);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(866, 25);
-            this.label7.TabIndex = 102;
-            this.label7.Text = "Checkbox determines if parameters data of chamber should be saved in data archive" +
-    " only during a process";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label40
-            // 
-            this.label40.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.label40.Location = new System.Drawing.Point(38, 26);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(1149, 53);
-            this.label40.TabIndex = 100;
-            this.label40.Text = "Parameter determines level of pressure when parameter data of chamber will be sav" +
-    "ed in data archive. Data will be saved when pressure will be less than set value" +
-    "";
-            this.label40.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // labUnitPressure
-            // 
-            this.labUnitPressure.AutoSize = true;
-            this.labUnitPressure.ForeColor = System.Drawing.Color.Green;
-            this.labUnitPressure.Location = new System.Drawing.Point(462, 86);
-            this.labUnitPressure.Name = "labUnitPressure";
-            this.labUnitPressure.Size = new System.Drawing.Size(60, 20);
-            this.labUnitPressure.TabIndex = 4;
-            this.labUnitPressure.Text = "[mBar]";
-            // 
-            // labPressure
-            // 
-            this.labPressure.AutoSize = true;
-            this.labPressure.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.labPressure.Location = new System.Drawing.Point(84, 86);
-            this.labPressure.Name = "labPressure";
-            this.labPressure.Size = new System.Drawing.Size(153, 20);
-            this.labPressure.TabIndex = 3;
-            this.labPressure.Text = "Start acq pressure:";
-            // 
             // printDialog1
             // 
             this.printDialog1.UseEXDialog = true;
-            // 
-            // timer
-            // 
-            this.timer.Enabled = true;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.cBoxEnabledAcq);
-            this.groupBox2.Controls.Add(this.label13);
-            this.groupBox2.Location = new System.Drawing.Point(418, 67);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1193, 94);
-            this.groupBox2.TabIndex = 108;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Enabled acquisition";
-            // 
-            // dEditAcqPressure
-            // 
-            this.dEditAcqPressure.Location = new System.Drawing.Point(282, 82);
-            this.dEditAcqPressure.Margin = new System.Windows.Forms.Padding(4);
-            this.dEditAcqPressure.Mask = "0.000";
-            this.dEditAcqPressure.MaximumValue = 1200D;
-            this.dEditAcqPressure.MinimumValue = 0D;
-            this.dEditAcqPressure.Name = "dEditAcqPressure";
-            this.dEditAcqPressure.ReadOnly = false;
-            this.dEditAcqPressure.Size = new System.Drawing.Size(155, 28);
-            this.dEditAcqPressure.TabIndex = 5;
-            this.dEditAcqPressure.Value = 0D;
-            this.dEditAcqPressure.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditAcqPressure_EnterOn);
-            // 
-            // dEditDifferencesValue
-            // 
-            this.dEditDifferencesValue.Location = new System.Drawing.Point(281, 220);
-            this.dEditDifferencesValue.Mask = "0.000";
-            this.dEditDifferencesValue.MaximumValue = 10000000D;
-            this.dEditDifferencesValue.MinimumValue = 0D;
-            this.dEditDifferencesValue.Name = "dEditDifferencesValue";
-            this.dEditDifferencesValue.ReadOnly = false;
-            this.dEditDifferencesValue.Size = new System.Drawing.Size(148, 22);
-            this.dEditDifferencesValue.TabIndex = 4;
-            this.dEditDifferencesValue.Value = 0D;
-            this.dEditDifferencesValue.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditDifferencesValue_EnterOn);
-            // 
-            // dEditFrqAcq
-            // 
-            this.dEditFrqAcq.Location = new System.Drawing.Point(281, 132);
-            this.dEditFrqAcq.Mask = "0.000";
-            this.dEditFrqAcq.MaximumValue = 3600000D;
-            this.dEditFrqAcq.MinimumValue = 0.5D;
-            this.dEditFrqAcq.Name = "dEditFrqAcq";
-            this.dEditFrqAcq.ReadOnly = false;
-            this.dEditFrqAcq.Size = new System.Drawing.Size(148, 22);
-            this.dEditFrqAcq.TabIndex = 2;
-            this.dEditFrqAcq.Value = 0.5D;
-            this.dEditFrqAcq.EnterOn += new HPT1000.GUI.Cotrols.DoubleEdit.MakeOperation(this.dEditFrqAcq_EnterOn);
             // 
             // ArchivePanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.grBoxSeries);
+            this.Controls.Add(this.chart);
+            this.Controls.Add(this.toolStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Name = "ArchivePanel";
             this.Size = new System.Drawing.Size(1690, 790);
-            this.Load += new System.EventHandler(this.ArchivePanel_Load);
-            this.grBoxParameter.ResumeLayout(false);
-            this.grBoxParameter.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
@@ -853,46 +421,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
             this.grBoxSeries.ResumeLayout(false);
             this.grBoxSeries.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.grBoxDevice.ResumeLayout(false);
-            this.grBoxDevice.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.GroupBox grBoxParameter;
-        private Cotrols.DoubleEdit dEditFrqAcq;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label labParaUnit;
-        private Cotrols.DoubleEdit dEditDifferencesValue;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.GroupBox grBoxDevice;
-        private Cotrols.DoubleEdit dEditAcqPressure;
-        private System.Windows.Forms.Label labUnitPressure;
-        private System.Windows.Forms.Label labPressure;
-        private System.Windows.Forms.Label label40;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.PrintDialog printDialog1;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.RadioButton rBtnAcqDuringProcess;
-        private System.Windows.Forms.RadioButton rBtnAcqAllTime;
-        private System.Windows.Forms.CheckBox cBoxActivePressure;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TreeView treeViewDevices;
-        private System.Windows.Forms.Timer timer;
-        private System.Windows.Forms.CheckBox cBoxParaActive;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
@@ -919,12 +454,5 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DateTimePicker timeEnd;
         private System.Windows.Forms.DateTimePicker timeStart;
-        private System.Windows.Forms.ComboBox cBoxMode;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.CheckBox cBoxEnabledAcq;
-        private System.Windows.Forms.GroupBox groupBox2;
     }
 }

@@ -32,6 +32,7 @@
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btnReadSetingsPLC_1 = new System.Windows.Forms.Button();
             this.label40 = new System.Windows.Forms.Label();
             this.label39 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
@@ -53,6 +54,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.btnReadSettings = new System.Windows.Forms.Button();
             this.label46 = new System.Windows.Forms.Label();
             this.cBoxMFC3 = new System.Windows.Forms.CheckBox();
             this.cBoxMFC2 = new System.Windows.Forms.CheckBox();
@@ -72,6 +74,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.btnReadSettings_1 = new System.Windows.Forms.Button();
             this.label35 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
             this.timePumpToSV = new System.Windows.Forms.DateTimePicker();
@@ -90,12 +93,6 @@
             this.label28 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.labConnectionExplain = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cBoxComm = new System.Windows.Forms.ComboBox();
-            this.btnReadSetingsPLC_1 = new System.Windows.Forms.Button();
-            this.btnReadSettings = new System.Windows.Forms.Button();
-            this.btnReadSettings_1 = new System.Windows.Forms.Button();
             this.dEditRangeVoltage = new HPT1000.GUI.Cotrols.DoubleEdit();
             this.dEditRangeCurent = new HPT1000.GUI.Cotrols.DoubleEdit();
             this.dEditRangePower = new HPT1000.GUI.Cotrols.DoubleEdit();
@@ -118,6 +115,7 @@
             // 
             // timer
             // 
+            this.timer.Enabled = true;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // tabControl2
@@ -127,7 +125,9 @@
             this.tabControl2.Controls.Add(this.tabPage5);
             this.tabControl2.Controls.Add(this.tabPage6);
             this.tabControl2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tabControl2.ItemSize = new System.Drawing.Size(117, 25);
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
+            this.tabControl2.Multiline = true;
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
             this.tabControl2.Size = new System.Drawing.Size(1700, 795);
@@ -168,7 +168,17 @@
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(1692, 762);
             this.tabPage3.TabIndex = 0;
-            this.tabPage3.Text = "Power supply";
+            this.tabPage3.Text = "     Power supply    ";
+            // 
+            // btnReadSetingsPLC_1
+            // 
+            this.btnReadSetingsPLC_1.Location = new System.Drawing.Point(1473, 721);
+            this.btnReadSetingsPLC_1.Name = "btnReadSetingsPLC_1";
+            this.btnReadSetingsPLC_1.Size = new System.Drawing.Size(213, 35);
+            this.btnReadSetingsPLC_1.TabIndex = 101;
+            this.btnReadSetingsPLC_1.Text = "Read settings from PLC";
+            this.btnReadSetingsPLC_1.UseVisualStyleBackColor = true;
+            this.btnReadSetingsPLC_1.Click += new System.EventHandler(this.btnReadSettings_Click);
             // 
             // label40
             // 
@@ -410,7 +420,17 @@
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage4.Size = new System.Drawing.Size(1692, 762);
             this.tabPage4.TabIndex = 1;
-            this.tabPage4.Text = "Mas flow controler";
+            this.tabPage4.Text = "   Mas flow controler  ";
+            // 
+            // btnReadSettings
+            // 
+            this.btnReadSettings.Location = new System.Drawing.Point(1473, 721);
+            this.btnReadSettings.Name = "btnReadSettings";
+            this.btnReadSettings.Size = new System.Drawing.Size(213, 35);
+            this.btnReadSettings.TabIndex = 109;
+            this.btnReadSettings.Text = "Read settings from PLC";
+            this.btnReadSettings.UseVisualStyleBackColor = true;
+            this.btnReadSettings.Click += new System.EventHandler(this.btnReadSettings_Click);
             // 
             // label46
             // 
@@ -611,7 +631,17 @@
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Size = new System.Drawing.Size(1692, 762);
             this.tabPage5.TabIndex = 2;
-            this.tabPage5.Text = "Pump";
+            this.tabPage5.Text = "           Pump            ";
+            // 
+            // btnReadSettings_1
+            // 
+            this.btnReadSettings_1.Location = new System.Drawing.Point(1467, 715);
+            this.btnReadSettings_1.Name = "btnReadSettings_1";
+            this.btnReadSettings_1.Size = new System.Drawing.Size(213, 35);
+            this.btnReadSettings_1.TabIndex = 102;
+            this.btnReadSettings_1.Text = "Read settings from PLC";
+            this.btnReadSettings_1.UseVisualStyleBackColor = true;
+            this.btnReadSettings_1.Click += new System.EventHandler(this.btnReadSettings_Click);
             // 
             // label35
             // 
@@ -687,38 +717,35 @@
             this.tabPage6.Controls.Add(this.label28);
             this.tabPage6.Controls.Add(this.label26);
             this.tabPage6.Controls.Add(this.label10);
-            this.tabPage6.Controls.Add(this.labConnectionExplain);
-            this.tabPage6.Controls.Add(this.label1);
-            this.tabPage6.Controls.Add(this.cBoxComm);
             this.tabPage6.Controls.Add(this.dEditFactorGas);
             this.tabPage6.Location = new System.Drawing.Point(4, 29);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Size = new System.Drawing.Size(1692, 762);
             this.tabPage6.TabIndex = 3;
-            this.tabPage6.Text = "Other";
+            this.tabPage6.Text = "             Gases             ";
             // 
             // btnRemoveGas
             // 
-            this.btnRemoveGas.Location = new System.Drawing.Point(467, 715);
+            this.btnRemoveGas.Location = new System.Drawing.Point(295, 479);
             this.btnRemoveGas.Name = "btnRemoveGas";
-            this.btnRemoveGas.Size = new System.Drawing.Size(160, 35);
+            this.btnRemoveGas.Size = new System.Drawing.Size(332, 35);
             this.btnRemoveGas.TabIndex = 87;
-            this.btnRemoveGas.Text = "Delete";
+            this.btnRemoveGas.Text = "Remove";
             this.btnRemoveGas.UseVisualStyleBackColor = true;
             this.btnRemoveGas.Click += new System.EventHandler(this.btnRemoveGas_Click);
             // 
             // tBoxNameGas
             // 
-            this.tBoxNameGas.Location = new System.Drawing.Point(295, 386);
+            this.tBoxNameGas.Location = new System.Drawing.Point(295, 158);
             this.tBoxNameGas.Name = "tBoxNameGas";
-            this.tBoxNameGas.Size = new System.Drawing.Size(122, 27);
+            this.tBoxNameGas.Size = new System.Drawing.Size(148, 27);
             this.tBoxNameGas.TabIndex = 86;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
             this.label14.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label14.Location = new System.Drawing.Point(103, 389);
+            this.label14.Location = new System.Drawing.Point(103, 161);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(91, 20);
             this.label14.TabIndex = 85;
@@ -726,21 +753,21 @@
             // 
             // btnNewGas
             // 
-            this.btnNewGas.Location = new System.Drawing.Point(295, 671);
+            this.btnNewGas.Location = new System.Drawing.Point(295, 435);
             this.btnNewGas.Name = "btnNewGas";
             this.btnNewGas.Size = new System.Drawing.Size(160, 35);
             this.btnNewGas.TabIndex = 84;
-            this.btnNewGas.Text = "Add";
+            this.btnNewGas.Text = "New";
             this.btnNewGas.UseVisualStyleBackColor = true;
             this.btnNewGas.Click += new System.EventHandler(this.btnNewGas_Click);
             // 
             // btnSaveSettings
             // 
-            this.btnSaveSettings.Location = new System.Drawing.Point(467, 671);
+            this.btnSaveSettings.Location = new System.Drawing.Point(467, 435);
             this.btnSaveSettings.Name = "btnSaveSettings";
             this.btnSaveSettings.Size = new System.Drawing.Size(160, 35);
             this.btnSaveSettings.TabIndex = 81;
-            this.btnSaveSettings.Text = "Save";
+            this.btnSaveSettings.Text = "Modify";
             this.btnSaveSettings.UseVisualStyleBackColor = true;
             this.btnSaveSettings.Click += new System.EventHandler(this.btnSaveSettings_Click);
             // 
@@ -748,7 +775,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label12.Location = new System.Drawing.Point(103, 460);
+            this.label12.Location = new System.Drawing.Point(103, 232);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(100, 20);
             this.label12.TabIndex = 80;
@@ -756,7 +783,7 @@
             // 
             // tBoxGasDescription
             // 
-            this.tBoxGasDescription.Location = new System.Drawing.Point(295, 454);
+            this.tBoxGasDescription.Location = new System.Drawing.Point(295, 226);
             this.tBoxGasDescription.Multiline = true;
             this.tBoxGasDescription.Name = "tBoxGasDescription";
             this.tBoxGasDescription.Size = new System.Drawing.Size(332, 114);
@@ -766,9 +793,9 @@
             // 
             this.cBoxGasType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBoxGasType.FormattingEnabled = true;
-            this.cBoxGasType.Location = new System.Drawing.Point(295, 319);
+            this.cBoxGasType.Location = new System.Drawing.Point(295, 91);
             this.cBoxGasType.Name = "cBoxGasType";
-            this.cBoxGasType.Size = new System.Drawing.Size(124, 28);
+            this.cBoxGasType.Size = new System.Drawing.Size(150, 28);
             this.cBoxGasType.TabIndex = 76;
             this.cBoxGasType.SelectedIndexChanged += new System.EventHandler(this.cBoxGasType_SelectedIndexChanged);
             // 
@@ -776,7 +803,7 @@
             // 
             this.label28.AutoSize = true;
             this.label28.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label28.Location = new System.Drawing.Point(103, 614);
+            this.label28.Location = new System.Drawing.Point(103, 381);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(140, 20);
             this.label28.TabIndex = 73;
@@ -786,7 +813,7 @@
             // 
             this.label26.AutoSize = true;
             this.label26.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label26.Location = new System.Drawing.Point(103, 319);
+            this.label26.Location = new System.Drawing.Point(103, 91);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(81, 20);
             this.label26.TabIndex = 72;
@@ -795,74 +822,12 @@
             // label10
             // 
             this.label10.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.label10.Location = new System.Drawing.Point(54, 269);
+            this.label10.Location = new System.Drawing.Point(54, 41);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(430, 21);
+            this.label10.Size = new System.Drawing.Size(758, 29);
             this.label10.TabIndex = 70;
-            this.label10.Text = "Description of available gases which might connection to device";
+            this.label10.Text = "Description of available gases which might be connection to device";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // labConnectionExplain
-            // 
-            this.labConnectionExplain.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.labConnectionExplain.Location = new System.Drawing.Point(54, 65);
-            this.labConnectionExplain.Name = "labConnectionExplain";
-            this.labConnectionExplain.Size = new System.Drawing.Size(430, 21);
-            this.labConnectionExplain.TabIndex = 68;
-            this.labConnectionExplain.Text = "Select kind of connection with PLC which you using";
-            this.labConnectionExplain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label1.Location = new System.Drawing.Point(103, 113);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(134, 20);
-            this.label1.TabIndex = 66;
-            this.label1.Text = "Connection type:";
-            // 
-            // cBoxComm
-            // 
-            this.cBoxComm.FormattingEnabled = true;
-            this.cBoxComm.Items.AddRange(new object[] {
-            "USB",
-            "TCP"});
-            this.cBoxComm.Location = new System.Drawing.Point(295, 110);
-            this.cBoxComm.Name = "cBoxComm";
-            this.cBoxComm.Size = new System.Drawing.Size(132, 28);
-            this.cBoxComm.TabIndex = 67;
-            this.cBoxComm.SelectedIndexChanged += new System.EventHandler(this.cBoxComm_SelectedIndexChanged);
-            // 
-            // btnReadSetingsPLC_1
-            // 
-            this.btnReadSetingsPLC_1.Location = new System.Drawing.Point(1473, 721);
-            this.btnReadSetingsPLC_1.Name = "btnReadSetingsPLC_1";
-            this.btnReadSetingsPLC_1.Size = new System.Drawing.Size(213, 35);
-            this.btnReadSetingsPLC_1.TabIndex = 101;
-            this.btnReadSetingsPLC_1.Text = "Read settings from PLC";
-            this.btnReadSetingsPLC_1.UseVisualStyleBackColor = true;
-            this.btnReadSetingsPLC_1.Click += new System.EventHandler(this.btnReadSettings_Click);
-            // 
-            // btnReadSettings
-            // 
-            this.btnReadSettings.Location = new System.Drawing.Point(1473, 721);
-            this.btnReadSettings.Name = "btnReadSettings";
-            this.btnReadSettings.Size = new System.Drawing.Size(213, 35);
-            this.btnReadSettings.TabIndex = 109;
-            this.btnReadSettings.Text = "Read settings from PLC";
-            this.btnReadSettings.UseVisualStyleBackColor = true;
-            this.btnReadSettings.Click += new System.EventHandler(this.btnReadSettings_Click);
-            // 
-            // btnReadSettings_1
-            // 
-            this.btnReadSettings_1.Location = new System.Drawing.Point(1476, 724);
-            this.btnReadSettings_1.Name = "btnReadSettings_1";
-            this.btnReadSettings_1.Size = new System.Drawing.Size(213, 35);
-            this.btnReadSettings_1.TabIndex = 102;
-            this.btnReadSettings_1.Text = "Read settings from PLC";
-            this.btnReadSettings_1.UseVisualStyleBackColor = true;
-            this.btnReadSettings_1.Click += new System.EventHandler(this.btnReadSettings_Click);
             // 
             // dEditRangeVoltage
             // 
@@ -1034,14 +999,14 @@
             // 
             // dEditFactorGas
             // 
-            this.dEditFactorGas.Location = new System.Drawing.Point(295, 611);
+            this.dEditFactorGas.Location = new System.Drawing.Point(295, 378);
             this.dEditFactorGas.Margin = new System.Windows.Forms.Padding(4);
             this.dEditFactorGas.Mask = "0.000";
             this.dEditFactorGas.MaximumValue = 1000D;
             this.dEditFactorGas.MinimumValue = 0D;
             this.dEditFactorGas.Name = "dEditFactorGas";
             this.dEditFactorGas.ReadOnly = false;
-            this.dEditFactorGas.Size = new System.Drawing.Size(120, 29);
+            this.dEditFactorGas.Size = new System.Drawing.Size(143, 29);
             this.dEditFactorGas.TabIndex = 74;
             this.dEditFactorGas.Value = 0D;
             // 
@@ -1053,7 +1018,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Name = "ServicePanel";
             this.Size = new System.Drawing.Size(1700, 800);
-            this.VisibleChanged += new System.EventHandler(this.ServicePanel_VisibleChanged);
+            this.Load += new System.EventHandler(this.ServicePanel_Load);
             this.tabControl2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
@@ -1142,9 +1107,6 @@
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label labConnectionExplain;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cBoxComm;
         private System.Windows.Forms.Button btnReadSetingsPLC_1;
         private System.Windows.Forms.Button btnReadSettings;
         private System.Windows.Forms.Button btnReadSettings_1;

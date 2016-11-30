@@ -93,12 +93,14 @@ namespace HPT1000.Source.Driver
             set
             {
                 dataBase = value;
+                gasTypes.DataBase = value;
                 //pobierz listę programó zapisanych w bazie danych
                 if (dataBase != null)
                 {
                     ReadProgramsFromDB();
                     RegisterDevice();
                     LoadData();
+                    gasTypes.LoadGasType();
                 }
             }
         }

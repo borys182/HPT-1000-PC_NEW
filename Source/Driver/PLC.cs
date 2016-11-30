@@ -11,6 +11,7 @@ namespace HPT1000.Source.Driver
     */
     public abstract class PLC
     {
+        private string            paraName  = "Parameter_PLC"; //Nazwa parametra pod ktora wszystkie infomacje na teamt obiektu PLC zostana zapisane w bazie danych
         protected Types.TypePLC   typePLC   = Types.TypePLC.L;           ///<Zmienna okrela typ sterownika PLC 
         protected Types.TypeComm  typeComm  = Types.TypeComm.USB;        ///<Zmienna okresla typ komunikacji sie ze sterownikiem PLC
         protected string    addressIP       = "127.0.0.1";
@@ -18,6 +19,17 @@ namespace HPT1000.Source.Driver
         protected bool  dummyMode                   = false;
         protected int[] dummyModeStatusChamberData  = new int[Types.LENGHT_STATUS_DATA];
 
+        protected DB    dataBase            = null;
+        //----------------------------------------------------------------------------------------
+        public DB DataBase
+        {
+            set
+            {
+                dataBase = value;
+                //Zaladuj parametry PLC z bazy danych
+                LoadData();
+            }
+        }
         //----------------------------------------------------------------------------------------
         abstract public int Connect();                          ///<Funkcja ma za zadanie opierajac sie na parmaetrach komunikacyjnych polaczenie sie z PLC. Aktualne polaczenie zostaje przerwane
         //----------------------------------------------------------------------------------------
@@ -41,6 +53,8 @@ namespace HPT1000.Source.Driver
         public void SetTypePLC(Types.TypePLC aType)
         {
             typePLC = aType;
+            //Zapisz parametr w bazie danych
+            SaveData();
         }
         //----------------------------------------------------------------------------------------
         public Types.TypePLC GetTypePLC()
@@ -51,6 +65,8 @@ namespace HPT1000.Source.Driver
         public void SetTypeComm(Types.TypeComm aType)
         {
             typeComm = aType;
+            //Zapisz parametr w bazie danych
+            SaveData();
         }
         //----------------------------------------------------------------------------------------
         public Types.TypeComm GetTypeComm()
@@ -66,6 +82,46 @@ namespace HPT1000.Source.Driver
         public bool GetDummyMode()
         {
             return dummyMode;
+        }
+        //-----------------------------------------------------------------------------------------
+        //Funkcja odczytuje z bazy danych zapisane wczesniej parametry
+        private void LoadData()
+        {
+            if (dataBase != null)
+            {
+                ProgramParameter parameter = new ProgramParameter();
+                parameter.Name = paraName;
+                dataBase.LoadParameter(parameter.Name, out parameter);
+                if (parameter.Data != null)
+                {
+                    string[] parameters = parameter.Data.Split(';');
+                    foreach (string para in parameters)
+                    {
+                        try
+                        {
+                            if (para.Contains("Type_PLC"))
+                                typePLC = (Types.TypePLC)Enum.Parse(typeof(Types.TypePLC), para.Split('=')[1]);
+                            if (para.Contains("Type_Communication"))
+                                typeComm = (Types.TypeComm)Enum.Parse(typeof(Types.TypeComm), para.Split('=')[1]);
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.AddException(ex);
+                        }
+                    }
+                }
+            }
+        }
+        //-----------------------------------------------------------------------------------------
+        //Funkcja zapisuje do bazu danych informacje na temat powiazanego typu gazu oraz czy jest aktywna czy nie
+        private void SaveData()
+        {
+            ProgramParameter parameter = new ProgramParameter();
+
+            parameter.Name = paraName;
+            parameter.Data = "Type_PLC = " + typePLC + ";" + "Type_Communication = " + typeComm + ";";
+
+            int aRes = dataBase.SaveParameter(parameter);
         }
         //----------------------------------------------------------------------------------------
     }

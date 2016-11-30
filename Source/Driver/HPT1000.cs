@@ -96,6 +96,9 @@ namespace HPT1000.Source.Driver
                 gasTypes.DataBase = value;
                 if (chamber != null && chamber.GetObject(Types.TypeObject.FM) != null)
                     ((MFC)chamber.GetObject(Types.TypeObject.FM)).SetDataBase(dataBase);
+
+                if (plc != null)
+                    plc.DataBase = dataBase;
             }
         }
         //-----------------------------------------------------------------------------------------

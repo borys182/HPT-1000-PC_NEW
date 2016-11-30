@@ -18,6 +18,7 @@ namespace HPT1000.GUI
     {
         private Source.Driver.HPT1000   hpt1000  = null;
         private GasTypes                gasTypes = null;
+        private bool                    lastStateCommunication = false;
         //----------------------------------------------------------------------------------------------------------------------------
         //Konstruktor klasy sluzacy do zainicjalizowania poczatkowych wartosci formatki
         public ServicePanel()
@@ -75,15 +76,6 @@ namespace HPT1000.GUI
         {
             if (powerSupply != null && hpt1000 != null)
             {
-                //Jezeli jest brak komunikacji to nie moge ustawiac parametrow urzadzenia
-                dEditCurentLimit.Enabled    = hpt1000.CoonectionPLC;
-                dEditPowerLimit.Enabled     = hpt1000.CoonectionPLC;
-                dEditVoltageLimit.Enabled   = hpt1000.CoonectionPLC;
-                dEditRangePower.Enabled     = hpt1000.CoonectionPLC;
-                dEditRangeCurent.Enabled    = hpt1000.CoonectionPLC;
-                dEditRangeVoltage.Enabled   = hpt1000.CoonectionPLC;
-                timeSetpointStabilization.Enabled = hpt1000.CoonectionPLC;
-                timeWaitOnOperate.Enabled   = hpt1000.CoonectionPLC;
                 //Przedstaw parametry urzadzenia
                 if (hpt1000.CoonectionPLC)
                 {
@@ -96,18 +88,6 @@ namespace HPT1000.GUI
                     timeSetpointStabilization.Value = Types.ConvertDate((int)powerSupply.TimeWaitSetpoint);
                     timeWaitOnOperate.Value         = Types.ConvertDate((int)powerSupply.TimeWaitOperate);
                 }
-                //Z uwagi na fakt ze parametry Service dla zasialcza sa czytane z PLC to w przypadku braku komunikacji zeruje komponenty graficzne aby zasugerowac ze nie moge odczytac poprawnych wartosci
-                else
-                {
-                    dEditCurentLimit.Value          = 0;
-                    dEditPowerLimit.Value           = 0;
-                    dEditVoltageLimit.Value         = 0;
-                    dEditRangePower.Value           = 0;
-                    dEditRangeCurent.Value          = 0;
-                    dEditRangeVoltage.Value         = 0;
-                    timeSetpointStabilization.Value = Types.ConvertDate(0);
-                    timeWaitOnOperate.Value         = Types.ConvertDate(0);
-                }
             }
         }
         //----------------------------------------------------------------------------------------------------------------------------
@@ -116,17 +96,6 @@ namespace HPT1000.GUI
         {
             if (mfc != null && hpt1000 != null)
             {
-                //Jezeli jest brak komunikacji to nie moge ustawiac parametrow urzadzenia
-                dEditMaxFlow_MFC1.Enabled     = hpt1000.CoonectionPLC;
-                dEditMaxFlow_MFC2.Enabled     = hpt1000.CoonectionPLC;
-                dEditMaxFlow_MFC3.Enabled     = hpt1000.CoonectionPLC;
-                dEditRangeVoltageMFC1.Enabled = hpt1000.CoonectionPLC;
-                dEditRangeVoltageMFC2.Enabled = hpt1000.CoonectionPLC;
-                dEditRangeVoltageMFC3.Enabled = hpt1000.CoonectionPLC;
-                timeFlowStabilization.Enabled = hpt1000.CoonectionPLC;
-                cBoxMFC1.Enabled              = hpt1000.CoonectionPLC;
-                cBoxMFC2.Enabled              = hpt1000.CoonectionPLC;
-                cBoxMFC3.Enabled              = hpt1000.CoonectionPLC;
                 //Przedstaw parametry urzadzenia
                 if (hpt1000.CoonectionPLC)
                 {
@@ -142,21 +111,6 @@ namespace HPT1000.GUI
                     cBoxMFC2.Checked = mfc.GetActive(2);
                     cBoxMFC3.Checked = mfc.GetActive(3);
                 }
-                //Z uwagi na fakt ze parametry Service dla zasialcza sa czytane z PLC to w przypadku braku komunikacji zeruje komponenty graficzne aby zasugerowac ze nie moge odczytac poprawnych wartosci
-                else
-                {
-                    dEditMaxFlow_MFC1.Value     = 0;
-                    dEditMaxFlow_MFC2.Value     = 0;
-                    dEditMaxFlow_MFC3.Value     = 0;
-                    dEditRangeVoltageMFC1.Value = 0;
-                    dEditRangeVoltageMFC2.Value = 0;
-                    dEditRangeVoltageMFC3.Value = 0;
-                    timeFlowStabilization.Value = Types.ConvertDate(0);
-
-                    cBoxMFC1.Checked = false;
-                    cBoxMFC2.Checked = false;
-                    cBoxMFC3.Checked = false;
-                }
             }
         }
         //----------------------------------------------------------------------------------------------------------------------------
@@ -165,23 +119,91 @@ namespace HPT1000.GUI
         {
             if (forePump != null && hpt1000 != null)
             {
-                //Jezeli jest brak komunikacji to nie moge ustawiac parametrow urzadzenia
-                timePumpToSV.Enabled = hpt1000.CoonectionPLC;
-                timeWaitPF.Enabled   = hpt1000.CoonectionPLC;
-
                 //Przedstaw parametry urzadzenia
                 if (hpt1000.CoonectionPLC)
                 {
-                     timePumpToSV.Value = Types.ConvertDate((int)forePump.TimePumpToSV);
-                     timeWaitPF.Value   = Types.ConvertDate((int)forePump.TimeWaitPF);
-                }
-                //Z uwagi na fakt ze parametry Service dla zasialcza sa czytane z PLC to w przypadku braku komunikacji zeruje komponenty graficzne aby zasugerowac ze nie moge odczytac poprawnych wartosci
-                else
-                {
-                    timePumpToSV.Value  = Types.ConvertDate(0);
-                    timeWaitPF.Value    = Types.ConvertDate(0);
+                    timePumpToSV.Value = Types.ConvertDate((int)forePump.TimePumpToSV);
+                    timeWaitPF.Value = Types.ConvertDate((int)forePump.TimeWaitPF);
                 }
             }
+        }
+        //----------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie ustawienie komponentow odpowiedizalnych za wizualicjace parametrow urzadzenia MFC na 0
+        private void ClearMFComponent()
+        {
+            dEditMaxFlow_MFC1.Value = 0;
+            dEditMaxFlow_MFC2.Value = 0;
+            dEditMaxFlow_MFC3.Value = 0;
+            dEditRangeVoltageMFC1.Value = 0;
+            dEditRangeVoltageMFC2.Value = 0;
+            dEditRangeVoltageMFC3.Value = 0;
+            timeFlowStabilization.Value = Types.ConvertDate(0);
+
+            cBoxMFC1.Checked = false;
+            cBoxMFC2.Checked = false;
+            cBoxMFC3.Checked = false;
+
+            SetEnableComponentMFC(false);
+        }
+        //----------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie ustawienie komponentow odpowiedizalnych za wizualicjace parametrow urzadzenia PowerSupply na 0
+        private void ClearPowerSupplyComponent()
+        {
+            dEditCurentLimit.Value  = 0;
+            dEditPowerLimit.Value   = 0;
+            dEditVoltageLimit.Value = 0;
+            dEditRangePower.Value   = 0;
+            dEditRangeCurent.Value  = 0;
+            dEditRangeVoltage.Value = 0;
+            timeSetpointStabilization.Value = Types.ConvertDate(0);
+            timeWaitOnOperate.Value = Types.ConvertDate(0);
+
+            SetEnableComponentPowerSupply(false);
+        } 
+        //----------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie ustawienie komponentow odpowiedizalnych za wizualicjace parametrow urzadzenia ForePump na 0
+        private void ClearPumpComponent()
+        {
+            timePumpToSV.Value = Types.ConvertDate(0);
+            timeWaitPF.Value = Types.ConvertDate(0);
+
+            SetEnableComponentPump(false);
+        }
+        //----------------------------------------------------------------------------------------------------------------------------
+        //Uutaw dostepnosc komponentow odpowiedzialnych za prezentacje/ustawianie parametrow MFC
+        private void SetEnableComponentMFC(bool enabled)
+        {
+            //Jezeli jest brak komunikacji to nie moge ustawiac parametrow urzadzenia
+            dEditMaxFlow_MFC1.Enabled     = enabled;
+            dEditMaxFlow_MFC2.Enabled     = enabled;
+            dEditMaxFlow_MFC3.Enabled     = enabled;
+            dEditRangeVoltageMFC1.Enabled = enabled;
+            dEditRangeVoltageMFC2.Enabled = enabled;
+            dEditRangeVoltageMFC3.Enabled = enabled;
+            timeFlowStabilization.Enabled = enabled;
+            cBoxMFC1.Enabled              = enabled;
+            cBoxMFC2.Enabled              = enabled;
+            cBoxMFC3.Enabled              = enabled;
+        }
+        //----------------------------------------------------------------------------------------------------------------------------
+        //Uutaw dostepnosc komponentow odpowiedzialnych za prezentacje/ustawianie parametrow zasilacza
+        private void SetEnableComponentPowerSupply(bool enabled)
+        {
+            dEditCurentLimit.Enabled    = enabled;
+            dEditPowerLimit.Enabled     = enabled;
+            dEditVoltageLimit.Enabled   = enabled;
+            dEditRangePower.Enabled     = enabled;
+            dEditRangeCurent.Enabled    = enabled;
+            dEditRangeVoltage.Enabled   = enabled;
+            timeSetpointStabilization.Enabled = enabled;
+            timeWaitOnOperate.Enabled   = enabled;
+        }
+        //----------------------------------------------------------------------------------------------------------------------------
+        //Uutaw dostepnosc komponentow odpowiedzialnych za prezentacje/ustawianie parametrow fore pump
+        private void SetEnableComponentPump(bool enabled)
+        {
+            timePumpToSV.Enabled = enabled;
+            timeWaitPF.Enabled   = enabled;
         }
         //----------------------------------------------------------------------------------------------------------------------------
         //Funkcja ma za zadanie konwetowanie obiektu czasu na sekundy poniewaz parametry zapisywane w PLC sa w sekundach
@@ -546,7 +568,7 @@ namespace HPT1000.GUI
         //Funkcja timera majaca na celu ustawianie widocznosci przycoskow w zaleznosci od sytuacji
         private void timer_Tick(object sender, EventArgs e)
         {
-            //Nie mozna modyfikowac i usuwac gdy nie jest wybrany zaden typ gazu takze NEW
+            //Nie mozna modyfikowac i usuwac gdy nie jest wybrany zaden typ gazu
             if (cBoxGasType.SelectedIndex < 0)
             {
                 btnSaveSettings.Enabled = false;
@@ -556,6 +578,25 @@ namespace HPT1000.GUI
             {
                 btnSaveSettings.Enabled = true;
                 btnRemoveGas.Enabled = true;
+            }
+            //Brak komunikacji z PLC kasuj widzocznosc komponetow
+            if (hpt1000 != null)
+            {
+                if (!hpt1000.CoonectionPLC)
+                {
+                    ClearMFComponent();
+                    ClearPowerSupplyComponent();
+                    ClearPumpComponent();
+                }
+                //Komunikacja sie pojawila pokaz wartosci parametrow ale tylko raz. Musi to dzialc na zbocze narastajace
+                if (!lastStateCommunication && hpt1000.CoonectionPLC)
+                {
+                    RefreshSettingsPanel();
+                    SetEnableComponentMFC(true);
+                    SetEnableComponentPowerSupply(true);
+                    SetEnableComponentPump(true);
+                }
+                lastStateCommunication = hpt1000.CoonectionPLC;
             }
         }
         //---------------------------------------------------------------------------------------------------------------------------

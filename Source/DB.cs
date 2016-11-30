@@ -279,6 +279,43 @@ namespace HPT1000.Source
             return sesions;
         }
         //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie odczytanie listy typow gazow zapisanych w bazie danych
+        public List<GasType> GetGasTypes()
+        {
+            List<GasType> gasTypes = new List<GasType>();
+
+            //utworz zapytanie
+            string query = " SELECT * FROM \"GasTypes\"";
+            NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+            //wykonaj zapytanie
+            NpgsqlDataReader data = cmd.ExecuteReader();
+            //odczytaj wszystkie sesje zwrocone przez zapytanie
+            while (data.Read())
+            {
+                GasType gasType = new GasType();
+                try
+                {
+                    if (!data.IsDBNull(data.GetOrdinal("id")))
+                        gasType.ID = data.GetInt32(data.GetOrdinal("id"));
+                    if (!data.IsDBNull(data.GetOrdinal("name")))
+                        gasType.Name = data.GetString(data.GetOrdinal("name"));
+                    if (!data.IsDBNull(data.GetOrdinal("description")))
+                        gasType.Description = data.GetString(data.GetOrdinal("description"));
+                    if (!data.IsDBNull(data.GetOrdinal("factor")))
+                        gasType.Factor = data.GetFloat(data.GetOrdinal("factor"));
+
+                    gasTypes.Add(gasType);
+                }
+                catch (Exception ex)
+                {
+                    Logger.AddException(ex);
+                }
+            }
+            data.Close();
+
+            return gasTypes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
         //Funkcja ma za zadanie odczytanie listy urzadzen i jej parametrow
         public List<DataBaseDevice> GetDevices()
         {
@@ -984,6 +1021,59 @@ namespace HPT1000.Source
                     configParaRes = configPara;
             }            
             return configParaRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie dodanie do bazy danych typu gazu
+        public int AddGasType(GasType gasType)
+        {
+            int aRes = -1;
+            if (gasType != null)
+            {
+                //Przygotuj parametry dla procedury dodajacej konfiguracje parametru w bazie danych
+                List<NpgsqlParameter> parametersDB = new List<NpgsqlParameter>();
+                parametersDB.Add(GetParameter("name", DbType.AnsiString, gasType.Name));
+                parametersDB.Add(GetParameter("description", DbType.AnsiString, gasType.Description));
+                parametersDB.Add(GetParameter("factor", DbType.Single, (float)gasType.Factor));
+                //Wykonaj procedure rejestracji urzadzenia w bazie danych subprogramu
+                int id = PerformFunctionDB("\"AddGasType\"", parametersDB); //procedura zwraca id utworzonego 
+                if (id > 0)
+                {
+                    gasType.ID = id;
+                    aRes = 0;
+                }
+            }
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja modyfikuje konfiguracje akwizyji danych dla danego parametru
+        public int ModifyGasType(GasType gasType)
+        {
+            int aRes = 0;
+            if (gasType != null)
+            {
+                //Przygotuj parametry dla procedury modife na bazie
+                List<NpgsqlParameter> parameters = new List<NpgsqlParameter>();
+                parameters.Add(GetParameter("id_gas_type", DbType.Int32, gasType.ID));
+                parameters.Add(GetParameter("name", DbType.AnsiString, gasType.Name));
+                parameters.Add(GetParameter("description", DbType.AnsiString, gasType.Description));
+                parameters.Add(GetParameter("factor", DbType.Single, (float)gasType.Factor));
+                //Wykonaj procedure modyfikowania usera
+                aRes = PerformFunctionDB("\"ModifyGasType\"", parameters);
+            }
+            return aRes;
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+        //Funkcja ma za zadanie utworzenie lsity parametrow sla standardowej funkcji usuwania rekordu za bazy danych posiadajacej tylko jedne parametro nazwie ID
+        public int RemoveGasType(int aId)
+        {
+            int aRes = -1;
+            //Przygotuj parametry dla procedury modife na bazie
+            List<NpgsqlParameter> parameters = new List<NpgsqlParameter>();
+            parameters.Add(GetParameter("id_gas_type", DbType.Int32, aId));
+            //Wykonaj procedure modyfikowania usera
+            aRes = PerformFunctionDB("\"RemoveGasType\"", parameters);
+
+            return aRes;
         }
         //------------------------------------------------------------------------------------------------------------------------------
         //Funkcja ma za zadanie zarejestrowanie urzadzenia w bazie danych

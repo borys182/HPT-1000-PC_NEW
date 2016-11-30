@@ -18,12 +18,8 @@ namespace HPT1000.Source.Chamber
         //---------------------------------------------------------------------------------------------------------------------------
         public int ID_DB
         {
-            set
-            {
-                id_DB = value;
-                DataFile.SetID(name,id_DB);//Zapisz wartosc do pliku odrazu
-            }
-            get { return id_DB; }
+            set { id_DB = value; }
+            get { return id_DB;  }
         }
         //---------------------------------------------------------------------------------------------------------------------------
         public string Name

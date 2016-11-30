@@ -16,10 +16,12 @@ namespace HPT1000.Source.Chamber
         private double  factor      = 0;  //okresleneie factora dla danego gazu podpietego do danej przeplywki. Przeplywki
                                           //sa skalibrowane na jeden gaz i podpiecie innego wymusza ustawienie factora dla poprawnych przeliczen przeplywu
 
+        private DB dataBase = null;
         private static RefreshGasType refreshObject = null;
         //--------------------------------------------------------------------------------------------------------------
         public int ID
         {
+            set { id = value; }
             get { return id; }
         }
         //--------------------------------------------------------------------------------------------------------------
@@ -47,6 +49,11 @@ namespace HPT1000.Source.Chamber
 
         }
         //--------------------------------------------------------------------------------------------------------------
+        public DB DataBase
+        {
+            set { dataBase = value; }
+        }
+        //--------------------------------------------------------------------------------------------------------------
         public override bool Equals(object obj)
         {
             bool aRes = false;
@@ -69,7 +76,14 @@ namespace HPT1000.Source.Chamber
             refreshObject = aRefresh;
         }
         //--------------------------------------------------------------------------------------------------------------
-
+        public int Modify()
+        {
+            int aRes = -1;
+            if (dataBase != null)
+                aRes = dataBase.ModifyGasType(this);
+            return aRes;
+        }
+        //--------------------------------------------------------------------------------------------------------------
     }
     //--------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------
@@ -78,6 +92,7 @@ namespace HPT1000.Source.Chamber
     {
   
         private List<GasType> items = new List<GasType>();
+        private DB dataBase         = null;
 
         private static RefreshGasType refreshObject = null;
         //--------------------------------------------------------------------------------------------------------------
@@ -85,21 +100,57 @@ namespace HPT1000.Source.Chamber
         {
             get { return items; }
         }
-
         //--------------------------------------------------------------------------------------------------------------
-        public void Add(GasType gasType)
+        public DB DataBase
         {
-            items.Add(gasType);
-            if (refreshObject != null)
-                refreshObject();
+            set { dataBase = value; }
         }
         //--------------------------------------------------------------------------------------------------------------
-        public void Remove(GasType gasType)
+        public void LoadGasType()
         {
-            items.Remove(gasType);
-            if (refreshObject != null)
-                refreshObject();
+            if(dataBase != null)
+            {
+                foreach (GasType gasType in dataBase.GetGasTypes())
+                {
+                    gasType.DataBase = dataBase;
+                    items.Add(gasType);
+                }
+            }
+        }
+        //--------------------------------------------------------------------------------------------------------------
+        public int Add(GasType gasType)
+        {
+            int aRes = -1;
 
+            if (dataBase != null)
+            {
+                aRes = dataBase.AddGasType(gasType);
+                if(aRes == 0)
+                {
+                    items.Add(gasType);
+                    if (refreshObject != null)
+                        refreshObject();
+                }
+                if (gasType != null)
+                    gasType.DataBase = dataBase;
+            }
+            return aRes;
+        }
+        //--------------------------------------------------------------------------------------------------------------
+        public int Remove(GasType gasType)
+        {
+            int aRes = -1;
+            if (dataBase != null)
+            {
+                aRes = dataBase.RemoveGasType(gasType.ID);
+                if(aRes == 0)
+                {
+                    items.Remove(gasType);
+                    if (refreshObject != null)
+                        refreshObject();
+                }
+            }
+            return aRes;
         }
         //--------------------------------------------------------------------------------------------------------------
         public static void AddToRefreshList(RefreshGasType aRefresh)
@@ -120,5 +171,6 @@ namespace HPT1000.Source.Chamber
 
             return aRes;
         }
+        //-------------------------------------------------------------------------------------------------------------------------
     }
 }
